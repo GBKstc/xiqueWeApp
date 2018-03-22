@@ -1,0 +1,28 @@
+
+
+<view style=''>
+    <view>
+       <view class='store'> 
+      <view class='detailItem' style='margin-bottom:25rpx'><text class='detailLable'>预约时间:</text><text class='detailValue'>{{recordData.timePart}}</text><text class='detailValueTime'>({{recordData.timeDuan}}小时)</text></view>
+      <view class='detailItem'><text class='detailLable'></text><text class='detailValue2'>{{recordData.date}}</text><text class='detailValueTime'>({{recordData.week}})</text></view>
+      <view class='detailItem'>
+        <text class='detailLable'>手艺人:</text>
+        <text class='detailValue'>{{nameValue+' '+'('+storeValue+')'}}</text> 
+      </view>
+  </view>
+     </view> 
+    <view style='margin-top:110rpx'>
+      <button class='submit' disabled='{{confirmDisabled}}'  bindtap='modifySuccess'>确定修改</button>
+    </view>
+    <view style='margin-top:30rpx'>
+      <button class='replaceMan'  bindtap='modifyPre'>取消修改</button>
+    </view>
+</view>
+
+
+<!--mask-->  
+<include src="../../utils/commonConfirm.wxml"/>
+
+
+  
+

@@ -3,8 +3,8 @@
 // 正版
 App({
   globalData: {//初始化请求参数
-    appid: 'wx734232946da36203',  
-    secret: '69a5f716772e8245d0f7103527ac6149'
+    appid: 'wxab4355d28417d914',  
+    secret: '026e8bf6e20155b7d7f926b27db7c5c3'
   },
   // url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
   // url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境

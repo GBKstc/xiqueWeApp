@@ -13,11 +13,13 @@
     "pages/modifyPhone/modifyPhone",
     "pages/login/login",
     "pages/checkmodifyinfo/checkmodifyinfo",
-    "pages/success/success"
+    "pages/success/success",
+
+    "pages/experience/experience"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
-    "navigationBarTitleText": "静博士小程序wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d28417dwxab4355d28417d914wxab4355d28417d914wxab4355d28417d914wxab4355d2",
+    "navigationBarTitleText": "静博士小程序",
     "navigationBarTextStyle": "#fff",
     "backgroundTextStyle": "light",
     "backgroundColor": "#999",
@@ -31,6 +33,12 @@
       {
         "pagePath": "pages/index/index",
         "text": "预约",
+        "iconPath": "image/appoint.png",
+        "selectedIconPath": "image/appointselected.png"
+      },
+      {
+        "pagePath": "pages/experience/experience",
+        "text": "体验",
         "iconPath": "image/appoint.png",
         "selectedIconPath": "image/appointselected.png"
       },

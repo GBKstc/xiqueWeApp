@@ -15,7 +15,8 @@
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/success/success",
 
-    "pages/experience/experience"
+    "pages/experience/experience",
+    "pages/details/details"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",

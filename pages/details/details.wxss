@@ -1,0 +1,214 @@
+@import "../../component/carousel/carousel.wxss";
+.allBox{
+  margin-bottom: 100rpx;
+}
+.header{
+  width: 100%;
+}
+
+.header .headerContent{
+  width: 700rpx;
+  margin: 40rpx auto 0 auto;
+}
+
+.headerContent .headerContentText{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  font-size: 35rpx;
+  line-height: 35rpx;
+}
+
+.headerContent .infoContent{
+  width: 100%;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  margin-top: 20rpx;
+  margin-bottom: 50rpx;
+}
+
+.infoContent image{
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.infoContent text{
+  display: block;
+  width: 630rpx;
+  line-height: 30rpx;
+  font-size: 30rpx;
+  padding-left: 30rpx;
+  color: rgba(209, 209, 209, 1);
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap
+}
+
+.topBorder{
+  border-top: 5rpx solid rgba(240, 240, 240, 1);
+}
+.detailsContent{
+  width: 700rpx;
+  margin: 0 auto;
+  padding: 10rpx 0 10rpx 0;
+}
+
+.detailsContent .contentHeader{
+  width: 650rpx;
+  margin: 0 auto;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -webkit-box-pack:justify; 
+}
+
+.contentHeader .goodsName{
+  display: block;
+  line-height: 40rpx;
+  font-size: 40rpx;
+  color: rgb(255, 152, 0);
+}
+
+.contentHeader view{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  height: 40rpx;
+}
+.contentHeader view image{
+  display: block;
+  width: 40rpx;
+  height: 40rpx;
+}
+.contentHeader view text{
+  display: block;
+  line-height: 40rpx;
+  font-size: 32rpx;
+}
+
+
+.detailsContent .contentBody{
+  width: 650rpx;
+  margin: 0 auto;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  padding: 30rpx 0 30rpx 0;
+}
+.contentBody text{
+  font-size: 28rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+
+.banner {
+  width: 700rpx;
+  margin: 0 auto 20rpx auto;
+}
+.banner .bannerImg{
+  display: block;
+  margin-bottom: 30rpx;
+  width: 100%;
+}
+.banner .bannerList{
+   display: -webkit-box;
+   -webkit-box-align: center;
+   height: 48rpx;
+}
+.bannerList .itemName{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  width: 480rpx;
+  height: 48rpx; 
+}
+.itemName image{
+  display: block;
+  height: 48rpx;
+  width: 48rpx;
+}
+.itemName text{
+  display: block;
+  font-size: 28rpx;
+  line-height: 48rpx;
+}
+.bannerList .itemPrice{
+  display: block;
+
+  font-size: 28rpx;
+  line-height: 48rpx;
+}
+
+/* .storeLsitHeader{
+  border-bottom: 3rpx solid rgb(170, 170, 170);
+} */
+.storeLsitHeader .listHeaderBox{
+  width: 700rpx;
+  display: -webkit-box;
+  -webkit-box-align: center;
+  -webkit-box-pack:justify;
+  padding-bottom: 50rpx; 
+  padding-top: 50rpx;
+  margin: 0 auto;
+}
+.listHeaderBox .box1{
+  display: block;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: rgb(255, 152, 0);
+}
+.listHeaderBox .box2{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  line-height: 28rpx;
+}
+.box2 text{
+  display: block;
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: rgb(207, 207, 207);
+}
+.box2 image{
+  display: block;
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.footer{
+  height: 100rpx;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+  box-shadow:0 0 20rpx 1rpx rgb(204, 204, 204);
+}
+.footer .footerBox{
+  display: -webkit-box;
+  -webkit-box-align: center;
+  height: 100%;
+  width: 700rpx;
+  margin: 0 auto;
+}
+.footerBox .price{
+  display: -webkit-box;
+  -webkit-box-align: end;
+}
+.price .priceNew{
+  display: block;
+  font-size: 56rpx;
+  line-height: 56rpx;
+  color: rgb(255, 152, 0);
+}
+.price .priceOld{
+  display: block;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: rgb(204, 204, 204);
+  padding-left: 25rpx;
+  text-decoration: line-through
+}

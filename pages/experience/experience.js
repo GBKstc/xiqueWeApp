@@ -34,6 +34,15 @@ Page({
   login:function(){
   
   },
+  /**
+   * 点击打开详情
+   */
+  showDetails:function(e){
+    console.log(e.currentTarget.dataset.id);
+    wx.navigateTo({
+      url: '/pages/details/details'
+    })
+  },
  
   /**
    * 生命周期函数--监听页面隐藏

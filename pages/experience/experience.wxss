@@ -1,3 +1,5 @@
+
+/* 有内容 */
 .isLogin .lazyBox{
   margin-left: 40rpx;
   padding-top: 50rpx;
@@ -44,4 +46,30 @@
   font-family: Arial;
   color: rgb(0, 0, 0);
   line-height: 40rpx
+}
+
+/*没内容  */
+.isNo{
+  width: 100%;
+}
+
+.isNo .imgBox{
+  margin-top: 250rpx;
+  width: 450rpx;
+  height: 450rpx;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imgBox image{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.imgBox text{
+  display: block;
+  margin-top: 20rpx;
+  font-size: 50rpx;
+  color: rgb(255, 152, 0);
+  text-align: center;
 }

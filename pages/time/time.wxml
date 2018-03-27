@@ -12,6 +12,7 @@
         </view>
       </view>
     </view>
+    
     <!-- 联动 -->
      <view class='linkage {{isFix?"changeFix":""}}'>
       <view class='gun'>
@@ -71,6 +72,7 @@
       </view>
       <view class='timeText'>选择服务时间段 <text  style='float:right;color:#fd9595'>已选择{{timeduan}}小时</text></view>
     </view> 
+
     <!-- 选择时间段 -->
     <view class='scrollTimeCon {{isFix?"addMargin":""}}'>
       
@@ -150,6 +152,7 @@
       </view>
       <view class='allMask' hidden='{{allMask}}'></view>
     </view>
+
   <!-- </scroll-view> -->
   </view>
   <view class='button'>

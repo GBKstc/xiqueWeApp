@@ -20,7 +20,7 @@
 
 
 <view wx:if="{{isOk}}">
-  <block wx:for="{{craftData}}" wx:key="craftData">
+  <block wx:for="{{craftData}}">
     <template is="peoplelistPage" data="{{item}}"/>
   </block>
 </view>

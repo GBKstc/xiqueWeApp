@@ -118,12 +118,14 @@ Page({
                   curr.distanceChange = (curr.distance / 1000).toFixed(1)
                 }
               }
-              that.setData({
-                craftData: dataList
-              })
+              
               if (res.data.data.length===0){
                 that.setData({
-                  isOk:false
+                  isOk: false
+                })
+              }else{
+                that.setData({
+                  craftData: dataList
                 })
               }
 
@@ -134,9 +136,10 @@ Page({
               //设置toast时间，toast内容  
               that.setData({
                 count: 2000,
-                toastText: msg
+                toastText: msg,
+                isOk: false
               });
-              that.showToast();
+              // that.showToast();
             }
             common.status(res, that)//状态401和402
           },

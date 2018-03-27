@@ -52,6 +52,11 @@
         </view>
       </view>
     </view>
+    <view>
+      <storeList></storeList>
+    </view>
+    
+    <!--列表元素位置  -->
   </view>
 
   <view class='footer'>

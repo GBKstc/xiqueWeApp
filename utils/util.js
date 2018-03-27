@@ -39,7 +39,25 @@ const mergeComponents = function () {
   }
 }  
 
+/**
+ * 函数节流方法
+ * @param Function fn 延时调用函数
+ * @param Number delay 延迟多长时间
+ * @return Function 延迟执行的方法
+ */
+const throttle = function (fn, delay) {
+  let timer = null;
+
+  return function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      fn();
+    }, delay);
+  }
+};
+
 module.exports = {
   formatTime: formatTime,
-  mergeComponents: mergeComponents
+  mergeComponents: mergeComponents,
+  throttle: throttle
 }

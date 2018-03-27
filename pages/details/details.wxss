@@ -212,3 +212,13 @@
   padding-left: 25rpx;
   text-decoration: line-through
 }
+
+.footerBox button{
+  display: block;
+  height: 60rpx;
+  width: 160rpx;
+  background-color: rgba(255, 152, 0, 1);
+  font-size: 28rpx;
+  line-height: 60rpx;
+  color: rgb(255, 255, 255);
+}

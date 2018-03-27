@@ -440,7 +440,7 @@ Page({
               })
               // console.log(that.data.searchData)
               //是否显示没找到手艺人
-              if (stopRecord.length === 0) {//显示出来没找到页面
+              if (dataList.length === 0) {//显示出来没找到页面
                 that.setData({
                   kong: true
                 })

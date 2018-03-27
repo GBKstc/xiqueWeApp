@@ -1,5 +1,8 @@
 {
   "navigationBarTitleText": "详情",
   "enablePullDownRefresh": true,
-  "backgroundColor": "#ffffff"
+  "backgroundColor": "#ffffff",
+  "usingComponents": {
+    "storeList": "../../component/storeList/storeList"
+  }
 }

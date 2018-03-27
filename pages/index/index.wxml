@@ -1,6 +1,4 @@
 
-
-
 <!-- 搜索手艺人模板 -->
 <template name="peoplelist">
 <!-- <view style='position:relative;z-index:10000'> -->
@@ -12,7 +10,7 @@
           <view class='nameTpl'><text class='name2Tpl'>{{item.username}}</text></view>
           <view><text class='storeTpl'>{{item.departmentName}}</text><text wx:if="{{item.distance||item.distance==0}}" style='color:#999'>|</text><text class='distanceTpl' wx:if="{{item.distance||item.distance==0}}">约{{item.distance}}公里</text> </view>
         </view>
-        <view class='centerImg'><image src="{{item.avatarapp||'../../image/login.png'}}"></image></view>
+       <view class='centerImg'><image src="{{item.avatarapp||'../../image/login.png'}}"></image></view>
       </view>
     </view>
   <!-- </view> -->
@@ -87,7 +85,7 @@
       </view>
       <!-- 切换搜索手艺人模板显示与隐藏 -->
       <view class='addPadding' wx:else>
-           <block wx:for="{{searchData}}">
+           <block wx:for="{{searchData}}" wx:key="searchData">
               <template is="peoplelist" data="{{item}}"/>
           </block>
           <view class='kongCon' wx:if="{{kong}}">

@@ -1,5 +1,6 @@
 // pages/ONE/one.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+var util = require('../../utils/util');
 Page({
 
   /**
@@ -22,7 +23,7 @@ Page({
     scheduleId: 0,//排班id,点击马上预约到核对信息页面，和登录页面要用
     timeFormat:'',//预约时间块,点击马上预约到核对信息页面，和登录页面要用
     day:'',//精确到日的时间，点击时间按钮到排班页面要用
-    userid:0,//手艺人
+    userId:0,//手艺人
     departmentName:'',//手艺人所在门店名称，点击时间按钮到排班页面要用
     username:'',//手艺人姓名
     avatarapp:'',//手艺人图片，到排班页面传过去
@@ -224,7 +225,7 @@ Page({
         })
         if (res.data.status === 200) {
           // JSON.stringify(res.data.data) !== "{}"
-          if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
+          if (!util.isEmpty(res.data.data)) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
             // console.log('index首次进来里面返回200,数据是')
             // console.log(res.data)
             // 重构响应数据
@@ -292,7 +293,7 @@ Page({
               startData: obj,
               departmentid: obj.depart_id,
               departmentname: obj.department_name,
-              userid: obj.user_id,
+              userId: obj.user_id,
               username: obj.username,
               avatarapp: obj.avatarApp,
               scheduleId: obj.schedule_id,//排班id
@@ -390,7 +391,7 @@ Page({
         if (res.data.status === 200) {
           // if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
           // JSON.stringify(res.data.data) !== "{}" || 
-          if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
+          if (!util.isEmpty(res.data.data)) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
               console.log('index后次进来里面返回200,数据是')
               console.log(res.data)
               console.log(res.data.data)
@@ -459,7 +460,7 @@ Page({
                 startData: obj,
                 departmentid: obj.depart_id, 
                 departmentname: obj.department_name,
-                userid: obj.user_id,
+                userId: obj.user_id,
                 username: obj.username,
                 avatarapp: obj.avatarApp,
                 scheduleId: obj.schedule_id,//排班id
@@ -687,7 +688,8 @@ Page({
     })
   },
   toPeople:function(){
-    var that=this
+    var that=this;
+  
     if(!that.data.disabled){
       var departmentid = this.data.departmentid
       var departmentname = this.data.departmentname
@@ -704,10 +706,11 @@ Page({
   },
   toTime:function(){
     
-    var that=this
+    var that=this;
+    var userId = this.data.userId;//技师id
     wx.navigateTo({
-      // url: '../time/time?userid=' + that.data.userid + '&day=' + that.data.day + '&departmentname=' + that.data.departmentName + '&username=' + that.data.username+ '&avatarapp=' + that.data.avatarapp+ '&completestarttime=' + that.data.completeStartTime,
-      url: '../time/time?timetocraftman=true&isreplacetime=n&receivedata=' + that.data.receiveData,//走从时间选人的逻辑
+      
+      url: '../time/time?timetocraftman=true&isreplacetime=n&receivedata=' + that.data.receiveData + '&userId=' + userId,//走从时间选人的逻辑
       success: function () {
       }
     })
@@ -715,7 +718,7 @@ Page({
   //马上预约
   toCheckinfo:function(){
     var that=this
-    var userId = this.data.userid//技师id
+    var userId = this.data.userId//技师id
     var scheduleId = this.data.scheduleId//排班id
     var timeFormat = this.data.timeFormat//预约时间块，逗号隔开
     // 避免重复点击，做限制
@@ -744,14 +747,14 @@ Page({
             if (res.data.status === 200) {
               if (res.data.data.login) {//登录了,去核对信息页面
                 wx.navigateTo({
-                  url: '../checkinfo/checkinfo?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
+                  url: '../checkinfo/checkinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
                   success: function () {
                   }
                 })
               } else if (!res.data.data.login) {//没登录，去登陆页面
                 console.log('没登录了')
                 wx.navigateTo({
-                  url: '../login/login?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
+                  url: '../login/login?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
                   success: function () {
                   }
                 })
@@ -949,7 +952,7 @@ Page({
     var username = e.currentTarget.dataset.username//获取员工姓名
     var avatarapp = e.currentTarget.dataset.avatarapp//获取员工图片
     wx.navigateTo({
-      url: '../time/time?userid=' + userId + '&departmentname=' + departmentName + '&username=' + username + '&avatarapp=' + avatarapp,
+      url: '../time/time?userId=' + userId + '&departmentname=' + departmentName + '&username=' + username + '&avatarapp=' + avatarapp,
       success: function () {
       }
     })

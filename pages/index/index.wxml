@@ -87,7 +87,7 @@
       </view>
       <!-- 切换搜索手艺人模板显示与隐藏 -->
       <view class='addPadding' wx:else>
-           <block wx:for="{{searchData}}">
+           <block wx:for="{{searchData}}" wx:key="searchData">
               <template is="peoplelist" data="{{item}}"/>
           </block>
           <view class='kongCon' wx:if="{{kong}}">

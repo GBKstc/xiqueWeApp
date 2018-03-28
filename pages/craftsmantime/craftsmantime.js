@@ -224,7 +224,7 @@ Page({
     if (isReplaceTime==='y'){//是点击换时间按钮进来的，直接到核对修改信息页面
         console.log('shishsisisis')
         wx.redirectTo({
-          url: '../checkmodifyinfo/checkmodifyinfo?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&toggleDay=' + that.data.toggleDay + '&username=' + username + '&storename=' + storename+ '&scheduleserviceid=' + that.data.scheduleServiceId,//这个参数是点击换时间按钮，传过来的，
+          url: '../checkmodifyinfo/checkmodifyinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&toggleDay=' + that.data.toggleDay + '&username=' + username + '&storename=' + storename+ '&scheduleserviceid=' + that.data.scheduleServiceId,//这个参数是点击换时间按钮，传过来的，
             success: function () {
               console.log('跳转页面成功')
             }
@@ -249,14 +249,14 @@ Page({
               if (res.data.status === 200) {
                 if (res.data.data.login) {//登录了,去核对信息页面
                   wx.navigateTo({
-                    url: '../checkinfo/checkinfo?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
+                    url: '../checkinfo/checkinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
                     success: function () {
                     }
                   })
                 } else if (!res.data.data.login) {//没登录，去登陆页面
                   console.log('没登录了')
                   wx.navigateTo({
-                    url: '../login/login?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
+                    url: '../login/login?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
                     success: function () {
                     }
                   })

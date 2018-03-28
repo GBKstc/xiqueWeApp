@@ -113,7 +113,7 @@ Page({
     var that=this
     
     //获取页面传值
-    var userId = options.userid//技师id,必须传
+    var userId = options.userId//技师id,必须传
     console.log('技师id'+userId)
     // var day = options.day//日期精确到日,只有从首页时间按钮点击进来时，才有这个参数,我是当做2017-08-01这种格式来算
     var departmentName = decodeURIComponent(options.departmentname)//技师所在门店名称,必须传
@@ -1270,8 +1270,10 @@ Page({
   //定位到第一个标红的位置公共函数
   pageScrollToCommon:function(scrollto){
     var that=this;
-    let durationTime = 0;
-    //定位到第一个标红的位置
+    let durationTime = 0;//定位到第一个标红的位置
+
+    let baseHeight = 115;
+    let layerHeight = 56;
     
     if (that.data.isOk&&scrollto!=null&&scrollto!=undefined) {
       if(scrollto>6){
@@ -1291,21 +1293,21 @@ Page({
         case 5:
           console.log('5开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 + 130,
+            scrollTop: layerHeight + baseHeight,
             duration: durationTime
           })
           break
         case 6:
           console.log('6开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 2 + 130,
+            scrollTop: layerHeight * 2 + baseHeight,
             duration: durationTime
           })
           break
         case 7:
           console.log('7开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 3 + 130,
+            scrollTop: layerHeight * 3 + baseHeight,
             duration: durationTime
           })
           console.log('7移动结束')
@@ -1316,7 +1318,7 @@ Page({
         case 8:
           console.log('8开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 4 + 130,
+            scrollTop: layerHeight * 4 + baseHeight,
             duration: durationTime
           })
           console.log('8移动结束')
@@ -1327,7 +1329,7 @@ Page({
         case 9:
         console.log('9开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 5 + 130,
+            scrollTop: layerHeight * 5 + baseHeight,
             duration: durationTime
           })
           console.log('9移动结束')
@@ -1338,7 +1340,7 @@ Page({
         case 10:
           console.log('10开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 6 + 130,
+            scrollTop: layerHeight * 6 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1348,7 +1350,7 @@ Page({
         case 11:
           console.log('11开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 7 + 130,
+            scrollTop: layerHeight * 7 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1358,7 +1360,7 @@ Page({
         case 12:
           console.log('12开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 8 + 130,
+            scrollTop: layerHeight * 8 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1368,7 +1370,7 @@ Page({
         case 13:
           console.log('13开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 9 + 130,
+            scrollTop: layerHeight * 9 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1378,7 +1380,7 @@ Page({
         case 14:
           console.log('14开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 10 + 130,
+            scrollTop: layerHeight * 10 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1388,7 +1390,7 @@ Page({
         case 15:
           console.log('15开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 11 + 130,
+            scrollTop: layerHeight * 11 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1398,7 +1400,7 @@ Page({
         case 16:
           console.log('16开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 12 + 130,
+            scrollTop: layerHeight * 12 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1408,7 +1410,7 @@ Page({
         case 17:
           console.log('17开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 13 + 130,
+            scrollTop: layerHeight * 13 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1418,7 +1420,7 @@ Page({
         case 18:
           console.log('18开始移动')
           wx.pageScrollTo({
-            scrollTop: 54 * 14 + 130,
+            scrollTop: layerHeight * 14 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1429,7 +1431,7 @@ Page({
           console.log('19开始移动')
           console.log('dfdfdfdfdfdfd')
           wx.pageScrollTo({
-            scrollTop: 54 * 15 + 130,
+            scrollTop: layerHeight * 15 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1440,7 +1442,7 @@ Page({
           console.log('20开始移动')
           console.log('ttt')
           wx.pageScrollTo({
-            scrollTop: 54 * 16 + 130,
+            scrollTop: layerHeight * 16 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1450,7 +1452,7 @@ Page({
         case 21:
           console.log('tttyyy')
           wx.pageScrollTo({
-            scrollTop: 54 * 17 + 130,
+            scrollTop: layerHeight * 17 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1459,7 +1461,7 @@ Page({
           break
         case 22:
           wx.pageScrollTo({
-            scrollTop: 54 * 18 + 130,
+            scrollTop: layerHeight * 18 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1468,7 +1470,7 @@ Page({
           break
         case 23:
           wx.pageScrollTo({
-            scrollTop: 54 * 19 + 130,
+            scrollTop: layerHeight * 19 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1477,7 +1479,7 @@ Page({
           break
         case 24:
           wx.pageScrollTo({
-            scrollTop: 54 * 20 + 130,
+            scrollTop: layerHeight * 20 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1486,7 +1488,7 @@ Page({
           break
         case 25:
           wx.pageScrollTo({
-            scrollTop: 54 * 21 + 130,
+            scrollTop: layerHeight * 21 + baseHeight,
             duration: durationTime
           })
           // that.setData({
@@ -1549,9 +1551,8 @@ Page({
       return {
         title: '欢迎预约静博士',
         imageUrl: that.data.avatarapp,
-        // path: '/pages/time/time?userid=' + encodeURIComponent(that.data.userid) + '&day=' + encodeURIComponent(that.data.day) + '&departmentname=' + encodeURIComponent(that.data.departmentName) + '&username=' + encodeURIComponent(that.data.username) + '&avatarapp=' + encodeURIComponent(that.data.avatarapp) + '&completestarttime=' + encodeURIComponent(that.data.completeStartTime),
         path: '/pages/time/time?infos=' + encodeURIComponent(that.data.userId) + ',' + encodeURIComponent(that.data.day) + ',' + encodeURIComponent(that.data.departmentName) + ',' + encodeURIComponent(that.data.username) + ',' + encodeURIComponent(that.data.avatarapp),
-        // path: '/pages/time/time?infos='+ encodeURIComponent(that.data.userId) + ',' + encodeURIComponent(that.data.day) + ',' + encodeURIComponent(that.data.departmentName)  + ',' + encodeURIComponent(that.data.avatarapp) + ',' + encodeURIComponent(that.data.completeStartTime),
+      
         success: function (res) {
           // 转发成功
           console.log('转发成功')
@@ -2127,7 +2128,7 @@ Page({
             // console.log('1个')
             var arrOne = parseInt(arr[0])
             // 分连续和不连续两种
-            if ((numNum === arrOne) || (numNum + 1 === arrOne) || (numNum - 1 === arrOne)){//连续
+            if ((numNum + 1 === arrOne) || (numNum - 1 === arrOne)){//连续
               // console.log('1个连续')
               var timeduan = 2 * 0.5//计算已选择的小时数
               //只切换当前或相邻状态
@@ -2136,7 +2137,14 @@ Page({
                 isToggleX: isToggleX,
                 timeduan: timeduan
               })
-            } else{//不连续
+            } else if (numNum === arrOne){
+              var timeduan = 0;//计算已选择的小时数
+              isToggleX[numNum] = !isToggleX[numNum]
+              that.setData({
+                isToggleX: isToggleX,
+                timeduan: timeduan
+              })
+            } else {//不连续
               // console.log('1个不连续')
               if (numNum<arrOne){
                 that.changex(numNum, arrOne)
@@ -2313,9 +2321,7 @@ Page({
       var toggleDay = this.data.toggleDay//精确到天，传给craftsmantime页面
       var isReplaceTime = this.data.isReplaceTime
       var scheduleServiceId = this.data.scheduleServiceId
-      // console.log('传到核对信息页面时间块')
-      // console.log(timeFormat)
-      // console.log(userId, scheduleId, timeFormat)
+      
       // 分两种情况
       if (that.data.timetocraftman === 'true'){
           wx.navigateTo({
@@ -2343,14 +2349,14 @@ Page({
                 if (res.data.status === 200) {
                   if (res.data.data.login) {//登录了,去核对信息页面
                     wx.navigateTo({
-                      url: '../checkinfo/checkinfo?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
+                      url: '../checkinfo/checkinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
                       success: function () {
                       }
                     })
                   } else if (!res.data.data.login) {//没登录，去登陆页面
                     console.log('没登录了')
                     wx.navigateTo({
-                      url: '../login/login?userid=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
+                      url: '../login/login?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
                       success: function () {
                       }
                     })

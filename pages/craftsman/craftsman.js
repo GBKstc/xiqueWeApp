@@ -160,7 +160,7 @@ Page({
 
     // var departmentName = e.currentTarget.dataset.departmentname//获取员工所在门店名称
     wx.navigateTo({
-      url: '../time/time?userid=' + userId + '&departmentname=' + that.data.departmentName + '&username=' +username + '&avatarapp=' + avatarapp,
+      url: '../time/time?userId=' + userId + '&departmentname=' + that.data.departmentName + '&username=' +username + '&avatarapp=' + avatarapp,
       success: function () {
       }
     })

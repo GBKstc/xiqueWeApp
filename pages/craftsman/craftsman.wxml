@@ -15,7 +15,7 @@
 
 
 <view>
-  <block wx:for="{{craftData}}">
+  <block wx:for="{{craftData}}" wx:key="craftData">
     <template is="peoplelistPage" data="{{item}}"/>
   </block>
 </view>

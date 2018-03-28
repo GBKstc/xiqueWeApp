@@ -7,7 +7,7 @@
       <text class='detailLable'>手艺人:</text>
       <!-- 两种情况，beauticianList，当status =2 时才有,表示消费服务人员列表,当列表为空时，取userId表示手艺人;否则取该列表的值表示手艺人 -->
       <block wx:if="{{isArray}}">
-        <text class='detailValue' wx:for="{{recordData.beauticianList}}" >{{index===0?'':' , '}}{{item.username}}</text>
+        <text class='detailValue' wx:for="{{recordData.beauticianList}}" wx:key="beauticianList" >{{index===0?'':' , '}}{{item.username}}</text>
       </block>
       <text wx:else class='detailValue'>{{recordData.userName}}</text> 
     </view>
@@ -56,7 +56,7 @@
     <view class='evaluateItem'>
       <!-- <text class="itemCell {{bg1?'bgColor':''}}" bindtap='handleBg1'>手法专业</text>-->
       <!-- 这里的{{bg[item.evaluateLableId]?'bgColor':''}}，考虑到bg必须是data里面要初始化的数据，同时随着循环要不断改变bg的值，为了满足这两个条件，所以bg得是一个对象，所以给data里面初始化一个空的bg对象，在页面初始化的时候，给bg填充{1:false,3:true}这样的值 -->
-      <text class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</text>
+      <text class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</text>
     </view>
     <view class="checkbox">
       <label>

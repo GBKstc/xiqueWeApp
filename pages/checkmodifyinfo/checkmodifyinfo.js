@@ -32,7 +32,7 @@ Page({
   onLoad: function (options) {
     var that = this
     // 上一个页面传过来的参数,提价预约时用
-    var userId = options.userid//技师id
+    var userId = options.userId//技师id
     var scheduleId = options.scheduleid//排班id
     var timeFormat = options.timeformat//预约时间块，逗号隔开
     var scheduleserviceid = options.scheduleserviceid//

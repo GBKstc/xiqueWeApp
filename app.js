@@ -6,12 +6,12 @@ App({
     appid: 'wxab4355d28417d914',  
     secret: '026e8bf6e20155b7d7f926b27db7c5c3'
   },
-   //url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
+   url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
   // url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境
   // url: "http://jbs.xibao.com:8890/weixin-xique/",//陈荣贵
   // url: "https://192.168.18.253:8443/weixin-xique/",//陈荣贵
   // url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境
-   url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
   onLaunch: function () {
   },
   login: function () {

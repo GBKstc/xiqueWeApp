@@ -1,6 +1,5 @@
 // pages/ONE/one.js
-var common = require('../../utils/commonConfirm.js');
-var util = require('../../utils/util');
+var common = require('../../utils/commonConfirm.js')
 Page({
 
   /**
@@ -225,7 +224,7 @@ Page({
         })
         if (res.data.status === 200) {
           // JSON.stringify(res.data.data) !== "{}"
-          if (!util.isEmpty(res.data.data)) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
+          if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
             // console.log('index首次进来里面返回200,数据是')
             // console.log(res.data)
             // 重构响应数据
@@ -391,7 +390,7 @@ Page({
         if (res.data.status === 200) {
           // if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
           // JSON.stringify(res.data.data) !== "{}" || 
-          if (!util.isEmpty(res.data.data)) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
+          if (res.data.data) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
               console.log('index后次进来里面返回200,数据是')
               console.log(res.data)
               console.log(res.data.data)

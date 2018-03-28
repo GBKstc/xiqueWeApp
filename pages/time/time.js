@@ -7,7 +7,7 @@ Page({
   data: {
     // random: wx.getStorageSync(getApp().globalData.appid),
     receiveData:'',//接收首页选时间按钮传过来的值。
-    isOk:true,//默认显示已满
+    isOk:true,//默认显示有
     allMask:true,//内容框覆盖，切换八天时间用
     // specialMask: false,//平均服务时长小于可用时长模态框
     timeduan:0,//计算已选择的小时数
@@ -601,6 +601,9 @@ Page({
                       if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1]) && parseInt(isActiveArr[y]) + 2 === parseInt(isActiveArr[y + 2])) {//有三个连续的
                         that.setData({
                           isOk: true
+                        },()=>{
+                          //调用定位到第一个标红的函数
+                          that.pageScrollToCommon(parseInt(isActiveArr[0]));
                         })
                         break;
                       } else {
@@ -614,8 +617,7 @@ Page({
                       isOk: false
                     })
                   }
-                  //调用定位到第一个标红的函数
-                  that.pageScrollToCommon(parseInt(isActiveArr[0]))
+                  
                    
 
 
@@ -1267,222 +1269,229 @@ Page({
   },
   //定位到第一个标红的位置公共函数
   pageScrollToCommon:function(scrollto){
-    var that=this
+    var that=this;
+    let durationTime = 0;
     //定位到第一个标红的位置
-    if (that.data.isOk) {
-      console.log('第一个标红的块是发给' + scrollto)
+    
+    if (that.data.isOk&&scrollto!=null&&scrollto!=undefined) {
+      if(scrollto>6){
+        that.setData({
+            isFix: true
+          })
+      }
+      console.log('第一个标红的块是发给' + scrollto);
       switch (parseInt(scrollto)) {
         case 4:
           console.log('4开始移动')
           wx.pageScrollTo({
             scrollTop: 0,
-            duration: 0
+            duration: durationTime
           })
           break
         case 5:
           console.log('5开始移动')
           wx.pageScrollTo({
             scrollTop: 54 + 130,
-            duration: 0
+            duration: durationTime
           })
           break
         case 6:
           console.log('6开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 2 + 130,
-            duration: 0
+            duration: durationTime
           })
           break
         case 7:
           console.log('7开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 3 + 130,
-            duration: 0
+            duration: durationTime
           })
           console.log('7移动结束')
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 8:
           console.log('8开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 4 + 130,
-            duration: 0
+            duration: durationTime
           })
           console.log('8移动结束')
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 9:
         console.log('9开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 5 + 130,
-            duration: 0
+            duration: durationTime
           })
           console.log('9移动结束')
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 10:
           console.log('10开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 6 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 11:
           console.log('11开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 7 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 12:
           console.log('12开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 8 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 13:
           console.log('13开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 9 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 14:
           console.log('14开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 10 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 15:
           console.log('15开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 11 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 16:
           console.log('16开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 12 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 17:
           console.log('17开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 13 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 18:
           console.log('18开始移动')
           wx.pageScrollTo({
             scrollTop: 54 * 14 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 19:
           console.log('19开始移动')
           console.log('dfdfdfdfdfdfd')
           wx.pageScrollTo({
             scrollTop: 54 * 15 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 20:
           console.log('20开始移动')
           console.log('ttt')
           wx.pageScrollTo({
             scrollTop: 54 * 16 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 21:
           console.log('tttyyy')
           wx.pageScrollTo({
             scrollTop: 54 * 17 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 22:
           wx.pageScrollTo({
             scrollTop: 54 * 18 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 23:
           wx.pageScrollTo({
             scrollTop: 54 * 19 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 24:
           wx.pageScrollTo({
             scrollTop: 54 * 20 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
         case 25:
           wx.pageScrollTo({
             scrollTop: 54 * 21 + 130,
-            duration: 0
+            duration: durationTime
           })
-          that.setData({
-            isFix: true
-          })
+          // that.setData({
+          //   isFix: true
+          // })
           break
       }
     }
@@ -2037,9 +2046,12 @@ Page({
                       if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1]) && parseInt(isActiveArr[y]) + 2 === parseInt(isActiveArr[y + 2])) {//有三个连续的
                         that.setData({
                           isOk: true
+                        },()=>{
+                          console.log("去层后的回调");
+                          that.pageScrollToCommon(parseInt(isActiveArr[0])) 
                         })
                         //调用定位到第一个标红的函数
-                        setTimeout(function () { that.pageScrollToCommon(parseInt(isActiveArr[0])) }, 200)
+                        // setTimeout(function () { that.pageScrollToCommon(parseInt(isActiveArr[0])) }, 200)
                         break;
                       } else {
                         that.setData({

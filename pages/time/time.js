@@ -6,7 +6,7 @@ Page({
    */
   data: {
     // random: wx.getStorageSync(getApp().globalData.appid),
-    receiveData:'',//接收首页选时间按钮传过来的值。
+    receiveData:'y',//接收首页选时间按钮传过来的值。
     isOk:true,//默认显示有
     allMask:true,//内容框覆盖，切换八天时间用
     // specialMask: false,//平均服务时长小于可用时长模态框
@@ -987,12 +987,14 @@ Page({
      
     }
     //下面是独立部分，用到了首页传过来的receiveData值，来判断八天哪个点亮
-    if (receiveData === 'n') {//首页没数据，默认显示第二天的排班
-      this.setData({
-        _num: 2,
-        toggleDay: that.data.dateObj.one.year
-      })
-    }
+    // if (receiveData === 'n') {//首页没数据，默认显示第二天的排班
+    //   this.setData({
+    //     _num: 2,
+    //     toggleDay: that.data.dateObj.one.year
+    //   },()=>{
+    //     that.timetocraftmancommon();
+    //   })
+    // }
     
   },
   // 公共计算后七天日期函数

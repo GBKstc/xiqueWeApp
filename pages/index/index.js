@@ -12,6 +12,7 @@ Page({
     name:'',//输入框值
     isloadingMask1:true,//loading弹框‘加载中’
     isloadingMask2: false,//loading弹框‘没有合适手艺人’
+    // isFirst: true,//loading弹框‘没有合适手艺人’ 只有第一次显示
     disabled:true,//马上预约按钮是否禁用
     near:false,//新客显示，老客不显示，默认不显示
     degree:false,//是否授权经纬度
@@ -56,14 +57,17 @@ Page({
     //   mask: true
     // })
     var that = this
-    
+    console.log("onLoad");
     
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    console.log("onReady");
+    // this.setData({
+    //   isFirst: true,
+    // })
   },
 
   /**
@@ -79,6 +83,7 @@ Page({
       that.loadHou(random)//调用原index里的函数
     }else{
       this.login();
+      
       // wx.getStorage({//异步获取随机数
       //   key: getApp().globalData.appid,
       //   success: function (res) {
@@ -90,6 +95,8 @@ Page({
       //   }
       // })
     }
+    console.log("onShow")
+    
     
   },
   //开始*******************************************************************************************
@@ -635,8 +642,16 @@ Page({
 
             console.log(res.data)
             if (res.data.status === 200) {
+              var newSearchData = res.data.data.list;
+              for (var i = 0; i < newSearchData.length; i++) {
+                var curr = newSearchData[i]
+                if (curr.distance >= 1000) {
+                  curr.distanceChange = (curr.distance / 1000).toFixed(1)
+                }
+              }
               var searchData = that.data.searchData.concat(res.data.data.list)
               var totalPages = res.data.data.totalPages
+              
               that.setData({
                 searchData: searchData
               })
@@ -893,6 +908,12 @@ Page({
             if (res.data.status === 200) {
               var searchData = res.data.data.list
               var totalPages = res.data.data.totalPages
+              for (var i = 0; i < searchData.length; i++) {
+                var curr = searchData[i]
+                if (curr.distance >= 1000) {
+                  curr.distanceChange = (curr.distance / 1000).toFixed(1)
+                }
+              }
               that.setData({
                 totalPages: totalPages,
                 searchData: searchData
@@ -966,7 +987,8 @@ Page({
   // 暂无合适手艺人的取消
   cancelMask:function(){
     this.setData({
-      isloadingMask2:false
+      isloadingMask2:false,
+      // isFirst:false,
     })
   },
   // 暂无合适手艺人的选时间

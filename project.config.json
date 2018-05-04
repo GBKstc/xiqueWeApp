@@ -9,8 +9,9 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "1.9.1",
-	"appid": "wx3b4ab4187f907fd3",
-	"projectname": "MISS%E9%9D%99%E6%99%BA%E8%83%BD%E7%BE%8E%E8%82%A4%E7%BA%A4%E4%BD%93%E6%9C%9B%E4%BA%AC%E5%85%B0%E7%91%9C%E4%BC%BD%E5%BA%97",
+	"appid": "wxab4355d28417d914",
+	"projectname": "静博士喜鹊来了",
+
 	"condition": {
 		"search": {
 			"current": -1,

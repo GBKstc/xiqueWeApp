@@ -11,7 +11,8 @@ App({
   // url: "http://jbs.xibao.com:8890/weixin-xique/",//陈荣贵
   // url: "https://192.168.18.253:8443/weixin-xique/",//陈荣贵
   // url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境
- //   url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+
+  //  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
   onLaunch: function () {
   },
   login: function () {

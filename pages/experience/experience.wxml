@@ -1,0 +1,40 @@
+<view style='position: relative'>
+  <view class='isLogin' wx:if="{{hasList}}">
+    <view class='lazyBox' bindtap="showDetails" data-id="aaa">
+      <image class='lazyImg' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521718467700&di=de2b6d8690c7c0c19b583800d7efb1dd&imgtype=0&src=http%3A%2F%2Fwww.138job.com%2FUpFiles%2FCompany%2F201310102355524375.jpg'></image>
+      <view class='imgContext'>
+        <text class='imgTitle'>3D唤氧单人护理套餐</text>
+        <view class='imgPrice'>
+          <text class='priceNow'>￥20</text>
+          <text class='priceOld'>1200</text>
+        </view>
+      </view>
+    </view>
+    <view class='lazyBox'>
+      <image class='lazyImg' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521718467700&di=de2b6d8690c7c0c19b583800d7efb1dd&imgtype=0&src=http%3A%2F%2Fwww.138job.com%2FUpFiles%2FCompany%2F201310102355524375.jpg'></image>
+      <view class='imgContext'>
+        <text class='imgTitle'>3D唤氧单人护理套餐3D唤氧单人3D唤氧单人</text>
+        <view class='imgPrice'>
+          <text class='priceNow'>￥20</text>
+          <text class='priceOld'>1200</text>
+        </view>
+      </view>
+    </view>
+    <view class='lazyBox'>
+      <image class='lazyImg' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1521718467700&di=de2b6d8690c7c0c19b583800d7efb1dd&imgtype=0&src=http%3A%2F%2Fwww.138job.com%2FUpFiles%2FCompany%2F201310102355524375.jpg'></image>
+      <view class='imgContext'>
+        <text class='imgTitle'>3D唤氧单人护理套餐3D唤氧单人3D唤氧单人</text>
+        <view class='imgPrice'>
+          <text class='priceNow'>￥20</text>
+          <text class='priceOld'>1200</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='isNo'  style='display:black' wx:else>
+    <view class='imgBox'>
+      <image class='kongImg' src='../../image/kongpaiban.png'></image>
+      <text>暂无优惠信息</text>
+    </view>
+  </view>
+</view>

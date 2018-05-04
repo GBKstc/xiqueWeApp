@@ -57,14 +57,14 @@ Page({
     //   mask: true
     // })
     var that = this
-    console.log("onLoad");
+    //console.log("onLoad");
     
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    console.log("onReady");
+    //console.log("onReady");
     // this.setData({
     //   isFirst: true,
     // })
@@ -95,7 +95,7 @@ Page({
       //   }
       // })
     }
-    console.log("onShow")
+    //console.log("onShow")
     
     
   },

@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/details/details",
+    
+
     "pages/index/index",
     "pages/checkinfo/checkinfo",
     "pages/storeDistribution/storeDistribution",
@@ -13,7 +16,10 @@
     "pages/modifyPhone/modifyPhone",
     "pages/login/login",
     "pages/checkmodifyinfo/checkmodifyinfo",
-    "pages/success/success"
+    "pages/success/success",
+    
+    "pages/experience/experience"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
@@ -31,6 +37,12 @@
       {
         "pagePath": "pages/index/index",
         "text": "预约",
+        "iconPath": "image/appoint.png",
+        "selectedIconPath": "image/appointselected.png"
+      },
+	  {
+        "pagePath": "pages/experience/experience",
+        "text": "体验",
         "iconPath": "image/appoint.png",
         "selectedIconPath": "image/appointselected.png"
       },

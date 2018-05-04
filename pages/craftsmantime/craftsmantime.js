@@ -1,5 +1,5 @@
 // pages/craftsman/craftsman.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
 Page({
 
   /**

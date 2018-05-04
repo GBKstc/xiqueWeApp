@@ -1,0 +1,18 @@
+<view class='box' style='width:100%;position: relative;'>
+  <swiper indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" 
+      interval="{{interval}}"
+      duration="{{duration}}"
+      bindchange="intervalChange"
+      class="slideImage"
+  >
+      <block wx:for="{{imgUrls}}" wx:key="imgUrls" class="slideImage">
+          <swiper-item class='slideImage'>
+              <image src="{{item}}"  class="slideImage imgBox" />
+          </swiper-item>
+      </block>
+  </swiper>
+  <view class='numIcon'>
+    {{imgIndex}}/{{imgUrls.length}}
+  </view>
+</view>

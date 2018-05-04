@@ -253,9 +253,10 @@
 .price .priceOld{
   display: block;
   font-size: 24rpx;
-  line-height: 36rpx;
+  line-height: 28rpx;
   color: rgb(204, 204, 204);
-  text-decoration: line-through
+  text-decoration: line-through;
+  padding-left: 19rpx;
 }
 
 .footerBox button{

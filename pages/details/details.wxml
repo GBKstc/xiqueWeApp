@@ -95,8 +95,8 @@
   </view>
 </view>
 
-<!-- 暂无合适手艺人mask -->
-<view class='loadingMask' wx:if="{{true}}">
+<!-- 消息弹窗 -->
+<view class='loadingMask' wx:if="{{false}}">
   <view class='loadingContent2' >
     <view class='title'>提示</view>
     <view class='loadingContent22'>选择其它时间试试吧</view>
@@ -104,4 +104,12 @@
   </view>
 </view>
 
+<!-- 消息弹窗 -->
+<view class='loadingMask modal' wx:if="{{true}}">
+  <view class='loadingContent2' >
+    <view class='title'>提示</view>
+    <view class='loadingContent22'>选择其它时间试试吧</view>
+    <view class='buttonArr'>知道了</view>
+  </view>
+</view>
 

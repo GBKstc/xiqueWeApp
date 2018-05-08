@@ -318,3 +318,8 @@
   line-height: 100rpx;
   border-top: 1px solid rgba(0, 0, 0,0.14);
 }
+
+/* 二维码 */
+.QRcode{
+
+}

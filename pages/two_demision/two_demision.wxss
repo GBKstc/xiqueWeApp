@@ -1,0 +1,38 @@
+.header {
+  padding: 61rpx;
+}
+.cur{
+  width: 30rpx;
+  height: 30rpx;
+  margin-bottom: 83rpx;
+}
+.elipe {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  color: #999999;
+  font-size: 32rpx;
+}
+.img_tecenter{
+  text-align: center;
+  margin-top: 7rpx;
+}
+.img_cry {
+  width: 588rpx;
+  height: 588rpx;
+}
+.btn{
+  background: #FD9595;
+  color: #fff;
+  margin-top: 45rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-size: 36rpx;
+}
+.huan{
+  margin-top: 61rpx;
+  color: #999999;
+  font-size: 32rpx;
+}

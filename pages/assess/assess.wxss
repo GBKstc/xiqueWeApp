@@ -1,0 +1,15 @@
+.assess{
+  width: 200rpx;
+  height: 200rpx;
+  margin-top: 120rpx;
+  margin-bottom: 58rpx;
+}
+.assess_btn{
+  width: 90%;
+  background: #FD9595;
+  color: #fff;
+  margin-top: 137rpx;
+}
+.assess_text{
+  text-align: center;
+}

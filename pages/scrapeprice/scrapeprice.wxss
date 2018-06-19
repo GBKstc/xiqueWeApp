@@ -1,0 +1,35 @@
+.scrape{
+  width: 100%;
+   /* height: 100%;  */
+   position: fixed;
+   top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0; 
+}
+.scrape_image{
+  width: 100%;
+  height: 100%;
+}
+.scrape_wan{
+  position: absolute;
+  z-index: 10;
+   width: 346rpx; 
+  height: 322rpx;
+  margin: 203rpx 198rpx 0rpx 206rpx;
+  
+}
+.scrape_go{
+  position: absolute;
+  z-index: 10;
+  margin: 488rpx 60rpx 0rpx 80rpx;
+  width:608rpx;
+  height: 288rpx;
+  line-height: 288rpx;
+  text-align: center;
+  background: #ccc;
+}
+.jiang{
+  width: 100%;
+  height: 100%;
+}

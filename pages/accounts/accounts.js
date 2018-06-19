@@ -1,38 +1,21 @@
-var util = require('../../utils/util');
-var carousel = require("../../component/carousel/carousel");
-let pageObj = {
-  data: {
-
-  }
-};
-util.mergeComponents(pageObj, carousel);
-
-// Page(pageObj);
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    number:1
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+
   },
-  aclick:function() {
-    console.log(111);
-    wx.redirectTo({
-      url: '../accounts/accounts',
-    })
-  },
-  longTap:function() {
-    console.log(2222)
-    wx.redirectTo({
-      url: '../two_demision/two_demision',
+  reduce:function() {
+    this.setData({
+      number
     })
   },
   /**

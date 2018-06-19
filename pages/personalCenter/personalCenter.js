@@ -7,27 +7,27 @@ Page({
    */
   data: {
     // random: wx.getStorageSync(getApp().globalData.appid),
-    isLogin:true,
-    avatarUrl:'../../image/login.png',
-    maxname:"",//姓名截取之后的值
-    customInfo:{
+    isLogin: true,
+    avatarUrl: '../../image/login.png',
+    maxname: "",//姓名截取之后的值
+    customInfo: {
       name: '',
       mobile: 0
     },
-    telephone:"",
-    signOutMask:false,//点击退出登录提示框
+    telephone: "",
+    signOutMask: false,//点击退出登录提示框
     //toast默认不显示  
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好' 
+    toastText: '你好'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    var that=this
+    var that = this
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -79,7 +79,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
+  },
+  select: function () {
+    wx.navigateTo({
+      url: '../select/select',
+      success: function () {
+      }
+    })
   },
 
   /**
@@ -103,7 +110,7 @@ Page({
         })
         console.log(avatarUrl)
       },
-      fail:function(){
+      fail: function () {
         console.log('获取图像失败')
       }
     })
@@ -130,11 +137,11 @@ Page({
                 var name = res.data.data.name
                 var mobile = res.data.data.mobile
                 var customId = res.data.data.id
-                if (name.length>4){//大于四，就有截取之后的值，否者，没有值
-                    that.setData({
-                      maxname:name.substr(0,4)
-                    })
-                }else{
+                if (name.length > 4) {//大于四，就有截取之后的值，否者，没有值
+                  that.setData({
+                    maxname: name.substr(0, 4)
+                  })
+                } else {
                   that.setData({
                     maxname: ""
                   })
@@ -176,31 +183,31 @@ Page({
           }
         })
       },
-      fail:function(){
+      fail: function () {
         console.log('个人中心获取随机数失败')
       }
     })
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh:function () {
+  onPullDownRefresh: function () {
     setTimeout(function () {
       wx.stopPullDownRefresh();
     }, 1000)
@@ -209,8 +216,8 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom:function () {
-    
+  onReachBottom: function () {
+
   },
 
   /**
@@ -220,19 +227,19 @@ Page({
 
   // },
   //点击登录
-  tologin:function(){
+  tologin: function () {
     wx.navigateTo({
-      url: '../login/login?howto='+false,
-      success: function(res) {
+      url: '../login/login?howto=' + false,
+      success: function (res) {
       },
-      fail: function(res) {},
-      complete: function(res) {},
+      fail: function (res) { },
+      complete: function (res) { },
     })
   },
   //查看订单
-  toOrder:function(){
-    var that=this
-    if (!that.data.isLogin){//登录了
+  toOrder: function () {
+    var that = this
+    if (!that.data.isLogin) {//登录了
       wx.navigateTo({
         url: '../order/order',
         success: function (res) {
@@ -240,7 +247,7 @@ Page({
         fail: function (res) { },
         complete: function (res) { },
       })
-    }else{//没登录
+    } else {//没登录
       //设置toast时间，toast内容  
       that.setData({
         count: 2000,
@@ -250,13 +257,13 @@ Page({
     }
   },
   //联系客服
-  makePhoneCall:function(){
-    var that=this
+  makePhoneCall: function () {
+    var that = this
     wx.makePhoneCall({
       phoneNumber: that.data.telephone,
-      success:function(){
+      success: function () {
       },
-      fail:function(){
+      fail: function () {
         // //设置toast时间，toast内容  
         // that.setData({
         //   count: 5000,
@@ -278,8 +285,8 @@ Page({
   //   })
   // },
   //修改手机号
-  toModifyPhone:function(){
-    var that=this
+  toModifyPhone: function () {
+    var that = this
     wx.navigateTo({
       url: '../modifyPhone/modifyPhone?mobile=' + that.data.customInfo.mobile,
       success: function (res) {
@@ -289,13 +296,13 @@ Page({
     })
   },
   //点击退出
-  signOut:function(){
+  signOut: function () {
     this.setData({
       signOutMask: true
     })
   },
   //弹框上的‘退出登录’
-  signOutSuccess:function(){
+  signOutSuccess: function () {
     this.setData({
       signOutMask: false
     })
@@ -347,13 +354,13 @@ Page({
     })
   },
   //弹框上的‘取消’
-  signOutFail:function(){
+  signOutFail: function () {
     this.setData({
-      signOutMask:false
+      signOutMask: false
     })
   },
   //门店导航
-  tostoreDistribution:function(){
+  tostoreDistribution: function () {
     wx.navigateTo({
       url: '../storeDistribution/storeDistribution?fromWhere=false',
       success: function () {

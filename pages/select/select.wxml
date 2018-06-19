@@ -1,0 +1,32 @@
+<view class='select'>
+  <view class='select_row' bindtap='chancenouse'>
+    <view class='select_absolute'>未使用</view>
+    <view>
+      <image class='select_img' src='../../image/cry.png'></image>
+    </view>
+    <view class='select_right'>
+      <view class='select_right_top'>3D水漾护肤保湿面膜套装</view>
+      <view class='select_right_bottom'>有效期至: 2018/8/7</view>
+    </view>
+  </view>
+  <view class='select_row' bindtap='chance'>
+    <view class='select_hexiao'>已核销</view>
+    <view>
+      <image class='select_img' src='../../image/cry.png'></image>
+    </view>
+    <view class='select_right'>
+      <view class='select_right_top'>3D水漾护肤保湿面膜套装</view>
+      <view class='select_right_bottom'>有效期至: 2018/8/7</view>
+    </view>
+  </view>
+  <view class='select_row'>
+  <view class='select_hexiao'>已过期</view>
+    <view>
+      <image class='select_img' src='../../image/cry.png'></image>
+    </view>
+    <view class='select_right'>
+      <view class='select_right_top'>3D水漾护肤保湿面膜套装</view>
+      <view class='select_right_bottom'>有效期至: 2018/8/7</view>
+    </view>
+  </view>
+</view>

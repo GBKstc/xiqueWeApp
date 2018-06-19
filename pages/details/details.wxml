@@ -90,7 +90,7 @@
         <text class='priceNew'>￥20</text>
         <text class='priceOld'>1200</text>
       </view>
-      <button>限时抢购</button>
+      <button bindlongtap="longTap" bindtap='aclick'>限时抢购</button>
     </view>
   </view>
 </view>
@@ -105,7 +105,7 @@
 </view>
 
 <!-- 消息弹窗 -->
-<view class='loadingMask modal' wx:if="{{true}}">
+<view class='loadingMask modal' wx:if="{{false}}">
   <view class='loadingContent2' >
     <view class='title'>提示</view>
     <view class='loadingContent22'>选择其它时间试试吧</view>

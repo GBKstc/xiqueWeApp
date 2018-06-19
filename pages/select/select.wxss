@@ -1,0 +1,50 @@
+.select_img{
+  width: 180rpx;
+  height: 180rpx;
+  margin-right: 33rpx;
+}
+.select_row{
+  padding: 30rpx;
+  display: flex;
+  border: 1px solid #ccc;
+  margin-bottom: 32rpx;
+  border-radius: 5rpx;
+  position: relative;
+}
+.select_absolute{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 24rpx;
+  width: 100rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  background: #FD9595;
+  color: #fff;
+}
+.select_hexiao{
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 24rpx;
+  width: 100rpx;
+  height: 50rpx;
+  text-align: center;
+  line-height: 50rpx;
+  background: #C1C1C1;
+  color: #fff;
+}
+.select_right_top{
+  color: #333333;
+  font-size: 32rpx;
+  margin-top: 47rpx;
+}
+.select_right_bottom{
+  color: #999999;
+  font-size: 28rpx;
+  margin-top: 43rpx;
+}
+.select{
+  padding: 32rpx 40rpx;
+}

@@ -1,0 +1,42 @@
+<view class='detail'>
+  <view>
+    <text class='detail_header'>3D水漾护肤保湿面膜套装 </text>
+    <text class='detail_header_two detail_color'> (未使用)</text>
+  </view>
+  <view class='favour_time'>
+    <view class='favour mabottom'>优惠码:</view>
+    <text class='favour_font'>R00120170401sd89</text>
+  </view>
+  <view class='take'>
+    <text class='favour'>注意 : </text>
+    <text class='member take_left'>仅限非会员使用</text>
+  </view>
+  <view class='count'>
+    <text class='favour'>核销时间 : </text>
+    <text class='member'>2018/9/9 16:20</text>
+  </view>
+  <view class='count'>
+    <text class='favour'>核销门店 : </text>
+    <text class='member'>西湖银泰店</text>
+  </view>
+
+  <view>
+    <text class='produce'>商品介绍</text>
+    <view>
+      <image class='produce_img' src='../../image/zs.png'></image>
+    </view>
+    <view class='produce_top'>
+      <view class='five_logo'>
+      <text class='five_right'>+1个</text>
+        4D体雕-五行通背
+      </view>
+      <view class='five_logo'><text class='five_right'>+1瓶</text>谷物黄金素 (月享版)</view>
+      <view class='five_logo'><text class='five_right'>+500元</text>代金券</view>
+      <view class='five_logo'><text class='five_right'>+500元</text> 代金券 <text class='appoint'>-指定产品</text></view>
+      <view class='five_logo'><text class='five_right'>+500元</text>代金券 <text class='appoint'>-指定项目</text></view>
+      <view class='five_logo'><text class='five_right'>+500元</text>代金券- <text class='appoint'>指定疗程</text></view>
+      <view class='five_logo'><text class='five_right'>+500元</text>代金券- <text class='appoint'>指定促销方案</text></view>
+    </view>
+  </view>
+</view>
+<button class='gobtn'>立即预约</button>

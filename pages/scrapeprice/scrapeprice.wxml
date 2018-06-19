@@ -1,0 +1,10 @@
+<view class='scrape'>
+  <view class='scrape_go'>
+    <!-- <text>立即刮奖</text> -->
+    <image class='jiang' src='../../image/back.png'></image>
+  </view>
+  <image class='scrape_wan' src='../../image/art.png'></image>
+
+  <image class='scrape_image' src='../../image/backg.png'></image>
+
+</view>

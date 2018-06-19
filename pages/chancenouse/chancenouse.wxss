@@ -1,0 +1,73 @@
+.detail{
+  padding: 39rpx 64rpx 57rpx 61rpx;
+}
+.detail_header{
+  color: #666666;
+  font-size: 32rpx;
+}
+.detail_color{
+  color: #FD9595;
+}
+.detail_header_two{
+  font-size: 28rpx;
+ color: #FD9595;
+}
+.favour{
+    font-size: 28rpx;
+    color: #999999;
+}
+.favour_font{
+  font-size: 48rpx;
+  color: #FD9595;
+}
+.member{
+  color: #333333;
+  font-size: 32rpx;
+}
+.favour_time{
+  margin-top: 44rpx;
+}
+.mabottom{
+  margin-bottom: 52rpx;
+}
+.take{
+  margin-top: 61rpx;
+}
+.take_left{
+  margin-left: 71rpx;
+}
+.count{
+  margin-top: 40rpx;
+}
+
+.produce{
+  color: #999999;
+  font-size: 32rpx;
+  display: inline-block;
+  margin-top: 104rpx;
+}
+.produce_img{
+  width:133rpx;
+  height: 7rpx;
+}
+.produce_top{
+  margin-top: 61rpx;
+}
+.five_logo{
+  color: #333333;
+  font-size: 32rpx;
+  margin-top: 37rpx;
+}
+.appoint{
+  font-size: 28rpx;
+  color: #999999;
+}
+.five_right{
+  float: right;
+  color: #999999;
+}
+.gobtn{
+  background: #FD9595;
+  color: #fff;
+  border-radius: 0px;
+}

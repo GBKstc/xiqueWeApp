@@ -1,0 +1,72 @@
+<view class='header'>
+  <view class='manner'>
+    <view class='orderChance'>
+     <text class='chance_left'>预约时间 : </text>
+    <view class='chance_right'>
+      <view>18:00 - 12:00
+        <text class='tom'>(2.5小时)</text>
+      </view>
+      <view class='chance_logo'>2017/07/08 (今天)</view>
+    </view>
+  </view>
+  <view class='wan_top'>
+    <text class='chance_left'>手艺人 : </text>
+    <text class='chance_wan'>宋玉致</text>
+  </view>
+  <view class='store'>
+    <view class='store_left'>门店 : </view>
+    <view class='store_right'>
+      <view class='store_wan'>西湖银泰店</view>
+    </view>
+  </view>
+  <view class='store_bottom'>杭州市下城区延安路杭州市下城区延安路杭州市下城区延安路杭州市下城区延安路杭州市下城区延安路杭州市下城区延安路杭</view>
+  </view>
+
+  <view class='color'></view>
+ <view  class='manner'>
+   <view class='appoint'>
+    <view>
+      <text class='appoint_left'>预约人 : </text>
+      <text class='appoint_right'>李子木</text>
+    </view>
+    <view class='lession_top'>
+      <text class='appoint_left'>状态 : </text>
+      <text class='appoint_wan'>服务完成</text>
+    </view>
+    <view class='lession_top'>
+      <text class='appoint_left'>订单号 :</text>
+      <text class='appoint_shen'>1398629154</text>
+      <text class='fuzhi'>复制</text>
+    </view>
+  </view>
+ </view>
+
+   <view class='color'></view>
+ <view class='manner'>
+   <view class='comment'>
+    <view class='comment_header'>评论后， 刮奖， 送面膜! 送代餐! 送送送！ ！</view>
+  <view class='comment_overflow'>
+    <text class='comment_overflow_right'>匿名评论</text>
+    <text class='comment_overflow_left'>服务评价</text>
+  </view>
+  <view class='img'>
+    <image class='img_img' src='../../image/evaluated.png'></image>
+    <image class='img_img comment_img' src='../../image/evaluated.png'></image>
+    <image class='img_img comment_img' src='../../image/evaluated.png'></image>
+    <image class='img_img comment_img' src='../../image/evaluated.png'></image>
+    <image class='img_img comment_img' src='../../image/evaluated.png'></image>
+  </view>
+  <view class='clear'>
+    <text class='clear_wan'>热情好客</text>
+    <text class='clear_wan clear_left'>环境舒适</text>
+    <text class='clear_wan clear_left'>干净整洁</text>
+  </view>
+  <view class='shen_top'>
+    <text class='clear_shen'>服务前准备充分</text>
+    <text class='clear_wan clear_left'>手法专业</text>
+  </view>
+  </view>
+
+  <button class='btn' bindtap='twoDemision'>立即抽奖</button>
+ </view>
+</view>

@@ -1,13 +1,3 @@
-var util = require('../../utils/util');
-var carousel = require("../../component/carousel/carousel");
-let pageObj = {
-  data: {
-
-  }
-};
-util.mergeComponents(pageObj, carousel);
-
-// Page(pageObj);
 Page({
 
   /**
@@ -23,16 +13,9 @@ Page({
   onLoad: function (options) {
     
   },
-  aclick:function() {
-    console.log(111);
+  twoDemision:function() {
     wx.redirectTo({
-      url: '../accounts/accounts',
-    })
-  },
-  longTap:function() {
-    console.log(2222)
-    wx.redirectTo({
-      url: '../two_demision/two_demision',
+      url: '../scrapeprice/scrapeprice',
     })
   },
   /**

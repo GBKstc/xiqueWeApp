@@ -1,13 +1,3 @@
-var util = require('../../utils/util');
-var carousel = require("../../component/carousel/carousel");
-let pageObj = {
-  data: {
-
-  }
-};
-util.mergeComponents(pageObj, carousel);
-
-// Page(pageObj);
 Page({
 
   /**
@@ -23,18 +13,7 @@ Page({
   onLoad: function (options) {
     
   },
-  aclick:function() {
-    console.log(111);
-    wx.redirectTo({
-      url: '../accounts/accounts',
-    })
-  },
-  longTap:function() {
-    console.log(2222)
-    wx.redirectTo({
-      url: '../two_demision/two_demision',
-    })
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

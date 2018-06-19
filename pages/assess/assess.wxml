@@ -1,0 +1,7 @@
+<view class='assess_text'>
+  <view>
+    <image class='assess' src='../../image/rig.png'></image>
+    <view>领取成功</view>
+  </view>
+  <button class='assess_btn'>确定</button>
+</view>

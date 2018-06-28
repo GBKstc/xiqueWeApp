@@ -104,6 +104,27 @@ App({
       }
     });
   },
+
+  getAccessToken(succ){
+    wx.request({
+      url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=wxab4355d28417d914&secret=026e8bf6e20155b7d7f926b27db7c5c3',
+      success:function(res){
+        console.log(res);
+        if (res.statusCode === 200) {
+          if (succ) {
+            succ(res.data);
+          }
+        } else {
+          console.log("请求错误码", res.data.status);
+          // if (fail) {
+          //   fail(res.data.msg)
+          // }
+        }
+        return res.data;
+      }
+    })
+  },
+
   onShow:function(enter){
     // console.log('onShow')
   }

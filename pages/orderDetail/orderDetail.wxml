@@ -1,8 +1,17 @@
 <view style='background-color:#f5f5f5'>
 <!-- 门店块 -->
   <view class='store'>
-      <view class='detailItem' style='margin-bottom:25rpx'><text class='detailLable'>预约时间:</text><text class='detailValue'>{{recordData.timePart}}</text><text class='detailValueTime'>({{recordData.timeDuan}}小时)</text></view>
-      <view class='detailItem'><text class='detailLable'></text><text class='detailValue2'>{{recordData.date}}</text><text class='detailValueTime'>({{recordData.week}})</text><text class='changeTime' bindtap='changeTime' wx:if='{{status==="1"}}'>换时间</text></view>
+    <view class='detailItem' style='margin-bottom:25rpx'>
+      <text class='detailLable'>预约时间:</text>
+      <text class='detailValue'>{{recordData.timePart}}</text>
+      <text class='detailValueTime'>({{recordData.timeDuan}}小时)</text>
+    </view>
+    <view  class='detailItem'>
+      <text class='detailLable'></text>
+      <text class='detailValue2'>{{recordData.date}}</text>
+      <text class='detailValueTime'>({{recordData.week}})</text>
+      <text class='changeTime' bindtap='changeTime' wx:if='{{status==="1"&&isShowChangeTime}}'>换时间</text>
+    </view>
     <view class='detailItem'>
       <text class='detailLable'>手艺人:</text>
       <!-- 两种情况，beauticianList，当status =2 时才有,表示消费服务人员列表,当列表为空时，取userId表示手艺人;否则取该列表的值表示手艺人 -->
@@ -44,7 +53,16 @@
   <!-- 未评价块 -->
   <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
     <view class='evaluateTitle'>
+      <view wx:if="{{recordData.evaluateGiftEntity}}">{{recordData.evaluateGiftEntity.topic}}</view>
+    </view>
+    
+    <view class='evaluateTitle'>
       <text>服务评价</text>
+      <view class="checkbox">
+      <label>
+        <checkbox class='target' color="#fd9595" value="" checked="{{isAnonymous}}" bindtap='anonymous'/><text class="{{isAnonymous?'textColor':'textColor'}}">匿名评价</text> 
+      </label>
+    </view>
     </view>
     <view class='evaluateStars'>
       <view class='star'><image mode="widthFix" src='../../image/evaluated.png'></image></view>
@@ -58,11 +76,7 @@
       <!-- 这里的{{bg[item.evaluateLableId]?'bgColor':''}}，考虑到bg必须是data里面要初始化的数据，同时随着循环要不断改变bg的值，为了满足这两个条件，所以bg得是一个对象，所以给data里面初始化一个空的bg对象，在页面初始化的时候，给bg填充{1:false,3:true}这样的值 -->
       <text class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</text>
     </view>
-    <view class="checkbox">
-      <label>
-        <checkbox class='target' value="" checked="{{isAnonymous}}" bindtap='anonymous'/><text class="{{isAnonymous?'textColor':''}}">匿名评价</text> 
-      </label>
-    </view>
+    
   </view>
   <!-- 已评价块 -->
   <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='y'}}">
@@ -70,7 +84,7 @@
       <text>服务评价</text><text style='color:#999;font-size:28rpx' wx:if="{{recordData.isAnonymous==='y'}}">(匿名评价)</text>
     </view>
     <view class='evaluateStars'>
-      <view class='star' wx:for="{{recordData.evaluateScore}}"><image mode="widthFix" src='../../image/evaluated.png'></image></view>
+      <view class='star' wx:for="{{recordData.evaluateScore}}" wx:key="{{item}}"><image mode="widthFix" src='../../image/evaluated.png'></image></view>
     </view>
     <view class='evaluateItem'>
       <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}">{{item.evaluateLable}}</text>
@@ -78,9 +92,14 @@
     </view>
   </view>
   <!-- 提交按钮 -->
-  <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
+  <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&!recordData.evaluateGiftEntity}}">
     <button class='submitButton' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='submitEvevate' >提交</button>
   </view>
+   <!-- 提交抽奖 -->
+ <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&recordData.evaluateGiftEntity}}">
+    <button class='submitButton' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='lottery' >立即抽奖</button>
+  </view>
+
   <!-- 取消预约按钮 -->
   <view style='padding-top:40rpx' class='submit' wx:if="{{status==1}}">
     <button  class='submitButton' bindtap='submitEvevate' bindtap='showModal' disabled="{{cancelDisabled}}">取消预约</button>
@@ -105,4 +124,5 @@
      
   </view>  
 </view>  
+
 

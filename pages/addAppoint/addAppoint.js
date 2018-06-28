@@ -1,5 +1,10 @@
 // pages/modifyName/modifyName.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+const util = require('../../utils/util.js');
+const URL = require('../../utils/URL.js');
+
+const { isEmpty } = util;
+const { updateAppointment, addAppointment} = URL;
 Page({
   /**
    * 页面的初始数据
@@ -13,17 +18,47 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好'
+    toastText: '你好',
+    isUpdata:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('核对信息页面接收到的addApp', options)
+    let { idValue, nameValue, nicknameValue, phoneValue, userId, scheduleid, timeformat, customerId} = options;
+    let isUpdata = false;
+    if (!isEmpty(nameValue)){
+      isUpdata = true;
+      //修改页面标题
+      wx.setNavigationBarTitle({
+        title: "编辑预约人信息",
+      })
+    }else{
+      phoneValue = "";
+      nameValue = "";
+      isUpdata = false;
+      //修改页面标题
+      wx.setNavigationBarTitle({
+        title: "新增预约人"
+      })
+    }
+    this.setData({
+      phoneValue,
+      maValue: nameValue,
+      idValue,
+      isUpdata: isUpdata,
+      userId,
+      scheduleid,
+      timeformat,
+      customerId
+    })
     wx.showLoading({
       title: '加载中',
       mask: true
     })
+
   },
 
   /**
@@ -120,7 +155,15 @@ Page({
   },
   //最下面确定按钮
   modifySuccess: function () {
-    var that = this
+    const that = this;
+    const { maValue, phoneValue, isUpdata, idValue, userId, scheduleid, timeformat, customerId } = that.data;
+    let reqUrl = "";
+    //判断是否是编辑
+    if(isUpdata){
+      reqUrl = updateAppointment
+    }else{
+      reqUrl = addAppointment;
+    }
     that.setData({//确定按钮禁用
       isMa:true
     })
@@ -130,21 +173,21 @@ Page({
         console.log('新增预约人页获取到随机数为')
         console.log(res.data)
         wx.request({
-          url: getApp().url + 'user/addAppointment',
+          url: getApp().url + reqUrl,
           method: 'POST',
           data: {
             thirdSessionId: res.data,
-            name: that.data.maValue,
-            mobile: that.data.phoneValue
+            name: maValue,
+            mobile: phoneValue,
+            id: idValue,
           },
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
             console.log(res.data)
             if (res.data.status === 200) {
               
-              wx.navigateBack({
-                delta: 1,
-                // url: '../checkinfo/checkinfo',
+              wx.redirectTo({
+                url: '../checkinfo/checkinfo?nameValue=' + maValue + '&phoneValue=' + phoneValue + '&customerid=' + customerId + '&userId=' + userId + '&scheduleid=' + scheduleid + '&timeformat=' + timeformat + '&idValue=' + idValue,
                 success: function () {
                  
                 }
@@ -169,11 +212,9 @@ Page({
         console.log('新增预约人页获取随机数失败')
       }
     })
-
-   
-
-
   },
+
+
   //显示自定义提示框
   showToast: function () {
     var _this = this;

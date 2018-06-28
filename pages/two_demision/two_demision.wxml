@@ -6,7 +6,7 @@
     <view class='elipe'>3D唤氧部护理单人套餐3D唤氧面部护理单人3D唤氧面部...</view>
   </view>
   <view class='img_tecenter'>
-    <image class='img_cry' src="../../image/cry.png"></image>
+    <image class='img_cry' src="data:image/jpeg;base64,{{imgUrl}}"></image>
   </view>
   <view class='huan'>
     <text>张欢 13986296154</text>

@@ -1,29 +1,31 @@
+let URL = require('../../utils/URL.js');
+let util = require('../../utils/util.js');
+const {
+  requestAppid,
+  getCustomerDiscountCodeList
+} = URL;
+const {
+  isEmpty
+} = util;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    
+    list:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
-  },
-  chancenouse:function() {
-   wx.redirectTo({
-     url: '../chancenouse/chancenouse',
-   })
+    const that = this;
+    that.customerDiscountCodeList();
+
   },
 
-  chance:function() {
-    wx.redirectTo({
-      url: '../chance/chance',
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -43,6 +45,56 @@ Page({
    */
   onHide: function () {
     
+  },
+
+
+  chancenouse: function (e) {
+    const index = e.currentTarget.dataset.index;
+    const that = this;
+    const { list } = that.data;
+    const selectItem = list[index];
+    wx.navigateTo({
+      url: '../chancenouse/chancenouse?item='+JSON.stringify(selectItem),
+    })
+  },
+
+  customerDiscountCodeList:function(){
+    const that = this;
+    requestAppid(
+      {
+        URL: getCustomerDiscountCodeList,
+        param: {
+          pageNo: 1,
+          pageSize: 20,
+        },
+      },
+      function (data) {
+        console.log(data.list);
+        let list = data.list;
+        if (isEmpty(data.list)){
+          list = [];
+        }
+        // for(let i=0;i<list.length;i++){
+        //   let string = "";
+        //   switch (list[i].discountCodeStatus){
+        //     case 0:
+        //       string = "未使用";
+        //       break;
+        //     case 1:
+        //       string = "已过期";
+        //       break;
+        //     case 2:
+        //       string = "已使用";
+        //       break;
+
+        //   }
+        //   list[i].discountCodeStatusString = string;
+        // }
+        that.setData({
+          list: list
+        })
+      }
+    );
   },
 
   /**

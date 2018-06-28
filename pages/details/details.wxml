@@ -1,11 +1,11 @@
 <view class='allBox'>
   <view class='header baseBox'>
-    <include src="../../component/carousel/carousel.wxml" />
+    <Carousel prop-coverImgUrl="{{detail.coverImgUrl}}"></Carousel>
     <view class="headerContent">
-      <text class='headerContentText'>3D唤氧单人护理套餐人护</text>
+      <text class='headerContentText'>{{detail.eventName}}</text>
       <view class='infoContent'>
-        <image class='near' src='../../image/att.png'></image>
-        <text>仅限制非会员使用！！！！！</text>
+        <image wx:if="{{detail.remind}}" class='near' src='../../image/att.png'></image>
+        <text wx:if="{{detail.remind}}">{{detail.remind}}</text>
       </view>
     </view>
   </view>
@@ -33,7 +33,7 @@
       </view>
       <view class='footerInfo'>
           <image src='../../image/att.png'></image>
-          <view>购买后使用时间60天</view>
+          <view>购买后使用时间{{detail.validityDays}}天</view>
         </view>
     </view>
   </view>
@@ -44,13 +44,9 @@
         <text class='goodsName'>商品详情</text>
         <image src='../../image/zs.png'></image>
       </view>
-      <view class='detailsText'>
-      肌肤想要实现最让人心动的白皙，当然需一些面膜。虽说天生的白皙肌肤固然让人艳羡不已，但凭借后天的努力，把"黑肉底"变成"透白肌"，却更值得自豪。
-      想要焕白变身，事半功倍的秘诀当然要数美白面膜。专家提醒，肤质不同，选择美白面膜的标准和技巧也不同。肤质一般分为敏感肌肤、油性肌肤、干性肌肤，根据自己的肤质选择美白面膜才会达到理想效果。
-      </view>
+      <view class='detailsText'>{{detail.goodsDetail}}</view>
       <view class='imgList'>
-        <image src='http://pic1.sc.chinaz.com/files/pic/pic9/201804/zzpic11454.jpg'></image>
-        <image src='http://pic1.sc.chinaz.com/files/pic/pic9/201804/zzpic11454.jpg'></image>
+        <image src='{{detail.coverImgUrl}}'></image>
       </view>
     </view>
   </view>
@@ -59,23 +55,22 @@
     <view class='storeLsitHeader'>
       <view class='listHeaderBox'>
         <view class='box1'>
-          <text>适用门店  （共60店）</text>
+          <text>适用门店  （共{{detail.usableStoreList.length}}店）</text>
           <image src='../../image/zs.png'></image>
         </view>
-        
         <view class='box2'>
           <image class='craftManBack' src='../../image/right.png'></image>
         </view>
       </view>
     </view>
     <view>
-      <view class='storeList'>
+      <view class='storeList' wx:for="{{detail.usableStoreList}}" wx:key="{{item.id}}">
         <view class='storeName'>
-          <view>贺田埫城店</view>
-          <view>1.5公里</view>
+          <view>{{item.name}}</view>
+          <view>{{item.distance}}</view>
         </view>
         <view class='storeAdress'>
-          <view class="storeAdressText">杭州市下城区江南巷16号静博士美容养生养生养生养生</view>
+          <view class="storeAdressText">{{item.address}}</view>
           <view><image src='../../image/go.png'></image></view>
         </view>
       </view>
@@ -87,28 +82,28 @@
   <view class='footer'>
     <view class='footerBox'>
       <view class='price'>
-        <text class='priceNew'>￥20</text>
-        <text class='priceOld'>1200</text>
+        <text class='priceNew'>￥{{detail.currentPrice}}</text>
+        <text class='priceOld'>{{detail.originPrice}}</text>
       </view>
-      <button bindlongtap="longTap" bindtap='aclick'>限时抢购</button>
+      <button bindlongpress="longTap" bindtap='aclick'>限时抢购</button>
     </view>
   </view>
 </view>
 
 <!-- 消息弹窗 -->
-<view class='loadingMask' wx:if="{{false}}">
+<view class='loadingMask' wx:if="{{cardRankInfo}}">
   <view class='loadingContent2' >
     <view class='title'>提示</view>
-    <view class='loadingContent22'>选择其它时间试试吧</view>
+    <view class='loadingContent22'>{{cardRankInfo}}</view>
     <view class='buttonArr'>知道了</view>
   </view>
 </view>
 
 <!-- 消息弹窗 -->
-<view class='loadingMask modal' wx:if="{{false}}">
+<view class='loadingMask modal' wx:if="{{timesInfo}}">
   <view class='loadingContent2' >
     <view class='title'>提示</view>
-    <view class='loadingContent22'>选择其它时间试试吧</view>
+    <view class='loadingContent22'>您的购买次数已达上限</view>
     <view class='buttonArr'>知道了</view>
   </view>
 </view>

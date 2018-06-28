@@ -1,5 +1,5 @@
 .detail{
-  padding: 39rpx 64rpx 57rpx 61rpx;
+  padding: 39rpx 64rpx 150rpx 61rpx;
 }
 .detail_header{
   color: #666666;
@@ -70,4 +70,28 @@
   background: #FD9595;
   color: #fff;
   border-radius: 0px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+.buyBox{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 37rpx;
+}
+.buyTitle{
+  width:165rpx;
+  height:28rpx;
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  line-height:28rpx;
+}
+.buyContext{
+  
+  height:32rpx;
+  font-size:32rpx;
+  color:#333333;
+  line-height:32rpx;
 }

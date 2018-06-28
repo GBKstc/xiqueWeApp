@@ -1,13 +1,13 @@
 <view class='body_color'>
   <view class='wan'>
     <view class='wan_flex'>
-      <image class='accounts' src='../../image/art.png'></image>
+      <image class='accounts' src='{{detail.coverImgUrl}}'></image>
     </view>
     <view class='wan_flex_lg'>
-      <text class='detail'>3D唤养面部护理单人套餐3D唤养面部护理单人...</text>
+      <text class='detail'>{{detail.eventName}}</text>
       <view class='wan_top'>
-        <text class='price'>￥20</text>
-        <text class='price_ago'>1200</text>
+        <text class='price'>￥{{detail.currentPrice}}</text>
+        <text class='price_ago'>{{detail.originPrice}}</text>
       </view>
     </view>
   </view>
@@ -16,16 +16,16 @@
       <text class='price_ago'>数量:</text>
     </view>
     <view class='number_right'>
-      <text class='number_right_reduce number_shen' bindtap='reduce'>-</text>
+      <text class='number_right_reduce number_shen' bindtap='subtractNum'>-</text>
       <text class='number_shen number_num'>{{number}}</text>
-      <text class='number_right_reduce number_lo'>+</text>
+      <text class='number_right_reduce number_lo' bindtap='addNum'>+</text>
     </view>
   </view>
   <view class='amount'>
-    <text class='amount_color'>￥20</text>
+    <text class='amount_color'>￥{{amount}}</text>
     <text class='price_ago'>总计:</text>
   </view>
   <view>
-    <button class='confirm'>确定</button>
+    <button class='confirm' bindtap='submit'>确定</button>
   </view>
 </view>

@@ -8,7 +8,7 @@
   <view class='list'>
      <!-- <block wx:for="{{listData}}">  -->
      <!-- <template is='{{_num}}'></template> -->
-    <view class='listItem' wx:for="{{listData}}" wx:key="listData" data-id="{{item.id}}" data-status="{{status}}" bindtap='oneClick'>
+    <view class='listItem' wx:for="{{listData}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-status="{{status}}" data-evaluategiftid="{{item.evaluateGiftId}}" bindtap='oneClick'>
       <view class='up'>
         <text class='date'>{{item.timePart}}</text><text class='time'>({{item.timeDuan}}小时)</text>
       </view>

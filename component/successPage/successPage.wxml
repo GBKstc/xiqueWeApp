@@ -1,7 +1,9 @@
+<!--component/successPage/successPage.wxml-->
 <view>
   <view class='img'>
     <image src='../../image/success.png' style='width:200rpx;height:200rpx'></image>
   </view>
-  <view class='success'>{{successText||"预约成功"}}</view>
+  <view class='success'>{{innerText}}</view>
   <view class='confirm' bindtap='toOrder'>确定</view>
 </view>
+

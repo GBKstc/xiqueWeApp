@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+      
     // random: wx.getStorageSync(getApp().globalData.appid),
     status:1,//表示待服务
     pageNo: 1,//默认初始化是第一页
@@ -408,11 +409,13 @@ Page({
   },
   //每一条订单点击跳转
   oneClick:function(e){
-    var that = this
-    var status = e.currentTarget.dataset.status
-    var scheduleServiceId = e.currentTarget.dataset.id
+    var that = this;
+    console.log(e.currentTarget);
+    var status = e.currentTarget.dataset.status;
+    var scheduleServiceId = e.currentTarget.dataset.id;
+    var evaluateGiftId = e.currentTarget.dataset.evaluategiftid||"";
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?status=' +status + '&scheduleServiceId=' + scheduleServiceId,
+      url: '../orderDetail/orderDetail?status=' + status + '&scheduleServiceId=' + scheduleServiceId + "&evaluateGiftId=" + evaluateGiftId,
       success: function () {
       }
     })

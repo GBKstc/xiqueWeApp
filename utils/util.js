@@ -83,9 +83,111 @@ const isEmpty = function (o) {
   return true;
 }
 
+/**
+ * 时间数据转换
+ * @returns {
+ *  timeDuan //小时
+ *  date //年/月/日
+ *  timePart//时间段 HH:mm-HH:mm
+ *  week //星期几
+ * }
+ */
+
+const timeToObj = function(startTime,endTime){
+
+  if (isEmpty(startTime) || isEmpty(endTime)){
+    return {}
+  }
+
+  let date, date2, Y, M, D, h, hh, m, mm, week, timeDuan;
+
+  const tiemObj = {};
+
+  date = new Date(startTime);
+  date2 = new Date(endTime + 60000);//结束时间
+
+  //小时
+  timeDuan = (endTime + 60000 - startTime) / 1000 / 3600
+  tiemObj.timeDuan = timeDuan
+  Y = date.getFullYear() + '/';
+  M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';
+  D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+  h = date.getHours() + ':';
+  hh = date2.getHours() + ':';
+  m = date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()
+  mm = date2.getMinutes() < 10 ? '0' + date2.getMinutes() : date2.getMinutes()
+ //年/月/日
+  tiemObj.date = Y + M + D
+ //时间段 HH:mm-HH:mm
+  tiemObj.timePart = h + m + "-" + hh + mm
+
+
+
+  // 求是否是今，明，后天，后者是星期几
+  var jinDate = new Date()//今天时间对象
+  var mingms = Date.parse(jinDate) + 1 * 24 * 60 * 60 * 1000
+  var mingDate = new Date(mingms)//明天时间对象
+  var houms = Date.parse(jinDate) + 2 * 24 * 60 * 60 * 1000
+  var houDate = new Date(houms)//后天时间对象
+  if (date.toDateString() === jinDate.toDateString()) {
+    week = '今天'
+  } else if (date.toDateString() === mingDate.toDateString()) {
+    week = '明天'
+  } else if (date.toDateString() === houDate.toDateString()) {
+    week = '后天'
+  } else {
+    switch (date.getDay()) {
+      case 0: week = "星期天"; break
+      case 1: week = "星期一"; break
+      case 2: week = "星期二"; break
+      case 3: week = "星期三"; break
+      case 4: week = "星期四"; break
+      case 5: week = "星期五"; break
+      case 6: week = "星期六"; break
+    }
+  }
+  week //星期几
+  tiemObj.week = week;
+
+
+  return tiemObj;
+}
+
+/**对象和数组相关的函数**/
+/**
+ * 深度拷贝, 防止因直接赋值引起的地址相同问题
+ * @returns {*}
+ */
+const cpy =function(o) {
+  let res = {};
+  if (o === null) {
+    return o;
+  }
+  switch (typeof o) {
+    case "object":
+      //判断o是否是react组件对象， 如果是 直接赋值
+      if (!isEmpty(o) && o["$$typeof"] == Symbol.for('react.element')) {
+        res = o;
+        break;
+      }
+      if (Object.prototype.toString.call(o) === '[object Array]')
+        res = [];
+      for (let i in o) {
+        res[i] = cpy(o[i]);
+      }
+      break;
+    default: res = o; break;
+  }
+  return res;
+}
+
+
+
 module.exports = {
   formatTime: formatTime,
   throttle: throttle,
   isEmpty: isEmpty,
   mergeComponents: mergeComponents,
+  cpy: cpy,
+  timeToObj: timeToObj,
 }

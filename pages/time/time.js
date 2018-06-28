@@ -59,7 +59,8 @@ Page({
       22: false,
       23:false,
       24:false,
-      25:false
+      25: false,
+      26: false
     },
     isToggleX: {
       4: false,
@@ -83,7 +84,8 @@ Page({
       22: false,
       23: false,
       24: false,
-      25: false
+      25: false,
+      26: false
     },
     //下面三个只有跳转到核对信息页面用
     userId: 0,//技师id，上个页面传过来的
@@ -462,6 +464,13 @@ Page({
                             that.setData({ isActive: newisActive })
                           }
                           break
+                        case '20:30:00':
+                          if (hour < 20 || (hour === 20 && minuts < 30))  {
+                            var newisActive = that.data.isActive
+                            newisActive[26] = true
+                            that.setData({ isActive: newisActive })
+                          }
+                          break
                       }
 
                     }
@@ -579,6 +588,11 @@ Page({
                         case '20:00:00':
                           var newisActive = that.data.isActive
                           newisActive[25] = false
+                          that.setData({ isActive: newisActive })
+                          break
+                        case '20:30:00':
+                          var newisActive = that.data.isActive
+                          newisActive[26] = false
                           that.setData({ isActive: newisActive })
                           break
                       }
@@ -803,6 +817,11 @@ Page({
                             newisActive[25] = true
                             that.setData({ isActive: newisActive })
                           break
+                        case '20:30:00':
+                          var newisActive = that.data.isActive
+                          newisActive[26] = true
+                          that.setData({ isActive: newisActive })
+                          break
                       }
 
                     }
@@ -920,6 +939,11 @@ Page({
                         case '20:00:00':
                           var newisActive = that.data.isActive
                           newisActive[25] = false
+                          that.setData({ isActive: newisActive })
+                          break
+                        case '20:30:00':
+                          var newisActive = that.data.isActive
+                          newisActive[26] = false
                           that.setData({ isActive: newisActive })
                           break
                       }
@@ -1497,6 +1521,15 @@ Page({
           //   isFix: true
           // })
           break
+        case 26:
+          wx.pageScrollTo({
+            scrollTop: layerHeight * 22 + baseHeight,
+            duration: durationTime
+          })
+          // that.setData({
+          //   isFix: true
+          // })
+          break
       }
     }
   },
@@ -1904,9 +1937,16 @@ Page({
                           }
                           break
                         case '20:00:00':
-                          if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 18) {
+                          if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 20) {
                             var newisActive = that.data.isActive
                             newisActive[25] = true
+                            that.setData({ isActive: newisActive })
+                          }
+                          break
+                        case '20:30:00':
+                          if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 20 || (hour === 20 && minuts < 30)) {
+                            var newisActive = that.data.isActive
+                            newisActive[26] = true
                             that.setData({ isActive: newisActive })
                           }
                           break
@@ -2029,6 +2069,11 @@ Page({
                           newisActive[25] = false
                           that.setData({ isActive: newisActive })
                           break
+                        case '20:30:00':
+                          var newisActive = that.data.isActive
+                          newisActive[26] = false
+                          that.setData({ isActive: newisActive })
+                          break
                       }
 
                     }
@@ -2130,16 +2175,18 @@ Page({
             // console.log('1个')
             var arrOne = parseInt(arr[0])
             // 分连续和不连续两种
-            if ((numNum + 1 === arrOne) || (numNum - 1 === arrOne)){//连续
-              // console.log('1个连续')
-              var timeduan = 2 * 0.5//计算已选择的小时数
-              //只切换当前或相邻状态
-              isToggleX[numNum] = !isToggleX[numNum]
-              that.setData({
-                isToggleX: isToggleX,
-                timeduan: timeduan
-              })
-            } else if (numNum === arrOne){
+            // if ((numNum + 1 === arrOne) || (numNum - 1 === arrOne)){//连续
+            //   // console.log('1个连续')
+            //   var timeduan = 2 * 0.5//计算已选择的小时数
+            //   //只切换当前或相邻状态
+            //   isToggleX[numNum] = !isToggleX[numNum]
+            //   that.setData({
+            //     isToggleX: isToggleX,
+            //     timeduan: timeduan,
+            //     isclick: false,
+            //   })
+            // } else if (numNum === arrOne){
+            if (numNum === arrOne) {
               var timeduan = 0;//计算已选择的小时数
               isToggleX[numNum] = !isToggleX[numNum]
               that.setData({
@@ -2147,7 +2194,7 @@ Page({
                 timeduan: timeduan
               })
             } else {//不连续
-              // console.log('1个不连续')
+              console.log('1个不连续')
               if (numNum<arrOne){
                 that.changex(numNum, arrOne)
               } else if (numNum > arrOne){
@@ -2184,7 +2231,7 @@ Page({
                 }
               }
               var timeduan = (timeFormatArr.length) * 0.5//计算已选择的小时数
-              if (timeFormatArr.length >= 3) {
+              if (timeFormatArr.length >= 2) {
                 timeFormat = timeFormatArr.join(',')
                 that.setData({
                   timeFormat: timeFormat,
@@ -2220,7 +2267,7 @@ Page({
                 }
               }
               var timeduan = (timeFormatArr.length) * 0.5//计算已选择的小时数
-              if (timeFormatArr.length >= 3) {
+              if (timeFormatArr.length >= 2) {
                 timeFormat = timeFormatArr.join(',')
                 that.setData({
                   timeFormat: timeFormat,
@@ -2284,7 +2331,7 @@ Page({
           timeFormatArr.push(parseInt(tt))
         }
       }
-      if (timeFormatArr.length>=3){
+      if (timeFormatArr.length>=2){
         timeFormat = timeFormatArr.join(',')
         var timeduan = (timeFormatArr.length)*0.5//计算已选择的小时数
         that.setData({

@@ -3,12 +3,25 @@ var common = require('../../utils/commonConfirm.js')
 // 引入SDK核心类
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
+
+const URL = require('../../utils/URL.js');
+const util = require('../../utils/util');
+const {
+  requestAppid,
+  raffle,
+} = URL;
+const { 
+  isEmpty
+} = util;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    showPrize:true,//刮奖蒙层
+
+
     // random: wx.getStorageSync(getApp().globalData.appid),
     status:1,
     isArray:false,//手艺人，默认是1或3的状态
@@ -47,18 +60,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('触发了orderDetail的onLoad')
-    var that=this
+    console.log('orderDetail', options)
+    const that=this
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
-    var status = options.status//记录1，2还是3
-    var scheduleServiceId = options.scheduleServiceId//排班订单服务id
+    let status = options.status;//记录1，2还是3
+    let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
+    let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId:"";
     console.log('服务订单' , scheduleServiceId)
     that.setData({
       status: status,
-      scheduleServiceId: scheduleServiceId
+      scheduleServiceId: scheduleServiceId,
+      evaluateGiftId,
     })
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
@@ -68,6 +83,9 @@ Page({
           thirdSessionId: res.data,
           status: status,
           scheduleServiceId: scheduleServiceId
+        }
+        if (evaluateGiftId){
+          sendData.evaluateGiftId = evaluateGiftId;
         }
         console.log('订单详情初始化参数')
         console.log(sendData)
@@ -141,6 +159,8 @@ Page({
                 scheduleId: recordData.scheduleId,
                 timeFormat: recordData.timeFormat,
                 customerId: recordData.customerId,
+                isShowChangeTime: recordData.showChangeTime,
+                
                 day:Y+'-'+M+'-'+D,
                 cancelDisabled:false//解禁取消预约
               })
@@ -473,9 +493,34 @@ Page({
     }
 
   },
-  //提交按钮
+  
+
+
+  //抽奖
+  lottery:function(){
+    const that = this;
+    const { serviceId, evaluateGiftId } = that.data//服务单id
+    requestAppid({
+      URL: raffle,
+      param:{
+        serviceId,
+        evaluateGiftId
+      }
+    },function(data){
+      console.log(data);
+      if(isEmpty(data)){
+        data = {}
+      }
+      wx.redirectTo({
+        url: '../scrapeprice/scrapeprice?award=' + JSON.stringify(data),
+      })
+      }, function (data){})
+  },
+
+  //提交评价
   submitEvevate:function(){
     var that=this
+    const { evaluateGiftId } = that.data;
     // 获取五角星的个数
     if(!this.data.img5){//红色
       this.setData({
@@ -543,21 +588,27 @@ Page({
           success: function (res) {
             console.log(res.data)
             if (res.data.status === 200) {
-              //页面跳转成功后，设置上个页面值
-              var pages = getCurrentPages();
-              var prevPage = pages[pages.length - 2]//上一个页面
-              //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-              prevPage.setData({
-                status: 2
-              })
-              console.log('提交成功')
-              wx.navigateBack({
-                delta: 1,
-                // url: '../order/order',
-                success: function () {
-                  
-                }
-              })
+              //如果有活动ID 说明可以抽奖
+              if (evaluateGiftId){
+                
+              }else{
+                //页面跳转成功后，设置上个页面值
+                var pages = getCurrentPages();
+                var prevPage = pages[pages.length - 2]//上一个页面
+                //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+                prevPage.setData({
+                  status: 2
+                })
+                console.log('提交成功')
+                wx.navigateBack({
+                  delta: 1,
+                  // url: '../order/order',
+                  success: function () {
+
+                  }
+                })
+              }
+              
             } else if (res.data.status === 400) {//失败
               console.log(400)
               var msg = res.data.msg

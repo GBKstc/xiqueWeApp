@@ -82,7 +82,7 @@
           <view class="indexInput" wx:if="{{startData}}">
             <text class='date'>{{startData.date}}</text><text class='week' wx:if="{{startData.week}}">({{startData.week}})</text><text class='hour'>{{startData.startTime}}</text><text class='noon' wx:if="{{startData.noon}}">({{startData.noon}})</text>
           </view>
-          <view class="indexInputx" wx:else>
+          <view class="indexInputx" wx:else style="color:#FD9595;">
             请选择
           </view> 
         </view>

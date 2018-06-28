@@ -43,13 +43,14 @@
 }
 .number_right{
   flex: 1;
+  display: flex;
+  justify-content: space-between;
  
 }
 .number_num{
   color: #FD9595;
 }
 .number_shen{
-  margin-right: 80rpx;
 }
 
 

@@ -1,5 +1,7 @@
 // pages/checkinfo/checkinfo.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+const util = require('../../utils/util.js');
+const { isEmpty, cpy } = util;
 Page({
 
   /**
@@ -22,9 +24,7 @@ Page({
     animationDataShow: {},
     animationDataL: {},//必须得初始化定义，如果后期动态添加的话，就不是响应数据了，页面不会更新
     self:{},
-    booking: [{ id: 'tr0', customer_Name: '丁安昆', customer_Phone: "135898785",'customerId':''},
-      { id: 'tr1', customer_Name: '张三', customer_Phone: "137898785", 'customerId': '' }
-    ],
+    booking: [],
     sClientX:0,
     mClientX: 0,
     eClientX: 0
@@ -37,58 +37,75 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
+    const that = this
     // 上一个页面传过来的参数,提价预约时用
     var userId = options.userId//技师id
     var scheduleId = options.scheduleid//排班id
     var timeFormat = options.timeformat//预约时间块，逗号隔开
-    console.log('核对信息页面接收到的userId=' + userId + '&scheduleId=' + scheduleId + '&timeFormat=' + timeFormat)
-    that.setData({
-      userId: userId,
-      scheduleId: scheduleId,
-      timeFormat: timeFormat
-    })
-
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        // console.log('页面获取到随机数为')
-        // console.log(res.data)
-        wx.request({
-          url: getApp().url + 'user/getCurrentUser',
-          method: 'POST',
-          data: {
-            thirdSessionId: res.data
-          },
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data.status === 200) {
-              that.setData({
-                phoneValue: res.data.data.mobile,
-                nameValue: res.data.data.name,
-                maxnameValue: res.data.data.name.length > 4 ? res.data.data.name.substr(0, 4) : res.data.data.name,
-                customerId: res.data.data.id,//把本人id当做去做服务人id
-                appointmentId: res.data.data.id//data里的appointmentId用来存本人id,便于后期比较type值
-              })
-            } else if (res.data.status === 400) {//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
+    console.log('核对信息页面接收到的', options)
+    const { nameValue, phoneValue, customerid} = options;
+    
+    //编辑或者添加预约人后跳转此页面
+    if (!isEmpty(nameValue)){
+      that.setData({
+        userId: userId,
+        scheduleId: scheduleId,
+        timeFormat: timeFormat,
+        customerId: customerid,
+        nameValue,
+        phoneValue,
+      })
+    }else{
+      wx.getStorage({//异步获取随机数
+        key: getApp().globalData.appid,
+        success: function (res) {
+          // console.log('页面获取到随机数为')
+          // console.log(res.data)
+          wx.request({
+            url: getApp().url + 'user/getCurrentUser',
+            method: 'POST',
+            data: {
+              thirdSessionId: res.data
+            },
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            success: function (res) {
+              console.log(res.data)
+              if (res.data.status === 200) {
+                that.setData({
+                  phoneValue: res.data.data.mobile,
+                  nameValue: res.data.data.name,
+                  maxnameValue: res.data.data.name.length > 4 ? res.data.data.name.substr(0, 4) : res.data.data.name,
+                  customerId: res.data.data.id,//把本人id当做去做服务人id
+                  appointmentId: res.data.data.id,//data里的appointmentId用来存本人id,便于后期比较type值
+                  userId: userId,
+                  scheduleId: scheduleId,
+                  timeFormat: timeFormat,
+                })
+              } else if (res.data.status === 400) {//失败
+                console.log(400)
+                var msg = res.data.msg
+                //设置toast时间，toast内容  
+                that.setData({
+                  count: 2000,
+                  toastText: msg,
+                  userId: userId,
+                  scheduleId: scheduleId,
+                  timeFormat: timeFormat,
+                });
+                that.showToast();
+              }
+              common.status(res, that)//状态401和402
             }
-            common.status(res, that)//状态401和402
-          }
-        })
-      },
-      fail: function () {
-        console.log('页面获取随机数失败')
-      }
-    })
+          })
+        },
+        fail: function () {
+          console.log('页面获取随机数失败')
+        }
+      })
+    }
+    
+     
+    
     
   },
 
@@ -247,17 +264,15 @@ Page({
             if (res.data.status === 200) {
               //处理响应数据，如果名字大于四个，就给这个对象加一个属性，属性值为只取前面四个，否则不增加属性
               var selfData = res.data.data.self
-              var AppointmentListData = res.data.data.AppointmentList
+              var AppointmentListData = cpy(res.data.data.AppointmentList)
 
               if (selfData.name.length > 4) {//给self增加maxname属性
                   selfData.maxname = selfData.name.substr(0, 4)
               }
               for (var i = 0; i < AppointmentListData.length;i++){
                 var currAppoint = AppointmentListData[i]
-                for (var j in currAppoint){
-                  if (currAppoint.customer_real_name.length > 4) {//给AppointmentList里的每个对象增加maxname属性
-                    currAppoint.maxname = currAppoint.customer_real_name.substr(0, 4)
-                  }
+                if (currAppoint.customer_name.length > 4) {//给AppointmentList里的每个对象增加maxname属性
+                  currAppoint.maxname = currAppoint.customer_name.substr(0, 4)
                 }
               }
               that.setData({
@@ -286,12 +301,14 @@ Page({
   },
   //新增预约人
   addAppointMan: function () {
-    var that=this
+    
+    var that=this;
+    const { userId, scheduleId, timeFormat, customerId } = that.data;
     that.setData({
       isMask: false
     })
-    wx.navigateTo({
-      url: '../addAppoint/addAppoint',
+    wx.redirectTo({
+      url: '../addAppoint/addAppoint?' + 'userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&customerId=' + customerId,
       success: function () {
         that.setData({
           animationDataL: ''//左滑归位
@@ -314,7 +331,7 @@ Page({
   },
   //选中一个预约人
   selectAppoint:function(e){
-      var nameValue=e.currentTarget.dataset.name
+    var nameValue = e.currentTarget.dataset.name.length > 4 ? e.currentTarget.dataset.name.substr(0, 4) : e.currentTarget.dataset.name;
       var phoneValue = e.currentTarget.dataset.phone
       var customerId = e.currentTarget.dataset.customerid
       this.setData({
@@ -326,22 +343,31 @@ Page({
       })
   },
   //编辑预约人
-  // editAppoint: function (e) {
-  //   var that=this
-  //   var nameValue = e.currentTarget.dataset.name
-  //   var nicknameValue = e.currentTarget.dataset.nickname
-  //   var phoneValue = e.currentTarget.dataset.phone
-  //   var idValue = e.currentTarget.dataset.id
-  //   wx.navigateTo({
-  //     url: '../editAppoint/editAppoint?nameValue=' + nameValue + '&nicknameValue=' + nicknameValue +'&phoneValue=' + phoneValue + '&idValue=' + idValue,
-  //     success: function () {
-  //       that.setData({
-  //         isMask: false,
-  //         animationDataL: ''//左滑归位
-  //       })
-  //     }
-  //   })
-  // },
+  editAppoint: function (e) {
+    
+    var that=this;
+    const { userId, scheduleId, timeFormat } = that.data;
+    console.log("e",e)
+    var nameValue = e.currentTarget.dataset.name;
+    var nicknameValue = e.currentTarget.dataset.nickname;
+    var phoneValue = e.currentTarget.dataset.phone;
+    var idValue = e.currentTarget.dataset.id;
+    const customerId = e.currentTarget.dataset.customerid;
+    /**
+     * userId: userId,
+        scheduleId: scheduleId,
+        timeFormat: timeFormat,
+     */
+    wx.redirectTo({
+      url: '../addAppoint/addAppoint?nameValue=' + nameValue + '&nicknameValue=' + nicknameValue + '&phoneValue=' + phoneValue + '&idValue=' + idValue + '&userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&customerId=' + customerId,
+      success: function () {
+        that.setData({
+          isMask: false,
+          animationDataL: ''//左滑归位
+        })
+      }
+    })
+  },
   //删除预约人
   detailAppoint:function(e){
     var nameValue = e.currentTarget.dataset.name
@@ -435,7 +461,7 @@ Page({
 
       // this.animation = animation
 
-      animation.left(-133+'rpx').step()
+      animation.left(-244+'rpx').step()
 
       //获取目标元素的自定义data-id
       var dataId = e.currentTarget.dataset.num

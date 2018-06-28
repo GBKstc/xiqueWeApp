@@ -1,7 +1,5 @@
-
 {
   "pages": [
-
     "pages/index/index",
     "pages/orderDetailChance/orderDetailChance",
     "pages/orderDetail/orderDetail",
@@ -18,7 +16,7 @@
     "pages/chance/chance",
     "pages/checkinfo/checkinfo",
     "pages/two_demision/two_demision",
-    "pages/assess/assess",  
+    "pages/assess/assess",
     "pages/experience/experience",
     "pages/storeDistribution/storeDistribution",
     "pages/details/details",
@@ -26,7 +24,6 @@
     "pages/login/login",
     "pages/time/time",
     "pages/success/success"
-    
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
@@ -47,7 +44,7 @@
         "iconPath": "image/appoint.png",
         "selectedIconPath": "image/appointselected.png"
       },
-	  {
+      {
         "pagePath": "pages/experience/experience",
         "text": "体验",
         "iconPath": "image/appoint.png",

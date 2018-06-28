@@ -144,6 +144,9 @@
           <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[25]?'changeActive':''}} {{isActive[25]?'scrollTimeCellAc':''}}" data-num='25'>
             20:00
           </view>
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[26]?'changeActive':''}} {{isActive[26]?'scrollTimeCellAc':''}}" data-num='26'>
+            20:30
+          </view>
         </view>
       <!-- </scroll-view> -->
       <view class='kongCon' wx:else>

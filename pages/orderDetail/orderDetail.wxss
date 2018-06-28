@@ -96,6 +96,7 @@
   font-size:24rpx;
 }
 .evaluate{
+  margin-top:20rpx;
   padding:60rpx;
   background-color: #fff;
   position:relative;
@@ -104,6 +105,9 @@
   font-size:28rpx;
   color:#b1b1b1;
   margin-bottom:60rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .evaluateStars:after{
   content:"";
@@ -165,14 +169,12 @@
 .checkbox{
   color:#333;
   font-size:32rpx;
-  position:absolute;
-  top:60rpx;
-  right:60rpx;
    vertical-align: middle;
 }
 .checkbox .target{
   margin-right:10rpx;
   vertical-align: middle;
+  color:#fd9595!important;
 }
 .textColor{
   color:#fd9595!important;

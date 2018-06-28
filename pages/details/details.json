@@ -3,6 +3,6 @@
   "enablePullDownRefresh": true,
   "backgroundColor": "#ffffff",
   "usingComponents": {
-    "storeList": "../../component/storeList/storeList"
+    "Carousel": "../../component/carousel/carousel"
   }
 }

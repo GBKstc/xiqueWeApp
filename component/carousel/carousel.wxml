@@ -6,13 +6,13 @@
       bindchange="intervalChange"
       class="slideImage"
   >
-      <block wx:for="{{imgUrls}}" wx:key="imgUrls" class="slideImage">
+      <block wx:for="{{coverImgUrl}}" wx:key="item" class="slideImage">
           <swiper-item class='slideImage'>
               <image src="{{item}}"  class="slideImage imgBox" />
           </swiper-item>
       </block>
   </swiper>
   <view class='numIcon'>
-    {{imgIndex}}/{{imgUrls.length}}
+    {{coverImgUrl}}/{{coverImgUrl.length}}
   </view>
 </view>

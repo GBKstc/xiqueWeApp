@@ -1,23 +1,23 @@
 <view class='detail'>
   <view>
-    <text class='detail_header'>3D水漾护肤保湿面膜套装 </text>
-    <text class='detail_header_two detail_color'> (未使用)</text>
+    <text class='detail_header'>{{detail.eventName}}</text>
+    <text class='detail_header_two detail_color'> ({{detail.discountCodeStatusName}})</text>
   </view>
   <view class='favour_time'>
     <view class='favour mabottom'>优惠码:</view>
-    <text class='favour_font'>R00120170401sd89</text>
+    <text class='favour_font'>{{detail.discountCode}}</text>
   </view>
   <view class='take'>
-    <text class='favour'>注意 : </text>
-    <text class='member take_left'>仅限非会员使用</text>
+    <text class='favour' wx:if="{{detail.remind}}">注意 : </text>
+    <text class='member take_left'>{{detail.remind}}</text>
   </view>
-  <view class='count'>
+  <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
     <text class='favour'>核销时间 : </text>
-    <text class='member'>2018/9/9 16:20</text>
+    <text class='member'>{{detail.discountCodeEndTime}}</text>
   </view>
-  <view class='count'>
+  <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
     <text class='favour'>核销门店 : </text>
-    <text class='member'>西湖银泰店</text>
+    <text class='member'>{{detail.DiscountCodeActiveEntityVO.departmentName}}</text>
   </view>
 
   <view>
@@ -38,5 +38,23 @@
       <view class='five_logo'><text class='five_right'>+500元</text>代金券- <text class='appoint'>指定促销方案</text></view>
     </view>
   </view>
+  <view wx:if="{{detail.type!=2}}">
+    <text class='produce'>购买信息</text>
+    <view>
+      <image class='produce_img' src='../../image/zs.png'></image>
+    </view>
+    <view class='produce_top' >
+      <view class='five_logo'>
+        <view class='buyBox'>
+          <view class='buyTitle'>价格/(元)：</view>
+          <view class='buyContext'>{{detail.currentPrice||1000}}</view>
+        </view>
+        <view class='buyBox'>
+          <view class='buyTitle'>购买时间：</view>
+          <view class='buyContext'>{{detail.currentPrice}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>
-<button class='gobtn'>立即预约</button>
+<button class='gobtn'  bindtap='subscribe'>立即预约</button>

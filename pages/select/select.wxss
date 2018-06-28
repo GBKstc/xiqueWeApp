@@ -2,6 +2,7 @@
   width: 180rpx;
   height: 180rpx;
   margin-right: 33rpx;
+  display: block;
 }
 .select_row{
   padding: 30rpx;
@@ -36,14 +37,19 @@
   color: #fff;
 }
 .select_right_top{
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  display:-webkit-box; 
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:1; 
   color: #333333;
   font-size: 32rpx;
-  margin-top: 47rpx;
+  margin-top: 32rpx;
 }
 .select_right_bottom{
   color: #999999;
   font-size: 28rpx;
-  margin-top: 43rpx;
+  margin-top: 28rpx;
 }
 .select{
   padding: 32rpx 40rpx;

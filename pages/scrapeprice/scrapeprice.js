@@ -4,14 +4,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    award:{
+      coverImgUrl:"../../image/cry.png",
+      eventName:"运气不好，预约下次试试",
+    },
+    isShowJiang:false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log(options)
+    const that = this;
+    that.setData({
+      award: JSON.parse(options.award)
+    })
   },
 
   /**
@@ -33,6 +41,19 @@ Page({
    */
   onHide: function () {
     
+  },
+
+  lottery:function(){
+    const that = this;
+    that.setData({
+      isShowJiang:true,
+    })
+  },
+
+  getGift:function(){
+    wx.navigateTo({
+      url: '../success/success?towhere=select&successText=领取成功',
+    })
   },
 
   /**

@@ -1,35 +1,107 @@
 .scrape{
-  width: 100%;
-   /* height: 100%;  */
-   position: fixed;
-   top: 0;
+  position: fixed;
+  top: 0;
   left: 0;
-  right: 0;
-  bottom: 0; 
+  width: 100%;
+  height: 100%;
 }
 .scrape_image{
   width: 100%;
   height: 100%;
 }
 .scrape_wan{
-  position: absolute;
-  z-index: 10;
-   width: 346rpx; 
+  width: 520rpx;
   height: 322rpx;
-  margin: 203rpx 198rpx 0rpx 206rpx;
-  
+  position: absolute;
+  top: 200rpx;
+  left: 145rpx;
+  z-index: 100;
 }
 .scrape_go{
   position: absolute;
+  top: 488rpx;
+  left: 82rpx;
   z-index: 10;
-  margin: 488rpx 60rpx 0rpx 80rpx;
   width:608rpx;
   height: 288rpx;
-  line-height: 288rpx;
-  text-align: center;
-  background: #ccc;
+  
 }
 .jiang{
-  width: 100%;
+  width: 590rpx;
+  height: 270rpx;
+  background-color: white;
+  border-radius: 16rpx;
+  text-align: center;
+  line-height: 272rpx;
+  font-size: 65rpx;
+  font-weight: bold;
+  color: rgb(255, 135, 0);
+  position: absolute;
+  top: 9rpx;
+  left: 9rpx;
+  z-index: 20;
+  display: block;
+  transition: all 1s;
+}
+.jiangNone{
+  opacity : 0;
+}
+
+.backgroundImg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width:608rpx;
+  height: 288rpx;
+  z-index: 11;
+}
+
+.gift{
+  position: absolute;
+  top: 9rpx;
+  left: 9rpx;
+  z-index: 13;
+  width: 490rpx;
+  height: 170rpx;
+  padding: 50rpx;
+  display: flex;
+  justify-content: space-between;
+}
+.giftImg{
+  width:160rpx;
+  height: 160rpx;
+  display: block;
+}
+.context{
+  width: 278rpx;
   height: 100%;
+  font-size:30rpx;
+  display: flex;
+  flex-direction: column ;
+  justify-content: space-between;
+  line-height:50rpx;
+}
+.titmeContext{
+  color:#333333;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  display:-webkit-box; 
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2; 
+}
+
+.button{
+  position: absolute;
+  top: 875rpx;
+  left: 30rpx;
+  width:690rpx;
+  height:88rpx;
+  line-height: 88rpx;
+  background:rgba(255,255,255,1);
+  border-radius:10px;
+  text-align: center;
+  font-size:36rpx;
+  color:rgba(253,149,149,1);
+
+
 }

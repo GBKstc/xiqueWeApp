@@ -25,6 +25,7 @@
 .price_ago{
   font-size: 28rpx;
   color: #999999;
+   text-decoration: line-through;
 }
 .wan_top{
   margin-top: 43rpx;
@@ -82,4 +83,53 @@
   background: #FD9595;
   border: none;
   margin-top: 82rpx;
+}
+
+/* 弹窗 */
+.loadingMask{
+  position: fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  background:rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+}
+/* loading时弹框没合适的手艺人 */
+.loadingContent2{
+  position:absolute;
+  z-index: 100000;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:556rpx;
+  height:374rpx;
+  text-align: center;
+  color:#fd9595;
+  font-size:32rpx;
+  background-color: #fff;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loadingContent2 .title{
+  font-size: 44rpx;
+  font-weight: 900;
+  margin-top: 60rpx;
+  color: #333;
+  line-height: 44rpx;
+}
+
+.loadingContent22{
+  padding: 30rpx 60rpx 0 60rpx;
+  flex-grow:1;
+}
+.loadingContent2 .buttonArr{
+  height: 100rpx;
+  font-size: 36rpx;
+  text-align: center;
+  line-height: 100rpx;
+  border-top: 1px solid rgba(0, 0, 0,0.14);
 }

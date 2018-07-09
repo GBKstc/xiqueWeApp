@@ -1,9 +1,13 @@
-let URL = require('../../utils/URL.js');
+const URL = require('../../utils/URL.js');
+const util = require('../../utils/util.js');
 const {
   requestAppid,
   customerDiscountCodeDetail,
 } = URL;
-
+const { 
+  getDetailList,
+  formatTime
+ } = util;
 Page({
 
   /**
@@ -18,7 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options);
+    //console.log(options);
     const that = this;
     const item = JSON.parse(options.item);
     that.setData({
@@ -69,7 +73,25 @@ Page({
     const that = this;
     const { detail } = that.data;
     wx.redirectTo({
-      url: '../time/time?timetocraftman=true&isreplacetime=n&giftId=' + detail.id,
+      url: '../time/time?timetocraftman=true&isreplacetime=n&eventId=' + detail.id,
+    })
+  },
+
+  //门店导航
+  tostoreDistribution: function () {
+    const that = this;
+    const { detail } = that.data;
+    wx.navigateTo({
+      url: '../storeDistribution/storeDistribution?fromWhere=false&eventId=' + detail.id,
+      success: function () {
+      }
+    })
+  },
+
+  //退款
+  refund(){
+    wx.navigateTo({
+      url: '../refund/refund',
     })
   },
 
@@ -85,6 +107,10 @@ Page({
       param,
     }, function (data) {
       data.coverImgUrl = data.coverImgUrl ? data.coverImgUrl.split(",") : [];
+      data.detailList = getDetailList(data);
+      data.buyTime = formatTime(new Date(data.createtime));
+      data.discountCodeEndTime = formatTime(new Date(data.discountCodeEndTime))
+      
       console.log(data);
       that.setData({
         detail: data

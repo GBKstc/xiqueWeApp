@@ -1,0 +1,7 @@
+<view class='isNo'  style='display:black'>
+  <view class='imgBox'>
+    <image class='kongImg' src='../../image/kongpaiban.png'></image>
+  </view>
+  <view class="textContext">抱歉，暂未开通线上退款，</view>
+  <view class="textContext">可到门店进行现金退款</view>
+</view>

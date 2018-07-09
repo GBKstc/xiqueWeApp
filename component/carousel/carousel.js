@@ -4,13 +4,8 @@ Component({
     // 这里定义了innerText属性，属性值可以在组件使用时指定
     coverImgUrl: {
       type: Array,
-      value:[],
       observer: function (newVal, oldVal, changedPath){
         console.log(newVal, oldVal, changedPath);
-        let that = this;
-        that.setState({
-          coverImgUrl: newVal
-        })
       }
     }
   },
@@ -23,7 +18,7 @@ Component({
     imgIndex:1,
   },
   attached:function(){
-    console.log(this.data.coverImgUrl);
+    
   },
   methods: {
     intervalChange: function (e) {

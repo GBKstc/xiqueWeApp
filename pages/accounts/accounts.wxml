@@ -29,3 +29,11 @@
     <button class='confirm' bindtap='submit'>确定</button>
   </view>
 </view>
+<!-- 消息弹窗 -->
+<view class='loadingMask' wx:if="{{cardRankInfo}}">
+  <view class='loadingContent2' >
+    <view class='title'>提示</view>
+    <view class='loadingContent22'>{{cardRankInfo}}</view>
+    <view class='buttonArr' bindtap='closeMask'>知道了</view>
+  </view>
+</view>

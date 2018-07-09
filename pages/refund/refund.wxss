@@ -1,0 +1,25 @@
+/*没内容  */
+.isNo{
+  width: 100%;
+}
+
+.isNo .imgBox{
+  margin-top: 250rpx;
+  width:180rpx;
+  height:180rpx;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.imgBox image{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.textContext{
+  display: block;
+  margin-top: 45rpx;
+  font-size: 30rpx;
+  color: #999999;
+  text-align: center;
+}

@@ -1,5 +1,9 @@
 // pages/personalCenter/personalCenter.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+let URL = require('../../utils/URL.js');
+let util = require('../../utils/util.js');
+const { getUserScheduleServiceList, requestAppid } = URL;
+const { isEmpty } = util
 Page({
 
   /**
@@ -27,7 +31,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-    var that = this
+    var that = this;
+    
+    
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -73,7 +79,11 @@ Page({
         console.log('个人中心获取随机数失败')
       }
     })
+
+    
   },
+
+  
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -81,18 +91,15 @@ Page({
   onReady: function () {
 
   },
-  select: function () {
-    wx.navigateTo({
-      url: '../select/select',
-      success: function () {
-      }
-    })
-  },
+ 
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    if (!isEmpty(getApp().globalData.loginInfo)) {
+      this.userScheduleServiceList();
+    }
     var that = this
     // that.setData({//进来就先隐藏掉
     //   isLogin: true//隐藏姓名和手机号
@@ -226,6 +233,23 @@ Page({
   // onShareAppMessage:function () {
 
   // },
+
+  userScheduleServiceList() {
+    const that = this;
+    requestAppid({
+      URL: getUserScheduleServiceList,
+      param: {
+        status: 2,
+        pageNo: 1,
+        pageSize: 999,
+      }
+    }, function (res) {
+      console.log(res);
+      that.setData({
+        flag: res.flag,
+      })
+    })
+  },
   //点击登录
   tologin: function () {
     wx.navigateTo({
@@ -272,6 +296,25 @@ Page({
         // that.showToast();
       }
     })
+  },
+  //查看严选券
+  select: function () {
+    var that = this
+    if (!that.data.isLogin) {//登录了
+      wx.navigateTo({
+        url: '../select/select',
+        success: function () {
+        }
+      })
+    } else {//没登录
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: '请先登录'
+      });
+      that.showToast();
+    }
+    
   },
   //修改姓名
   // toModifyName:function(){

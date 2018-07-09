@@ -1,6 +1,6 @@
 <view class='allBox'>
   <view class='header baseBox'>
-    <Carousel prop-coverImgUrl="{{detail.coverImgUrl}}"></Carousel>
+    <Carousel coverImgUrl="{{detail.carouselImgUrl}}"></Carousel>
     <view class="headerContent">
       <text class='headerContentText'>{{detail.eventName}}</text>
       <view class='infoContent'>
@@ -17,19 +17,19 @@
         <image src='../../image/zs.png'></image>
       </view>
       <view class='banner'>
-        <view class='bannerList'>
+        <view class='bannerList' wx:for="{{detail.detailList}}" wx:key="{{item.name}}">
           <view class='itemName'>
-            <text>谷物黄金素(悦享版)</text>
-            <text class='remark'>-指定产品</text>
+            <text>{{item.name}}</text>
+            <text class='remark' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text>
           </view>
-          <text class='itemPrice'>500</text>
+          <text class='itemPrice'>{{item.numString}}</text>
         </view>
-        <view class='bannerList'>
+        <!-- <view class='bannerList'>
           <view class='itemName'>
             <text>谷物黄金素(悦享版)</text>
           </view>
           <text class='itemPrice'>*1</text>
-        </view>
+        </view> -->
       </view>
       <view class='footerInfo'>
           <image src='../../image/att.png'></image>
@@ -46,16 +46,16 @@
       </view>
       <view class='detailsText'>{{detail.goodsDetail}}</view>
       <view class='imgList'>
-        <image src='{{detail.coverImgUrl}}'></image>
+        <image wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}" src='{{item}}'></image>
       </view>
     </view>
   </view>
 
   <view class='baseBox'>
     <view class='storeLsitHeader'>
-      <view class='listHeaderBox'>
+      <view class='listHeaderBox' bindtap='tostoreDistribution'>
         <view class='box1'>
-          <text>适用门店  （共{{detail.usableStoreList.length}}店）</text>
+          <text>适用门店  （共{{detail.usableStoreNum}}店）</text>
           <image src='../../image/zs.png'></image>
         </view>
         <view class='box2'>
@@ -67,11 +67,12 @@
       <view class='storeList' wx:for="{{detail.usableStoreList}}" wx:key="{{item.id}}">
         <view class='storeName'>
           <view>{{item.name}}</view>
-          <view>{{item.distance}}</view>
+          <view wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceK}}公里</view>
+          <view wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}公里</view>
         </view>
         <view class='storeAdress'>
           <view class="storeAdressText">{{item.address}}</view>
-          <view><image src='../../image/go.png'></image></view>
+          <view bindtap='toMap' data-name="{{item.name}}" data-address="{{item.address}}"  data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}"><image src='../../image/go.png'></image></view>
         </view>
       </view>
     </view>
@@ -95,16 +96,19 @@
   <view class='loadingContent2' >
     <view class='title'>提示</view>
     <view class='loadingContent22'>{{cardRankInfo}}</view>
-    <view class='buttonArr'>知道了</view>
+    <view class='buttonArr' bindtap='closeMask'>知道了</view>
   </view>
 </view>
 
+<!--mask-->  
+<include src="../../utils/commonConfirm.wxml"/> 
+
 <!-- 消息弹窗 -->
-<view class='loadingMask modal' wx:if="{{timesInfo}}">
+<!-- <view class='loadingMask modal' wx:if="{{timesInfo}}">
   <view class='loadingContent2' >
     <view class='title'>提示</view>
     <view class='loadingContent22'>您的购买次数已达上限</view>
     <view class='buttonArr'>知道了</view>
   </view>
-</view>
+</view> -->
 

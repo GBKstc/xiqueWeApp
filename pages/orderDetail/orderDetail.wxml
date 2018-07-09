@@ -87,8 +87,8 @@
       <view class='star' wx:for="{{recordData.evaluateScore}}" wx:key="{{item}}"><image mode="widthFix" src='../../image/evaluated.png'></image></view>
     </view>
     <view class='evaluateItem'>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}">{{item.evaluateLable}}</text>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}">{{item.evaluateLable}}</text>
+      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
+      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
     </view>
   </view>
   <!-- 提交按钮 -->
@@ -97,7 +97,7 @@
   </view>
    <!-- 提交抽奖 -->
  <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&recordData.evaluateGiftEntity}}">
-    <button class='submitButton' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='lottery' >立即抽奖</button>
+    <button class='submitButton' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='submitEvevate' >立即抽奖</button>
   </view>
 
   <!-- 取消预约按钮 -->

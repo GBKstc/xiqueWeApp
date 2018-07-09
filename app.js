@@ -1,4 +1,5 @@
-
+import URL from "./utils/URL.js";
+const { getCurrentUser } = URL;
 
 // 正版
 App({
@@ -14,6 +15,36 @@ App({
 
   //  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
   onLaunch: function () {
+    console.log("app onLaunch")
+    const that = this;
+    wx.getStorage({//异步获取随机数
+      key: that.globalData.appid,
+      success: function (res) {
+        wx.request({
+          url: that.url + getCurrentUser,
+          data: {
+            thirdSessionId: res.data,
+          },
+          method: "POST",
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' // 默认值
+          },
+          success: function (res) {
+            if (res.statusCode == 200 && res.data.status){
+              that.globalData.loginInfo = res.data.data;
+            }else{
+              console.log("app 获取登录信息失败")
+            }
+            
+          }
+        })
+      }
+    })
+
+    
+  },
+  onShow:function(){
+    console.log("app onShow")
   },
   login: function () {
     // console.log('调用app.js页面的login函数')
@@ -124,10 +155,6 @@ App({
       }
     })
   },
-
-  onShow:function(enter){
-    // console.log('onShow')
-  }
 })
 
 

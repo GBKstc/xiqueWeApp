@@ -1,6 +1,7 @@
 let URL = require('../../utils/URL.js');
 const {
   requestAppid,
+  getQRcode
 } = URL;
 Page({
 
@@ -20,8 +21,10 @@ Page({
 
     const that = this;
     that.getQRcode(options.acessToken);
+    const loginInfo = getApp().globalData.loginInfo;
     this.setData({
-      acessToken: options.acessToken
+      acessToken: options.acessToken,
+      loginInfo,
     })
   },
 
@@ -48,24 +51,19 @@ Page({
 
   getQRcode(acessToken) {
     const that = this;
-    wx.request({
-      url: "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + acessToken,
-      data:{
-        scene:"AAAA",
-        page:"pages/index/index"
-      },
-      method:"POST",
-      header: { 'content-type': 'image/jpeg' },
-      success:function(res){
-        console.log(res);
-        // var array = wx.base64ToArrayBuffer(res.data);
-        // console.log(array);
-        var base64 = wx.arrayBufferToBase64(res.data); 
-        console.log(base64);
-        that.setData({
-          imgUrl: base64
-        })
-      }
+    const scene = { recommendId: getApp().globalData.loginInfo.id};
+    const data = {
+      scene: JSON.stringify(scene),
+      path: "pages/details/details"
+    };
+    requestAppid({
+      URL: getQRcode,
+      param: data
+    }, function (imgUrl){
+      console.log(imgUrl);
+      that.setData({
+        imgUrl
+      })
     })
   },
   

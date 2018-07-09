@@ -42,10 +42,15 @@ Page({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
     //获取页面打开源
-    var fromWhere = options.fromWhere
-    console.log(fromWhere)
+    let fromWhere = options.fromWhere;
+    let eventId = options.eventId;
+    if (!eventId){
+      eventId = "";
+    }
+    //console.log(fromWhere)
     that.setData({
-      fromWhere: fromWhere
+      fromWhere: fromWhere,
+      eventId: eventId
     })
     //初始化页面
     wx.getSetting({//判断是否授权了地理位置
@@ -87,7 +92,8 @@ Page({
   //公共的请求
   commonRequest: function (longitude, latitude) {
     console.log('rrr')
-    var that=this
+    var that=this;
+    const { eventId } = that.data;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -98,7 +104,8 @@ Page({
           sendData = {
             thirdSessionId: res.data,
             pageNo: 1,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId,
           }
         } else {
           sendData = {
@@ -106,7 +113,8 @@ Page({
             longitude: longitude,
             latitude: latitude,
             pageNo: 1,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId,
           }
         }
         wx.request({
@@ -199,7 +207,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-      setTimeout(function() {3
+      setTimeout(function() {
         wx.stopPullDownRefresh();
       }, 1000)
   },
@@ -245,6 +253,7 @@ Page({
   commonBottomRequest: function (longitude, latitude){
     var that=this
     console.log('再次公共请求')
+    const { eventId} = that.data;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -256,7 +265,8 @@ Page({
             thirdSessionId: res.data,
             name:that.data.name,
             pageNo: that.data.pageNo,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId
           }
         } else {
           sendData = {
@@ -265,7 +275,8 @@ Page({
             longitude: longitude,
             latitude: latitude,
             pageNo: that.data.pageNo,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId
           }
         }
         wx.request({
@@ -393,7 +404,8 @@ Page({
   },
   //输入门店公共的请求
   storeCommonRequest: function (longitude, latitude) {
-    var that = this
+    var that = this;
+    const { eventId } = that.data;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -405,7 +417,8 @@ Page({
             thirdSessionId: res.data,
             name: that.data.name,
             pageNo: 1,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId
           }
         } else {
           sendData = {
@@ -414,7 +427,8 @@ Page({
             longitude: longitude,
             latitude: latitude,
             pageNo: 1,
-            pageSize: 10
+            pageSize: 10,
+            eventId: eventId
           }
         }
         wx.request({

@@ -1,5 +1,6 @@
 // pages/login/login.js
 var common = require('../../utils/commonConfirm.js')
+const app = getApp();
 Page({
   /**
    * 页面的初始数据
@@ -264,11 +265,12 @@ Page({
           method: 'POST',
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-
+            
             console.log(res)
             //成功
             if (res.data.status === 200) {
-              // console.log(200)
+              //app.globalData.loginInfo = res.data.data;
+              console.log(res.data)
               // wx.setStorageSync(that.data.random + 'CustomerId', res.data.data.id)//存用户id
               // wx.setStorageSync(getApp().globalData.appid + 'CustomerId', res.data.data.id)//存用户id
               var howTo = that.data.howTo
@@ -288,19 +290,21 @@ Page({
                   complete: function (res) { },
                 })
               } else if (howTo === 'false') {
-                url = "../personalCenter/personalCenter"//跳转到我的页面
-                wx.switchTab({
-                  url: url,
-                  success: function (res) {
-                    // clearInterval(timer)
-                  }
-                })
+                wx.navigateBack({})
+                // url = "../personalCenter/personalCenter"//跳转到我的页面
+                // wx.switchTab({
+                //   url: url,
+                //   success: function (res) {
+                //     // clearInterval(timer)
+                //   }
+                // })
               }
 
 
             } else if (res.data.status === 400) {//失败
               console.log(400)
               var msg = res.data.msg
+              app.globalData.loginInfo = {};
               //设置toast时间，toast内容  
               that.setData({
                 count: 2000,

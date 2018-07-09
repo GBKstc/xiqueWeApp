@@ -1,3 +1,6 @@
+import URL from "./URL.js";
+const { requestAppid, checkLogin} = URL;
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -14,6 +17,35 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+/**
+  * 检查是否登录
+  *
+  **/
+const isLogin = function(suc){
+  //检查是否登录,登录返回登录信息 
+  requestAppid({ 
+    URL:checkLogin,  
+  },function(data){
+    console.log(data);
+    if(data.login){
+      //登录
+      if (suc) {
+        suc()
+      }
+    }else{
+      //未登录
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+    
+  },function(){
+    //未登录
+    wx.navigateTo({
+      url: '../login/login',
+    })
+  })
+};
 /**
   * 组件共通时把组件中的方法合并到页面中
   * param
@@ -82,6 +114,66 @@ const isEmpty = function (o) {
   }
   return true;
 }
+
+/**
+ * 获取商品介绍列表
+ * @returns {*}
+ */
+const getDetailList = function (data) {
+  let detailList = [];
+  
+  
+  //处理赠送金额
+  if (!isEmpty(data.giveDiscountCodeList)) {
+    for (let i of data.giveDiscountCodeList) {
+      const { giveSonAccountname, amount } = i;
+      const item = {};
+      item.numString = "+" + amount + "元";
+      item.name = "代金券";
+      if (giveSonAccountname.indexOf("生美") >= 0) {
+        item.nameDetail = "-指定生美";
+      }
+      if (giveSonAccountname.indexOf("医美") >= 0) {
+        item.nameDetail = "-指定医美";
+      }
+      if (giveSonAccountname.indexOf("物品") >= 0) {
+        item.nameDetail = "-指定产品";
+      }
+      if (giveSonAccountname.indexOf("项目") >= 0) {
+        item.nameDetail = "-指定项目";
+      }
+      if (giveSonAccountname.indexOf("疗程") >= 0) {
+        item.nameDetail = "-指定疗程";
+      }
+      if (giveSonAccountname.indexOf("促销") >= 0) {
+        item.nameDetail = "-指定促销方案";
+      }
+      detailList.unshift(item);
+    }
+  }
+  //处理赠送物品
+  if (!isEmpty(data.giveGoodsVOList)) {
+    for (let i of data.giveGoodsVOList) {
+      const { goodsName, num } = i;
+      const item = {};
+      item.name = goodsName;
+      item.numString = "+" + num;
+      detailList.unshift(item);
+    }
+  }
+  //处理赠送项目
+  if (!isEmpty(data.giveProjectVOList)) {
+    for (let i of data.giveProjectVOList) {
+      const { projectName, num } = i;
+      const item = {};
+      item.name = projectName;
+      item.numString = "+" + num;
+      detailList.unshift(item);
+    }
+  }
+  return detailList;
+}
+
 
 /**
  * 时间数据转换
@@ -183,6 +275,7 @@ const cpy =function(o) {
 
 
 
+
 module.exports = {
   formatTime: formatTime,
   throttle: throttle,
@@ -190,4 +283,6 @@ module.exports = {
   mergeComponents: mergeComponents,
   cpy: cpy,
   timeToObj: timeToObj,
+  getDetailList:getDetailList,
+  isLogin: isLogin,
 }

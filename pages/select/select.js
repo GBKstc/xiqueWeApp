@@ -5,7 +5,8 @@ const {
   getCustomerDiscountCodeList
 } = URL;
 const {
-  isEmpty
+  isEmpty,
+  formatTime
 } = util;
 Page({
 
@@ -14,6 +15,7 @@ Page({
    */
   data: {
     list:[],
+    page:1,
   },
 
   /**
@@ -21,7 +23,7 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    that.customerDiscountCodeList();
+    that.customerDiscountCodeList(1);
 
   },
 
@@ -58,38 +60,29 @@ Page({
     })
   },
 
-  customerDiscountCodeList:function(){
+  customerDiscountCodeList:function(page){
     const that = this;
     requestAppid(
       {
         URL: getCustomerDiscountCodeList,
         param: {
-          pageNo: 1,
+          pageNo: page||1,
           pageSize: 20,
         },
       },
       function (data) {
-        console.log(data.list);
-        let list = data.list;
+        let {list} = that.data;
+        //let list = data.list;
         if (isEmpty(data.list)){
-          list = [];
+          // list = [];
+          return ;
+        }else{
+          list = list.concat(data.list);
         }
-        // for(let i=0;i<list.length;i++){
-        //   let string = "";
-        //   switch (list[i].discountCodeStatus){
-        //     case 0:
-        //       string = "未使用";
-        //       break;
-        //     case 1:
-        //       string = "已过期";
-        //       break;
-        //     case 2:
-        //       string = "已使用";
-        //       break;
-
-        //   }
-        //   list[i].discountCodeStatusString = string;
-        // }
+        for(let i of list){
+          i.endTime = formatTime(new Date(i.discountCodeEndTime));
+        }
+        console.log(list)
         that.setData({
           list: list
         })
@@ -115,7 +108,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    
+    console.log("select触底");
+    const that = this;
+    let { list,page} = that.data;
+    page = page+1;
+    that.customerDiscountCodeList(page);
+    that.setData({
+      page
+    })
   },
 
   /**

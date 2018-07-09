@@ -7,17 +7,31 @@
     <view class='favour mabottom'>优惠码:</view>
     <text class='favour_font'>{{detail.discountCode}}</text>
   </view>
-  <view class='take'>
-    <text class='favour' wx:if="{{detail.remind}}">注意 : </text>
+  <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view>
+  <view class='take' wx:if="{{detail.remind}}">
+    <text class='favour' >注意 : </text>
     <text class='member take_left'>{{detail.remind}}</text>
   </view>
+  
   <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
     <text class='favour'>核销时间 : </text>
+    <text class='member'>{{detail.discountCodeEndTime}}</text>
+  </view>
+  <view class='count' wx:else>
+    <text class='favour'>有效期至 : </text>
     <text class='member'>{{detail.discountCodeEndTime}}</text>
   </view>
   <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
     <text class='favour'>核销门店 : </text>
     <text class='member'>{{detail.DiscountCodeActiveEntityVO.departmentName}}</text>
+  </view>
+
+  <view class='storesCount' wx:if="{{!detail.DiscountCodeActiveEntityVO}}" bindtap='tostoreDistribution'>
+    <view class='favour'>适用门店 : </view>
+    <view class='stores'>
+      <view class='storesNum'>{{detail.usableStoreNum}}家</view>
+      <image class='storesImage' src='../../image/craftManBack.png'></image>
+    </view>
   </view>
 
   <view>
@@ -26,19 +40,11 @@
       <image class='produce_img' src='../../image/zs.png'></image>
     </view>
     <view class='produce_top'>
-      <view class='five_logo'>
-      <text class='five_right'>+1个</text>
-        4D体雕-五行通背
-      </view>
-      <view class='five_logo'><text class='five_right'>+1瓶</text>谷物黄金素 (月享版)</view>
-      <view class='five_logo'><text class='five_right'>+500元</text>代金券</view>
-      <view class='five_logo'><text class='five_right'>+500元</text> 代金券 <text class='appoint'>-指定产品</text></view>
-      <view class='five_logo'><text class='five_right'>+500元</text>代金券 <text class='appoint'>-指定项目</text></view>
-      <view class='five_logo'><text class='five_right'>+500元</text>代金券- <text class='appoint'>指定疗程</text></view>
-      <view class='five_logo'><text class='five_right'>+500元</text>代金券- <text class='appoint'>指定促销方案</text></view>
+      <view class='five_logo' wx:for="{{detail.detailList}}" wx:key="{{item.name}}"><text class='five_right'>{{item.numString}}</text>{{item.name}}<text class='appoint' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text></view>
+      
     </view>
   </view>
-  <view wx:if="{{detail.type!=2}}">
+  <view wx:if="{{item.type==2}}">
     <text class='produce'>购买信息</text>
     <view>
       <image class='produce_img' src='../../image/zs.png'></image>
@@ -47,11 +53,11 @@
       <view class='five_logo'>
         <view class='buyBox'>
           <view class='buyTitle'>价格/(元)：</view>
-          <view class='buyContext'>{{detail.currentPrice||1000}}</view>
+          <view class='buyContext'>{{detail.currentPrice}}</view>
         </view>
         <view class='buyBox'>
           <view class='buyTitle'>购买时间：</view>
-          <view class='buyContext'>{{detail.currentPrice}}</view>
+          <view class='buyContext'>{{detail.buyTime}}</view>
         </view>
       </view>
     </view>

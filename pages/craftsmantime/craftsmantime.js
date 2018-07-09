@@ -38,22 +38,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("craftsmantime",options);
     wx.showLoading({
       title: '加载中',
       mask: true
     })
-    var that=this
-    var timeformat = options.timeformat//
-    var toggleDay = options.toggleDay//
+    var that=this;
+    var timeformat = options.timeformat;//
+    var toggleDay = options.toggleDay;//
     //下面两参数都是从换时间按钮传过来的，一直传到核对修改信息页面(checkmodifyinfo.html)
-    var isReplaceTime = options.isreplacetime
-    var scheduleServiceId = options.scheduleserviceid
-    console.log('选择手艺人页面接收数据', isReplaceTime, scheduleServiceId)
+    var isReplaceTime = options.isreplacetime;
+    var scheduleServiceId = options.scheduleserviceid;
+    const eventId = options.eventId||"";
     that.setData({
       timeformat: timeformat,
       toggleDay: toggleDay,
       isReplaceTime: isReplaceTime,
-      scheduleServiceId: scheduleServiceId
+      scheduleServiceId: scheduleServiceId,
+      eventId: eventId,
     })
     // console.log(departmentId)
     //动态设置标题
@@ -89,7 +91,8 @@ Page({
             thirdSessionId: res.data,
             timeFormat: that.data.timeformat,
             day: that.data.toggleDay,
-            isReplaceTime: that.data.isReplaceTime
+            isReplaceTime: that.data.isReplaceTime,
+            eventId: that.data.eventId,
           }
         } else {
           sendData = {
@@ -98,7 +101,8 @@ Page({
             day: that.data.toggleDay,
             longitude: longitude,
             latitude: latitude,
-            isReplaceTime: that.data.isReplaceTime
+            isReplaceTime: that.data.isReplaceTime,
+            eventId: that.data.eventId,
           }
         }
         wx.request({

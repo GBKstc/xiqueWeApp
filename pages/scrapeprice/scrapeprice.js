@@ -17,9 +17,12 @@ Page({
   onLoad: function (options) {
     console.log(options)
     const that = this;
-    that.setData({
-      award: JSON.parse(options.award)
-    })
+    if (options.award){
+      that.setData({
+        award: JSON.parse(options.award)
+      })
+    }
+    
   },
 
   /**
@@ -33,7 +36,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    const that = this;
+    that.showCanvas();
   },
 
   /**
@@ -56,6 +60,67 @@ Page({
     })
   },
 
+  goAppointment(){
+    wx.switchTab({
+      url: '../index/index',
+    })
+  },
+  //刮奖初始化
+  showCanvas(){
+    const ctx = wx.createCanvasContext('scratch');
+    console.log(ctx);
+    ctx.setFillStyle("rgb(179,184,178)");
+    ctx.fillRect(0, 0,1000,1000);
+    ctx.draw();
+  },
+  //开始刮奖
+  touchStart(e){
+    const that = this;
+    const { isShowJiang } = that.data;
+    if (isShowJiang){
+      return ;
+    }
+    const ctx = wx.createCanvasContext('scratch');
+    console.log("开始刮奖",e.touches[0]);
+    ctx.clearRect(e.touches[0].x, e.touches[0].y, 20, 20);
+    ctx.draw(true);
+    
+    
+  },
+
+  //刮奖中
+  touchMove(e) {
+    console.log("刮奖中",e.touches[0]);
+    const that = this;
+    const { isShowJiang } = that.data;
+    if (isShowJiang) {
+      return;
+    }
+    const ctx = wx.createCanvasContext('scratch');
+
+    ctx.clearRect(e.touches[0].x, e.touches[0].y, 20, 20);
+    ctx.draw(true);
+  },
+  //刮奖结束
+  touchEnd(e){
+    console.log("刮奖结束", e);
+    const that = this;
+    setTimeout(function () {
+      that.setData({
+        isShowJiang: true,
+      })
+    }, 200);
+    // const that = this;
+    // const { isShowJiang } = that.data;
+    // if (isShowJiang) {
+    //   return;
+    // }
+    // const ctx = wx.createCanvasContext('scratch');
+    
+    // ctx.clearRect(e.touches[0].x, e.touches[0].y, 20, 20);
+    // ctx.draw(true);
+    
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

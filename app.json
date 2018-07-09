@@ -1,6 +1,8 @@
 {
   "pages": [
+    
     "pages/index/index",
+    "pages/refund/refund",
     "pages/orderDetailChance/orderDetailChance",
     "pages/orderDetail/orderDetail",
     "pages/scrapeprice/scrapeprice",
@@ -24,6 +26,7 @@
     "pages/login/login",
     "pages/time/time",
     "pages/success/success"
+    
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
@@ -46,9 +49,9 @@
       },
       {
         "pagePath": "pages/experience/experience",
-        "text": "体验",
-        "iconPath": "image/appoint.png",
-        "selectedIconPath": "image/appointselected.png"
+        "text": "严选",
+        "iconPath": "image/exp1.png",
+        "selectedIconPath": "image/exp.png"
       },
       {
         "pagePath": "pages/personalCenter/personalCenter",

@@ -514,7 +514,14 @@ Page({
       wx.redirectTo({
         url: '../scrapeprice/scrapeprice?award=' + JSON.stringify(data),
       })
-      }, function (data){})
+      // wx.redirectTo({
+      //   url: '../scrapeprice/scrapeprice?award=',
+      // })
+      }, function (data){
+        wx.redirectTo({
+          url: '../scrapeprice/scrapeprice?award=',
+        })
+      })
   },
 
   //提交评价
@@ -590,7 +597,7 @@ Page({
             if (res.data.status === 200) {
               //如果有活动ID 说明可以抽奖
               if (evaluateGiftId){
-                
+                that.lottery()
               }else{
                 //页面跳转成功后，设置上个页面值
                 var pages = getCurrentPages();

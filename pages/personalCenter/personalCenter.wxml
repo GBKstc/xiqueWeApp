@@ -22,18 +22,19 @@
         <view class='checkIcon'>
           <image mode='widthFix' src='../../image/checkOrder.png'></image>
         </view>
-        <view class='checkText'>订单</view>
-        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <view class='checkText'>查看订单</view>  
+        <image class='checkBack2' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <view class="evaluationGift" wx:if="{{flag}}">评价送礼</view>
       </view>
     </view>
 
-    <view bindtap='select' class='operationItem' style='border-bottom:1px solid #eee;'>
+    <view bindtap='select' class='operationItem' style='margin-bottom:20rpx'>
        <view class='operationCenter'>
          <view class='checkIcon'>
-           <image mode='widthFix' src='../../image/bar.png'></image>
+           <image mode='widthFix' src='../../image/tyq.png'></image>
          </view>
            <view class='checkText'>严选劵</view>
-        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack'  mode='aspectFit' src='../../image/personalBack.png'></image>
        </view>
     </view>
 
@@ -51,7 +52,7 @@
         <view class='checkIcon'>
           <image mode='widthFix' src='../../image/callMe.png'></image>
         </view>
-        <view class='checkText'>客服</view>
+        <view class='checkText'>联系客服</view>
         <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
       </view>
     </view>

@@ -28,6 +28,10 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+   
+  },
+
+  buyDiscountCodeEventList(){
     const that = this;
     requestAppid({
       URL: getBuyDiscountCodeEventList,
@@ -37,9 +41,17 @@ Page({
       },
     }, function (data) {
       console.log(data);
-      that.setData({
-        listData:data.list
-      })
+      wx.stopPullDownRefresh();
+      if (data){
+        that.setData({
+          listData: data.list
+        })
+      }else{
+        that.setData({
+          listData: []
+        })
+      }
+      
     });
   },
 
@@ -48,7 +60,8 @@ Page({
    */
   onShow: function () {
 
-   
+    const that = this;
+    that.buyDiscountCodeEventList();
     
   },
   //开始*******************************************************************************************
@@ -72,6 +85,10 @@ Page({
     
   },
 
+  onPullDownRefresh:function(){
+    console.log("aa")
+    that.buyDiscountCodeEventList();
+  },
   /**
    * 生命周期函数--监听页面卸载
    */

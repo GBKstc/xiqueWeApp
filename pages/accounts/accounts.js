@@ -3,7 +3,9 @@ const { isEmpty} = util;
 let URL = require('../../utils/URL.js');
 const {
   requestAppid,
-  checkTimes
+  checkTimes,
+  cancelBuy,
+  buyDiscountCode,
 } = URL;
 Page({
 
@@ -76,6 +78,7 @@ Page({
     const that = this;
     let { number, detail, } = that.data;
     const currentPrice = detail.currentPrice;
+    let amount = 0;
     if (number >= 2) {
       number = number - 1;
       amount = currentPrice * number;
@@ -92,6 +95,8 @@ Page({
   submit: function () {
     const that = this;
     const { number, amount, detail} = that.data;
+    const { recommendId, recommendGiftId, flag} = getApp().globalData;
+    console.log(recommendId, recommendGiftId, flag);
     const param = {
       id: detail.id,
       times: number,
@@ -99,21 +104,70 @@ Page({
       amount: detail.currentPrice,
       //recommendId //推荐人ID
     }
+    //有推荐人 且推荐优惠码ID为购买ID 
+    if (recommendId && flag && recommendGiftId == detail.id){
+      param.recommendId = recommendId;
+      param.flag = flag;
+    }
     //验证购买次数
     requestAppid({
       URL: checkTimes,
       param,
     }, function (data) {
       console.log("验证购买次数成功")
-      // wx.navigateTo({
-      //   url: '../accounts/accounts?detail=' + JSON.stringify(detail),
-      // })
+      requestAppid({
+        URL: buyDiscountCode,
+        param,
+      },function(data){
+        const reqData = JSON.parse(data.payinfo); 
+        const orderno = data.orderno;
+        reqData.success = function(){
+          wx.redirectTo({
+            url: '../select/select',
+          });
+        }
+        reqData.fail = function (data) {
+          console.log(data);
+          that.setData({
+            cardRankInfo: "购买失败，请重试"
+          })
+          const cancelBuyParam = {
+            id: detail.id,
+            times: number,
+            orderno: orderno,
+          };
+          if(data.errMsg == "requestPayment:fail cancel"){
+            cancelBuyParam.payStatus = "06";
+          } else {
+            cancelBuyParam.payStatus = "04";
+          };
+          
+          requestAppid({
+            URL:cancelBuy,
+            param: cancelBuyParam,
+          },function(){
+            
+          })
+          
+        }
+        wx.requestPayment(reqData);
+      })
+     
     }, function (msg) {
-
-      console.log("验证购买次数失败")
+      that.setData({
+        cardRankInfo: msg
+      })
+      console.log(msg)
       that.setData({
         timesInfo: true
       })
+    })
+  },
+
+  closeMask: function () {
+    const that = this;
+    that.setData({
+      cardRankInfo: ""
     })
   },
 

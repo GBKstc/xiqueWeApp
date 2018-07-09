@@ -108,6 +108,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log("time",options);
     wx.showLoading({
       title: '加载中',
       mask: true
@@ -131,6 +132,8 @@ Page({
     var dayTowhat = decodeURIComponent(options.daytowhat)//换时间按钮传来的2017-02-13,看八天里面的哪一天变红
     var receiveData = decodeURIComponent(options.receivedata)//首页时间按钮传过来的值，别的页面不传
     
+
+    const eventId = options.eventId||"";
     console.log('换时间', isReplaceTime, scheduleServiceId, timeformatshow, dayTowhat)
     //设置初始值
     this.setData({
@@ -142,7 +145,8 @@ Page({
       timetocraftman: timetocraftman,
       isReplaceTime: isReplaceTime,
       scheduleServiceId: scheduleServiceId,
-      receiveData: receiveData
+      receiveData: receiveData,
+      eventId
     })
     console.log('time页面获取参数开始是')
     console.log(options.username, options.username, options.avatarapp, departmentName)
@@ -2370,11 +2374,11 @@ Page({
       var toggleDay = this.data.toggleDay//精确到天，传给craftsmantime页面
       var isReplaceTime = this.data.isReplaceTime
       var scheduleServiceId = this.data.scheduleServiceId
-      
+      const eventId = this.data.eventId;
       // 分两种情况
       if (that.data.timetocraftman === 'true'){
           wx.navigateTo({
-            url: '../craftsmantime/craftsmantime?timeformat=' + timeFormat + '&toggleDay=' + toggleDay + '&isreplacetime=' + isReplaceTime + '&scheduleserviceid=' + scheduleServiceId,
+            url: '../craftsmantime/craftsmantime?timeformat=' + timeFormat + '&toggleDay=' + toggleDay + '&isreplacetime=' + isReplaceTime + '&scheduleserviceid=' + scheduleServiceId + '&eventId=' + eventId,
             success: function () {
             }
           })

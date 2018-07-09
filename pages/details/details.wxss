@@ -1,4 +1,5 @@
 @import "../../component/carousel/carousel.wxss";
+@import "../../utils/commonConfirm.wxss";
 .allBox{
   margin-top: 27rpx;
   margin-bottom: 120rpx;

@@ -29,7 +29,7 @@
 .jiang{
   width: 590rpx;
   height: 270rpx;
-  background-color: white;
+  background-color: rgba(255,255,255,0);
   border-radius: 16rpx;
   text-align: center;
   line-height: 272rpx;
@@ -42,6 +42,7 @@
   z-index: 20;
   display: block;
   transition: all 1s;
+  overflow:hidden;
 }
 .jiangNone{
   opacity : 0;

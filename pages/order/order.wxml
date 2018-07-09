@@ -17,7 +17,7 @@
       </view>
       <view class='down' style='margin-top:10rpx'>
         <text class='time'>{{item.date}}</text>
-        <text class='week'>({{item.week}})</text><text class='evaluate' wx:if="{{item.isEvaluate==='n'&&item.isOther===0?true:false}}">去评价</text>
+        <text class='week'>({{item.week}})</text><text class='evaluate' wx:if="{{item.isEvaluate==='n'&&item.isOther===0?true:false}}">{{item.evaluateGiftId?"评价送礼":"去评价"}}</text>
       </view>
     </view> 
      <!-- </block>  -->

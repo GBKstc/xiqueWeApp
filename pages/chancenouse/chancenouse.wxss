@@ -20,9 +20,16 @@
   font-size: 48rpx;
   color: #FD9595;
 }
-.member{
+.stores{
   color: #333333;
   font-size: 32rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+.storesNum{
+  padding-left: 10rpx;
 }
 .favour_time{
   margin-top: 44rpx;
@@ -38,6 +45,17 @@
 }
 .count{
   margin-top: 40rpx;
+}
+
+.storesCount{
+  margin-top: 40rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.storesImage{
+  width:17rpx;
+  height:33rpx;
 }
 
 .produce{
@@ -94,4 +112,17 @@
   font-size:32rpx;
   color:#333333;
   line-height:32rpx;
+}
+
+.refund{
+  width:100rpx;
+  background:rgba(255,255,255,1);
+  border: 1px solid rgba(153,153,153,1);
+  border-radius:6rpx;
+  color: rgba(153,153,153,1);
+  font-size: 28rpx;
+  line-height: 28rpx;
+  padding: 11rpx 0;
+  margin-top: 25rpx;
+  text-align: center;
 }

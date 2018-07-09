@@ -71,7 +71,10 @@ const request = function ({ URL, param = {} }, succ) {
 
 
 
-
+//登录验证
+const checkLogin = "user/checkLogin";
+//获取登录者信息
+const getCurrentUser = "user/getCurrentUser";
 
 //预约人编辑删除接口
 const updateAppointment = 'user/updateAppointment';
@@ -85,16 +88,20 @@ const getCustomerDiscountCodeList = "myDiscountCode/getCustomerDiscountCodeList"
 const raffle = "evaluteGift/raffle";//评价活动抽奖
 
 const customerDiscountCodeDetail = "myDiscountCode/customerDiscountCodeDetail";//顾客优惠码详情
+const buyDiscountCode = "buyDiscountCode/buy";//支付接口
+const cancelBuy = "buyDiscountCode/cancelBuy";//取消支付接口
 
+const getQRcode = "buyDiscountCode/getQRcode";
 
-
+const getUserScheduleServiceList = "userScheduleService/getUserScheduleServiceList";//获取订单列表
 
 module.exports = {
   request,
   requestAppid,
 
 
-
+  checkLogin,
+  getCurrentUser,
   updateAppointment,
   addAppointment,
   getBuyDiscountCodeEventList,
@@ -104,4 +111,8 @@ module.exports = {
   getCustomerDiscountCodeList,
   raffle,
   customerDiscountCodeDetail,
+  buyDiscountCode,
+  cancelBuy,
+  getQRcode,
+  getUserScheduleServiceList,
 }

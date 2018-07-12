@@ -31,7 +31,6 @@ const requestAppid = function({URL,param = {}},succ,fail){
         fail: function (res) {
           wx.hideLoading();
           console.log("请求异常", res);
-          
         }
       })
     },

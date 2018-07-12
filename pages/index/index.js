@@ -1,6 +1,7 @@
 // pages/ONE/one.js
 var common = require('../../utils/commonConfirm.js');
 var util = require('../../utils/util');
+const app = getApp();
 Page({
 
   /**
@@ -56,7 +57,42 @@ Page({
     //   title: '小喜鹊飞奔中...',
     //   mask: true
     // })
-    var that = this
+
+
+
+    // var that = this;
+    // let recommendId = "";
+    // let flag = "";
+    // console.log("index", options);
+
+    // //判断分享来源
+
+    // //如果是分享 跳转详情
+    // if (options && options.isShare) {
+    //   console.log("分享", options);
+    //   recommendId = options.recommendId;
+    //   flag = 2;
+    //   wx.navigateTo({
+    //     url: '/pages/details/details?id=' + options.id + '&recommendId=' + recommendId,
+    //   })
+    // }
+    // //如果是二维码， 跳转详情
+    // if (options && options.scene) {
+    //   console.log("二维码", options);
+    //   recommendId = decodeURIComponent(options.scene);
+    //   flag = 1;
+    //   wx.navigateTo({
+    //     url: '/pages/details/details?id=' + options.id + '&recommendId=' + recommendId,
+    //   })
+    // }
+
+    // app.globalData.recommendGiftId = options.id;
+    // app.globalData.recommendId = recommendId;
+    // app.globalData.flag = flag;
+
+
+
+    
     //console.log("onLoad");
     
   },

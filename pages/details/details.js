@@ -33,6 +33,7 @@ Page({
     id:undefined,
     cardRankInfo:"",
     isShowToast: false,
+    isShowRegret: false
   },
 
   /**
@@ -41,21 +42,22 @@ Page({
   onLoad: function (options) {
     const that = this;
     console.log("details",options);
-    let { id, recommendId, scene } = options;
-    scene = decodeURIComponent(scene)
+    let { id, recommendId } = options;
+    //scene = decodeURIComponent(scene)
     that.setData({
       id: id,
     })
-    app.globalData.recommendGiftId = id;
-    if (recommendId){
-      app.globalData.recommendId = recommendId;
-      app.globalData.flag = 2;
-    } else if (scene && scene.recommendId){
-      app.globalData.recommendId = scene.recommendId;
-      app.globalData.flag = 1;
-    }
+    // app.globalData.recommendGiftId = id;
+    // //判断分享来源
+    // if (recommendId){
+    //   app.globalData.recommendId = recommendId;
+    //   app.globalData.flag = 2;
+    // } else if (scene){
+    //   app.globalData.recommendId = scene;
+    //   app.globalData.flag = 1;
+    // }
     
-    let param = { id: options.id};
+    let param = { id: id};
     wx.getLocation({
       type: 'gcj02',
       success: function (res) {
@@ -141,10 +143,13 @@ Page({
   aclick: function () {
     const that = this;
     const { detail } = that.data;
+    delete detail.carouselImgUrl;
+    delete detail.goodsDetailImgUrl;
     const param = {
       id: detail.id,
       times: 1
     }
+    console.log(getApp());
     isLogin(function(){
       //验证卡等级
       requestAppid({
@@ -199,14 +204,19 @@ Page({
   },
 
   longTap: function () {
-    getApp().getAccessToken(
-      function(data){
-        console.log(data);
-        wx.navigateTo({
-          url: '../two_demision/two_demision?acessToken=' + data.access_token,
-        })
-      }
-    );
+    const that = this;
+    const { detail } = that.data;
+    //console.log("longTap", JSON.stringify(detail));
+    isLogin(function () {
+      getApp().getAccessToken(
+        function (data) {
+          wx.navigateTo({
+            url: '../two_demision/two_demision?acessToken=' + data.access_token + "&eventName=" + detail.eventName,
+          })
+        }
+      );
+    });
+    
     
   },
 
@@ -217,18 +227,23 @@ Page({
       param,
     }, function (data) {
       //处理图片
-      data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",") : [];
-      data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",") : [];
-      
+      data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item +"?x-oss-process=image/resize,w_400") : [];
+      data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_400") : [];
+      console.log(data.carouselImgUrl);
       data.detailList = getDetailList(data);
       if (data.usableStoreList && data.usableStoreList.length>0){
         for (let i of data.usableStoreList){
-          i.distanceK = ((i.distance-0)/100).toFixed(1);
+          i.distanceK = ((i.distance-0)/1000).toFixed(1);
         }
       }
       that.setData({
-        detail: data
+        detail: data,
+        //isShowRegret:false
       })
+    },function(msg){
+      // that.setData({
+      //   isShowRegret: true
+      // })
     })
   },
 
@@ -253,14 +268,19 @@ Page({
     const that = this;
     console.log(that.data)
     const { id } = that.data;
-    const { globalData } = app;
+    const { globalData } = getApp();
+    let recommendId = "";
     //recommendId推荐人ID
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res)
     }
+    if (globalData.loginInfo && globalData.loginInfo.id){
+      recommendId = globalData.loginInfo.id;
+    }
+    console.log(globalData);
     return {
-      path: '/page/details/details?id=' + id + '&recommendId=' + globalData.loginInfo ? globalData.loginInfo.id:'',
+      path: '/pages/experience/experience?id=' + id + "&isShare=true" + '&recommendId=' + recommendId,
     }
   }
 })

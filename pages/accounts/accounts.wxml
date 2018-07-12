@@ -1,13 +1,13 @@
 <view class='body_color'>
   <view class='wan'>
     <view class='wan_flex'>
-      <image class='accounts' src='{{detail.coverImgUrl}}'></image>
+      <image class='accounts' mode="aspectFill" src='{{detail.coverImgUrl}}'></image>
     </view>
     <view class='wan_flex_lg'>
       <text class='detail'>{{detail.eventName}}</text>
       <view class='wan_top'>
         <text class='price'>￥{{detail.currentPrice}}</text>
-        <text class='price_ago'>{{detail.originPrice}}</text>
+        <text class='price_ago' style=' text-decoration: line-through;'>{{detail.originPrice}}</text>
       </view>
     </view>
   </view>

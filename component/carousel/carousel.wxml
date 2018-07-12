@@ -7,8 +7,8 @@
       class="slideImage"
   >
       <block wx:for="{{coverImgUrl}}" wx:key="item" class="slideImage">
-          <swiper-item class='slideImage'>
-              <image src="{{item}}"  class="slideImage imgBox" />
+          <swiper-item  class='slideImage'>
+              <image src="{{item}}" mode="aspectFill"  class="imgBox" />
           </swiper-item>
       </block>
   </swiper>

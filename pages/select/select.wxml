@@ -1,8 +1,11 @@
-<view class='select' wx:if="{{list.length}}">
+<view class='select' wx:if="{{loading}}">
+  
+</view>
+<view class='select' wx:elif="{{list.length}}">
   <view class='select_row' bindtap='chancenouse' data-index='{{index}}'  wx:for="{{list}}" wx:key="{{item.discountCodeId}}">
     <view class='select_absolute'>{{item.discountCodeStatusName}}</view>
     <view>
-      <image class='select_img' src='{{item.coverImgUrl}}'></image>
+      <image class='select_img' mode="aspectFill"  src='{{item.coverImgUrl}}'></image>
     </view>
     <view class='select_right'>
       <view class='select_right_top'>{{item.eventName}}</view>

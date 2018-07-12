@@ -1,0 +1,7 @@
+<!--component/regret/regret.wxml-->
+<view class='isNo'  style='display:black'>
+  <view class='imgBox'>
+    <image class='kongImg' src='../../image/kongpaiban.png'></image>
+  </view>
+  <view class="textContext" wx:for="{{text}}" wx:key="{{item}}">{{item}}</view>
+</view>

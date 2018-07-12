@@ -109,6 +109,14 @@
   justify-content: space-between;
   align-items: center;
 }
+.evaluateTitle2{
+  font-size:28rpx;
+  color:#b1b1b1;
+  margin-bottom:60rpx;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center; */
+}
 .evaluateStars:after{
   content:"";
   display: block;

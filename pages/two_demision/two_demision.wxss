@@ -12,8 +12,9 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  color: #999999;
+  color: #333333;
   font-size: 32rpx;
+  margin-bottom: 60rpx;
 }
 .img_tecenter{
   text-align: center;

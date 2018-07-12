@@ -5,7 +5,7 @@ Component({
     coverImgUrl: {
       type: Array,
       observer: function (newVal, oldVal, changedPath){
-        console.log(newVal, oldVal, changedPath);
+        //console.log(newVal, oldVal, changedPath);
       }
     }
   },

@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    acessToken:"",
+    // acessToken:"",
     imgUrl:undefined
   },
 
@@ -20,11 +20,16 @@ Page({
     console.log("二维码页面", options);
 
     const that = this;
-    that.getQRcode(options.acessToken);
+    let eventName = "";
+    that.getQRcode();
+    if (options && options.eventName){
+      eventName = options.eventName;
+    }
     const loginInfo = getApp().globalData.loginInfo;
     this.setData({
-      acessToken: options.acessToken,
+      //acessToken: options.acessToken,
       loginInfo,
+      eventName: eventName,
     })
   },
 
@@ -49,18 +54,23 @@ Page({
     
   },
 
-  getQRcode(acessToken) {
+  getQRcode() {
     const that = this;
-    const scene = { recommendId: getApp().globalData.loginInfo.id};
+    const globalData = getApp().globalData;
+    let recommendId = "";
+    if (globalData.loginInfo&&globalData.loginInfo.id){
+      recommendId = globalData.loginInfo.id;
+    }
+    const scene = recommendId;
     const data = {
-      scene: JSON.stringify(scene),
-      path: "pages/details/details"
+      scene: scene,
+      path: "pages/index/index"
     };
     requestAppid({
       URL: getQRcode,
       param: data
     }, function (imgUrl){
-      console.log(imgUrl);
+      console.log("二维码页面",imgUrl);
       that.setData({
         imgUrl
       })
@@ -78,21 +88,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  // onPullDownRefresh: function () {
     
-  },
+  // },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  // onReachBottom: function () {
     
-  },
+  // },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  // onShareAppMessage: function () {
     
-  }
+  // }
 })

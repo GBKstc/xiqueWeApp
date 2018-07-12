@@ -3,6 +3,7 @@
   "enablePullDownRefresh": true,
   "backgroundColor": "#ffffff",
   "usingComponents": {
-    "Carousel": "../../component/carousel/carousel"
+    "Carousel": "../../component/carousel/carousel",
+    "Regret": "../../component/regret/regret"
   }
 }

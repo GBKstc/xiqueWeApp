@@ -65,6 +65,9 @@ Page({
       number = number + 1;
       amount = currentPrice * number;
     } else {
+      that.setData({
+        cardRankInfo:"已经到最大可购买量"
+      })
       return;
     }
 
@@ -109,6 +112,8 @@ Page({
       param.recommendId = recommendId;
       param.flag = flag;
     }
+
+    console.log(param, recommendId , flag , recommendGiftId == detail.id);
     //验证购买次数
     requestAppid({
       URL: checkTimes,
@@ -192,10 +197,10 @@ Page({
     
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+  // /**
+  //  * 用户点击右上角分享
+  //  */
+  // onShareAppMessage: function () {
     
-  }
+  // }
 })

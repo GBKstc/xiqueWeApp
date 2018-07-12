@@ -246,7 +246,7 @@ Page({
     }, function (res) {
       console.log(res);
       that.setData({
-        flag: res.flag,
+        flag: res.flag||"",
       })
     })
   },

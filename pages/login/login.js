@@ -289,7 +289,7 @@ Page({
                   fail: function (res) { },
                   complete: function (res) { },
                 })
-              } else if (howTo === 'false') {
+              } else{
                 wx.navigateBack({})
                 // url = "../personalCenter/personalCenter"//跳转到我的页面
                 // wx.switchTab({

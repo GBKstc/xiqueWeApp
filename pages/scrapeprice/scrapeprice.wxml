@@ -1,7 +1,7 @@
 <view class='scrape'>
   <view class='scrape_go'>
     <view class='gift'>
-      <image src='{{award.coverImgUrl}}' class='giftImg'></image>
+      <image src='{{award.coverImgUrl}}' mode="aspectFill" class='giftImg'></image>
       <view class='context'>
         <view class='titmeContext'>{{award.eventName}}</view>
         <view style='color:#FD9595;font-size:"40rpx"' wx:if='{{award.eventName!="运气不好，预约下次试试"}}'>

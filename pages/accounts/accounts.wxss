@@ -25,7 +25,7 @@
 .price_ago{
   font-size: 28rpx;
   color: #999999;
-   text-decoration: line-through;
+  
 }
 .wan_top{
   margin-top: 43rpx;
@@ -125,6 +125,7 @@
 .loadingContent22{
   padding: 30rpx 60rpx 0 60rpx;
   flex-grow:1;
+  color: #999;
 }
 .loadingContent2 .buttonArr{
   height: 100rpx;
@@ -132,4 +133,5 @@
   text-align: center;
   line-height: 100rpx;
   border-top: 1px solid rgba(0, 0, 0,0.14);
+  color: #FD9595;
 }

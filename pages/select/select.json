@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "严选劵"
+  "navigationBarTitleText": "严选劵",
+  "enablePullDownRefresh": true
 }

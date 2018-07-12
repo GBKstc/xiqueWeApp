@@ -1,4 +1,4 @@
-<view class='allBox'>
+<view class='allBox' wx:if="{{!isShowRegret}}">
   <view class='header baseBox'>
     <Carousel coverImgUrl="{{detail.carouselImgUrl}}"></Carousel>
     <view class="headerContent">
@@ -42,11 +42,14 @@
     <view class='detailsContent'>
       <view class='contentHeader'>
         <text class='goodsName'>商品详情</text>
-        <image src='../../image/zs.png'></image>
+        <image src='../../image/zs.png' mode="aspectFill"></image>
       </view>
       <view class='detailsText'>{{detail.goodsDetail}}</view>
       <view class='imgList'>
-        <image wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}" src='{{item}}'></image>
+        <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
+          <image   src='{{item}}' mode="aspectFill"></image>
+        </view>
+        
       </view>
     </view>
   </view>
@@ -90,6 +93,7 @@
     </view>
   </view>
 </view>
+<Regret text="{{['此活动已过期，','看看其他活动吧！']}}" wx:elif="{{isShowRegret}}"></Regret>
 
 <!-- 消息弹窗 -->
 <view class='loadingMask' wx:if="{{cardRankInfo}}">

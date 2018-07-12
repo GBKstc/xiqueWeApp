@@ -8,12 +8,15 @@
     <text class='favour_font'>{{detail.discountCode}}</text>
   </view>
   <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view>
+  <view>
+    <canvas  hidden="{{canvasHidden}}" style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas"/>
+  </view>
   <view class='take' wx:if="{{detail.remind}}">
     <text class='favour' >注意 : </text>
     <text class='member take_left'>{{detail.remind}}</text>
   </view>
   
-  <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
+  <view class='count' wx:if="{{detail.discountCodeActiveEntityVO}}">
     <text class='favour'>核销时间 : </text>
     <text class='member'>{{detail.discountCodeEndTime}}</text>
   </view>
@@ -21,15 +24,15 @@
     <text class='favour'>有效期至 : </text>
     <text class='member'>{{detail.discountCodeEndTime}}</text>
   </view>
-  <view class='count' wx:if="{{detail.DiscountCodeActiveEntityVO}}">
+  <view class='count' wx:if="{{detail.discountCodeActiveEntityVO}}">
     <text class='favour'>核销门店 : </text>
-    <text class='member'>{{detail.DiscountCodeActiveEntityVO.departmentName}}</text>
+    <text class='member'>{{detail.discountCodeActiveEntityVO.departmentName}}</text>
   </view>
 
-  <view class='storesCount' wx:if="{{!detail.DiscountCodeActiveEntityVO}}" bindtap='tostoreDistribution'>
+  <view class='storesCount' wx:if="{{!detail.discountCodeActiveEntityVO}}" bindtap='tostoreDistribution'>
     <view class='favour'>适用门店 : </view>
     <view class='stores'>
-      <view class='storesNum'>{{detail.usableStoreNum}}家</view>
+      <view class='storesNum'>{{detail.usableStoreNum||"0"}}家</view>
       <image class='storesImage' src='../../image/craftManBack.png'></image>
     </view>
   </view>
@@ -63,4 +66,4 @@
     </view>
   </view>
 </view>
-<button class='gobtn'  bindtap='subscribe'>立即预约</button>
+<button class='gobtn'  bindtap='subscribe' wx:if="{{!detail.discountCodeActiveEntityVO}}">立即预约</button>

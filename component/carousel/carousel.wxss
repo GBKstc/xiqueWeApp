@@ -2,11 +2,14 @@
   height: 402rpx;
 }
 .imgBox{
-  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 .slideImage {
     height: 100%;
     width: 100%;
+    overflow: hidden; 
+    resize: both;
 }
 
 .numIcon{

@@ -16,6 +16,7 @@ Page({
   data: {
     list:[],
     page:1,
+    loading:true,
   },
 
   /**
@@ -24,7 +25,6 @@ Page({
   onLoad: function (options) {
     const that = this;
     that.customerDiscountCodeList(1);
-
   },
 
   
@@ -76,6 +76,8 @@ Page({
         if (isEmpty(data.list)){
           // list = [];
           return ;
+        } else if ((page || 1)==1){
+          list = data.list;
         }else{
           list = list.concat(data.list);
         }
@@ -84,7 +86,8 @@ Page({
         }
         console.log(list)
         that.setData({
-          list: list
+          list: list,
+          loading: false
         })
       }
     );
@@ -101,7 +104,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    const that = this;
+    that.customerDiscountCodeList(1);
+    that.setData({
+      page:1
+    })
+    wx.stopPullDownRefresh();
   },
 
   /**

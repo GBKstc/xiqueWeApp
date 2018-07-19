@@ -12,6 +12,14 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const formatTimeDay = date => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+
+  return [year, month, day].map(formatNumber).join('/');
+}
+
 const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -278,6 +286,7 @@ const cpy =function(o) {
 
 module.exports = {
   formatTime: formatTime,
+  formatTimeDay: formatTimeDay,
   throttle: throttle,
   isEmpty: isEmpty,
   mergeComponents: mergeComponents,

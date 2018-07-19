@@ -5,20 +5,28 @@
   color: #666666;
   font-size: 32rpx;
 }
-.detail_color{
+.detail_colorYse{
   color: #FD9595;
+}
+.detail_colorNo{
+  color: #999999;
 }
 .detail_header_two{
   font-size: 28rpx;
- color: #FD9595;
 }
 .favour{
     font-size: 28rpx;
     color: #999999;
+    display: flex;
+    width: 130rpx;
+}
+.member{
+  display: block;
+  flex: 1;
+  padding-left:10rpx;
 }
 .favour_font{
   font-size: 48rpx;
-  color: #FD9595;
 }
 .stores{
   color: #333333;
@@ -33,22 +41,30 @@
 }
 .favour_time{
   margin-top: 44rpx;
+  margin-bottom: 20rpx;
 }
 .mabottom{
   margin-bottom: 52rpx;
 }
 .take{
-  margin-top: 61rpx;
+  margin-top: 78rpx;
 }
 .take_left{
-  margin-left: 71rpx;
+  overflow:hidden; 
+  text-overflow:ellipsis;
+  display:-webkit-box; 
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:1; 
 }
 .count{
-  margin-top: 40rpx;
+  margin-top: 30rpx;
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
 }
 
 .storesCount{
-  margin-top: 40rpx;
+  margin-top: 30rpx;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -67,6 +83,8 @@
 .produce_img{
   width:133rpx;
   height: 7rpx;
+  display: block;
+  margin-top: 18rpx;
 }
 .produce_top{
   margin-top: 61rpx;
@@ -82,7 +100,7 @@
 }
 .five_right{
   float: right;
-  color: #999999;
+  color: #333333;
 }
 .gobtn{
   background: #FD9595;
@@ -123,6 +141,7 @@
   font-size: 28rpx;
   line-height: 28rpx;
   padding: 11rpx 0;
-  margin-top: 25rpx;
+  /* margin-top: 25rpx; */
   text-align: center;
+  margin-bottom: 22px;
 }

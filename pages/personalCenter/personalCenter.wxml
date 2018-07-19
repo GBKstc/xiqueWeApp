@@ -33,7 +33,7 @@
          <view class='checkIcon'>
            <image mode='widthFix' src='../../image/tyq.png'></image>
          </view>
-           <view class='checkText'>严选劵</view>
+           <view class='checkText'>优选劵</view>
         <image class='checkBack'  mode='aspectFit' src='../../image/personalBack.png'></image>
        </view>
     </view>

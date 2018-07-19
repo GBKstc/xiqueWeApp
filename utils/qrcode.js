@@ -1,5 +1,5 @@
 !(function () {
-
+  var _size = 750;
   // alignment pattern
   var adelta = [
     0, 11, 15, 19, 23, 27, 31,
@@ -765,7 +765,7 @@
       var frame = that.getFrame(str),
         // 组件中生成qrcode需要绑定this 
         ctx = wx.createCanvasContext(canvas,$this),
-        px = Math.round(size / (width + 8));
+        px = Math.round(size / (width));
       var roundedSize = px * (width + 8),
         offset = Math.floor((size - roundedSize) / 2);
       size = roundedSize;

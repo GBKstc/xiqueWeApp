@@ -13,9 +13,9 @@
   width: 520rpx;
   height: 322rpx;
   position: absolute;
-  top: 200rpx;
+  top: 169rpx;
   left: 145rpx;
-  z-index: 100;
+  z-index: 999;
 }
 .scrape_go{
   position: absolute;
@@ -43,6 +43,15 @@
   display: block;
   transition: all 1s;
   overflow:hidden;
+}
+.sCanvas{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10rpx;
+  z-index: 21;
 }
 .jiangNone{
   display: none;

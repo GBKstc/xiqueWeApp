@@ -29,14 +29,14 @@
   width: 612rpx;
   margin: 0 29rpx 0 29rpx;
   font-size: 32rpx;
-  line-height: 62rpx;
+  line-height: 32rpx;
 }
 .imgContext{
-  padding:14rpx 0 29rpx 0;
+  padding:29rpx 0 29rpx 0;
   color: #666666;
 }
 .imgContext .imgPrice{
-  padding: 14px 20rpx 0 20rpx;
+  padding: 14px 29rpx 0 29rpx;
   display: -webkit-box;
   -webkit-box-align: end;
   -moz-box-align: end;
@@ -51,7 +51,7 @@
 }
 .imgPrice .priceOld{
   display: block;
-  font-size: 22rpx;
+  font-size: 28rpx;
   padding-left: 19rpx;
   font-family: Arial;
   color: #999999;

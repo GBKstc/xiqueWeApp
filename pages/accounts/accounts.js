@@ -134,7 +134,7 @@ Page({
         reqData.fail = function (data) {
           console.log(data);
           that.setData({
-            cardRankInfo: "购买失败，请重试"
+            cardRankInfo: "支付失败，请重新购买"
           })
           const cancelBuyParam = {
             id: detail.id,

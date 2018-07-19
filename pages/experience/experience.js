@@ -22,6 +22,7 @@ Page({
     var that = this;
     let recommendId = "";
     let flag = "";
+    
     console.log("onLoad",options);
 
     //判断分享来源
@@ -37,11 +38,21 @@ Page({
     }
     //如果是二维码， 跳转详情
     if (options && options.scene){
-      console.log("二维码", options);
-      recommendId = decodeURIComponent(options.scene);
+      
+      let scene = decodeURIComponent(options.scene);
+      console.log("二维码", scene);
+      //let scene = options.scene;
+      let arr = scene.split('&');
+      console.log("二维码", arr);
+      let length = arr.length;
+      let res = {};
+      for (var i = 0; i < length; i++) {
+        res[arr[i].split('=')[0]] = arr[i].split('=')[1];
+      }  
+      console.log("二维码", res);
       flag = 1;
       wx.navigateTo({
-        url: '/pages/details/details?id=' + options.id  + '&recommendId=' + recommendId,
+        url: '/pages/details/details?id=' + res.id + '&recommendId=' + res.recommendId,
       })
     }
     

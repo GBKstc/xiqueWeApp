@@ -3,9 +3,9 @@
     <Carousel coverImgUrl="{{detail.carouselImgUrl}}"></Carousel>
     <view class="headerContent">
       <text class='headerContentText'>{{detail.eventName}}</text>
-      <view class='infoContent'>
+      <view class='infoContent' wx:if="{{detail.remind}}">
         <image wx:if="{{detail.remind}}" class='near' src='../../image/att.png'></image>
-        <text wx:if="{{detail.remind}}">{{detail.remind}}</text>
+        <text >{{detail.remind}}</text>
       </view>
     </view>
   </view>
@@ -44,7 +44,7 @@
         <text class='goodsName'>商品详情</text>
         <image src='../../image/zs.png' mode="aspectFill"></image>
       </view>
-      <view class='detailsText'>{{detail.goodsDetail}}</view>
+      <view wx:if="{{detail.goodsDetail}}" class='detailsText'>{{detail.goodsDetail}}</view>
       <view class='imgList'>
         <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
           <image   src='{{item}}' mode="aspectFill"></image>
@@ -71,7 +71,7 @@
         <view class='storeName'>
           <view>{{item.name}}</view>
           <view wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceK}}公里</view>
-          <view wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}公里</view>
+          <view wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}米</view>
         </view>
         <view class='storeAdress'>
           <view class="storeAdressText">{{item.address}}</view>

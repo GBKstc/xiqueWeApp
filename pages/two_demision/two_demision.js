@@ -21,16 +21,20 @@ Page({
 
     const that = this;
     let eventName = "";
-    that.getQRcode();
+    let id = "";
     if (options && options.eventName){
       eventName = options.eventName;
+      id = options.id;
     }
     const loginInfo = getApp().globalData.loginInfo;
     this.setData({
       //acessToken: options.acessToken,
       loginInfo,
       eventName: eventName,
+      id: id,
     })
+
+    that.getQRcode(id);
   },
 
   /**
@@ -54,17 +58,21 @@ Page({
     
   },
 
-  getQRcode() {
+  getQRcode(id) {
     const that = this;
     const globalData = getApp().globalData;
     let recommendId = "";
     if (globalData.loginInfo&&globalData.loginInfo.id){
       recommendId = globalData.loginInfo.id;
     }
-    const scene = recommendId;
+    let scene = "recommendId=" + recommendId + "&id=" + id;
+    //   scene.recommendId = recommendId;
+    // scene.id = id;
+
+
     const data = {
       scene: scene,
-      path: "pages/index/index"
+      path: "pages/experience/experience"
     };
     requestAppid({
       URL: getQRcode,

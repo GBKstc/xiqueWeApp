@@ -6,7 +6,7 @@ const {
 } = URL;
 const {
   isEmpty,
-  formatTime
+  formatTimeDay
 } = util;
 Page({
 
@@ -82,7 +82,7 @@ Page({
           list = list.concat(data.list);
         }
         for(let i of list){
-          i.endTime = formatTime(new Date(i.discountCodeEndTime));
+          i.endTime = formatTimeDay(new Date(i.discountCodeEndTime));
         }
         console.log(list)
         that.setData({

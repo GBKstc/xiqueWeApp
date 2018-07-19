@@ -12,9 +12,9 @@
     </view>
   </view>
   <view class='number'>
-    <view class='number_left'>
-      <text class='price_ago'>数量:</text>
-    </view>
+    <!-- <view class='number_left'> -->
+    <text class='price_ago'>数量:</text>
+    <!-- </view> -->
     <view class='number_right'>
       <text class='number_right_reduce number_shen' bindtap='subtractNum'>-</text>
       <text class='number_shen number_num'>{{number}}</text>
@@ -22,8 +22,8 @@
     </view>
   </view>
   <view class='amount'>
-    <text class='amount_color'>￥{{amount}}</text>
-    <text class='price_ago'>总计:</text>
+    <view class='price_ago'>总计:</view>
+    <view class='amount_color'><view class='price_ago' style='color: #FD9595;'>￥</view><view>{{amount}}</view></view>
   </view>
   <view>
     <button class='confirm' bindtap='submit'>确定</button>

@@ -2,7 +2,7 @@
 @import "../../utils/commonConfirm.wxss";
 .allBox{
   margin-top: 27rpx;
-  margin-bottom: 120rpx;
+  margin-bottom: 160rpx;
 }
 .baseBox{
   width: 670rpx;
@@ -58,7 +58,7 @@
 .detailsText{
   color: #333333;
   line-height: 64rpx;
-  margin-top: 73rpx;
+  /* margin-top: 73rpx; */
   text-indent:64rpx;
   padding-bottom: 5px;
 }
@@ -95,6 +95,7 @@
 .detailsContent .contentHeader{
   width: 100%;
   margin: 0 auto;
+  margin-bottom: 73rpx;
   display: -webkit-box;
   -webkit-box-align: center;
   -moz-box-align: center;
@@ -125,8 +126,9 @@
   color: #333333;
 }
 .banner .bannerList{
-   display: -webkit-box;
-   -webkit-box-align: center;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
     margin-top: 41rpx;
 }
 .bannerList .itemName{
@@ -151,6 +153,7 @@
   margin-top: 39rpx;
   display: flex;
   align-items:flex-end;
+  font-size: 28rpx;
 }
 
 .footerInfo image{
@@ -237,7 +240,7 @@
   width: 530rpx;
 }
 .footer{
-  height: 98rpx;
+  height: 124rpx;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -259,11 +262,12 @@
 }
 .price .priceNew{
   display: block;
-  margin-left: 99rpx;
+  margin-left: 74rpx;
+  font-size: 50rpx;
 }
 .price .priceOld{
   display: block;
-  font-size: 24rpx;
+  font-size: 32rpx;
   line-height: 28rpx;
   color: rgb(204, 204, 204);
   text-decoration: line-through;
@@ -272,11 +276,11 @@
 
 .footerBox button{
   display: block;
-  height: 50rpx;
-  width: 160rpx;
+  height: 70rpx;
+  width: 200rpx;
   background-color: #FD9595;
-  font-size: 24rpx;
-  line-height: 50rpx;
+  font-size: 32rpx;
+  line-height: 70rpx;
   color: rgb(255, 255, 255);
   left:-90rpx;
 }

@@ -12,7 +12,7 @@
     </view>
     <!-- <view class='{{isShowJiang?"jiang  jiangNone":"jiang"}}' bindtap="lottery">立即抽奖</view> -->
     <view class='{{isShowJiang?"jiang  jiangNone":"jiang"}}'>
-       <canvas canvas-id="scratch" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" style='width:100%;height:100%' disable-scroll="true"/> 
+       <canvas canvas-id="scratch" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtouchend="touchEnd" class='sCanvas' disable-scroll="true"/> 
       
     </view>
     <image class='backgroundImg' src='../../image/back.png'></image>

@@ -205,16 +205,18 @@ Page({
 
   longTap: function () {
     const that = this;
-    const { detail } = that.data;
-    //console.log("longTap", JSON.stringify(detail));
+    const { detail, id } = that.data;
+  
+    console.log("longTap", JSON.stringify(detail));
     isLogin(function () {
-      getApp().getAccessToken(
-        function (data) {
-          wx.navigateTo({
-            url: '../two_demision/two_demision?acessToken=' + data.access_token + "&eventName=" + detail.eventName,
-          })
-        }
-      );
+      wx.navigateTo({
+        url: '../two_demision/two_demision?eventName="' + detail.eventName + "&id=" + id,
+      })
+      // getApp().getAccessToken(
+      //   function (data) {
+         
+      //   }
+      // );
     });
     
     

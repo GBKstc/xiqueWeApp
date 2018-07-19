@@ -1,7 +1,12 @@
+.body_color{
+  background-color: rgb(245,245,245);
+  height: 1400rpx;
+}
 
 .wan{
   display: flex;
   padding: 30rpx 38rpx 32rpx 40rpx;
+  background-color: white;
 }
 .accounts{
   width: 200rpx;
@@ -17,18 +22,26 @@
   flex: 3;
   margin-left: 40rpx;
   color: #333333;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .price{
   font-size: 32rpx;
   margin-right: 37rpx;
+  line-height: 32rpx;
 }
 .price_ago{
+  display: block;
   font-size: 28rpx;
+  line-height: 28rpx;
   color: #999999;
-  
 }
 .wan_top{
   margin-top: 43rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 }
 
 .number{
@@ -38,12 +51,15 @@
   padding-top: 33rpx;
   padding-bottom: 37rpx;
   padding-right: 40rpx;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
 }
 .number_left{
   flex: 1;
 }
 .number_right{
-  flex: 1;
+  width:290rpx;
   display: flex;
   justify-content: space-between;
  
@@ -63,16 +79,24 @@
   color: #fff;
   text-align: center;
   line-height: 50rpx;
+  border-radius: 6rpx;
 }
 .amount{
   padding: 40rpx;
   padding-right: 40rpx;
   margin-top: 1rpx;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .amount_color{
   color: #FD9595;
-  font-size: 30rpx;
-  float: right;
+  font-size: 48rpx;
+  line-height: 48rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 .confirm{
   width: 90%;

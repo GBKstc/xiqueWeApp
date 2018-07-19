@@ -7,7 +7,7 @@ const {
 } = URL;
 const { 
   getDetailList,
-  formatTime
+  formatTimeDay
  } = util;
 Page({
 
@@ -101,7 +101,8 @@ Page({
     var size = {};
     try {
       var res = wx.getSystemInfoSync();
-      var scale = 750 / 686;//不同屏幕下canvas的适配比例；设计稿是750宽
+      console.log(res);
+      var scale = 750 / 300;//不同屏幕下canvas的适配比例；设计稿是750宽
       var width = res.windowWidth / scale;
       var height = width;//canvas画布为正方形
       size.w = width;
@@ -117,7 +118,7 @@ Page({
     const that = this;
     const size = that.setCanvasSize();
     //调用插件中的draw方法，绘制二维码图片
-    //console.log(QR, size);
+    console.log(QR, size);
     QR.api.draw(url, canvasId, size.w, size.h);
     //setTimeout(() => { this.canvasToTempImage(); }, 1000);
 
@@ -136,8 +137,8 @@ Page({
     }, function (data) {
       data.coverImgUrl = data.coverImgUrl ? data.coverImgUrl.split(",") : [];
       data.detailList = getDetailList(data);
-      data.buyTime = formatTime(new Date(data.createtime));
-      data.discountCodeEndTime = formatTime(new Date(data.discountCodeEndTime))
+      data.buyTime = formatTimeDay(new Date(data.createtime));
+      data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime))
       
       console.log(data, that);
       that.createQrCode(data.discountCode, "mycanvas");

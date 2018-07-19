@@ -299,7 +299,7 @@ Page({
                 //   }
                 // })
               }
-
+              getApp().globalData.loginInfo = res.data.data;
 
             } else if (res.data.status === 400) {//失败
               console.log(400)

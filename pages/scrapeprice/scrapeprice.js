@@ -69,7 +69,7 @@ Page({
   showCanvas(){
     const ctx = wx.createCanvasContext('scratch');
     console.log(ctx);
-    ctx.setFillStyle("rgb(179,184,178)");
+    ctx.setFillStyle("#DADADA");
     ctx.fillRect(0, 0,1000,1000);
     ctx.draw();
   },

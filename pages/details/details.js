@@ -47,15 +47,10 @@ Page({
     that.setData({
       id: id,
     })
-    // app.globalData.recommendGiftId = id;
-    // //判断分享来源
-    // if (recommendId){
-    //   app.globalData.recommendId = recommendId;
-    //   app.globalData.flag = 2;
-    // } else if (scene){
-    //   app.globalData.recommendId = scene;
-    //   app.globalData.flag = 1;
-    // }
+
+    var random = wx.getStorageSync(app.globalData.appid);
+    // var random = '3c375316-9d51-4908-a383-2c99dece3b17';
+    
     
     let param = { id: id};
     wx.getLocation({
@@ -66,10 +61,22 @@ Page({
         location.latitude = res.latitude;
         location.longitude = res.longitude;
         location.altitude = res.altitude;
-        that.getCodeEventDetail(Object.assign({}, param, location))
+        if (random) {//有随机数
+          that.getCodeEventDetail(Object.assign({}, param, location))
+        } else {
+          that.login(that.getCodeEventDetail, Object.assign({}, param, location))
+        }
+        
+       
       },
       fail: function () {
-        that.getCodeEventDetail(Object.assign({}, param))
+        if (random) {//有随机数
+          that.getCodeEventDetail(Object.assign({}, param))
+        } else {
+          that.login(that.getCodeEventDetail, Object.assign({}, param))
+        }
+        
+      
       }
     })
   },
@@ -93,6 +100,112 @@ Page({
    */
   onHide: function () {
     
+  },
+
+  //开始*******************************************************************************************
+  login: function (cb,param) {
+    var that = this
+    wx.login({
+      success: function (res) {
+        var code = res.code;
+        // console.log(code)
+        // console.log('获取login到了code' + code)
+        //调用公共方法
+        wx.getLocation({
+          type: 'gcj02',
+          success: function (resss) {
+            // console.log('app页面获取地图成功')
+            var latitude = resss.latitude
+            var longitude = resss.longitude
+            var altitude = resss.altitude
+            that.setData({
+              latitude: latitude,
+              longitude: longitude,
+              degree: true//有经纬度了
+            })
+            // 参数都获取到了，发送请求
+            that.commomlogin(cb,param,code, latitude, longitude, altitude)
+          },
+          fail: function () {
+            // console.log('app页面获取地图失败！')
+            that.setData({
+              degree: false
+            })
+            that.commomlogin(cb, param,code)
+          }
+        })
+      },
+      fail: function () {
+        console.log('获取用户code失败')
+        // console.log('app页面获取用户登录态失败！' + res.errMsg)
+        // wx.showToast({
+        //   title: '获取用户登录态失败',
+        //   duration: 2000
+        // })
+      }
+    });
+  },
+
+  //获取随机数
+  commomlogin: function (cb, param,code, latitude, longitude, altitude) {
+    var that = this
+    var sendData
+    var appid = getApp().globalData.appid
+    var secret = getApp().globalData.secret
+    if (!latitude) {
+      sendData = {
+        code: code,
+        appid: appid,
+        secret: secret
+      }
+    } else {
+      sendData = {
+        code: code,
+        latitude: latitude,
+        longitude: longitude,
+        appid: appid,
+        secret: secret
+      }
+    }
+    // console.log('获取随机数的参数')
+    // console.log(sendData)
+    wx.request({
+      url: getApp().url + 'wxLogin/login',
+      data: sendData,
+      method: 'POST',
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      success: function (res) {
+        if (res.data.status == 200) {
+          console.log('login接口成功')
+          wx.setStorage({//异步存随机数，在它的回调函数里走原index函数
+            key: appid,
+            data: res.data.data.thirdSessionId,
+            success: function () {
+             console.log('保存随机数成功，开始调用回调函数')
+             if(cb){
+               cb(param)
+             }
+             // that.loadFirst(res.data.data.thirdSessionId)//调用原index里的函数,传入随机数
+            },
+            fail: function () {
+              // console.log('保存随机数失败')
+            }
+          })
+
+        } else if (res.data.status == 400) {
+          // console.log('调用随机数借口400')
+          // var msg = res.data.msg
+          // //验证签名失败
+          // wx.showToast({
+          //   title: 'login' + msg,
+          //   duration: 2000
+          // })
+        }
+      },
+      fail: function () {
+        // console.log('调用随机数借口fail')
+      }
+    });
   },
 
   toMap(e){
@@ -243,9 +356,9 @@ Page({
         //isShowRegret:false
       })
     },function(msg){
-      // that.setData({
-      //   isShowRegret: true
-      // })
+      that.setData({
+        isShowRegret: true
+      })
     })
   },
 
@@ -283,6 +396,7 @@ Page({
     console.log(globalData);
     return {
       path: '/pages/experience/experience?id=' + id + "&isShare=true" + '&recommendId=' + recommendId,
+      // path: '/pages/experience/experience?scene=' + encodeURIComponent('id=' + id + "&isShare=true" + '&recommendId=' + recommendId),
     }
   }
 })

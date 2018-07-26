@@ -22,7 +22,7 @@ Page({
     var that = this;
     let recommendId = "";
     let flag = "";
-    
+    let id = "";
     console.log("onLoad",options);
 
     //判断分享来源
@@ -31,6 +31,7 @@ Page({
     if (options && options.isShare) {
       console.log("分享", options);
       recommendId = options.recommendId;
+      id = options.id;
       flag = 2;
       wx.navigateTo({
         url: '/pages/details/details?id=' + options.id  + '&recommendId=' + recommendId,
@@ -51,12 +52,14 @@ Page({
       }  
       console.log("二维码", res);
       flag = 1;
+      id = res.id;
+      recommendId = res.recommendId;
       wx.navigateTo({
-        url: '/pages/details/details?id=' + res.id + '&recommendId=' + res.recommendId,
+        url: '/pages/details/details?id=' + res.id + '&recommendId=' + recommendId,
       })
     }
     
-    app.globalData.recommendGiftId = options.id;
+    app.globalData.recommendGiftId = id;
     app.globalData.recommendId = recommendId;
     app.globalData.flag = flag;
 
@@ -106,7 +109,14 @@ Page({
   onShow: function (options) {
     console.log("onShow",options);
     const that = this;
-    that.buyDiscountCodeEventList();
+    var random = wx.getStorageSync(app.globalData.appid);
+    if (random) {//有随机数
+      that.buyDiscountCodeEventList()
+    } else {
+      getApp().login(that.buyDiscountCodeEventList)
+    }
+    
+    
     
   },
   //开始*******************************************************************************************

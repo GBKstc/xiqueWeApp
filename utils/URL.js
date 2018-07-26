@@ -35,7 +35,8 @@ const requestAppid = function({URL,param = {}},succ,fail){
       })
     },
     fail: function () {
-      console.log('页面获取随机数失败')
+      wx.hideLoading();
+      console.log('页面获取随机数失败');
     },
   })
 }

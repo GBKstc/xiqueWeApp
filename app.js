@@ -7,19 +7,20 @@ App({
     appid: 'wxab4355d28417d914',  
     secret: '026e8bf6e20155b7d7f926b27db7c5c3'
   },
-    url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
+  // url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
   //  url: 'http://192.168.18.70:18089/weixin-xique/',//预发环境
   // url: "http://jbs.xibao.com:8890/weixin-xique/",//陈荣贵
   // url: "https://192.168.18.253:8443/weixin-xique/",//陈荣贵
   // url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境
 
-  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
   onLaunch: function () {
     console.log("app onLaunch")
     const that = this;
     wx.getStorage({//异步获取随机数
       key: that.globalData.appid,
       success: function (res) {
+        console.log("app-异步获取随机数成功")
         wx.request({
           url: that.url + getCurrentUser,
           data: {
@@ -36,8 +37,15 @@ App({
               console.log("app 获取登录信息失败")
             }
             
+          },
+          fail:function(){
+            
           }
         })
+      },
+      fail:function(){
+        console.log("app-异步获取随机数失败")
+        //that.login()
       }
     })
 
@@ -46,7 +54,7 @@ App({
   onShow:function(){
     console.log("app onShow")
   },
-  login: function () {
+  login: function (cb) {
     // console.log('调用app.js页面的login函数')
     var that = this
     wx.login({
@@ -63,10 +71,10 @@ App({
             var longitude = resss.longitude
             var altitude = resss.altitude
             // 参数都获取到了，发送请求
-            that.commomlogin(code, latitude, longitude, altitude)
+            that.commomlogin(cb,code, latitude, longitude, altitude)
           },
           fail: function () {
-            that.commomlogin(code)
+            that.commomlogin(cb,code)
           }
         })
       },
@@ -81,7 +89,7 @@ App({
     });
   },
   //公共login请求
-  commomlogin: function (code,latitude, longitude, altitude) {
+  commomlogin: function (cb,code,latitude, longitude, altitude) {
     var that = this
     var sendData
     var appid = that.globalData.appid
@@ -117,6 +125,9 @@ App({
             key: appid,
             data: res.data.data.thirdSessionId,
             success: function () {
+              if (cb){
+                cb()
+              }
               // console.log('保存随机数成功，开始调用首页数据')
             },
             fail: function () {

@@ -99,7 +99,7 @@ Page({
     const that = this;
     const { number, amount, detail} = that.data;
     const { recommendId, recommendGiftId, flag} = getApp().globalData;
-    console.log(recommendId, recommendGiftId, flag);
+    console.log(getApp().globalData);
     const param = {
       id: detail.id,
       times: number,
@@ -125,6 +125,7 @@ Page({
         param,
       },function(data){
         const reqData = JSON.parse(data.payinfo); 
+        console.log(reqData);
         const orderno = data.orderno;
         reqData.success = function(){
           wx.redirectTo({

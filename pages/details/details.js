@@ -41,7 +41,7 @@ Page({
    */
   onLoad: function (options) {
     const that = this;
-    console.log("details",options);
+    //console.log("details",options);
     let { id, recommendId } = options;
     //scene = decodeURIComponent(scene)
     that.setData({
@@ -320,10 +320,10 @@ Page({
     const that = this;
     const { detail, id } = that.data;
   
-    console.log("longTap", JSON.stringify(detail));
+    //console.log("longTap", JSON.stringify(detail));
     isLogin(function () {
       wx.navigateTo({
-        url: '../two_demision/two_demision?eventName="' + detail.eventName + "&id=" + id,
+        url: '../two_demision/two_demision?eventName=' + detail.eventName + '&id=' + id,
       })
       // getApp().getAccessToken(
       //   function (data) {

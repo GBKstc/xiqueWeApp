@@ -52,8 +52,8 @@
   </view>
   <!-- 未评价块 -->
   <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
-    <view class='evaluateTitle2'>
-      <view style='word-break: break-all; word-wrap:break-word;' wx:if="{{recordData.evaluateGiftEntity}}">{{recordData.evaluateGiftEntity.topic}}</view>
+    <view class='evaluateTitle2' wx:if="{{recordData.evaluateGiftEntity}}">
+      <view style='word-break: break-all; word-wrap:break-word;' >{{recordData.evaluateGiftEntity.topic}}</view>
     </view>
     
     <view class='evaluateTitle'>

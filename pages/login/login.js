@@ -1,5 +1,10 @@
 // pages/login/login.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+let URL = require('../../utils/URL.js');
+const {
+  requestAppid,
+  getVoiceVerificationCode
+} = URL;
 const app = getApp();
 Page({
   /**
@@ -24,7 +29,9 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好'  
+    toastText: '你好',
+    //codeText:"收不到短信试试语音验证？"
+    codeText: ""
   },
 
   /**
@@ -124,11 +131,13 @@ Page({
     if (/^1[3|4|5|7|8][0-9]{9}$/.test(value)) {
       // console.log("chenggong")
       this.setData({
-        volidate: false
+        volidate: false,
+        voiceIsUse: false,
       })
     } else {
       this.setData({
-        volidate: true
+        volidate: true,
+        voiceIsUse: true,
       })
     }
 
@@ -180,6 +189,11 @@ Page({
       this.setData({
         sendContent: "剩余" + time + "秒"
       });
+      if(time == 40){
+        this.setData({
+          codeText: "收不到短信试试语音验证？"
+        });
+      }
       if (time == 0) {
         clearInterval(timer)
         this.setData({
@@ -243,6 +257,31 @@ Page({
       }
     })
    
+  },
+  //发送语音验证码按钮
+  sendVoiceCode: function () {
+    var that = this
+    requestAppid({
+      URL: getVoiceVerificationCode,
+      param:{
+        mobile: that.data.phoneValue,
+        flag:1
+      }
+    }, function (data) {
+      console.log('发送语音验证码成功');
+      wx.showToast({
+        title: '语音验证码发送成功',
+        icon: 'success',
+        mask: true,
+        duration: 1000
+      })
+    }, function (msg) {
+      console.log('发送语音验证码失败');
+      that.setData({
+        count: 1000,
+        toastText: msg
+      });
+    })
   },
   //最下面确定按钮
   modifySuccess: function () {

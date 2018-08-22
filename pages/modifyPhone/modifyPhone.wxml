@@ -9,6 +9,10 @@
       <label class='lableName'>验证码:</label><input placeholder-class="phcolor" class='nameEntry' type='number' placeholder='请输入四位验证码' bindinput="acceptValidate" value='{{maValue}}' style='width:260rpx;'></input><button class="send" disabled='{{volidate}}' bindtap='sendMa'>{{sendContent}}</button>
     </view>
   </view>
+  <view class='voiceCode' style='position:relative'>
+        <view class='voiceCodeText' bindtap='sendVoiceCode' wx:if="{{!voiceIsUse&&codeText}}">{{!voiceIsUse?codeText:""}}</view>
+        <view class='voiceCodeText' wx:else></view>
+      </view>
   <view>
     <button class='submit' disabled='{{isMa}}' bindtap='modifySuccess'>确定</button>
   </view>

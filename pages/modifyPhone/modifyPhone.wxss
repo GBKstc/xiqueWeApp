@@ -67,4 +67,17 @@ button[disabled]{
   opacity:0.6; 
 }
 
+.voiceCode{
+  margin-bottom: 210rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color: #fd9595;
+  width: 580rpx;
+  margin: 40rpx auto;
+}
+.voiceCodeText{
+  height: 28rpx;
+  line-height: 28rpx;
+}
+
 

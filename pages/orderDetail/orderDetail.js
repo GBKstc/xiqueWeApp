@@ -9,6 +9,7 @@ const util = require('../../utils/util');
 const {
   requestAppid,
   raffle,
+  userScheduleServiceSaveEvaluate,
 } = URL;
 const { 
   isEmpty
@@ -575,67 +576,109 @@ Page({
     }
     
     //提交评价
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        // console.log('页面获取到随机数为')
-        console.log(res.data)
-        wx.request({
-          url: getApp().url + 'userScheduleService/saveEvaluate',
-          data: {
-            thirdSessionId: res.data,
-            serviceId: that.data.serviceId,//服务单id
-            evaluateScore: that.data.nScore,//评分
-            departLabels: departLabelsString,
-            beauticianLabels: beauticianLabelsString,
-            isAnonymous: isAnonymous
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data.status === 200) {
-              //如果有活动ID 说明可以抽奖
-              if (evaluateGiftId){
-                that.lottery()
-              }else{
-                //页面跳转成功后，设置上个页面值
-                var pages = getCurrentPages();
-                var prevPage = pages[pages.length - 2]//上一个页面
-                //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-                prevPage.setData({
-                  status: 2
-                })
-                console.log('提交成功')
-                wx.navigateBack({
-                  delta: 1,
-                  // url: '../order/order',
-                  success: function () {
 
-                  }
-                })
-              }
-              
-            } else if (res.data.status === 400) {//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-            }
-            common.status(res, that)//状态401和402
-
+    requestAppid({
+      URL: userScheduleServiceSaveEvaluate,
+      param: {
+        serviceId: that.data.serviceId,//服务单id
+        evaluateScore: that.data.nScore,//评分
+        departLabels: departLabelsString,
+        beauticianLabels: beauticianLabelsString,
+        isAnonymous: isAnonymous
+      }
+    }, function (data) {
+      //如果有活动ID 说明可以抽奖
+      if (evaluateGiftId) {
+        that.lottery()
+      } else {
+        //页面跳转成功后，设置上个页面值
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2]//上一个页面
+        //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+        prevPage.setData({
+          status: 2
+        })
+        console.log('提交成功')
+        wx.navigateBack({
+          delta: 1,
+          // url: '../order/order',
+          success: function () {
 
           }
         })
-      },
-      fail: function () {
-        console.log('页面获取随机数失败')
       }
+      
+      common.status(res, that)//状态401和402
+    }, function (msg) {
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: msg
+      });
+      that.showToast();
     })
+
+    // wx.getStorage({//异步获取随机数
+    //   key: getApp().globalData.appid,
+    //   success: function (res) {
+    //     // console.log('页面获取到随机数为')
+    //     console.log(res.data)
+    //     wx.request({
+    //       url: getApp().url + 'userScheduleService/saveEvaluate',
+    //       data: {
+    //         thirdSessionId: res.data,
+    //         serviceId: that.data.serviceId,//服务单id
+    //         evaluateScore: that.data.nScore,//评分
+    //         departLabels: departLabelsString,
+    //         beauticianLabels: beauticianLabelsString,
+    //         isAnonymous: isAnonymous
+    //       },
+    //       method: 'POST',
+    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
+    //       success: function (res) {
+    //         console.log(res.data)
+    //         if (res.data.status === 200) {
+    //           //如果有活动ID 说明可以抽奖
+    //           if (evaluateGiftId){
+    //             that.lottery()
+    //           }else{
+    //             //页面跳转成功后，设置上个页面值
+    //             var pages = getCurrentPages();
+    //             var prevPage = pages[pages.length - 2]//上一个页面
+    //             //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    //             prevPage.setData({
+    //               status: 2
+    //             })
+    //             console.log('提交成功')
+    //             wx.navigateBack({
+    //               delta: 1,
+    //               // url: '../order/order',
+    //               success: function () {
+
+    //               }
+    //             })
+    //           }
+              
+    //         } else if (res.data.status === 400) {//失败
+    //           console.log(400)
+    //           var msg = res.data.msg
+    //           //设置toast时间，toast内容  
+    //           that.setData({
+    //             count: 2000,
+    //             toastText: msg
+    //           });
+    //           that.showToast();
+    //         }
+    //         common.status(res, that)//状态401和402
+
+
+    //       }
+    //     })
+    //   },
+    //   fail: function () {
+    //     console.log('页面获取随机数失败')
+    //   }
+    // })
     
   },
   //取消预约

@@ -4,16 +4,16 @@ const { getCurrentUser } = URL;
 // 正版
 App({
   globalData: {//初始化请求参数
-    appid: 'wx1027d78d6fa6c86d',  
-    secret: '63d9937305accf41f20b125389d45cec'
+    appid: 'wxab4355d28417d914',  
+    secret: '026e8bf6e20155b7d7f926b27db7c5c3'
   },
-  // url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
-  //  url: 'http://192.168.18.70:18089/weixin-xique/',//预发环境
+   url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
+   // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
   // url: "http://jbs.xibao.com:8890/weixin-xique/",//陈荣贵
   // url: "https://192.168.18.253:8443/weixin-xique/",//陈荣贵
   //url: 'http://122.225.192.228:9031/weixin-xique/',//测试环境
 
-  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  //url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
   onLaunch: function () {
     console.log("app onLaunch")
     const that = this;

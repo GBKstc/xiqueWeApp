@@ -5,6 +5,11 @@
   margin:0 auto;
   margin-bottom: 70rpx;
 }
+.inputContain1{
+  /* padding:0 84rpx; */
+  width:580rpx;
+  margin:0 auto;
+}
 .lableName{
   display: inline-block;
   color:#666;
@@ -53,5 +58,16 @@ button[disabled]{
   opacity:0.6; 
 }
 
-
+.voiceCode{
+  margin-bottom: 210rpx;
+  text-align: right;
+  font-size: 28rpx;
+  color: #fd9595;
+  width: 580rpx;
+  margin: 40rpx auto;
+}
+.voiceCodeText{
+  height: 28rpx;
+  line-height: 28rpx;
+}
 

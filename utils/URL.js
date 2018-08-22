@@ -86,7 +86,7 @@ const checkTimes = "buyDiscountCode/checkTimes";//验证购买次数
 const getCustomerDiscountCodeList = "myDiscountCode/getCustomerDiscountCodeList";//获取顾客优惠列表
 
 const raffle = "evaluteGift/raffle";//评价活动抽奖
-
+const userScheduleServiceSaveEvaluate = "userScheduleService/saveEvaluate";//提交评价
 const customerDiscountCodeDetail = "myDiscountCode/customerDiscountCodeDetail";//顾客优惠码详情
 const buyDiscountCode = "buyDiscountCode/buy";//支付接口
 const cancelBuy = "buyDiscountCode/cancelBuy";//取消支付接口
@@ -94,6 +94,9 @@ const cancelBuy = "buyDiscountCode/cancelBuy";//取消支付接口
 const getQRcode = "buyDiscountCode/getQRcode";
 
 const getUserScheduleServiceList = "userScheduleService/getUserScheduleServiceList";//获取订单列表
+
+
+const getVoiceVerificationCode = "user/getVoiceVerificationCode";//获取语音验证码
 
 module.exports = {
   request,
@@ -115,4 +118,6 @@ module.exports = {
   cancelBuy,
   getQRcode,
   getUserScheduleServiceList,
+  userScheduleServiceSaveEvaluate,
+  getVoiceVerificationCode,
 }

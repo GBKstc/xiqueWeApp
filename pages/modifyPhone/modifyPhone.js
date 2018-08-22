@@ -1,5 +1,10 @@
 // pages/modifyName/modifyName.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+let URL = require('../../utils/URL.js');
+const {
+  requestAppid,
+  getVoiceVerificationCode
+} = URL;
 Page({
   /**
    * 页面的初始数据
@@ -15,7 +20,8 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好' 
+    toastText: '你好',
+    codeText:"",
   },
 
   /**
@@ -87,11 +93,13 @@ Page({
     if(/^1[3|4|5|7|8][0-9]{9}$/.test(value)){
       // console.log("chenggong")
       this.setData({
-        volidate: false
+        volidate: false,
+        voiceIsUse: false,
       })
     }else{
       this.setData({
-        volidate: true
+        volidate: true,
+        voiceIsUse: true,
       })
     }
     //如果手机号格式正确，验证码格式也正确，确定按钮解禁
@@ -144,6 +152,11 @@ Page({
       this.setData({
         sendContent: "剩余" + time + "秒"
       });
+      if (time == 40) {
+        this.setData({
+          codeText: "收不到短信试试语音验证？"
+        });
+      }
       if (time == 0) {
         this.setData({
           sendContent: "重新发送",
@@ -206,6 +219,31 @@ Page({
       }
     })
     
+  },
+  //发送语音验证码按钮
+  sendVoiceCode: function () {
+    var that = this
+    requestAppid({
+      URL: getVoiceVerificationCode,
+      param: {
+        mobile: that.data.phoneValue,
+        flag: 2
+      }
+    }, function (data) {
+      console.log('发送语音验证码成功');
+      wx.showToast({
+        title: '语音验证码发送成功',
+        icon: 'success',
+        mask: true,
+        duration: 1000
+      })
+    }, function (msg) {
+      console.log('发送语音验证码失败');
+      that.setData({
+        count: 1000,
+        toastText: msg
+      });
+    })
   },
   //最下面确定按钮
   modifySuccess:function(){

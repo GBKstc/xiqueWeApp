@@ -108,19 +108,19 @@ Page({
     // console.log('获取所有缓存')
     // console.log(wx.getStorageInfoSync())
     //获取微信图像
-    wx.getUserInfo({
-      success: function (res) {
-        var userInfo = res.userInfo
-        var avatarUrl = userInfo.avatarUrl
-        that.setData({
-          avatarUrl: avatarUrl
-        })
-        console.log(avatarUrl)
-      },
-      fail: function () {
-        console.log('获取图像失败')
-      }
-    })
+    // wx.getUserInfo({
+    //   success: function (res) {
+    //     var userInfo = res.userInfo
+    //     var avatarUrl = userInfo.avatarUrl
+    //     that.setData({
+    //       avatarUrl: avatarUrl
+    //     })
+    //     console.log(avatarUrl)
+    //   },
+    //   fail: function () {
+    //     console.log('获取图像失败')
+    //   }
+    // })
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {

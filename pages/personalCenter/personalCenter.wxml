@@ -12,7 +12,7 @@
       </view>
     </view>
     <view class='loginPicture'>
-      <image mode='widthFix' src='{{avatarUrl}}'></image>
+      <open-data type="userAvatarUrl"></open-data>
     </view>
   </view>
   <!-- 三栏项 -->

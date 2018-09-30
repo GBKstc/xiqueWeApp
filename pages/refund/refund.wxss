@@ -23,3 +23,17 @@
   color: #999999;
   text-align: center;
 }
+.textPhone{
+  display: flex;
+  margin-top: 45rpx;
+  font-size: 30rpx;
+  color: #fd9595;
+  line-height: 30rpx;
+  justify-content: center;
+  align-items: center;
+}
+.phoneImg{
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}

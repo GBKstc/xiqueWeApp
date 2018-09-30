@@ -20,7 +20,8 @@
 .loginPicture{
   width:180rpx;
   height:180rpx;
-  /* border-radius: 50%; */
+  border-radius: 50%;
+  overflow:hidden;
   /* position: absolute; */
 
 }

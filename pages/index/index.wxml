@@ -1,6 +1,4 @@
 
-
-
 <!-- 搜索手艺人模板 -->
 <template name="peoplelist">
 <!-- <view style='position:relative;z-index:10000'> -->
@@ -134,4 +132,3 @@
     </view>
   </view>
 </view>
-

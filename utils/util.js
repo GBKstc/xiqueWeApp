@@ -36,6 +36,7 @@ const isLogin = function(suc){
   },function(data){
     console.log(data);
     if(data.login){
+      getApp().globalData.loginInfo = data;
       //登录
       if (suc) {
         suc()

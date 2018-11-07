@@ -64,6 +64,8 @@ Page({
     let recommendId = "";
     if (globalData.loginInfo&&globalData.loginInfo.id){
       recommendId = globalData.loginInfo.id;
+    }else{
+      return false;
     }
     let scene = "recommendId=" + recommendId + "&id=" + id;
     //   scene.recommendId = recommendId;

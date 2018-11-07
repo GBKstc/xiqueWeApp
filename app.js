@@ -4,8 +4,8 @@ const { getCurrentUser } = URL;
 // 正版
 App({
   globalData: {//初始化请求参数
-    appid: 'wxab4355d28417d914',  
-    secret: '026e8bf6e20155b7d7f926b27db7c5c3'
+    appid: 'wx9ebc4042c9c359fb',  
+    secret: '96cb73f21b646c01ca76d91fb742c84f'
   },
    //url: 'http://115.236.38.186:9020/weixin-xique/',//张伟哲
    // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境

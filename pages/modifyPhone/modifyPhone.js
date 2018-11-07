@@ -12,6 +12,7 @@ Page({
   data: {
     // random: wx.getStorageSync(getApp().globalData.appid),
     volidate:true,//初始时是禁用
+    voiceIsUse: true,//初始时是禁用语音验证
     isMa:true,
     sendContent:'发送验证码',
     phoneValue:'',
@@ -21,7 +22,7 @@ Page({
     isShowToastButton: false,
     count: 3000,
     toastText: '你好',
-    codeText:"",
+    codeText: "收不到短信试试语音验证？"
   },
 
   /**
@@ -90,7 +91,7 @@ Page({
     })
     // console.log(value)
     //如果手机号格式正确，发送验证码按钮解禁
-    if(/^1[3|4|5|7|8][0-9]{9}$/.test(value)){
+    if (/^1[3|4|5|7|8|9][0-9]{9}$/.test(value)){
       // console.log("chenggong")
       this.setData({
         volidate: false,
@@ -103,7 +104,7 @@ Page({
       })
     }
     //如果手机号格式正确，验证码格式也正确，确定按钮解禁
-    if (/^1[3|4|5|7|8][0-9]{9}$/.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if (/^1[3|4|5|7|8|9][0-9]{9}$/.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -124,7 +125,7 @@ Page({
     //如果验证码格式也正确，手机号格式也正确，确定按钮解禁
     // if (this.data.volidate==false){
       // console.log("chenggong")
-    if (/^[0-9]{4}$/.test(value) && /^1[3|4|5|7|8][0-9]{9}$/.test(this.data.phoneValue)) {
+    if (/^[0-9]{4}$/.test(value) && /^1[3|4|5|7|8|9][0-9]{9}$/.test(this.data.phoneValue)) {
         console.log("chenggong")
         this.setData({
           isMa: false

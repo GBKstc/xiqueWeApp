@@ -19,7 +19,8 @@ Page({
     scheduleId:0,//排班id
     timeFormat: '',//预约时间块，逗号隔开
     //传值结束
-    volidate: true,//初始时是禁用
+    volidate: true,//初始时是禁用短信验证
+    voiceIsUse: true,//初始时是禁用语音验证
     isMa: true,
     sendContent: '发送验证码',
     nameValue:'',
@@ -31,7 +32,7 @@ Page({
     count: 3000,
     toastText: '你好',
     //codeText:"收不到短信试试语音验证？"
-    codeText: ""
+    codeText: "收不到短信试试语音验证？"
   },
 
   /**
@@ -109,7 +110,7 @@ Page({
     })
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (value.length !== 0 && !re.test(value) && /^1[3|4|5|7|8][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if (value.length !== 0 && !re.test(value) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -128,7 +129,7 @@ Page({
     })
     // console.log(value)
     //判断手机号格式是否正确，来解禁发送验证码按钮
-    if (/^1[3|4|5|7|8][0-9]{9}$/.test(value)) {
+    if (/^1[2|3|4|5|7|8|9][0-9]{9}$/.test(value)) {
       // console.log("chenggong")
       this.setData({
         volidate: false,
@@ -143,7 +144,7 @@ Page({
 
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[3|4|5|7|8][0-9]{9}$/.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -162,7 +163,7 @@ Page({
     })
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[3|4|5|7|8][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
+    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -189,11 +190,13 @@ Page({
       this.setData({
         sendContent: "剩余" + time + "秒"
       });
-      if(time == 40){
-        this.setData({
-          codeText: "收不到短信试试语音验证？"
-        });
-      }
+
+      //语音提示显现
+      // if(time >= 0){
+      //   this.setData({
+      //     codeText: "收不到短信试试语音验证？"
+      //   });
+      // }
       if (time == 0) {
         clearInterval(timer)
         this.setData({

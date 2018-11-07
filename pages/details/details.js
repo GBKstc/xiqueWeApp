@@ -258,6 +258,8 @@ Page({
     const { detail } = that.data;
     delete detail.carouselImgUrl;
     delete detail.goodsDetailImgUrl;
+    //去除详情描述
+    delete detail.goodsDetail;
     const param = {
       id: detail.id,
       times: 1
@@ -341,6 +343,7 @@ Page({
       URL: getBuyDiscountCodeEventDetail,
       param,
     }, function (data) {
+      
       //处理图片
       data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item +"?x-oss-process=image/resize,w_400") : [];
       data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_400") : [];

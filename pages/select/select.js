@@ -8,6 +8,8 @@ const {
   isEmpty,
   formatTimeDay
 } = util;
+
+let timeEvent = undefined;
 Page({
 
   /**
@@ -17,6 +19,10 @@ Page({
     list:[],
     page:1,
     loading:true,
+
+    selectListLeft:0,
+
+    bottomLineLeft: 150,
   },
 
   /**
@@ -49,6 +55,40 @@ Page({
    */
   onHide: function () {
     
+  },
+
+  changeSelect(e){
+    const that = this;
+    const selectListLeft = that.data.selectListLeft;
+    const bottomLineLeft = that.data.bottomLineLeft;
+    const type = e.target.dataset.type;
+    if (isEmpty(type)){
+      return false;
+    }
+
+    if (timeEvent){
+      clearInterval(timeEvent);
+      timeEvent=undefined;
+    }
+
+    //点击未使用
+    if (type =="noUse"){
+      if (selectListLeft == 0 && bottomLineLeft==150){
+        return false
+      }
+      this.setData({
+        selectListLeft:0,
+        bottomLineLeft: 150,
+      })
+    }
+
+    //点击已失效
+    if (type == "Disabled") {
+      this.setData({
+        selectListLeft: -750,
+        bottomLineLeft: 514,
+      })
+    }
   },
 
 

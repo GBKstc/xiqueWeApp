@@ -54,7 +54,12 @@ Page({
     img4: false,
     img5: false,
     bg: {},//初始化每一个评价标签对应的颜色状态，这里个bg应该是{1:false,3:true}这种对象形式
-    arrObj: []//初始化赋值，这个是上面的升级版，每个对象里面同时包含evaluateLableId(标签id)和evaluateType(标签类型)这两个属性，例如[{id:flase,evaluateLableId:5,evaluateType:1},{id:flase,evaluateLableId:9,evaluateType:2}]这种形式，目的是点击提交按钮时，便于统计点击的标签是哪个类型的，id是多少，这些要传递给后台
+    arrObj: [],//初始化赋值，这个是上面的升级版，每个对象里面同时包含evaluateLableId(标签id)和evaluateType(标签类型)这两个属性，例如[{id:flase,evaluateLableId:5,evaluateType:1},{id:flase,evaluateLableId:9,evaluateType:2}]这种形式，目的是点击提交按钮时，便于统计点击的标签是哪个类型的，id是多少，这些要传递给后台
+
+
+    //消费详情模态框
+    modalBottom: "-100%",
+    showShadow: false
   },
 
   /**
@@ -762,6 +767,26 @@ Page({
     var that=this
     that.setData({
       cancelMask: false
+    })
+  },
+
+  //gotoConsumeDetail查看消费详情
+  gotoConsumeDetail: function () {
+    const that = this;
+    this.setData({
+      showShadow: true
+    }, () => {
+      this.setData({
+        modalBottom: 0,
+      })
+    })
+  },
+
+  closeModal: function () {
+    const that = this;
+    this.setData({
+      showShadow: false,
+      modalBottom: "-100%",
     })
   },
   //显示自定义提示框

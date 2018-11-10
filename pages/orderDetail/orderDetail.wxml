@@ -49,6 +49,11 @@
     </view> -->
     <view class='detailItem'><text class='detailLable'>状态:</text><text class='detailValue'>{{recordData.statusName}}</text></view>
     <view class='detailItem'><text class='detailLable'>订单号:</text><text class='detailValue'>{{recordData.serviceCode}}</text><text class='detailValueCopy' bindtap='setClipboard' wx:if="{{recordData.serviceCode}}">复制</text></view>
+
+    <view class='consumeDetailRow' bindtap='gotoConsumeDetail'>
+      <view class='detailLable'>消费明细</view>
+      <image class='rightLogo' src='../../image/right1.png'></image>
+    </view>
   </view>
   <!-- 未评价块 -->
   <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
@@ -87,8 +92,8 @@
       <view class='star' wx:for="{{recordData.evaluateScore}}" wx:key="{{item}}"><image mode="widthFix" src='../../image/evaluated.png'></image></view>
     </view>
     <view class='evaluateItem'>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
+      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
+      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
     </view>
   </view>
   <!-- 提交按钮 -->
@@ -125,4 +130,30 @@
   </view>  
 </view>  
 
+
+<!-- 点击查看消费详情的模态框 -->
+<view class='shadow' wx:if="{{showShadow}}">
+    <view class='modal' style='bottom:{{modalBottom}}'>
+      <view class='consumeDetailList'>
+        <view class='consumeDetail'>
+          <view class='consumeDetailTitle'>购买</view>
+          <view class='detailItem'>
+            <view class='title'>
+              <view>海洋面膜</view>
+              <view class='titleRemark'>(赠送)</view>
+            </view>
+            <view class='number'>6盒</view>
+          </view>
+          <view class='detailItem'>
+            <view class='title'>海洋面膜</view>
+            <view class='number'>6盒</view>
+          </view>
+        </view>
+        
+        <view class='buttonBox' bindtap='closeModal'>
+          <view class='button'>确定</view>
+        </view>
+      </view>
+    </view>
+  </view>
 

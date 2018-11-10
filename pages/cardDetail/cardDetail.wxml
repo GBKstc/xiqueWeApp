@@ -1,0 +1,73 @@
+<!--pages/cardDetail/cardDetail.wxml-->
+<view class='box'>
+  <view class='list'>
+    <view class='item'>
+      <view class='title'>充值余额(元)</view>
+      <view class='number'>1200</view>
+    </view>
+    <view class='item'>
+      <view class='title'>赠送余额(元)</view>
+      <view class='number'>1200</view>
+    </view>
+  </view>
+  <view class='list'>
+    <view class='listTitle'>剩余物品</view>
+    <view class='titleLine'></view>
+    <view class='item'>
+      <view class='title1'>海洋面膜</view>
+      <view class='number'>1200</view>
+    </view>
+    <view class='item'>
+      <view class='title1'>洗发水</view>
+      <view class='number'>1200</view>
+    </view>
+  </view>
+  <view class='list'>
+    <view class='listTitle'>剩余项目</view>
+    <view class='titleLine'></view>
+    <view class='item'>
+      <view class='title1'>海洋面膜</view>
+      <view class='number'>1200</view>
+    </view>
+    <view class='item'>
+      <view class='title1'>洗发水</view>
+      <view class='number'>1200</view>
+    </view>
+  </view>
+  <view class='list' bindtap='selectProject'>
+    <view class='listTitle'>剩余疗程/方案</view>
+    <view class='titleLine'></view>
+    <view class='item'>
+      <view class='title1'>
+        <text style='margin-right:20rpx'>再青春-疗程</text>
+        <text class='title'>(赠送)</text>
+      </view>
+      <view class='number'><image class='rightLogo' src='../../image/right1.png'></image></view>
+    </view>
+    <view class='surplusDays'>(还剩90天)</view>
+    <view class='item'>
+      <view class='title1'>洗发水</view>
+      <view class='number'><image class='rightLogo' src='../../image/right1.png'></image></view>
+    </view>
+  </view>
+  <view class='shadow' wx:if="{{showShadow}}">
+    <view class='modal' style='bottom:{{modalBottom}}'>
+      <view class='detailList'>
+        <view class='detailItem'>
+          <view class='title'>
+            <view>海洋面膜</view>
+            <view class='titleRemark'>(赠送)</view>
+          </view>
+          <view class='number'>6盒</view>
+        </view>
+        <view class='detailItem'>
+          <view class='title'>海洋面膜</view>
+          <view class='number'>6盒</view>
+        </view>
+        <view class='buttonBox' bindtap='closeModal'>
+          <view class='button'>确定</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

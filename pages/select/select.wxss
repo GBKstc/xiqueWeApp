@@ -59,8 +59,66 @@
   font-size: 28rpx;
   margin-top: 28rpx;
 }
+
+/**
+*
+  头部
+*/
+.header{
+  width: 450rpx;
+  display: flex;
+  padding: 35rpx 150rpx;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  box-shadow: 0px 1px 6px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 99999;
+  
+}
+
+.header .bottomLine{
+  width:88rpx;
+  height:4rpx;
+  background:rgba(253,149,149,0.9);
+  position: absolute;
+  bottom: 0;
+  transition:ease-out 0.5s;
+}
+
+.header .headerSelect{
+  transition:ease-out 0.5s;
+  color: #FD9595;
+}
+.header .headerNoSelect{
+  transition:ease-out 0.5s;
+  color: #333333;
+}
+
+/**
+*
+  列表
+*/
+.selectList{
+  margin-top: 100rpx;
+  width: 750rpx;
+  position: relative;
+
+}
+.selectListBox{
+  position: absolute;
+  width: 1500rpx;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  transition:ease-out 0.5s;
+}
 .select{
   padding: 32rpx 40rpx;
+  width: 670rpx;
 }
 
 /*没内容  */

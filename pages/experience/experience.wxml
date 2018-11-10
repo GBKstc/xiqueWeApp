@@ -10,7 +10,10 @@
         <view class='imgContext'>
           <text class='imgTitle'>{{item.eventName}}</text>
           <view class='imgPrice'>
-            <text class='priceNow'>￥{{item.currentPrice}}</text>
+            <view class='priceNow'>
+              <view style='font-size: 28rpx;line-height: 36rpx;'>￥</view>
+              <view style='font-size: 44rpx;line-height: 44rpx;'>{{item.currentPrice}}</view>
+            </view>
             <text class='priceOld'>{{item.originPrice}}</text>
           </view>
         </view>

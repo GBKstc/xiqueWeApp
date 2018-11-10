@@ -1,0 +1,23 @@
+/* pages/cardList/cardList.wxss */
+.cardListBox{
+  padding: 20rpx  60rpx 0 60rpx;
+}
+.card{
+  width:556rpx;
+  height:194rpx;
+  background:linear-gradient(56deg,rgba(253,149,149,1) 0%,rgba(255,189,189,1) 100%);
+  border-radius:16rpx;
+  margin-top: 20rpx;
+  font-size: 32rpx;
+  padding: 50rpx 38rpx 36rpx 49rpx;
+  color:rgba(255,255,255,1);
+}
+.cardNum{
+  margin-top: 28rpx;
+  font-size: 28rpx;
+}
+.cardDate{
+  margin-top: 50rpx;
+  text-align: right;
+  font-size: 28rpx;
+}

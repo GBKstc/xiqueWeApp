@@ -6,16 +6,34 @@
 }
 .baseBox{
   width: 670rpx;
-  box-shadow: 0 0 10rpx rgba(0,0,0,0.3);
-  border-radius: 8rpx;
-  overflow: hidden;
+  /* box-shadow: 0 0 10rpx rgba(0,0,0,0.3); */
+  /* border-radius: 8rpx; */
+  /* overflow: hidden; */
   margin: 0 auto;
   margin-bottom: 35rpx;
 }
 
+.header{
+  overflow: hidden;
+  border-radius: 40rpx;
+}
+
 .header .headerContent{
   width: 670rpx;
-  margin: 33rpx auto;
+  margin: 0 auto;
+}
+.headerContentStyle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 670rpx;
+  margin: 70rpx auto;
+}
+
+.headerContentStyle .headerLine{
+  width:60rpx;
+  height:1rpx;
+  background-color:  rgba(223,223,223,1);
 }
 
 .headerContent .headerContentText{
@@ -25,19 +43,16 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   
-  width: 612rpx;
-  margin: 0 29rpx 0 29rpx;
   font-size: 32rpx;
-  line-height: 62rpx;
-  color: #666666;
+  line-height: 32rpx;
+  color:#666666;
 }
 
 .headerContent .infoContent{
   display: -webkit-box;
   -webkit-box-align: center;
   -moz-box-align: center;
-  width: 612rpx;
-  margin: 21rpx 29rpx 0 29rpx;
+  margin: 21rpx 29rpx 60rpx 29rpx;
 
 }
 
@@ -57,10 +72,9 @@
 }
 .detailsText{
   color: #333333;
-  line-height: 64rpx;
-  /* margin-top: 73rpx; */
+  line-height: 32rpx;
+  font-size:32rpx;
   text-indent:64rpx;
-  padding-bottom: 5px;
 }
 .imgList{
   width: 100%;
@@ -68,23 +82,17 @@
 .imgList .imgLi {
   margin-top: 40rpx;
   width: 100%;
-  height:620rpx; 
 }
 .imgLi image{
   margin-top: 40rpx;
   width: 100%;
-  height: 100%;
   display: block;
 }
 
 .topBorder{
-  padding-bottom: 53rpx;
-  
+  padding-bottom: 15rpx;
 }
 .detailsContent{
-  width: 602rpx;
-  margin: 0 auto;
-  padding: 50rpx 34rpx 0 34rpx;
   font-size: 32rpx;
   line-height: 32rpx;
   color: #999999;
@@ -168,8 +176,6 @@
 }
 
  .storeLsitHeader{
-  width: 612rpx;
-  margin: 0 auto;
   color: #999999;
   font-size: 32rpx;
 } 
@@ -209,8 +215,6 @@
 }
 /* 商店列表 */
 .storeList{
-  width: 612rpx;
-  margin: 0 auto;
   font-size: 36rpx;
   line-height: 36rpx;
   color: #333333;
@@ -240,7 +244,7 @@
   width: 530rpx;
 }
 .footer{
-  height: 124rpx;
+  height: 97rpx;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -261,7 +265,9 @@
   -webkit-box-align: end;
 }
 .price .priceNew{
-  display: block;
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
   margin-left: 74rpx;
   font-size: 50rpx;
 }
@@ -276,11 +282,11 @@
 
 .footerBox button{
   display: block;
-  height: 70rpx;
-  width: 200rpx;
+  height: 50rpx;
+  width: 160rpx;
   background-color: #FD9595;
-  font-size: 32rpx;
-  line-height: 70rpx;
+  font-size:24rpx;
+  line-height: 50rpx;
   color: rgb(255, 255, 255);
   left:-90rpx;
 }

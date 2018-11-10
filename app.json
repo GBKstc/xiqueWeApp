@@ -1,6 +1,6 @@
 {
   "pages": [
-    
+    "pages/personalCenter/personalCenter",
     "pages/index/index",
     "pages/refund/refund",
     "pages/orderDetailChance/orderDetailChance",
@@ -12,21 +12,22 @@
     "pages/modifyPhone/modifyPhone",
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/order/order",
-    "pages/personalCenter/personalCenter",
+    "pages/experience/experience",
     "pages/select/select",
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",
     "pages/checkinfo/checkinfo",
     "pages/two_demision/two_demision",
     "pages/assess/assess",
-    "pages/experience/experience",
     "pages/storeDistribution/storeDistribution",
     "pages/details/details",
     "pages/accounts/accounts",
     "pages/login/login",
     "pages/time/time",
-    "pages/success/success"
-    
+    "pages/success/success",
+    "pages/cardDetail/cardDetail",
+    "pages/cardList/cardList",
+    "pages/consumeDetail/consumeDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",

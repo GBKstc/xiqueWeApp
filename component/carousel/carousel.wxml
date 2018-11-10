@@ -1,4 +1,4 @@
-<view class='box' style='width:100%;position: relative;'>
+<view class='box'>
   <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" 
       interval="{{interval}}"

@@ -298,11 +298,16 @@ Page({
     })
   },
   //查看严选券
-  select: function () {
+  select: function (e) {
+    console.log(e.currentTarget.dataset.url);
+    const goToUrl = e.currentTarget.dataset.url;
+    if (isEmpty(e.currentTarget.dataset.url)){
+      return false;
+    }
     var that = this
     if (!that.data.isLogin) {//登录了
       wx.navigateTo({
-        url: '../select/select',
+        url: goToUrl,
         success: function () {
         }
       })
@@ -410,6 +415,8 @@ Page({
       }
     })
   },
+
+ 
   //显示自定义提示框
   showToast: function () {
     var _this = this;

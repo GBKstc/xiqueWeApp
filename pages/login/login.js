@@ -41,7 +41,7 @@ Page({
   onLoad: function (options) {
     var howTo=options.howto;
     //下面三个参数从登陆页面进来不传，从首页的马上预约和排班页的确定进来才有
-    var userId = options.userid;
+    var userId = options.userId || options.userId;
     var scheduleId = options.scheduleid;
     var timeFormat = options.timeformat;
     this.setData({
@@ -322,7 +322,7 @@ Page({
                 var userId = that.data.userId
                 var scheduleId = that.data.scheduleId
                 var timeFormat = that.data.timeFormat
-                url = "../checkinfo/checkinfo?userid=" + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat//跳转到核对预约信息
+                url = "../checkinfo/checkinfo?userId=" + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat//跳转到核对预约信息
                 wx.redirectTo({//因为这个页面是个中间人，跳转后要把这个页面删除掉
                   url: url,
                   success: function (res) {

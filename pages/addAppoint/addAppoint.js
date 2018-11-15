@@ -183,11 +183,11 @@ Page({
           },
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            console.log(res.data)
+            console.log(res.data.data,"新增顾客ID")
             if (res.data.status === 200) {
               
               wx.redirectTo({
-                url: '../checkinfo/checkinfo?nameValue=' + maValue + '&phoneValue=' + phoneValue + '&customerid=' + customerId + '&userId=' + userId + '&scheduleid=' + scheduleid + '&timeformat=' + timeformat + '&idValue=' + idValue,
+                url: '../checkinfo/checkinfo?nameValue=' + maValue + '&phoneValue=' + phoneValue + '&customerid=' + (res.data.data || customerId) + '&userId=' + userId + '&scheduleid=' + scheduleid + '&timeformat=' + timeformat + '&idValue=' + idValue,
                 success: function () {
                  
                 }

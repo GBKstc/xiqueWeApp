@@ -603,7 +603,7 @@ Page({
 
                     }
                   }
-                  //没有三个连续的红时间块，就显示已满
+                  //没有2个连续的红时间块，就显示已满
                   var isActive = that.data.isActive
                   var isActiveArr = []//把标红的存入数组
                   for (var t in isActive) {
@@ -616,7 +616,8 @@ Page({
                   console.log(isActiveArr)
                   if (isActiveArr.length > 0) {//数组不为空
                     for (var y = 0; y < isActiveArr.length; y++) {
-                      if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1]) && parseInt(isActiveArr[y]) + 2 === parseInt(isActiveArr[y + 2])) {//有三个连续的
+                      // if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1]) && parseInt(isActiveArr[y]) + 2 === parseInt(isActiveArr[y + 2])) {//有三个连续的
+                      if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1])) {//有两个连续的
                         that.setData({
                           isOk: true
                         },()=>{

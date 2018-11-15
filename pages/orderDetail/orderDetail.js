@@ -101,7 +101,7 @@ Page({
           data: sendData ,
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            console.log(res.data)
+            console.log(res.data,"订单详情")
             if (res.data.status === 200) {
               // console.log(200)
               // 重构响应数据，需要把原始响应数据里的date，serviceStartTime，evaluateScore这三个属性改造
@@ -809,10 +809,11 @@ Page({
   //获取订单详情用的通用获取接口
   getData(key){
     const that = this;
-    const { scheduleServiceId} = that.data;
+    const { recordData} = that.data;
+    console.log(that.data);
     requestAppid({
       URL:URL[key],
-      param: { serviceId:scheduleServiceId},
+      param: { serviceId: recordData.serviceId},
       succ: function (data){
         console.log(data)
       }

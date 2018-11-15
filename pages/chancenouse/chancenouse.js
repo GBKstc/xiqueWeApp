@@ -17,6 +17,11 @@ Page({
   data: {
     item:{},
     detail:{},
+
+    modalBottom: "-100%",
+    showShadow: false,
+
+    returnReason:''
   },
 
   /**
@@ -89,12 +94,7 @@ Page({
     })
   },
 
-  //退款
-  refund(){
-    wx.navigateTo({
-      url: '../refund/refund',
-    })
-  },
+ 
 
   //适配不同屏幕大小的canvas
   setCanvasSize: function () {
@@ -146,6 +146,87 @@ Page({
       that.setData({
         detail: data
       })
+    })
+  },
+
+
+  /**
+   * 跳转商品详情后分享出去
+   */
+  giveGift:function(){
+    const that = this;
+    const { detail,item } = that.data;
+    console.log(detail,item)
+    // wx.navigateTo({
+    //   url: '../details/details?id=' + detail.id,
+    //   success: function () {
+    //   }
+    // })
+  },
+
+  //退款
+  refund() {
+    const that = this;
+    this.setData({
+      showShadow: true
+    }, () => {
+      this.setData({
+        modalBottom: 0,
+      })
+    })
+  },
+
+  closeModal: function (e) {
+    console.log(e)
+    const that = this;
+    const query = wx.createSelectorQuery();
+    
+    //选择id
+    query.select('.modal').boundingClientRect(function (rect) {
+      // console.log(rect.width)
+      //元素高度
+      let rectHeight = rect.height;
+
+      //获取系统信息
+      wx.getSystemInfo({
+        success: function (res) {
+          //窗口高度
+          let windowHeight = res.windowHeight;
+          if (e.touches[0].clientY < windowHeight - rectHeight){
+            that.setData({
+                modalBottom: "-100%",
+              })
+
+              setTimeout(function(){
+                that.setData({
+                  showShadow: false,
+                })
+              },500)
+          }
+        }
+      })
+    }).exec();
+  },
+
+  /**
+   * 退款情况
+   */
+  refundDetail() {
+    const that = this;
+    wx.navigateTo({
+      url: '../refund/refund',
+      success: function () {
+      }
+    })
+  },
+  
+  /**
+   * 选择退款原因
+   */
+  selectReason:function(e){
+    console.log('选择的退款原因：', e.detail.value);
+    this.setData({
+      returnReason: e.detail.value
     })
   },
   

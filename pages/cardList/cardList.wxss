@@ -5,7 +5,8 @@
 .card{
   width:556rpx;
   height:194rpx;
-  background:linear-gradient(56deg,rgba(253,149,149,1) 0%,rgba(255,189,189,1) 100%);
+  /* background:url("../../image/cardBackground.png") no-repeat; */
+  background-size: cover;
   border-radius:16rpx;
   margin-top: 20rpx;
   font-size: 32rpx;
@@ -20,4 +21,16 @@
   margin-top: 50rpx;
   text-align: right;
   font-size: 28rpx;
+}
+.noCard{
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
+.noCardText{
+  margin-top: 500rpx;
+  font-size:32rpx;
+  color:rgba(153,153,153,1);
+  font-weight:400;
+  text-align: center;
 }

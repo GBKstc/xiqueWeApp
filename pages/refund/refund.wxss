@@ -1,39 +1,148 @@
-/*没内容  */
-.isNo{
-  width: 100%;
-}
-
-.isNo .imgBox{
-  margin-top: 250rpx;
-  width:180rpx;
-  height:180rpx;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.imgBox image{
-  display: block;
-  height: 100%;
-  width: 100%;
-}
-.textContext{
-  display: block;
-  margin-top: 45rpx;
-  font-size: 30rpx;
-  color: #999999;
+.header{
+  height:120rpx;
+  line-height: 120rpx;
+  background:rgba(253,149,149,0.14);
+  font-size:28rpx;
   text-align: center;
+  font-family:PingFang-SC-Regular;
+  font-weight:400;
+  color:rgba(253,149,149,1);
 }
-.textPhone{
+.refundInfo{
+  padding: 10rpx 60rpx 50rpx 60rpx;
+}
+.item{
+  margin-top: 40rpx;
   display: flex;
-  margin-top: 45rpx;
-  font-size: 30rpx;
-  color: #fd9595;
-  line-height: 30rpx;
-  justify-content: center;
+  justify-content: space-between;
+}
+
+.item .title{
+  font-size:28rpx;
+  line-height: 28rpx;
+  color:rgba(153,153,153,1);
+}
+
+.item .context{
+  font-size:32rpx;
+  line-height: 32rpx;
+  color:#333333;
+}
+
+.courseHeader{
+  display: flex;
+  justify-content: space-between;
+  padding: 53rpx 60rpx 0 60rpx;
+  border-top: 20rpx solid rgba(253,149,149,0.14);
+}
+
+.courseHeaderText{
+  display: flex;
+  justify-content: space-between;
+  font-size:32rpx;
+  line-height: 32rpx;
+  position: relative;
+}
+.callService{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #999999;
+}
+.pheLogo{
+  width: 22rpx;
+  height: 31rpx;
+  margin-right: 20rpx;
+  
+}
+
+.courseHeaderText::after{
+  content: "";
+  display: block;
+  width:40rpx;
+  height:4rpx;
+  background-color: rgba(153,153,153,1);
+  position: absolute;
+  bottom: -15rpx;
+  left: 0;
+}
+
+.bodyInfo{
+  margin-top: 71rpx;
+  padding: 0 60rpx;
+  display: flex;
+}
+.roundStyle{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
-.phoneImg{
-  width: 30rpx;
-  height: 30rpx;
-  margin-right: 10rpx;
+.round{
+  width: 10rpx;
+  height: 10rpx;
+  border: 1px solid rgba(253,149,149,1);
+  padding: 7rpx;
+  border-radius: 100%;
+}
+.smallRound{
+  width: 10rpx;
+  height: 10rpx;
+  background-color: rgba(253,149,149,1);
+  border-radius: 100%;
+}
+.endwaysLine{
+  width:2rpx;
+  height:245rpx;
+  background-color: rgba(223,223,223,1);
+}
+.noRound{
+  width: 10rpx;
+  height: 10rpx;
+  border: 1px solid rgba(223,223,223,1);
+  padding: 7rpx;
+  border-radius: 100%;
+}
+.noSmallRound{
+  width: 10rpx;
+  height: 10rpx;
+  background-color: rgba(223,223,223,1);
+  border-radius: 100%;
+}
+.text{
+  color:rgba(253,149,149,1);
+  font-size:32rpx;
+  line-height: 60rpx;
+}
+.notext{
+  color:rgba(153,153,153,1);
+  font-size:32rpx;
+  line-height: 60rpx;
+}
+
+.bodyInfoBottomBox{
+  margin-left: 37rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.bodyInfoBottom{
+  padding: 0 0 117rpx 0;
+  position: relative;
+  top:-19rpx;
+}
+.marginBottom{
+  
+}
+.positionTop{
+  position: relative;
+  top: 17rpx;
+}
+.remark{
+  position: absolute;
+  top: 60rpx;
+  left: 0;
 }

@@ -149,11 +149,39 @@
             <view class='number'>6盒</view>
           </view>
         </view>
+        <view class='consumeDetail'>
+          <view class='consumeDetailTitle'>消费</view>
+          <view class='detailItem'>
+            <view class='title'>
+              <view>五行通背</view>
+              <view class='titleRemark'>(1次)</view>
+            </view>
+            <view class='number'>200元</view>
+          </view>
+          <view class='detailItem'>
+            <view class='title'>
+              <view>脉动</view>
+              <view class='titleRemark'>(1次)</view>
+            </view>
+            <view class='number'>200元</view>
+          </view>
+        </view>
+        <view class='consumeDetail'>
+          <view class='consumeDetailTitle'>转账</view>
+          <view class='detailItem'>
+            <view class='title'>转入账户</view>
+            <view class='titleRemark'>十七<text style='margin-left:20rpx'>(6745etrs)</text></view>
+          </view>
+           <view class='detailItem'>
+            <view class='title'>转入金额</view>
+            <view class='number'>200元</view>
+          </view>
+        </view>
         
-        <view class='buttonBox' bindtap='closeModal'>
+      </view>
+      <view class='buttonBox' bindtap='closeModal'>
           <view class='button'>确定</view>
         </view>
-      </view>
     </view>
   </view>
 

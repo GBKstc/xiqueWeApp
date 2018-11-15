@@ -1,7 +1,57 @@
-<view class='isNo'  style='display:black'>
-  <view class='imgBox'>
-    <image class='kongImg' src='../../image/kongpaiban.png'></image>
+<view>
+  <view class='header'>退款状态:  微信到账处理中...</view>
+  <view class='refundInfo'>
+    <view class='item'>
+      <view class="title">退款金额:</view>
+      <view class="context" style='color:#FD9595'>
+        <text style='font-size:28rpx'>￥</text>
+        <text style='font-size:44rpx'>20</text>
+      </view>
+    </view>
+    <view class='item'>
+      <view class="title">退款金额:</view>
+      <view class="context">微信零钱</view>
+    </view>
+    <view class='item'>
+      <view class="title">到账时间:</view>
+      <view class="context">2018/08/13  14:25:20</view>
+    </view>
   </view>
-  <view class="textContext">联系客服进行退款</view>
-  <view class="textPhone" bindtap='makePhoneCall'><image class='phoneImg' src="../../image/phe.png"/>拨打客服电话</view>
+  <view class='refundCourse'>
+    <view class='courseHeader'>
+      <view class='courseHeaderText'>退款进度</view>
+      <view class='callService' bindtap='makePhoneCall'>
+        <image class='pheLogo' src='../../image/phe.png'></image>
+        <view class='callText'>联系客服</view>
+      </view>
+    </view>
+    <view class='bodyInfo'>
+      <view class='roundStyle'>
+        <view class='round'>
+          <view class='smallRound'></view>
+        </view>
+        <view class='endwaysLine'></view>
+        <view class='noRound'>
+          <view class='noSmallRound'></view>
+        </view>
+      </view>
+      <view class='bodyInfoBottomBox'>
+          <view class='bodyInfoBottom notext'>
+            <view class='marginBottom'>微信支付会在1-3个工作日内完成受理</view>
+            <view class='marginBottom'>2018/08/13  14:25:20</view>
+          </view>
+          <view class='positionTop'>
+            <view class='text'>微信到账处理中...</view>
+            <view class='remark text'>
+              <view class='marginBottom'>20.0元入账至您的原付款账户，请注意查
+  收</view>
+              <view class='marginBottom'>2018/08/15  14:25:20</view>
+            </view>
+          </view>
+          
+      </view>
+     
+    </view>
+  </view>
+  
 </view>

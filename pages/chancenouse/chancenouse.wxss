@@ -13,6 +13,7 @@
 }
 .detail_header_two{
   font-size: 28rpx;
+  margin-left: 15rpx;
 }
 .favour{
     font-size: 28rpx;
@@ -78,7 +79,7 @@
   color: #999999;
   font-size: 32rpx;
   display: inline-block;
-  margin-top: 104rpx;
+  margin-top: 60rpx;
 }
 .produce_img{
   width:133rpx;
@@ -102,14 +103,34 @@
   float: right;
   color: #333333;
 }
-.gobtn{
-  background: #FD9595;
-  color: #fff;
-  border-radius: 0px;
+.bottonBox{
   width: 100%;
   position: fixed;
   bottom: 0;
   left: 0;
+
+  display: flex;
+  justify-content: space-between;
+  color: #fff;
+  text-align: center;
+
+  font-size: 34rpx;
+}
+.giveFriend{
+  width:289rpx;
+  background:rgba(255,187,187,1);
+  color: white;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+.gobtn{
+  background: #FD9595;
+  flex: 1;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: white;
 }
 .buyBox{
   display: flex;
@@ -133,15 +154,115 @@
 }
 
 .refund{
-  width:100rpx;
-  background:rgba(255,255,255,1);
-  border: 1px solid rgba(153,153,153,1);
-  border-radius:6rpx;
-  color: rgba(153,153,153,1);
-  font-size: 28rpx;
+  margin-top: 100rpx;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-size: 32rpx;
+  line-height: 32rpx;
+
+}
+
+
+/*
+  浮动框
+*/
+.shadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background:rgba(0,0,0,0.5);
+}
+.modal{
+  transition: all 0.8s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius:10rpx 10rpx 0px 0px;
+}
+
+.consumeDetailList{
+  margin: 0 auto;
+  padding: 0 60rpx;
+  
+}
+.consumeDetailList .detailItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.consumeDetailList .detailItem .title{
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #666666;
+}
+.consumeDetailList .titleRemark{
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  margin-left: 20rpx;
   line-height: 28rpx;
-  padding: 11rpx 0;
-  /* margin-top: 25rpx; */
+}
+.consumeDetailList .detailItem .number{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+}
+.consumeDetailList .consumeDetail{
+  padding-bottom: 1rpx;
+}
+.consumeDetailTitle{
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
+  font-size:32rpx;
+  line-height: 32rpx;
+  margin-top: 30rpx;
+  margin-bottom: 80rpx;
+  padding-bottom: 15rpx;
+  position: relative;
+}
+.consumeDetailTitle::after{
+  content: "";
+  display: block;
+  width:40rpx;
+  height:4rpx;
+  background:rgba(253,149,149,1);
+  border-radius:2rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.buttonBox{
+  display: flex;
+  justify-content: space-around;
+  margin: 60rpx 0 30rpx 0;
+}
+
+.noButtonStyle{
+  background:#FD9595;
+}
+
+.okButtonStyle{
+  background:rgba(253,149,149,1);
+}
+
+
+.button{
+  width:440rpx;
+  height:70rpx;
+  
+  border-radius:10rpx;
   text-align: center;
-  margin-bottom: 22px;
+  line-height: 70rpx;
+  font-size: 32rpx;
+  color:rgba(255,255,255,1);
 }

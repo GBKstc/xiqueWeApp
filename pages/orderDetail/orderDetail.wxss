@@ -343,6 +343,9 @@
   line-height: 32rpx;
   color: #333333;
 }
+.consumeDetailList .consumeDetail{
+  padding-bottom: 1rpx;
+}
 .consumeDetailTitle{
   color:rgba(153,153,153,1);
   font-size:28rpx;
@@ -365,8 +368,8 @@
 .buttonBox{
   display: flex;
   justify-content: space-around;
-  margin-top: 60rpx;
-  margin-bottom: 30rpx;
+  
+  margin:30rxp 0;
 }
 .button{
   width:440rpx;

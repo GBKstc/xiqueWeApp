@@ -103,22 +103,31 @@
   列表
 */
 .selectList{
-  margin-top: 100rpx;
+  padding-top: 100rpx;
   width: 750rpx;
-  position: relative;
-
+  position: fixed;
+  height: 100%;
 }
 .selectListBox{
   position: absolute;
   width: 1500rpx;
   display: flex;
   justify-content: space-between;
-  top: 0;
+  top: 100rpx;
   transition:ease-out 0.5s;
+  height: 100%;
 }
 .select{
   padding: 32rpx 40rpx;
   width: 670rpx;
+  height: 100%;
+}
+.noCardText{
+  margin-top: 600rpx;
+  font-size:32rpx;
+  color:rgba(153,153,153,1);
+  font-weight:400;
+  text-align: center;
 }
 
 /*没内容  */

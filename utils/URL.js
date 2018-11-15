@@ -98,6 +98,17 @@ const getUserScheduleServiceList = "userScheduleService/getUserScheduleServiceLi
 
 const getVoiceVerificationCode = "user/getVoiceVerificationCode";//获取语音验证码
 
+
+//获取订单详情列表
+const serviceCardDiscountCodeGive = "/service/cardDiscountCodeGive"; //优惠码核销
+const serviceCardTrans = "service/cardTrans"; //转账
+const serviceCardReturn = "service/cardReturn"; //退货
+const serviceCardPick = "service/cardPick"; //取货
+const serviceCardConsume = "service/cardConsume"; //消费
+const serviceCardBuy = "service/cardBuy"; //购买
+const serviceCardRecharge = "service/cardRecharge"; //充值
+const serviceOpenCardInfo = "service/openCardInfo"; //充值
+
 module.exports = {
   request,
   requestAppid,
@@ -120,4 +131,14 @@ module.exports = {
   getUserScheduleServiceList,
   userScheduleServiceSaveEvaluate,
   getVoiceVerificationCode,
+
+
+  serviceCardDiscountCodeGive,
+  serviceCardTrans,
+  serviceCardReturn,
+  serviceCardPick,
+  serviceCardConsume,
+  serviceCardBuy,
+  serviceCardRecharge,
+  serviceOpenCardInfo,
 }

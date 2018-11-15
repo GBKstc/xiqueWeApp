@@ -8,8 +8,8 @@
     <view class='{{selectListLeft?"headerSelect":"headerNoSelect"}}' data-type="Disabled" bindtap="changeSelect">已失效</view>
     <view class='bottomLine' style='left: {{bottomLineLeft}}rpx'></view>
   </view>
-  <view class='selectList'>
-    <view class='selectListBox' style='left:{{selectListLeft}}rpx'>
+  <view class='selectList' >
+    <view class='selectListBox' style='left:{{selectListLeft}}rpx;' >
       <view class='select' >
         <view class='select_row' bindtap='chancenouse' data-index='{{index}}'  wx:for="{{list}}" wx:key="{{item.discountCodeId}}">
           <view class='select_absolute {{item.discountCodeStatusName=="未使用"?"select_absoluteYes":"select_absoluteNo"}} '>{{item.discountCodeStatusName}}</view>
@@ -23,7 +23,8 @@
         </view>
         
       </view>
-      <view class='select' >
+
+      <view class='select' wx:if="{{false}}">
         <view class='select_row' bindtap='chancenouse' data-index='{{index}}'  wx:for="{{list}}" wx:key="{{item.discountCodeId}}">
           <view class='select_absolute {{item.discountCodeStatusName=="未使用"?"select_absoluteYes":"select_absoluteNo"}} '>{{item.discountCodeStatusName}}</view>
           <view>
@@ -35,16 +36,20 @@
           </view>
         </view>
         
+      </view>
+      <view class='select' style='background:url("../../image/noDiscount.png") no-repeat;background-size: cover;' wx:else>
+        <view class='noCardText'>您还没有会员卡</view>
       </view>
     </view>
     
   </view>
+  <view></view>
 </view>
 
 
-<view class='isNo'  style='display:black' wx:else>
+<!-- <view class='isNo'  style='display:black' wx:else>
   <view class='imgBox'>
     <image class='kongImg' src='../../image/kongpaiban.png'></image>
   </view>
   <view class='textContent'>您还没有优选券</view>
-</view>
+</view> -->

@@ -19,7 +19,12 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好' 
+    toastText: '你好' ,
+
+
+    //订单详情
+
+    //优惠码核销
   },
 
   /**

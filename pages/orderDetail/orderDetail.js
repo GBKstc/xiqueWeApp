@@ -773,6 +773,7 @@ Page({
   //gotoConsumeDetail查看消费详情
   gotoConsumeDetail: function () {
     const that = this;
+    this.getOrderDetail();
     this.setData({
       showShadow: true
     }, () => {
@@ -803,5 +804,42 @@ Page({
   toAgainLogin: function () {
     var _this = this
     common.toAgainLogin(_this)
+  },
+
+  //获取订单详情用的通用获取接口
+  getData(key){
+    const that = this;
+    const { scheduleServiceId} = that.data;
+    requestAppid({
+      URL:URL[key],
+      param: { serviceId:scheduleServiceId},
+      succ: function (data){
+        console.log(data)
+      }
+    })
+  },
+
+  //获取订单所有详情
+  getOrderDetail(){
+    const that = this;
+    //所有要获取的详情接口list
+    const getKeyList = [
+      "serviceCardDiscountCodeGive",
+      "serviceCardTrans",
+      "serviceCardReturn",
+      "serviceCardPick",
+      "serviceCardConsume",
+      "serviceCardBuy",
+      "serviceCardRecharge",
+      "serviceOpenCardInfo",
+    ];
+
+    for(let key of getKeyList){
+      console.log(key);
+      that.getData(key);
+    }
+
+
   }
+
 })

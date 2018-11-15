@@ -1,8 +1,11 @@
 {
   "pages": [
-    "pages/personalCenter/personalCenter",
+    
+    
     "pages/index/index",
+    "pages/cardList/cardList",
     "pages/refund/refund",
+    "pages/personalCenter/personalCenter",
     "pages/orderDetailChance/orderDetailChance",
     "pages/orderDetail/orderDetail",
     "pages/scrapeprice/scrapeprice",
@@ -26,7 +29,7 @@
     "pages/time/time",
     "pages/success/success",
     "pages/cardDetail/cardDetail",
-    "pages/cardList/cardList",
+    
     "pages/consumeDetail/consumeDetail"
   ],
   "window": {

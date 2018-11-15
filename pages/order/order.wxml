@@ -5,7 +5,7 @@
     <text data-status='2' class="changeBlock {{status=='2'?'swiperCellActive':''}}" bindtap='timeSelected'>服务完成</text>
     <text data-status='3' class="changeBlock {{status=='3'?'swiperCellActive':''}}" bindtap='timeSelected'>服务取消</text>
   </view>
-  <view class='list'>
+  <view class='list' wx:if="{{listData&&listData.length>0}}">
      <!-- <block wx:for="{{listData}}">  -->
      <!-- <template is='{{_num}}'></template> -->
     <view class='listItem' wx:for="{{listData}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-status="{{status}}" data-evaluategiftid="{{item.evaluateGiftId}}" bindtap='oneClick'>
@@ -21,6 +21,9 @@
       </view>
     </view> 
      <!-- </block>  -->
+  </view>
+  <view wx:else class='list'  style='background:url("../../image/noOrder.png") no-repeat;background-size: cover;'>
+    <view class='noOrderText'>您还没有订单</view>
   </view>
 </view>
 <!--mask-->  

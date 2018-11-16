@@ -130,54 +130,120 @@
   </view>  
 </view>  
 
-
+<wxs module="utils" src="../../utils/utils.wxs"></wxs>
 <!-- 点击查看消费详情的模态框 -->
 <view class='shadow' wx:if="{{showShadow}}">
     <view class='modal' style='bottom:{{modalBottom}}'>
       <view class='consumeDetailList'>
-        <view class='consumeDetail'>
+
+        <view class='consumeDetail'  wx:if="{{serviceOpenCardInfo}}">
+          <view class='consumeDetailTitle'>开卡</view>
+          <view class='detailItem'>
+            <view class='title'>
+              <text>{{serviceOpenCardInfo.cardrankName}}</text>
+              <text class='titleRemark'>({{serviceOpenCardInfo.cardNo}})</text>
+            </view>
+            <view class='number'>{{utils.toFix(serviceOpenCardInfo.realPay)}}元</view>
+          </view>
+        </view>
+
+        <view class='consumeDetail'  wx:if="{{serviceCardRecharge}}">
+          <view class='consumeDetailTitle'>充值</view>
+          <view class='detailItem'>
+            <view class='title'>
+              <text>{{serviceCardRecharge.cardNo}}</text>
+            </view>
+            <view class='number'>{{utils.toFix(serviceCardRecharge.rechargeAmount)}}元</view>
+          </view>
+        </view>
+
+        <view class='consumeDetail'  wx:if="{{serviceCardBuy}}">
           <view class='consumeDetailTitle'>购买</view>
-          <view class='detailItem'>
+          <view class='detailItem' wx:for="{{serviceCardBuy}}" wx:key>
             <view class='title'>
-              <view>海洋面膜</view>
-              <view class='titleRemark'>(赠送)</view>
+              <text>{{item.productName}}</text>
+              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
             </view>
-            <view class='number'>6盒</view>
-          </view>
-          <view class='detailItem'>
-            <view class='title'>海洋面膜</view>
-            <view class='number'>6盒</view>
+            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
           </view>
         </view>
-        <view class='consumeDetail'>
+
+        <view class='consumeDetail'  wx:if="{{serviceCardConsume}}">
           <view class='consumeDetailTitle'>消费</view>
-          <view class='detailItem'>
+          <view class='detailItem' wx:for="{{serviceCardConsume}}" wx:key>
             <view class='title'>
-              <view>五行通背</view>
-              <view class='titleRemark'>(1次)</view>
+              <text>{{item.projectName}}</text>
+              <text class='titleRemark'>({{item.count||"0"}}次)</text>
             </view>
-            <view class='number'>200元</view>
-          </view>
-          <view class='detailItem'>
-            <view class='title'>
-              <view>脉动</view>
-              <view class='titleRemark'>(1次)</view>
-            </view>
-            <view class='number'>200元</view>
+            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
           </view>
         </view>
-        <view class='consumeDetail'>
+
+        <view class='consumeDetail'  wx:if="{{serviceCardPick}}">
+          <view class='consumeDetailTitle'>取货</view>
+          <view class='detailItem' wx:for="{{serviceCardPick}}" wx:key>
+            <view class='title'>
+              <text>{{item.goodsName}}</text>
+              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"个"}})</text>
+            </view>
+            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+          </view>
+        </view>
+
+        <view class='consumeDetail'  wx:if="{{serviceCardReturn}}">
+          <view class='consumeDetailTitle'>退货</view>
+          <view class='detailItem' wx:for="{{serviceCardReturn}}" wx:key>
+            <view class='title'>
+              <text>{{item.productName}}</text>
+              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
+            </view>
+            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+          </view>
+        </view>
+
+
+         <view class='consumeDetail' wx:if="{{serviceCardTrans}}">
           <view class='consumeDetailTitle'>转账</view>
-          <view class='detailItem'>
-            <view class='title'>转入账户</view>
-            <view class='titleRemark'>十七<text style='margin-left:20rpx'>(6745etrs)</text></view>
+          <view wx:for="{{serviceCardTrans}}">
+            <view class='detailItem'>
+              <view class='title' style='width:"50%"'>转入账户</view>
+              <view class='titleRemark'>{{item.customerName}}<text style='margin-left:20rpx'>({{item.cardNo}})</text></view>
+            </view>
+            <view class='detailItem'>
+              <view class='title'>转入金额</view>
+              <view class='number'>{{utils.toFix(item.tranAmount)}}元</view>
+            </view>
+            <view class='detailItem' wx:if="{{item.products.length>0}}" wx:for="{{item.products}}">
+              <view class='title'>{{item.productName}}</view>
+              <view class='number'>{{utils.toFix(item.convAmount)}}元</view>
+            </view>
           </view>
-           <view class='detailItem'>
-            <view class='title'>转入金额</view>
-            <view class='number'>200元</view>
+          
+        </view>
+
+        
+        
+        <view class='consumeDetail' wx:if="{{serviceCardDiscountCodeGive}}">
+          <view class='consumeDetailTitle'>优惠码核销</view>
+          <view class='detailItem' wx:if="{{serviceCardDiscountCodeGive.giveAmount}}">
+            <view class='title'>赠送金额</view>
+            <view class='number'>{{utils.toFix(serviceCardDiscountCodeGive.giveAmount)}}元</view>
+          </view>
+          <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.projects}}" wx:key>
+            <view class='title'>
+              <text>{{item.projectName}}</text>
+              <text class='titleRemark'>({{item.num}}次)</text>
+            </view>
+            <view class='number'>{{utils.toFix(item.amount)}}元</view>
+          </view>
+          <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.goods}}" wx:key>
+            <view class='title'>
+              <text>{{item.goodsName}}</text>
+              <text class='titleRemark'>({{item.num+item.unit}})</text>
+            </view>
+            <view class='number'>{{utils.toFix(item.amount)}}元</view>
           </view>
         </view>
-        
       </view>
       <view class='buttonBox' bindtap='closeModal'>
           <view class='button'>确定</view>

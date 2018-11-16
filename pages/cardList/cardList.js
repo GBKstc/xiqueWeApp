@@ -2,6 +2,10 @@
 let util = require('../../utils/util.js');
 let URL = require('../../utils/URL.js');
 const { isEmpty } = util;
+const { 
+  requestAppid,
+  cardList,
+} = URL;
 Page({
 
   /**
@@ -15,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getCardList()
   },
 
   /**
@@ -85,5 +89,21 @@ Page({
       });
       that.showToast();
     }
-  } 
+  },
+
+  //获取卡列表
+  getCardList(){
+    const that = this;
+    requestAppid({
+      URL: cardList,
+    }, function (data){
+      if(isEmpty(data)){
+        return;
+      }
+        that.setData({
+          cardList:data
+        })
+    })
+  }
+
 })

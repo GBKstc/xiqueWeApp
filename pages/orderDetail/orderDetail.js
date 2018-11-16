@@ -12,7 +12,7 @@ const {
   userScheduleServiceSaveEvaluate,
 } = URL;
 const { 
-  isEmpty
+  isEmpty,
 } = util;
 Page({
 
@@ -810,13 +810,20 @@ Page({
   getData(key){
     const that = this;
     const { recordData} = that.data;
-    console.log(that.data);
     requestAppid({
       URL:URL[key],
-      param: { serviceId: recordData.serviceId},
-      succ: function (data){
-        console.log(data)
+      param: { serviceId: recordData.serviceId}
+    },function (data) {
+      
+      if(isEmpty(data)){
+        return ;
       }
+      console.log(data, key)
+      const Data = {};
+      Data[key] = data;
+      that.setData({
+        ...Data
+      })
     })
   },
 
@@ -825,14 +832,14 @@ Page({
     const that = this;
     //所有要获取的详情接口list
     const getKeyList = [
-      "serviceCardDiscountCodeGive",
-      "serviceCardTrans",
-      "serviceCardReturn",
-      "serviceCardPick",
-      "serviceCardConsume",
-      "serviceCardBuy",
-      "serviceCardRecharge",
       "serviceOpenCardInfo",
+      "serviceCardRecharge",
+      "serviceCardBuy",
+      "serviceCardConsume",
+      "serviceCardPick",
+      "serviceCardReturn",
+      "serviceCardTrans",
+      "serviceCardDiscountCodeGive",
     ];
 
     for(let key of getKeyList){
@@ -841,6 +848,9 @@ Page({
     }
 
 
-  }
+  },
+
+  //保留两位
+  
 
 })

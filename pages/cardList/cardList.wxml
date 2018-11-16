@@ -1,6 +1,6 @@
 <!--pages/cardList/cardListBox.wxml-->
 <view>
-  <view class='cardListBox' bindtap='selectCard' wx:if="{{false}}">
+  <view class='cardListBox' bindtap='selectCard' wx:if="{{cardList}}">
     <view class='card' style='background:url("../../image/cardBackground.png") no-repeat;background-size: cover;'>
       <view>静*魅力卡</view>
       <view class='cardNum'>WE932460</view>

@@ -40,8 +40,8 @@
 
     <view class='operationItem' style='margin-bottom:20rpx' bindtap='select' data-url='../cardList/cardList'>
       <view class='operationCenter'>
-        <view class='checkIcon'>
-          <image mode='widthFix' src='../../image/bar.png'></image>
+        <view class='checkIcon' >
+          <image mode='widthFix' src='../../image/cardLogo.png'></image>
         </view>
         <view class='checkText'>会员卡</view>
         <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>

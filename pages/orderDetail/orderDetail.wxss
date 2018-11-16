@@ -309,6 +309,8 @@
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 80%;
+  overflow: auto;
   background-color: white;
   border-radius:10rpx 10rpx 0px 0px;
 }
@@ -325,12 +327,13 @@
   margin-top: 30rpx;
 }
 .consumeDetailList .detailItem .title{
-  display: flex;
+  /* display: flex;
   justify-content: start;
-  align-items: flex-end;
+  align-items: flex-end; */
   font-size: 32rpx;
   line-height: 32rpx;
   color: #333333;
+  width: 80%;
 }
 .consumeDetailList .titleRemark{
   font-size:28rpx;

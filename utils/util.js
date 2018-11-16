@@ -282,6 +282,19 @@ const cpy =function(o) {
   return res;
 }
 
+/**
+ * 截图小数点后两位
+ * @returns number
+ */
+const toFix = function (value, count){
+  const re = /([0-9]+\.[0-9]{2})[0-9]*/;
+  if (sTypeOf(obj, "Number")) {
+    return obj.toString().replace(re, "$1");
+  } else {
+    return obj.replace(re, "$1");
+  }
+}
+
 
 
 
@@ -295,4 +308,5 @@ module.exports = {
   timeToObj: timeToObj,
   getDetailList:getDetailList,
   isLogin: isLogin,
+  toFix: toFix
 }

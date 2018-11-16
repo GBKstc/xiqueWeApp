@@ -107,7 +107,10 @@ const serviceCardPick = "service/cardPick"; //取货
 const serviceCardConsume = "service/cardConsume"; //消费
 const serviceCardBuy = "service/cardBuy"; //购买
 const serviceCardRecharge = "service/cardRecharge"; //充值
-const serviceOpenCardInfo = "service/openCardInfo"; //充值
+const serviceOpenCardInfo = "service/openCardInfo"; //开卡
+
+
+const cardList = "card/cardList"; //获取卡列表
 
 module.exports = {
   request,
@@ -141,4 +144,6 @@ module.exports = {
   serviceCardBuy,
   serviceCardRecharge,
   serviceOpenCardInfo,
+
+  cardList,
 }

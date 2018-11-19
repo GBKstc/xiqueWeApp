@@ -1,7 +1,7 @@
 // pages/cardList/success.js
 let util = require('../../utils/util.js');
 let URL = require('../../utils/URL.js');
-const { isEmpty } = util;
+const { isEmpty, formatTimeDay } = util;
 const { 
   requestAppid,
   cardList,
@@ -74,10 +74,11 @@ Page({
 
   selectCard:function(e){
   
-    var that = this
+    var that = this;
+    console.log(e.currentTarget)
     if (!that.data.isLogin) {//登录了
       wx.navigateTo({
-        url: "../cardDetail/cardDetail",
+        url: "../cardDetail/cardDetail?cardId=" + e.currentTarget.dataset.cardid,
         success: function () {
         }
       })
@@ -97,11 +98,15 @@ Page({
     requestAppid({
       URL: cardList,
     }, function (data){
-      if(isEmpty(data)){
+      if (isEmpty(data) || isEmpty(data.cardList)){
         return;
       }
+      for(let item of data.cardList){
+        item.buyTime = formatTimeDay(new Date(item.buyTime));
+      }
         that.setData({
-          cardList:data
+          cardList: data.cardList,
+          weixinShowCardInfo: data.weixinShowCardInfo
         })
     })
   }

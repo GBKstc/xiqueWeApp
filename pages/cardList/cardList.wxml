@@ -1,15 +1,10 @@
 <!--pages/cardList/cardListBox.wxml-->
 <view>
-  <view class='cardListBox' bindtap='selectCard' wx:if="{{cardList}}">
-    <view class='card' style='background:url("../../image/cardBackground.png") no-repeat;background-size: cover;'>
-      <view>静*魅力卡</view>
-      <view class='cardNum'>WE932460</view>
-      <view class='cardDate'>2018/04/07</view>
-    </view>
-    <view class='card' style='background:url("../../image/cardBackground.png") no-repeat;background-size: cover;'>
-      <view>静*魅力卡</view>
-      <view class='cardNum'>WE932460</view>
-      <view class='cardDate'>2018/04/07</view>
+  <view class='cardListBox'  wx:if="{{cardList}}" >
+    <view class='card' data-cardid='{{item.cardId}}' bindtap='selectCard' wx:for="{{cardList}}" wx:key style='background:url("../../image/cardBackground.png") no-repeat;background-size: cover;'>
+      <view>{{item.cardrankName}}</view>
+      <view class='cardNum'>{{item.cardNo}}</view>
+      <view class='cardDate'>{{item.buyTime}}</view>
     </view>
   </view>
   <view class='noCard' wx:else style='background:url("../../image/noCard.png") no-repeat;background-size: cover;'>

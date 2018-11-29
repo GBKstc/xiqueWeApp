@@ -88,7 +88,8 @@
   </view>
 
   <view class='footer'>
-    <view class='footerBox'>
+    <view wx:if="{{customerId}}" class='getCode' bindtap='getReceiveDiscountCode'>立即领取</view>
+    <view class='footerBox' wx:else>
       <view class='price'>
         <view class='priceNew'>
           <view class='priceOld'>￥</view>

@@ -2,6 +2,12 @@ import URL from "./URL.js";
 const { requestAppid, checkLogin} = URL;
 
 const formatTime = date => {
+  if (!date) {
+    return ""
+  }
+  if (IsNum(date)) {
+    date = new Date(date);
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -12,7 +18,20 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const IsNum = s=> {
+  if (s != null && s != "") {
+    return !isNaN(s);
+  }
+  return false;
+}
+
 const formatTimeDay = date => {
+  if (!date){
+    return ""
+  }
+  if (IsNum(date)){
+    date = new Date(date);
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()

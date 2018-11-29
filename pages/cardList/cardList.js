@@ -75,7 +75,10 @@ Page({
   selectCard:function(e){
   
     var that = this;
-    console.log(e.currentTarget)
+    console.log(e.currentTarget);
+    if (isEmpty(that.data.weixinShowCardInfo)){
+      return false;
+    }
     if (!that.data.isLogin) {//登录了
       wx.navigateTo({
         url: "../cardDetail/cardDetail?cardId=" + e.currentTarget.dataset.cardid,

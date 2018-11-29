@@ -25,4 +25,7 @@
       <text>暂无优惠信息</text>
     </view>
   </view>
+  <!--mask-->
+  <include src="../../utils/commonConfirm.wxml"/>
 </view>
+   

@@ -16,10 +16,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],
+    noUseList:[],
+    disabledList: [],
     page:1,
     loading:true,
-
+    type: 1, //1、未使用 2、已失效
     selectListLeft:0,
 
     bottomLineLeft: 150,
@@ -46,8 +47,9 @@ Page({
    */
   onShow: function () {
     const that = this;
+    const {type} = this.data;
     console.log("select");
-    that.customerDiscountCodeList(1);
+    that.customerDiscountCodeList(1,type);
   },
 
   /**
@@ -72,21 +74,25 @@ Page({
     }
 
     //点击未使用
-    if (type =="noUse"){
+    if (type =="1"){
       if (selectListLeft == 0 && bottomLineLeft==150){
         return false
       }
+      that.customerDiscountCodeList(1,1);
       this.setData({
         selectListLeft:0,
         bottomLineLeft: 150,
+        type
       })
     }
 
     //点击已失效
-    if (type == "Disabled") {
+    if (type == "2") {
+      that.customerDiscountCodeList(1, 2);
       this.setData({
         selectListLeft: -750,
         bottomLineLeft: 514,
+        type
       })
     }
   },
@@ -94,15 +100,31 @@ Page({
 
   chancenouse: function (e) {
     const index = e.currentTarget.dataset.index;
+    const discountCodeStatus = e.currentTarget.dataset.discountcodestatus;
+    const tabType = e.currentTarget.dataset.tabtype;
     const that = this;
-    const { list } = that.data;
-    const selectItem = list[index];
-    wx.navigateTo({
-      url: '../chancenouse/chancenouse?item='+JSON.stringify(selectItem),
-    })
+    const { noUseList, disabledList } = that.data;
+    let selectItem ={}
+    if (tabType==1){
+      selectItem = noUseList[index];
+    } else if (tabType==2){
+      selectItem = disabledList[index];
+    }
+    
+    //优惠码状态0未使用,1已过期,2已使用,3退款成功,4退款失败5退款中,6线下退款成功
+    if (discountCodeStatus == 3 || discountCodeStatus == 4 || discountCodeStatus == 5 || discountCodeStatus == 6){
+      wx.navigateTo({
+        url: '../refund/refund?item=' + JSON.stringify(selectItem),
+      })
+    }else{
+      wx.navigateTo({
+        url: '../chancenouse/chancenouse?item=' + JSON.stringify(selectItem),
+      })
+    }
+    
   },
 
-  customerDiscountCodeList:function(page){
+  customerDiscountCodeList:function(page,type=1){
     const that = this;
     requestAppid(
       {
@@ -110,27 +132,30 @@ Page({
         param: {
           pageNo: page||1,
           pageSize: 20,
+          tabType: type||1
         },
       },
       function (data) {
-        let {list} = that.data;
-        //let list = data.list;
-        if (isEmpty(data.list)){
-          // list = [];
-          return ;
-        } else if ((page || 1)==1){
-          list = data.list;
-        }else{
-          list = list.concat(data.list);
+        let { noUseList, disabledList,type} = that.data;
+        let newList = data.list;
+        if(type==1){
+          for (let i of newList) {
+            i.endTime = formatTimeDay(new Date(i.discountCodeEndTime));
+          }
+          that.setData({
+            noUseList: newList,
+            loading: false
+          })
+        }else if(type==2){
+          for (let i of newList) {
+            i.endTime = formatTimeDay(new Date(i.discountCodeEndTime));
+          }
+          that.setData({
+            disabledList: newList,
+            loading: false
+          })
         }
-        for(let i of list){
-          i.endTime = formatTimeDay(new Date(i.discountCodeEndTime));
-        }
-        console.log(list)
-        that.setData({
-          list: list,
-          loading: false
-        })
+         
       }
     );
   },
@@ -147,7 +172,8 @@ Page({
    */
   onPullDownRefresh: function () {
     const that = this;
-    that.customerDiscountCodeList(1);
+    const {type} = this.data;
+    that.customerDiscountCodeList(1, type);
     that.setData({
       page:1
     })

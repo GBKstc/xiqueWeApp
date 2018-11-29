@@ -154,14 +154,7 @@ Page({
    * 跳转商品详情后分享出去
    */
   giveGift:function(){
-    const that = this;
-    const { detail,item } = that.data;
-    console.log(detail,item)
-    // wx.navigateTo({
-    //   url: '../details/details?id=' + detail.id,
-    //   success: function () {
-    //   }
-    // })
+    
   },
 
   //退款
@@ -254,7 +247,28 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
+    console.log("分享成功")
+    const that = this;
+    const { detail, item } = that.data;
+    console.log(detail, item, e);
+    if(e.from=="button"){
+      return {
+        title: "时光就应该浪费在美好的事情上，让我们一起去做SPA",
+        path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id" + detail.id ,
+        success: function (res) {
+          console.log("转发成功", res);
+        },
+        fail: function (res) {
+          console.log("转发失败", res);
+        }
+      }
+    }
     
+    // wx.navigateTo({
+    //   url: '../details/details?id=' + detail.id,
+    //   success: function () {
+    //   }
+    // })
   }
 })

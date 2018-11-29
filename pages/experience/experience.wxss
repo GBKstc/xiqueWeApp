@@ -1,4 +1,4 @@
-
+@import "../../utils/commonConfirm.wxss";
 /* 有内容 */
 .isLogin{
   margin-top: 27rpx;

@@ -112,6 +112,18 @@ const serviceOpenCardInfo = "service/openCardInfo"; //开卡
 
 const cardList = "card/cardList"; //获取卡列表
 
+const cardLiaochengDetailProducts = "card/cardLiaochengDetailProducts"; //卡剩余疗程内物品和项目
+
+const cardLiaochengAndProm = "card/cardLiaochengAndProm"; //卡剩余疗程和方案
+const cardProjects = "card/cardProjects"; //卡剩余项目
+const cardGoods = "card/cardGoods"; //卡剩余物品
+const cardBalance = "card/cardBalance"; //卡余额
+
+const receiveDiscountCodePre = "myDiscountCode/receiveDiscountCodePre";//优惠码领取校验
+const receiveDiscountCode = "myDiscountCode/receiveDiscountCode";//优惠码领取
+
+const refundDetail = "myDiscountCode/refundDetail";//优惠码领取
+
 module.exports = {
   request,
   requestAppid,
@@ -135,7 +147,7 @@ module.exports = {
   userScheduleServiceSaveEvaluate,
   getVoiceVerificationCode,
 
-
+  //订单详情接口
   serviceCardDiscountCodeGive,
   serviceCardTrans,
   serviceCardReturn,
@@ -145,5 +157,18 @@ module.exports = {
   serviceCardRecharge,
   serviceOpenCardInfo,
 
+  //卡详情接口
   cardList,
+  cardLiaochengDetailProducts,
+  cardLiaochengAndProm,
+  cardProjects,
+  cardGoods,
+  cardBalance,
+
+  //优惠券赠送
+  receiveDiscountCodePre,
+  receiveDiscountCode,
+
+  //优惠券退款详情
+  refundDetail
 }

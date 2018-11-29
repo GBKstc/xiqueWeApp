@@ -1,20 +1,20 @@
 <view>
-  <view class='header'>退款状态:  微信到账处理中...</view>
+  <view class='header'>退款状态:  {{refundDetail.title}}</view>
   <view class='refundInfo'>
     <view class='item'>
       <view class="title">退款金额:</view>
       <view class="context" style='color:#FD9595'>
         <text style='font-size:28rpx'>￥</text>
-        <text style='font-size:44rpx'>20</text>
+        <text style='font-size:44rpx'>{{refundDetail.refundFee}}</text>
       </view>
     </view>
     <view class='item'>
-      <view class="title">退款金额:</view>
-      <view class="context">微信零钱</view>
+      <view class="title">退回账户:</view>
+      <view class="context">{{refundDetail.refundRecvAccout||"--"}}</view>
     </view>
     <view class='item'>
       <view class="title">到账时间:</view>
-      <view class="context">2018/08/13  14:25:20</view>
+      <view class="context">{{refundDetail.successTime||refundDetail.delTime||"--"}}</view>
     </view>
   </view>
   <view class='refundCourse'>
@@ -36,16 +36,16 @@
         </view>
       </view>
       <view class='bodyInfoBottomBox'>
-          <view class='bodyInfoBottom notext'>
+          <view class='bodyInfoBottom {{data.discountCodeStatus==5?notext:text}}'>
             <view class='marginBottom'>微信支付会在1-3个工作日内完成受理</view>
-            <view class='marginBottom'>2018/08/13  14:25:20</view>
+            <view class='marginBottom'>{{refundDetail.createtime}}</view>
           </view>
-          <view class='positionTop'>
-            <view class='text'>微信到账处理中...</view>
-            <view class='remark text'>
-              <view class='marginBottom'>20.0元入账至您的原付款账户，请注意查
+          <view class='positionTop text'>
+            <view class=''>微信到账处理中...</view>
+            <view class='remark'>
+              <view class='marginBottom'>{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查
   收</view>
-              <view class='marginBottom'>2018/08/15  14:25:20</view>
+              <view class='marginBottom' wx:if="{{refundDetail.successTime||refundDetail.delTime}}">{{refundDetail.successTime||refundDetail.delTime}}</view>
             </view>
           </view>
           

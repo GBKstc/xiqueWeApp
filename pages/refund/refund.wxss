@@ -130,7 +130,7 @@
 }
 
 .bodyInfoBottom{
-  padding: 0 0 117rpx 0;
+  padding: 0 0 60rpx 0;
   position: relative;
   top:-19rpx;
 }

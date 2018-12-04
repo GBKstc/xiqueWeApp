@@ -10,7 +10,7 @@
     </view>
     <view class='item'>
       <view class="title">退回账户:</view>
-      <view class="context">{{refundDetail.refundRecvAccout||"--"}}</view>
+      <view class="context">{{refundDetail.refundRecvAccount||"--"}}</view>
     </view>
     <view class='item'>
       <view class="title">到账时间:</view>
@@ -27,24 +27,26 @@
     </view>
     <view class='bodyInfo'>
       <view class='roundStyle'>
-        <view class='round'>
-          <view class='smallRound'></view>
+        <view class='{{refundDetail.discountCodeStatus==5?"round":"noRound"}}'>
+          <view class='{{refundDetail.discountCodeStatus==5?"smallRound":"noSmallRound"}}'></view>
         </view>
         <view class='endwaysLine'></view>
-        <view class='noRound'>
-          <view class='noSmallRound'></view>
+        <view class='{{refundDetail.discountCodeStatus==5?"noRound":"round"}}'>
+          <view class='{{refundDetail.discountCodeStatus==5?"noSmallRound":"smallRound"}}'></view>
         </view>
       </view>
       <view class='bodyInfoBottomBox'>
-          <view class='bodyInfoBottom {{data.discountCodeStatus==5?notext:text}}'>
-            <view class='marginBottom'>微信支付会在1-3个工作日内完成受理</view>
+          <view class='bodyInfoBottom {{refundDetail.discountCodeStatus==5?"text":"notext"}}'>
+            <view class='marginBottom'>{{refundDetail.discountCodeStatus==5?"微信到账处理中...":"微信受理退款成功"}}</view>
+            <view class='marginBottom'>{{refundDetail.discountCodeStatus==5?"微信支付会在1-3个工作日内完成受理":"您的退款申请已被微信成功受理"}}</view>
             <view class='marginBottom'>{{refundDetail.createtime}}</view>
           </view>
-          <view class='positionTop text'>
-            <view class=''>微信到账处理中...</view>
-            <view class='remark'>
-              <view class='marginBottom'>{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查
+          <view class='positionTop {{refundDetail.discountCodeStatus==5?"notext":"text"}}'>
+            <view class=''>{{refundDetail.discountCodeStatus==5?"退款成功":"您的退款申请已被微信成功受理"}}</view>
+            <view class='remark' wx:if="{{refundDetail.discountCodeStatus!=5}}">
+              <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==3}}">{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查
   收</view>
+              <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==4}}">点击右上角联系客服人员</view>
               <view class='marginBottom' wx:if="{{refundDetail.successTime||refundDetail.delTime}}">{{refundDetail.successTime||refundDetail.delTime}}</view>
             </view>
           </view>

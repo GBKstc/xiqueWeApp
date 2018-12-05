@@ -393,9 +393,12 @@ Page({
         //设置toast时间，toast内容  
         that.setData({
           count: 2000,
-          toastText: msg
+          toastText: msg,
         });
         that.showToast();
+        wx.redirectTo({
+          url: '../experience/experience',
+        })
       })
   },
 

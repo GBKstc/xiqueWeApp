@@ -256,6 +256,7 @@ Page({
       return {
         title: "时光就应该浪费在美好的事情上，让我们一起去做SPA",
         path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id" + detail.id ,
+        imageUrl:detail.coverImgUrl,
         success: function (res) {
           console.log("转发成功", res);
         },

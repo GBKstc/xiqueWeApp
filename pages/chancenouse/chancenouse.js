@@ -1,13 +1,16 @@
+const common = require('../../utils/commonConfirm.js');
 const URL = require('../../utils/URL.js');
 const util = require('../../utils/util.js');
 const QR = require("../../utils/qrcode.js");
 const {
   requestAppid,
   customerDiscountCodeDetail,
+  applyRefund
 } = URL;
 const { 
   getDetailList,
-  formatTimeDay
+  formatTimeDay,
+  isEmpty
  } = util;
 Page({
 
@@ -126,7 +129,7 @@ Page({
 
   getCodeEventDetail(item) {
     const that = this;
-    // const { item } = that.data;
+    //const { item } = that.data;
     const param = {
       discountCodeId: item.discountCodeId,
       type: item.type,
@@ -206,11 +209,41 @@ Page({
    */
   refundDetail() {
     const that = this;
-    wx.navigateTo({
-      url: '../refund/refund',
-      success: function () {
+    const { returnReason, item} = this.data;
+    if (isEmpty(returnReason)){
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: "请选择退款原因"
+      });
+      that.showToast();
+
+      return false;
+    }
+    requestAppid({
+      URL: applyRefund,
+      param:{
+        refundReason: returnReason,
+        discountCodeId: item.discountCodeId
+      },
+    },
+      function (data) {
+        wx.redirectTo({
+          url: '../refund/refund?item=' + JSON.stringify(item),
+          success: function () {
+          }
+        })
+      }, function (msg) {
+        //设置toast时间，toast内容  
+        that.setData({
+          count: 2000,
+          toastText: msg
+        });
+        that.showToast();
       }
-    })
+    )
+    
+    
   },
   
   /**
@@ -248,15 +281,18 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (e) {
-    console.log("分享成功")
     const that = this;
     const { detail, item } = that.data;
-    console.log(detail, item, e);
+    const globalData = getApp().globalData;
+    const { loginInfo } = globalData;
+    console.log(detail, item, e, globalData);
+    console.log(detail.coverImgUrl);
+    
     if(e.from=="button"){
       return {
-        title: "时光就应该浪费在美好的事情上，让我们一起去做SPA",
+        title: `${loginInfo.name}赠送你一个“${detail.eventName}”的优惠事件【立即领取】`,
         path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id" + detail.id ,
-        imageUrl:detail.coverImgUrl,
+        imageUrl: detail.coverImgUrl[0],
         success: function (res) {
           console.log("转发成功", res);
         },
@@ -271,5 +307,23 @@ Page({
     //   success: function () {
     //   }
     // })
+  },
+
+
+
+  //显示自定义提示框
+  showToast: function () {
+    var _this = this;
+    common.showToast(_this)
+  },
+  //提示框的确定按钮
+  buttonConfirm: function () {
+    var _this = this
+    common.buttonConfirm(_this)
+  },
+  //提示框的去登陆按钮
+  toAgainLogin: function () {
+    var _this = this
+    common.toAgainLogin(_this)
   }
 })

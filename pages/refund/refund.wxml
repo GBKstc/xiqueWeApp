@@ -42,7 +42,8 @@
             <view class='marginBottom'>{{refundDetail.createtime}}</view>
           </view>
           <view class='positionTop {{refundDetail.discountCodeStatus==5?"notext":"text"}}'>
-            <view class=''>{{refundDetail.discountCodeStatus==5?"退款成功":"您的退款申请已被微信成功受理"}}</view>
+            <view class='' wx:if="{{refundDetail.discountCodeStatus!=4}}">{{refundDetail.discountCodeStatus==5?"退款成功":"您的退款申请已被微信成功受理"}}</view>
+            <view class='' wx:if="{{refundDetail.discountCodeStatus==4}}">{{"退款失败"}}</view>
             <view class='remark' wx:if="{{refundDetail.discountCodeStatus!=5}}">
               <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==3}}">{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查
   收</view>

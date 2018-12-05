@@ -1,3 +1,4 @@
+@import "../../utils/commonConfirm.wxss";
 .detail{
   padding: 39rpx 64rpx 150rpx 61rpx;
 }
@@ -175,7 +176,7 @@
   height: 100%;
   width: 100%;
   background:rgba(0,0,0,0.5);
-  z-index: 99999999;
+  z-index: 88;
 }
 .modal{
   transition: all 0.8s;
@@ -185,7 +186,7 @@
   width: 100%;
   background-color: white;
   border-radius:10rpx 10rpx 0px 0px;
-  z-index: 999999999;
+  z-index: 89;
 }
 
 .consumeDetailList{

@@ -141,7 +141,9 @@ Page({
       data.coverImgUrl = data.coverImgUrl ? data.coverImgUrl.split(",") : [];
       data.detailList = getDetailList(data);
       data.buyTime = formatTimeDay(new Date(data.createtime));
-      data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime))
+      data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime));
+
+      data.discountCode = data.discountCode.replace(/\d(?=(\d{4})+\.)/g, "&nbsp;").replace(/\d{4}(?![,.]|$)/g, "$& ")
       
       console.log(data, that);
       that.createQrCode(data.discountCode, "mycanvas");
@@ -291,7 +293,7 @@ Page({
     if(e.from=="button"){
       return {
         title: `${loginInfo.name}赠送你一个“${detail.eventName}”的优惠事件【立即领取】`,
-        path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id" + detail.id ,
+        path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id=" + detail.id ,
         imageUrl: detail.coverImgUrl[0],
         success: function (res) {
           console.log("转发成功", res);

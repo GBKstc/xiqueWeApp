@@ -2,7 +2,7 @@
 var common = require('../../utils/commonConfirm.js');
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
-const { getUserScheduleServiceList, requestAppid } = URL;
+const { myInfo, requestAppid } = URL;
 const { isEmpty } = util
 Page({
 
@@ -98,7 +98,7 @@ Page({
    */
   onShow: function () {
     if (!isEmpty(getApp().globalData.loginInfo)) {
-      this.userScheduleServiceList();
+      this.getMyInfo();
     }
     var that = this
     // that.setData({//进来就先隐藏掉
@@ -234,19 +234,15 @@ Page({
 
   // },
 
-  userScheduleServiceList() {
+ getMyInfo() {
     const that = this;
     requestAppid({
-      URL: getUserScheduleServiceList,
-      param: {
-        status: 2,
-        pageNo: 1,
-        pageSize: 999,
-      }
+      URL: myInfo,
     }, function (res) {
       console.log(res);
       that.setData({
-        flag: res.flag||"",
+        flag: res.flag || "",
+        isWeixinShowCardInfo: res.isWeixinShowCardInfo||"",
       })
     })
   },

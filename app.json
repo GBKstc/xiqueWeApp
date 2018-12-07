@@ -1,5 +1,7 @@
 {
   "pages": [
+
+   
     
    
     "pages/index/index",
@@ -16,6 +18,7 @@
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/order/order",
     "pages/experience/experience",
+    
     "pages/select/select",
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",

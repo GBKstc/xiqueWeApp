@@ -45,6 +45,10 @@
   margin-top: 44rpx;
   margin-bottom: 20rpx;
 }
+canvas{
+  z-index: 8;
+  position: static !important;
+}
 .mabottom{
   margin-bottom: 52rpx;
 }

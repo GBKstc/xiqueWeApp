@@ -24,8 +24,8 @@
         </view>
       </view>
 
-      <view class='select' style='background:url("../../image/noDiscount.png") no-repeat;background-size: cover;' wx:else>
-        <view class='noCardText'>您还没有优惠券</view>
+      <view class='select' style='background:url("https://image.beautysaas.com/xique/noDiscount.png") no-repeat;background-size: cover;' wx:else>
+        <view class='noCardText'>您还没有优选券</view>
       </view>
 
 

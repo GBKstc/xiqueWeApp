@@ -22,7 +22,7 @@
     </view> 
      <!-- </block>  -->
   </view>
-  <view wx:else class='list'  style='background:url("../../image/noOrder.png") no-repeat;background-size: cover;'>
+  <view wx:else class='list'  style='background:url("https://image.beautysaas.com/xique/noOrder.png") no-repeat;background-size: cover;'>
     <view class='noOrderText'>您还没有订单</view>
   </view>
 </view>

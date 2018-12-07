@@ -124,6 +124,7 @@ const receiveDiscountCode = "myDiscountCode/receiveDiscountCode";//优惠码领�
 
 const refundDetail = "myDiscountCode/refundDetail";//优惠码领取
 const applyRefund = "myDiscountCode/applyRefund";//优惠码退款
+const myInfo = "user/myInfo";//我的信息
 
 module.exports = {
   request,
@@ -131,6 +132,7 @@ module.exports = {
 
 
   checkLogin,
+  myInfo,
   getCurrentUser,
   updateAppointment,
   addAppointment,

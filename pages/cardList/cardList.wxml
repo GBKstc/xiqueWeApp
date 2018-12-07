@@ -1,13 +1,13 @@
 <!--pages/cardList/cardListBox.wxml-->
 <view>
   <view class='cardListBox'  wx:if="{{cardList}}" >
-    <view class='card' data-cardid='{{item.cardId}}' bindtap='selectCard' wx:for="{{cardList}}" wx:key style='background:url("../../image/cardBackground.png") no-repeat;background-size: cover;'>
+    <view class='card' data-cardid='{{item.cardId}}' bindtap='selectCard' wx:for="{{cardList}}" wx:key style='background:url("https://image.beautysaas.com/xique/cardBackground.png") no-repeat;background-size: cover;'>
       <view>{{item.cardrankName}}</view>
       <view class='cardNum'>{{item.cardNo}}</view>
       <view class='cardDate'>{{item.buyTime}}</view>
     </view>
   </view>
-  <view class='noCard' wx:else style='background:url("../../image/noCard.png") no-repeat;background-size: cover;'>
+  <view class='noCard' wx:else style='background:url("https://image.beautysaas.com/xique/noCard.png") no-repeat;background-size: cover;'>
   <view class='noCardText'>您还没有会员卡</view>
   </view>
 </view>

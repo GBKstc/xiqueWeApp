@@ -1,11 +1,11 @@
 <!--pages/cardDetail/cardDetail.wxml-->
 <view class='box'>
   <view class='list'>
-    <view class='item' wx:if="{{cardBalance&&cardBalance.buyAmount}}">
+    <view class='item' wx:if="{{cardBalance&&(cardBalance.buyAmount||cardBalance.buyAmount==0)}}">
       <view class='title'>充值余额(元)</view>
       <view class='number'>{{cardBalance.buyAmount}}</view>
     </view>
-    <view class='item' wx:if="{{cardBalance&&cardBalance.buyAmount}}">
+    <view class='item' wx:if="{{cardBalance&&(cardBalance.giveAmount||cardBalance.giveAmount==0)}}">
       <view class='title'>赠送余额(元)</view>
       <view class='number'>{{cardBalance.giveAmount}}</view>
     </view>
@@ -14,7 +14,10 @@
     <view class='listTitle'>剩余物品</view>
     <view class='titleLine'></view>
     <view class='item' wx:for="{{cardGoods}}" wx:key>
-      <view class='title1'>{{item.productName}}</view>
+      <view class='title1'>
+          <text style='margin-right:20rpx'>{{item.productName}}</text>
+          <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
+        </view>
       <view class='number'>{{item.surplus+item.unit}}</view>
     </view>
   </view>
@@ -22,7 +25,10 @@
     <view class='listTitle'>剩余项目</view>
     <view class='titleLine'></view>
     <view class='item' wx:for="{{cardProjects}}" wx:key>
-      <view class='title1'>{{item.productName}}</view>
+      <view class='title1'>
+          <text style='margin-right:20rpx'>{{item.productName}}</text>
+          <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
+        </view>
       <view class='number'>{{item.surplus}}次</view>
     </view>
   </view>

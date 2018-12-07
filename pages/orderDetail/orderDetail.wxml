@@ -50,7 +50,7 @@
     <view class='detailItem'><text class='detailLable'>状态:</text><text class='detailValue'>{{recordData.statusName}}</text></view>
     <view class='detailItem'><text class='detailLable'>订单号:</text><text class='detailValue'>{{recordData.serviceCode}}</text><text class='detailValueCopy' bindtap='setClipboard' wx:if="{{recordData.serviceCode}}">复制</text></view>
 
-    <view class='consumeDetailRow' bindtap='gotoConsumeDetail'>
+    <view wx:if="{{recordData.isWeixinShowConsumeDetail==2}}" class='consumeDetailRow' bindtap='gotoConsumeDetail'>
       <view class='detailLable'>消费明细</view>
       <image class='rightLogo' src='../../image/right1.png'></image>
     </view>

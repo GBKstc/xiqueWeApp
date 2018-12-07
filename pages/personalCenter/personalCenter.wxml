@@ -38,7 +38,7 @@
        </view>
     </view>
 
-    <view class='operationItem' style='margin-bottom:20rpx' bindtap='select' data-url='../cardList/cardList'>
+    <view wx:if="{{isWeixinShowCardInfo==2}}" class='operationItem' style='margin-bottom:20rpx' bindtap='select' data-url='../cardList/cardList'>
       <view class='operationCenter'>
         <view class='checkIcon' >
           <image mode='widthFix' src='../../image/cardLogo.png'></image>

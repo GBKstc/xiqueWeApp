@@ -49,9 +49,22 @@
   margin: 0 0 0 29rpx;
   font-size: 36rpx;
 }
+.imgPriceBox{
+  height: 100%;
+  display: flex;
+  justify-content: end;
+}
+
 .imgContext .imgPrice{
-  padding: 14px 29rpx 0 29rpx;
+  padding: 0 29rpx 0 0;
   color: white;
+  height: 100%;
+  background-color: #FD9595;
+}
+.imgPriceTriangle{
+  width:107rpx;
+  height:100%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 90rpx, #FD9595 0);
 }
 
 .imgPrice .priceNow{
@@ -59,6 +72,7 @@
   justify-content: flex-end;
   align-items: flex-end;
   font-size: 44rpx;
+  padding-top: 45rpx;
   padding-right: 5rpx;
   font-family: Arial;
   line-height: 44rpx;

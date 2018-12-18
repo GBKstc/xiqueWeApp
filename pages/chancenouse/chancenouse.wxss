@@ -42,7 +42,7 @@
   padding-left: 10rpx;
 }
 .favour_time{
-  margin-top: 44rpx;
+  margin-top: 28rpx;
   margin-bottom: 20rpx;
 }
 canvas{
@@ -233,7 +233,7 @@ canvas{
   font-size:32rpx;
   line-height: 32rpx;
   margin-top: 30rpx;
-  margin-bottom: 80rpx;
+  margin-bottom: 60rpx;
   padding-bottom: 15rpx;
   position: relative;
 }

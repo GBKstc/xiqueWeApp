@@ -1,11 +1,11 @@
 <view class='detail'>
   <view>
     <text class='detail_header'>{{detail.eventName}}</text>
-    <text class='detail_header_two {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}'> ({{detail.discountCodeStatusName}})</text>
+    <text class='detail_header_two  {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}' wx:if="{{detail.discountCodeStatusName}}"> ({{detail.discountCodeStatusName}})</text>
   </view>
   <view class='favour_time'>
-    <view >
-      <text class='favour_font {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}'>{{detail.discountCode}}</text>
+    <view style='margin-bottom:5rpx'>
+      <text class='favour_font {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detailconsumeDetailTitcolorNo"}}'>{{detail.discountCode}}</text>
       <text class='detail_header_two detail_colorNo'>(优惠码)</text>
     </view>
     
@@ -92,31 +92,31 @@
             <view class='detailItem'>
               <view class='title'>买多了/买错了</view>
               <view class='number'>
-                <radio value="买多了/买错了"  checked='{{returnReason=="买多了/买错了"}}' class='radioStyle'/>
+                <radio color="#FD9595" value="买多了/买错了"  checked='{{returnReason=="买多了/买错了"}}' class='radioStyle'/>
               </view>
             </view>
             <view class='detailItem'>
               <view class='title'>自己没时间</view>
               <view class='number'>
-                <radio value="自己没时间" checked='{{returnReason=="自己没时间"}}' class='radioStyle'/>
+                <radio color="#FD9595" value="自己没时间" checked='{{returnReason=="自己没时间"}}' class='radioStyle'/>
               </view>
             </view>
             <view class='detailItem'>
               <view class='title'>预约不到</view>
               <view class='number'>
-                <radio value="预约不到" checked='{{returnReason=="预约不到"}}' class='radioStyle'/>
+                <radio color="#FD9595" value="预约不到" checked='{{returnReason=="预约不到"}}' class='radioStyle'/>
               </view>
             </view>
             <view class='detailItem'>
               <view class='title'>给朋友买的，不能用</view>
               <view class='number'>
-                <radio value="给朋友买的，不能用" checked='{{returnReason=="给朋友买的，不能用"}}' class='radioStyle'/>
+                <radio color="#FD9595" value="给朋友买的，不能用" checked='{{returnReason=="给朋友买的，不能用"}}' class='radioStyle'/>
               </view>
             </view>
             <view class='detailItem'>
               <view class='title'>其他原因</view>
               <view class='number'>
-                <radio value="其他原因" checked='{{returnReason=="其他原因"}}' class='radioStyle'/>
+                <radio color="#FD9595" value="其他原因" checked='{{returnReason=="其他原因"}}' class='radioStyle'/>
               </view>
             </view>
           </radio-group>
@@ -124,7 +124,7 @@
         </view>
       
         <view class='buttonBox' >
-          <view class='button okButtonStyle' bindtap='refundDetail'>提交</view>
+          <view class='button okButtonStyle' style='opacity:{{returnReason?1:0.6}}' bindtap='refundDetail'>提交</view>
         </view>
       </view>
     </view>

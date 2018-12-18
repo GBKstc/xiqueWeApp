@@ -13,6 +13,6 @@
       </block>
   </swiper>
   <view class='numIcon'>
-    {{imgIndex}}/{{coverImgUrl.length}}
+    <view>{{imgIndex}}/{{coverImgUrl.length}}</view>
   </view>
 </view>

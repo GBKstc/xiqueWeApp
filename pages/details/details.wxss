@@ -78,13 +78,15 @@
 }
 .imgList{
   width: 100%;
+   margin-top: 40rpx;
 }
+
 .imgList .imgLi {
-  margin-top: 40rpx;
+ 
   width: 100%;
 }
 .imgLi image{
-  margin-top: 40rpx;
+
   width: 100%;
   display: block;
 }
@@ -290,18 +292,18 @@
   display: block;
   font-size: 32rpx;
   line-height: 28rpx;
-  color: rgb(204, 204, 204);
-  text-decoration: line-through;
+  
+  
   padding-left: 19rpx;
 }
 
 .footerBox button{
   display: block;
-  height: 50rpx;
+  height: 60rpx;
   width: 160rpx;
   background-color: #FD9595;
   font-size:24rpx;
-  line-height: 50rpx;
+  line-height: 60rpx;
   color: rgb(255, 255, 255);
   left:-90rpx;
 }

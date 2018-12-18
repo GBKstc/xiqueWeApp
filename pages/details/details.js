@@ -378,28 +378,31 @@ Page({
   getReceiveDiscountCode(){
     const that = this;
     const { customerId, discountCodeId, type,id} = that.data;
-    requestAppid({
-      URL: receiveDiscountCode,
-      param:{
-        customerId, discountCodeId, type
+    isLogin(function(){
+      requestAppid({
+        URL: receiveDiscountCode,
+        param: {
+          customerId, discountCodeId, type
+        },
       },
-    }, 
-    function (data) {
-      wx.redirectTo({
-        url: '../success/success?successText=领取成功&toPag=select',
-      })
-    },
-      function (msg) {
-        //设置toast时间，toast内容  
-        that.setData({
-          count: 2000,
-          toastText: msg,
-        });
-        that.showToast();
-        wx.redirectTo({
-          url: '../experience/experience',
+        function (data) {
+          wx.redirectTo({
+            url: '../success/success?successText=领取成功&toPag=select',
+          })
+        },
+        function (msg) {
+          //设置toast时间，toast内容  
+          that.setData({
+            count: 2000,
+            toastText: msg,
+          });
+          that.showToast();
+          wx.redirectTo({
+            url: '../experience/experience',
+          })
         })
-      })
+    });
+   
   },
 
   /**

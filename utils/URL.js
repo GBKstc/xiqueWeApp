@@ -115,6 +115,7 @@ const cardList = "card/cardList"; //获取卡列表
 const cardLiaochengDetailProducts = "card/cardLiaochengDetailProducts"; //卡剩余疗程内物品和项目
 
 const cardLiaochengAndProm = "card/cardLiaochengAndProm"; //卡剩余疗程和方案
+const cardPromDetailProducts = "card/cardPromDetailProducts"; //卡剩余疗程和方案
 const cardProjects = "card/cardProjects"; //卡剩余项目
 const cardGoods = "card/cardGoods"; //卡剩余物品
 const cardBalance = "card/cardBalance"; //卡余额
@@ -167,6 +168,7 @@ module.exports = {
   cardProjects,
   cardGoods,
   cardBalance,
+  cardPromDetailProducts,
 
   //优惠券赠送
   receiveDiscountCodePre,

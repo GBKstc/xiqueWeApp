@@ -8,6 +8,7 @@ const {
   cardProjects,
   cardGoods,
   cardBalance,
+  cardPromDetailProducts
 } = URL;
 const { isEmpty,  } = util;
 Page({
@@ -80,7 +81,7 @@ Page({
     console.log("分享成功")
   },
   /**
-   * 选择疗程或者方案
+   * 选择疗程
    */
   selectProject:function(e){
     const that = this;
@@ -100,9 +101,30 @@ Page({
       })
     })
   },
+  /**
+   * 选择方案
+   */
+  selectPromotion: function (e) {
+    const that = this;
+    const { card } = this.data;
+    console.log(e.currentTarget);
+    that.getCardPromDetailProducts({
+      cardId: card.cardId,
+      orderId: e.currentTarget.dataset.orderid,
+      productId: e.currentTarget.dataset.productid,
+    })
+    this.setData({
+      showShadow: true,
+      cardLiaochengDetailProducts: []
+    }, () => {
+      this.setData({
+        modalBottom: 0,
+      })
+    })
+  },
 
   /**
-   * 疗程或者方案详情
+   * 疗程详情
    */
   getCardLiaochengDetailProducts(data){
     const that = this;
@@ -136,8 +158,38 @@ Page({
           }
         }
         that.setData({
-          cardLiaochengDetailProducts: list
+          cardLiaochengDetailProducts: list,
+          surplusTimes:""
         })
+    })
+  },
+
+  /**
+   * 者方案详情
+   */
+  getCardPromDetailProducts(data) {
+    const that = this;
+    // const { recordData } = that.data;
+    requestAppid({
+      URL: cardPromDetailProducts,
+      param: { ...data }
+    }, function (data) {
+      console.log(data);
+      if (isEmpty(data.list)) {
+        return
+      }
+      const list = [];
+      for (let item of data.list) {
+        list.push({
+          count: "",
+          unit: "",
+          name: item.name,
+        })
+      }
+      that.setData({
+        cardLiaochengDetailProducts: list,
+        surplusTimes: data.surplusTimes
+      })
     })
   },
 

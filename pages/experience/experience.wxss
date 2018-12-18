@@ -80,7 +80,7 @@
 .imgPrice .priceOld{
   display: block;
   font-size: 28rpx;
-  padding-left: 19rpx;
+  padding-left: 10rpx;
   font-family: Arial;
   line-height: 36rpx;
   text-decoration:line-through;

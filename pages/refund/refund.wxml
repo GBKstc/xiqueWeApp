@@ -21,7 +21,7 @@
     <view class='courseHeader'>
       <view class='courseHeaderText'>退款进度</view>
       <view class='callService' bindtap='makePhoneCall'>
-        <image class='pheLogo' src='../../image/phe.png'></image>
+        <image class='pheLogo' src='../../image/phe1.png'></image>
         <view class='callText'>联系客服</view>
       </view>
     </view>
@@ -42,11 +42,10 @@
             <view class='marginBottom'>{{refundDetail.createtime}}</view>
           </view>
           <view class='positionTop {{refundDetail.discountCodeStatus==5?"notext":"text"}}'>
-            <view class='' wx:if="{{refundDetail.discountCodeStatus!=4}}">{{refundDetail.discountCodeStatus==5?"退款成功":"您的退款申请已被微信成功受理"}}</view>
+            <view class='' wx:if="{{refundDetail.discountCodeStatus!=4}}">{{refundDetail.discountCodeStatus==5?"您的退款申请已被微信成功受理":"退款成功"}}</view>
             <view class='' wx:if="{{refundDetail.discountCodeStatus==4}}">{{"退款失败"}}</view>
             <view class='remark' wx:if="{{refundDetail.discountCodeStatus!=5}}">
-              <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==3}}">{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查
-  收</view>
+              <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==3}}">{{refundDetail.refundFee}}元入账至您的原付款账户，请注意查收</view>
               <view class='marginBottom' wx:if="{{refundDetail.discountCodeStatus==4}}">点击右上角联系客服人员</view>
               <view class='marginBottom' wx:if="{{refundDetail.successTime||refundDetail.delTime}}">{{refundDetail.successTime||refundDetail.delTime}}</view>
             </view>

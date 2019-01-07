@@ -1,4 +1,5 @@
 // pages/success/success.js
+const App = getApp();
 Page({
 
   /**
@@ -13,6 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(App.globalData)
     const towhere = options.towhere;
     const toPag = options.toPag;
     const successText = options.successText ||"预约成功";

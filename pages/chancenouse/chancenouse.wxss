@@ -159,13 +159,15 @@ canvas{
 }
 
 .refund{
-  margin-top: 100rpx;
+  padding-top: 50rpx;
   display:flex;
   justify-content: space-between;
   align-items: center;
 
   font-size: 32rpx;
   line-height: 32rpx;
+
+  border-top: 1rpx solid #DFDFDF;
 
 }
 

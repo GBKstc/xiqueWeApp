@@ -106,7 +106,7 @@
 .selectList{
   padding-top: 100rpx;
   width: 750rpx;
-  position: fixed;
+  /* position: fixed; */
   height: 100%;
 }
 .selectListBox{
@@ -114,18 +114,18 @@
   width: 1500rpx;
   display: flex;
   justify-content: space-between;
-  top: 100rpx;
+  top: 0;
   transition:ease-out 0.5s;
   height: 100%;
 }
 .select{
-  padding: 32rpx 40rpx;
+  padding: 132rpx 40rpx 0 40rpx;
   width: 670rpx;
-  height: 82%;
+  /* height: 82%; */
   overflow: auto;
 }
 .noCardText{
-  margin-top: 600rpx;
+  margin-top: 468rpx;
   font-size:32rpx;
   color:rgba(153,153,153,1);
   font-weight:400;

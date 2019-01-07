@@ -2,6 +2,7 @@ const common = require('../../utils/commonConfirm.js');
 const URL = require('../../utils/URL.js');
 const util = require('../../utils/util.js');
 const QR = require("../../utils/qrcode.js");
+const App = getApp();
 const {
   requestAppid,
   customerDiscountCodeDetail,
@@ -222,6 +223,7 @@ Page({
 
       return false;
     }
+    
     requestAppid({
       URL: applyRefund,
       param:{
@@ -230,8 +232,15 @@ Page({
       },
     },
       function (data) {
+        // app.globaData.successData = item;
+        // wx.redirectTo({
+        //   url: '../refund/refund?item=' + JSON.stringify(item),
+        //   success: function () {
+        //   }
+        // })
+        App.globalData.successData = item;
         wx.redirectTo({
-          url: '../refund/refund?item=' + JSON.stringify(item),
+          url: '../success/success?successText=申请成功&&toPag=refund',
           success: function () {
           }
         })

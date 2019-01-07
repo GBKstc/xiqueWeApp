@@ -84,6 +84,7 @@
   font-family: Arial;
   line-height: 36rpx;
   text-decoration:line-through;
+  opacity: 0.6;
 }
 /*没内容  */
 .isNo{

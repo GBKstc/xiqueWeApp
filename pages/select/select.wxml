@@ -2,7 +2,7 @@
   
 </view>
 
-<view class='box' wx:elif="{{noUseList||lostList}}">
+<view class='box' wx:elif="{{noUseList||disabledList}}">
   <view class='header'>
     <view class='{{type==1?"headerSelect":"headerNoSelect"}}' data-type="1" bindtap="changeSelect">未使用</view>
     <view class='{{type==2?"headerSelect":"headerNoSelect"}}' data-type="2" bindtap="changeSelect">已失效</view>

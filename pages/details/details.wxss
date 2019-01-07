@@ -26,14 +26,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 670rpx;
-  margin: 70rpx auto;
+  width: 560rpx;
+  margin: 50rpx auto;
 }
 
 .headerContentStyle .headerLine{
   width:60rpx;
   height:1rpx;
   background-color:  rgba(223,223,223,1);
+  opacity: 1;
 }
 
 .headerContent .headerContentText{
@@ -43,16 +44,18 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   
-  font-size: 32rpx;
-  line-height: 32rpx;
+  font-size: 36rpx;
+  line-height: 51rpx;
   color:#666666;
+
+  max-width: 370rpx;
 }
 
 .headerContent .infoContent{
   display: -webkit-box;
   -webkit-box-align: center;
   -moz-box-align: center;
-  margin: 21rpx 29rpx 60rpx 29rpx;
+  margin: 21rpx 29rpx 80rpx 29rpx;
 
 }
 
@@ -92,7 +95,7 @@
 }
 
 .topBorder{
-  padding-bottom: 15rpx;
+  padding-bottom: 50rpx;
 }
 .detailsContent{
   font-size: 32rpx;
@@ -105,7 +108,7 @@
 .detailsContent .contentHeader{
   width: 100%;
   margin: 0 auto;
-  margin-bottom: 73rpx;
+  margin-bottom: 60rpx;
   display: -webkit-box;
   -webkit-box-align: center;
   -moz-box-align: center;
@@ -132,7 +135,7 @@
 
 
 .banner {
-  margin: 88rpx auto 20rpx auto;
+  margin: 50rpx auto 20rpx auto;
   color: #333333;
 }
 .banner .bannerList{
@@ -180,6 +183,7 @@
  .storeLsitHeader{
   color: #999999;
   font-size: 32rpx;
+  margin-top: 30rpx;
 } 
 .storeLsitHeader .listHeaderBox{
   display: -webkit-box;

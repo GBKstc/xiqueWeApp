@@ -43,7 +43,7 @@
     </view>
   </view>
 
-  <view class='topBorder baseBox'>
+  <view class='baseBox' style='margin-bottom:30rpx'>
     <view class='detailsContent'>
       <view class='contentHeader'>
         <text class='goodsName'>商品详情</text>

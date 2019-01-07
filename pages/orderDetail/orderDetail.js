@@ -189,7 +189,7 @@ Page({
                   // arrObj[i].evaluateLableId = newArr[i].evaluateLableId
                   newArr[i][newArr[i].evaluateLableId] = false
                 }
-
+        
                 that.setData({
                   bg: obj,
                   arrObj: newArr

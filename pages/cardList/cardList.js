@@ -101,7 +101,7 @@ Page({
     requestAppid({
       URL: cardList,
     }, function (data){
-      if (isEmpty(data) || isEmpty(data.cardList)){
+      if (isEmpty(data) || !data.cardList){
         return;
       }
       for(let item of data.cardList){

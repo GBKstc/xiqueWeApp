@@ -58,15 +58,16 @@
   <!-- 未评价块 -->
   <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
     <view class='evaluateTitle2' wx:if="{{recordData.evaluateGiftEntity}}">
-      <view style='word-break: break-all; word-wrap:break-word;' >{{recordData.evaluateGiftEntity.topic}}</view>
+      <view style='word-break: break-all; word-wrap:break-word;color:#FD9595' >{{recordData.evaluateGiftEntity.topic}}</view>
     </view>
     
     <view class='evaluateTitle'>
       <text>服务评价</text>
       <view class="checkbox">
-      <label>
-        <checkbox class='target' color="#fd9595" value="" checked="{{isAnonymous}}" bindtap='anonymous'/><text class="{{isAnonymous?'textColor':'textColor'}}">匿名评价</text> 
-      </label>
+      <checkbox class='target' color="#fd9595" value="" checked="{{isAnonymous}}" bindtap='anonymous'/><text class="{{isAnonymous?'textColor':'textColor2'}}">匿名评价</text> 
+      <!-- <label class=''>
+        
+      </label> -->
     </view>
     </view>
     <view class='evaluateStars'>
@@ -143,7 +144,8 @@
               <text>{{serviceOpenCardInfo.cardrankName}}</text>
               <text class='titleRemark'>({{serviceOpenCardInfo.cardNo}})</text>
             </view>
-            <view class='number'>{{utils.toFix(serviceOpenCardInfo.realPay)}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(serviceOpenCardInfo.realPay)}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
 
@@ -164,7 +166,8 @@
               <text>{{item.productName}}</text>
               <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
 
@@ -175,7 +178,8 @@
               <text>{{item.projectName}}</text>
               <text class='titleRemark'>({{item.count||"0"}}次)</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
 
@@ -186,7 +190,8 @@
               <text>{{item.goodsName}}</text>
               <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"个"}})</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number'  wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
 
@@ -197,7 +202,8 @@
               <text>{{item.productName}}</text>
               <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
 
@@ -234,14 +240,16 @@
               <text>{{item.projectName}}</text>
               <text class='titleRemark'>({{item.num}}次)</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)}}元</view>
+            <view class='number' wx:else></view>
           </view>
           <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.goods}}" wx:key>
             <view class='title'>
               <text>{{item.goodsName}}</text>
               <text class='titleRemark'>({{item.num+item.unit}})</text>
             </view>
-            <view class='number'>{{utils.toFix(item.amount)}}元</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)}}元</view>
+            <view class='number' wx:else></view>
           </view>
         </view>
       </view>

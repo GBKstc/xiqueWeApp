@@ -12,8 +12,8 @@
   </view>
   <!-- <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view> -->
   <view style='padding-bottom: 50rpx;position:relative;z-index:10'>
-    <canvas style="width: 300rpx;height: 300rpx;background:#f1f1f1;opacity:{{showShadow?0:1}}"  hidden="{{canvasHidden}}"  canvas-id="mycanvas"/>
-    <!-- <view  wx:if="{{showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;"></view> -->
+    <canvas wx:if="{{!showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;opacity:{{showShadow?0:1}}"  hidden="{{canvasHidden}}"  canvas-id="mycanvas"/>
+    <view  wx:if="{{showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;"></view>
   </view>
   <view class='count' wx:if="{{detail.remind}}">
     <text class='favour' >注意 : </text>
@@ -41,7 +41,7 @@
     </view>
   </view>
 
-  <view>
+  <view style='padding-bottom:48rpx'>
     <text class='produce'>商品介绍</text>
     <view>
       <image class='produce_img' src='../../image/zs.png'></image>
@@ -52,6 +52,7 @@
     </view>
   </view>
   <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0&&detail.isOtherGive==1}}">
+  <!-- <view class='refund' bindtap='refund' > -->
     <view>申请退款</view>
     <image class='storesImage' src='../../image/craftManBack.png'></image>
   </view>

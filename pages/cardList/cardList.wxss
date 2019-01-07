@@ -26,9 +26,10 @@
   position: fixed;
   height: 100%;
   width: 100%;
+  top: 130rpx;
 }
 .noCardText{
-  margin-top: 500rpx;
+  margin-top: 470rpx;
   font-size:32rpx;
   color:rgba(153,153,153,1);
   font-weight:400;

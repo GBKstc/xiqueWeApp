@@ -177,7 +177,10 @@
 .checkbox{
   color:#333;
   font-size:32rpx;
-   vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   /* vertical-align: middle; */
 }
 .checkbox .target{
   margin-right:10rpx;
@@ -186,6 +189,15 @@
 }
 .textColor{
   color:#fd9595!important;
+  line-height:32rpx;
+  /* position: relative;
+  top: -2rpx; */
+}
+.textColor2{
+  color:#333333!important;
+  line-height:32rpx;
+  /* position: relative;
+  top: -2rpx; */
 }
 
 
@@ -318,7 +330,7 @@
 .consumeDetailList{
   margin: 0 auto;
   padding: 0 60rpx;
-  
+  min-height: 80%;
 }
 .consumeDetailList .detailItem{
   display: flex;
@@ -333,13 +345,19 @@
   font-size: 32rpx;
   line-height: 32rpx;
   color: #333333;
-  width: 80%;
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .consumeDetailList .titleRemark{
   font-size:28rpx;
   color:rgba(153,153,153,1);
   margin-left: 20rpx;
   line-height: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .consumeDetailList .detailItem .number{
   font-size: 32rpx;
@@ -371,8 +389,6 @@
 .buttonBox{
   display: flex;
   justify-content: space-around;
-  
-  margin:30rxp 0;
 }
 .button{
   width:440rpx;
@@ -383,4 +399,5 @@
   line-height: 70rpx;
   font-size: 32rpx;
   color:rgba(255,255,255,1);
+  margin-bottom:30rpx;
 }

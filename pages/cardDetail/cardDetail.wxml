@@ -32,7 +32,7 @@
       <view class='number'>{{item.surplus}}次</view>
     </view>
   </view>
-  <view class='list' wx:if="{{cardLiaochengAndProm.liaocheng||cardLiaochengAndProm.promotion}}">
+  <view class='list' wx:if="{{(cardLiaochengAndProm.liaocheng&&cardLiaochengAndProm.liaocheng.length!=0)||cardLiaochengAndProm.promotion&&cardLiaochengAndProm.promotion.length!=0}}">
     <view class='listTitle'>剩余疗程/方案</view>
     <view class='titleLine'></view>
     <view wx:for="{{cardLiaochengAndProm.liaocheng}}" data-productid='{{item.productId}}' data-orderid='{{item.orderId}}' wx:key bindtap='selectProject' >

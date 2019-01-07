@@ -2,6 +2,7 @@
 
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
+const App = getApp();
 const {
   requestAppid,
   refundDetail
@@ -26,14 +27,16 @@ Page({
   onLoad: function (options) {
     const that = this;
     let item = {}
-    if (options.item){
-      item = JSON.parse(options.item)
+    if (App.globalData.successData){
+      item = App.globalData.successData
       this.setData({
         item: item
       })
       console.log(item);
       that.getRefundDetail(item.discountCodeId)
     }
+
+    //console.log(app.globaData)
     
   },
 

@@ -2,7 +2,7 @@
 @import "../../utils/commonConfirm.wxss";
 .allBox{
   margin-top: 27rpx;
-  margin-bottom: 160rpx;
+  padding-bottom: 106rpx;
 }
 .baseBox{
   width: 670rpx;
@@ -81,15 +81,13 @@
 }
 .imgList{
   width: 100%;
-   margin-top: 40rpx;
+  margin-top: 40rpx;
 }
 
 .imgList .imgLi {
- 
   width: 100%;
 }
 .imgLi image{
-
   width: 100%;
   display: block;
 }

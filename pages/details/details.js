@@ -358,9 +358,11 @@ Page({
       data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_400") : [];
       console.log(data.carouselImgUrl);
       data.detailList = getDetailList(data);
+      
       if (data.usableStoreList && data.usableStoreList.length>0){
+        data.usableStoreList = data.usableStoreList.slice(0, 2);
         for (let i of data.usableStoreList){
-          i.distanceK = ((i.distance-0)/1000).toFixed(1);
+          i.distanceK = ((i.distance - 0) / 1000);
         }
       }
       that.setData({

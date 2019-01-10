@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 30rpx;
+  padding-top: 50rpx;
 }
 .titleLine{
   content: "";
@@ -47,12 +47,13 @@
   font-size: 36rpx;
   line-height: 36rpx;
   color: #333333;
-  width: 100rpx;
+  width: 140rpx;
+  text-align: right;
 }
 .rightLogo{
   width: 12rpx;
   height: 22rpx;
-  display: block;
+  display: inline-block;
 }
 .surplusDays{
   font-size: 28rpx;

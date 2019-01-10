@@ -11,7 +11,7 @@
     
   </view>
   <!-- <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view> -->
-  <view style='padding-bottom: 50rpx;position:relative;z-index:10'>
+  <view style='position:relative;z-index:10'>
     <canvas wx:if="{{!showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;opacity:{{showShadow?0:1}}"  hidden="{{canvasHidden}}"  canvas-id="mycanvas"/>
     <view  wx:if="{{showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;"></view>
   </view>
@@ -57,18 +57,18 @@
     <image class='storesImage' src='../../image/craftManBack.png'></image>
   </view>
   <view wx:if="{{item.type==2}}">
-    <text class='produce'>购买信息</text>
+    <text class='produce'>{{detail.isOtherGive==1?"购买信息":"领取信息"}}</text>
     <view>
       <image class='produce_img' src='../../image/zs.png'></image>
     </view>
     <view class='produce_top' >
       <view class='five_logo'>
-        <view class='buyBox'>
-          <view class='buyTitle'>价格/(元)：</view>
+        <view class='buyBox' wx:if="{{detail.isOtherGive==1}}">
+          <view class='buyTitle' >价格/(元)：</view>
           <view class='buyContext'>{{detail.currentPrice}}</view>
         </view>
         <view class='buyBox'>
-          <view class='buyTitle'>购买时间：</view>
+          <view class='buyTitle'>{{detail.isOtherGive==1?"购买时间":"领取时间"}}：</view>
           <view class='buyContext'>{{detail.buyTime}}</view>
         </view>
       </view>

@@ -13,9 +13,9 @@ const formatTime = date => {
   const day = date.getDate()
   const hour = date.getHours()
   const minute = date.getMinutes()
-  const second = date.getSeconds()
+  //const second = date.getSeconds()
 
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute].map(formatNumber).join(':')
 }
 
 const IsNum = s=> {
@@ -308,12 +308,31 @@ const cpy =function(o) {
 const toFix = function (value, count){
   const re = /([0-9]+\.[0-9]{2})[0-9]*/;
   if (sTypeOf(obj, "Number")) {
+    console.log(obj.toString().replace(re, "$1"))
     return obj.toString().replace(re, "$1");
   } else {
     return obj.replace(re, "$1");
   }
 }
+/**
+ *判断类型
+ *
+ */
+function sTypeOf(o, type) {
 
+  switch (type) {
+    case "Array":
+      return Object.prototype.toString.call(o) == '[object Array]';
+    case "Object":
+      return Object.prototype.toString.call(o) == '[object Object]';
+    case "String":
+      return Object.prototype.toString.call(o) == '[object String]';
+    case "Number":
+      return Object.prototype.toString.call(o) == '[object Number]';
+  }
+
+
+}
 
 
 
@@ -327,5 +346,6 @@ module.exports = {
   timeToObj: timeToObj,
   getDetailList:getDetailList,
   isLogin: isLogin,
-  toFix: toFix
+  toFix: toFix,
+  sTypeOf: sTypeOf
 }

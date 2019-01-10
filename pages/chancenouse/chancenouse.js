@@ -11,6 +11,7 @@ const {
 const { 
   getDetailList,
   formatTimeDay,
+  formatTime,
   isEmpty
  } = util;
 Page({
@@ -141,7 +142,7 @@ Page({
     }, function (data) {
       data.coverImgUrl = data.coverImgUrl ? data.coverImgUrl.split(",") : [];
       data.detailList = getDetailList(data);
-      data.buyTime = formatTimeDay(new Date(data.createtime));
+      data.buyTime = formatTime(new Date(data.createtime));
       data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime));
 
       data.discountCode = data.discountCode.replace(/\d(?=(\d{4})+\.)/g, "&nbsp;").replace(/\d{4}(?![,.]|$)/g, "$& ")

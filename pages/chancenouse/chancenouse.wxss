@@ -28,7 +28,7 @@
   padding-left:10rpx;
 }
 .favour_font{
-  font-size: 48rpx;
+  font-size: 58rpx;
 }
 .stores{
   color: #333333;
@@ -84,7 +84,7 @@ canvas{
   color: #999999;
   font-size: 32rpx;
   display: inline-block;
-  margin-top: 60rpx;
+  margin-top: 100rpx;
 }
 .produce_img{
   width:133rpx;
@@ -93,7 +93,7 @@ canvas{
   margin-top: 18rpx;
 }
 .produce_top{
-  margin-top: 61rpx;
+  margin-top: 40rpx;
 }
 .five_logo{
   color: #333333;
@@ -159,7 +159,7 @@ canvas{
 }
 
 .refund{
-  padding-top: 50rpx;
+  /* padding-top: 50rpx; */
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -167,7 +167,7 @@ canvas{
   font-size: 32rpx;
   line-height: 32rpx;
 
-  border-top: 1rpx solid #DFDFDF;
+  /* border-top: 1rpx solid #DFDFDF; */
 
 }
 

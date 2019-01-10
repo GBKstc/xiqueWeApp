@@ -54,7 +54,7 @@
   </view>
   <view class='imgList'>
     <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
-      <image   src='{{item}}' mode="aspectFill"></image>
+      <image  src='{{item}}' lazy-load="{{false}}" mode="widthFix"></image>
     </view>
   </view>
 

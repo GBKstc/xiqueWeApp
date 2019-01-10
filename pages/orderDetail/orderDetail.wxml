@@ -210,19 +210,22 @@
 
          <view class='consumeDetail' wx:if="{{serviceCardTrans}}">
           <view class='consumeDetailTitle'>转账</view>
-          <view wx:for="{{serviceCardTrans}}">
+          <view wx:for="{{serviceCardTrans}}" wx:key>
             <view class='detailItem'>
               <view class='title' style='width:"50%"'>转入账户</view>
               <view class='titleRemark'>{{item.customerName}}<text style='margin-left:20rpx'>({{item.cardNo}})</text></view>
             </view>
             <view class='detailItem'>
               <view class='title'>转入金额</view>
-              <view class='number'>{{utils.toFix(item.tranAmount)}}元</view>
+              <view class='number'>{{utils.toFix(item.tranAmount)||"0"}}元</view>
             </view>
-            <view class='detailItem' wx:if="{{item.products.length>0}}" wx:for="{{item.products}}">
-              <view class='title'>{{item.productName}}</view>
-              <view class='number'>{{utils.toFix(item.convAmount)}}元</view>
+            <view wx:if="{{item.products.length>0}}">
+              <view class='detailItem'  wx:for="{{item.products}}" wx:key>
+                <view class='title'>{{item.productName}}</view>
+                <view class='number'>{{utils.toFix(item.convAmount)||"0"}}元</view>
+              </view>
             </view>
+            
           </view>
           
         </view>

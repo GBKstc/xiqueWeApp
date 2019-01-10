@@ -7,12 +7,22 @@ var utils = {
   toFix: function (obj) {
     var re = "/([0-9]+\.[0-9]{2})[0-9]*/";
     if(!obj){
-      return "";
+      return "0";
     }
-    return obj.toString().replace(re, "$1");
+    return obj.toString().replace(re, "$1")||"0";
+  },
+
+  sJSONparse: function (o) {
+    return JSON.parse(o)
+  },
+  sJSONstringify: function (o) {
+    return JSON.stringify(o)
   }
+
 }
 
 module.exports = {
-  toFix: utils.toFix
+  toFix: utils.toFix,
+  sJSONparse: utils.sJSONparse,
+  sJSONstringify: utils.sJSONstringify,
 }

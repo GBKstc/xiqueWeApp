@@ -4,14 +4,14 @@ const { getCurrentUser } = URL;
 // 正版
 App({
   globalData: {//初始化请求参数
-    appid: 'wx3d7c36e7ed1af3f7',  
-    secret: '00a9ef71eb338692293af3b4f6c0f167'
+    appid: 'wxab4355d28417d914',  
+    secret: '026e8bf6e20155b7d7f926b27db7c5c3'
   },
 
 
   // url: 'http://115.236.38.186:9020/weixin-xique/',//张卫泽
-  // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
-  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  url: 'http://115.236.38.186:28091/weixin-xique/',//预发环境
+  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
   onLaunch: function () {
     console.log("app onLaunch")

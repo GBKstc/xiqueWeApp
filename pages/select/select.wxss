@@ -3,6 +3,7 @@
   height: 180rpx;
   margin-right: 33rpx;
   display: block;
+  border-radius: 8rpx;
 }
 .select_row{
   padding: 30rpx;
@@ -10,7 +11,7 @@
    /* border: 1px solid rgba(253,149,149,0.15);  */
   border: 1px solid rgba(0,0,0,0.1);
   margin-bottom: 32rpx;
-  border-radius: 5rpx;
+  border-radius: 16rpx;
   position: relative;
   box-shadow: 1px 1px 6px rgba(0,0,0,0.1);
 }
@@ -23,8 +24,8 @@
   height: 50rpx;
   text-align: center;
   line-height: 50rpx;
-  
   color: #fff;
+  border-radius: 0 16rpx 0 0;
 }
 .select_absoluteYes{
   background: #FD9595;
@@ -59,8 +60,76 @@
   font-size: 28rpx;
   margin-top: 28rpx;
 }
+
+/**
+*
+  头部
+*/
+.header{
+  width: 450rpx;
+  display: flex;
+  padding: 35rpx 150rpx;
+  justify-content: space-between;
+  font-size: 30rpx;
+  line-height: 30rpx;
+  box-shadow: 0px 1px 6px rgba(0,0,0,0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 99999;
+  
+}
+
+.header .bottomLine{
+  width:88rpx;
+  height:4rpx;
+  background:rgba(253,149,149,0.9);
+  position: absolute;
+  bottom: 0;
+  transition:ease-out 0.5s;
+}
+
+.header .headerSelect{
+  transition:ease-out 0.5s;
+  color: #FD9595;
+}
+.header .headerNoSelect{
+  transition:ease-out 0.5s;
+  color: #333333;
+}
+
+/**
+*
+  列表
+*/
+.selectList{
+  padding-top: 100rpx;
+  width: 750rpx;
+  /* position: fixed; */
+  height: 100%;
+}
+.selectListBox{
+  position: absolute;
+  width: 1500rpx;
+  display: flex;
+  justify-content: space-between;
+  top: 0;
+  transition:ease-out 0.5s;
+  height: 100%;
+}
 .select{
-  padding: 32rpx 40rpx;
+  padding: 132rpx 40rpx 0 40rpx;
+  width: 670rpx;
+  /* height: 82%; */
+  overflow: auto;
+}
+.noCardText{
+  margin-top: 468rpx;
+  font-size:32rpx;
+  color:rgba(153,153,153,1);
+  font-weight:400;
+  text-align: center;
 }
 
 /*没内容  */

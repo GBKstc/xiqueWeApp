@@ -28,7 +28,7 @@
       </view>
     </view>
 
-    <view bindtap='select' class='operationItem' style='margin-bottom:20rpx'>
+    <view bindtap='select' data-url='../select/select' class='operationItem' style='margin-bottom:20rpx'>
        <view class='operationCenter'>
          <view class='checkIcon'>
            <image mode='widthFix' src='../../image/tyq.png'></image>
@@ -36,6 +36,16 @@
            <view class='checkText'>优选劵</view>
         <image class='checkBack'  mode='aspectFit' src='../../image/personalBack.png'></image>
        </view>
+    </view>
+
+    <view wx:if="{{isWeixinShowCardInfo==2}}" class='operationItem' style='margin-bottom:20rpx' bindtap='select' data-url='../cardList/cardList'>
+      <view class='operationCenter'>
+        <view class='checkIcon' >
+          <image  src='../../image/cardLogo.png' style='height:32rpx'></image>
+        </view>
+        <view class='checkText'>会员卡</view>
+        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+      </view>
     </view>
 
     <view class='operationItem' style='margin-bottom:20rpx' bindtap='tostoreDistribution'>

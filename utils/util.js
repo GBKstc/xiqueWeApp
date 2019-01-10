@@ -2,6 +2,12 @@ import URL from "./URL.js";
 const { requestAppid, checkLogin} = URL;
 
 const formatTime = date => {
+  if (!date) {
+    return ""
+  }
+  if (IsNum(date)) {
+    date = new Date(date);
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -12,7 +18,20 @@ const formatTime = date => {
   return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
 }
 
+const IsNum = s=> {
+  if (s != null && s != "") {
+    return !isNaN(s);
+  }
+  return false;
+}
+
 const formatTimeDay = date => {
+  if (!date){
+    return ""
+  }
+  if (IsNum(date)){
+    date = new Date(date);
+  }
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
@@ -282,6 +301,19 @@ const cpy =function(o) {
   return res;
 }
 
+/**
+ * 截图小数点后两位
+ * @returns number
+ */
+const toFix = function (value, count){
+  const re = /([0-9]+\.[0-9]{2})[0-9]*/;
+  if (sTypeOf(obj, "Number")) {
+    return obj.toString().replace(re, "$1");
+  } else {
+    return obj.replace(re, "$1");
+  }
+}
+
 
 
 
@@ -295,4 +327,5 @@ module.exports = {
   timeToObj: timeToObj,
   getDetailList:getDetailList,
   isLogin: isLogin,
+  toFix: toFix
 }

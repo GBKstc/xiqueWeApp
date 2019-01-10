@@ -98,12 +98,42 @@ const getUserScheduleServiceList = "userScheduleService/getUserScheduleServiceLi
 
 const getVoiceVerificationCode = "user/getVoiceVerificationCode";//获取语音验证码
 
+
+//获取订单详情列表
+const serviceCardDiscountCodeGive = "/service/cardDiscountCodeGive"; //优惠码核销
+const serviceCardTrans = "service/cardTrans"; //转账
+const serviceCardReturn = "service/cardReturn"; //退货
+const serviceCardPick = "service/cardPick"; //取货
+const serviceCardConsume = "service/cardConsume"; //消费
+const serviceCardBuy = "service/cardBuy"; //购买
+const serviceCardRecharge = "service/cardRecharge"; //充值
+const serviceOpenCardInfo = "service/openCardInfo"; //开卡
+
+
+const cardList = "card/cardList"; //获取卡列表
+
+const cardLiaochengDetailProducts = "card/cardLiaochengDetailProducts"; //卡剩余疗程内物品和项目
+
+const cardLiaochengAndProm = "card/cardLiaochengAndProm"; //卡剩余疗程和方案
+const cardPromDetailProducts = "card/cardPromDetailProducts"; //卡剩余疗程和方案
+const cardProjects = "card/cardProjects"; //卡剩余项目
+const cardGoods = "card/cardGoods"; //卡剩余物品
+const cardBalance = "card/cardBalance"; //卡余额
+
+const receiveDiscountCodePre = "myDiscountCode/receiveDiscountCodePre";//优惠码领取校验
+const receiveDiscountCode = "myDiscountCode/receiveDiscountCode";//优惠码领取
+
+const refundDetail = "myDiscountCode/refundDetail";//优惠码领取
+const applyRefund = "myDiscountCode/applyRefund";//优惠码退款
+const myInfo = "user/myInfo";//我的信息
+
 module.exports = {
   request,
   requestAppid,
 
 
   checkLogin,
+  myInfo,
   getCurrentUser,
   updateAppointment,
   addAppointment,
@@ -120,4 +150,32 @@ module.exports = {
   getUserScheduleServiceList,
   userScheduleServiceSaveEvaluate,
   getVoiceVerificationCode,
+
+  //订单详情接口
+  serviceCardDiscountCodeGive,
+  serviceCardTrans,
+  serviceCardReturn,
+  serviceCardPick,
+  serviceCardConsume,
+  serviceCardBuy,
+  serviceCardRecharge,
+  serviceOpenCardInfo,
+
+  //卡详情接口
+  cardList,
+  cardLiaochengDetailProducts,
+  cardLiaochengAndProm,
+  cardProjects,
+  cardGoods,
+  cardBalance,
+  cardPromDetailProducts,
+
+  //优惠券赠送
+  receiveDiscountCodePre,
+  receiveDiscountCode,
+
+  //优惠券退款详情
+  refundDetail,
+  //优惠券申请
+  applyRefund
 }

@@ -1,9 +1,11 @@
 let util = require('../../utils/util.js');
 let URL = require('../../utils/URL.js');
+const common = require('../../utils/commonConfirm.js');
 const app = getApp();
 const { 
   requestAppid,
-  getBuyDiscountCodeEventList
+  getBuyDiscountCodeEventList,
+  receiveDiscountCodePre
 } = URL;
 Page({
 
@@ -63,6 +65,20 @@ Page({
     app.globalData.recommendId = recommendId;
     app.globalData.flag = flag;
 
+
+    //如果是赠送分享
+    if (options && options.isGive) {
+      console.log("赠送分享", options);
+      
+      const discountCodeData = {};
+      discountCodeData.customerId = options.customerId;
+      discountCodeData.discountCodeId = options.discountCodeId;
+      discountCodeData.type = options.type;
+      discountCodeData.id = options.id;
+      //优惠券赠送领取验证
+      that.codeReceiveDiscountCodePre(discountCodeData)
+    }
+
     // wx.showLoading({
     //   title: '加载中',
     //   mask: true
@@ -74,8 +90,38 @@ Page({
    */
   onReady: function (options) {
     console.log("onReady",options);
+   
     
   },
+
+  //优惠券赠送领取验证
+  codeReceiveDiscountCodePre(data){
+    const that =this;
+    const param = data;
+    requestAppid({
+      URL: receiveDiscountCodePre,
+      param: param,
+    }, function (data) {
+      console.log(data);
+      // //设置toast时间，toast内容  
+      // that.setData({
+      //   count: 2000,
+      //   toastText: '优惠券已失效'
+      // });
+      // that.showToast();
+      wx.navigateTo({
+        url: "/pages/details/details?isGive=true&customerId=" + param.customerId + "&discountCodeId=" + param.discountCodeId + "&type=" + param.type + "&id=" + param.id
+      })
+    },function(msg){
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: '优惠券已失效'
+      });
+      that.showToast();
+    });
+  },
+
 
   buyDiscountCodeEventList(){
     const that = this;
@@ -116,6 +162,13 @@ Page({
       getApp().login(that.buyDiscountCodeEventList)
     }
     
+    // const discountCodeData = {};
+    // discountCodeData.customerId = 50072486;
+    // discountCodeData.discountCodeId = "21984";
+    // discountCodeData.type = 2;
+    // discountCodeData.id = 556;
+    // //优惠券赠送领取验证
+    // that.codeReceiveDiscountCodePre(discountCodeData)
     
     
   },
@@ -165,6 +218,23 @@ Page({
       console.log(res.target)
     }
     return {}
+  },
+
+
+  //显示自定义提示框
+  showToast: function () {
+    var _this = this;
+    common.showToast(_this)
+  },
+  //提示框的确定按钮
+  buttonConfirm: function () {
+    var _this = this
+    common.buttonConfirm(_this)
+  },
+  //提示框的去登陆按钮
+  toAgainLogin: function () {
+    var _this = this
+    common.toAgainLogin(_this)
   }
 
 })

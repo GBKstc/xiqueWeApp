@@ -1,4 +1,4 @@
-
+@import "../../utils/commonConfirm.wxss";
 /* 有内容 */
 .isLogin{
   margin-top: 27rpx;
@@ -8,8 +8,10 @@
   margin-bottom: 27rpx;
   width: 670rpx;
   box-shadow: 0 0 10rpx rgba(0,0,0,0.3);
-  border-radius: 8rpx;
+  border-radius: 40rpx;
   overflow: hidden;
+
+  position: relative;
 }
 .lazyBox .imgBox{
   width: 100%;
@@ -21,42 +23,68 @@
   display: block;
   object-fit: cover;
 }
-.imgContext .imgTitle{
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
-  display: block;
-  width: 612rpx;
-  margin: 0 29rpx 0 29rpx;
-  font-size: 32rpx;
-  line-height: 32rpx;
-}
+
 .imgContext{
-  padding:29rpx 0 29rpx 0;
-  color: #666666;
+  height: 160rpx;
+  color: #FFFFFF;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background:rgba(0,0,0,0.44);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 670rpx;
+  border-radius: 0 0 40rpx 40rpx;
 }
-.imgContext .imgPrice{
-  padding: 14px 29rpx 0 29rpx;
+.imgContext .imgTitle{
   display: -webkit-box;
-  -webkit-box-align: end;
-  -moz-box-align: end;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  white-space: normal !important;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  width: 415rpx;
+  margin: 0 0 0 29rpx;
+  font-size: 36rpx;
 }
+.imgPriceBox{
+  height: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.imgContext .imgPrice{
+  padding: 0 29rpx 0 0;
+  color: white;
+  height: 100%;
+  background-color: #FD9595;
+}
+.imgPriceTriangle{
+  width:107rpx;
+  height:100%;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0) 90rpx, #FD9595 0);
+}
+
 .imgPrice .priceNow{
-  display: block;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
   font-size: 44rpx;
+  padding-top: 45rpx;
   padding-right: 5rpx;
   font-family: Arial;
-  color: #FD9595;
   line-height: 44rpx;
 }
 .imgPrice .priceOld{
   display: block;
   font-size: 28rpx;
-  padding-left: 19rpx;
+  padding-left: 10rpx;
   font-family: Arial;
-  color: #999999;
   line-height: 36rpx;
   text-decoration:line-through;
+  opacity: 0.6;
 }
 /*没内容  */
 .isNo{

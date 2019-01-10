@@ -1,13 +1,17 @@
+const common = require('../../utils/commonConfirm.js');
 const URL = require('../../utils/URL.js');
 const util = require('../../utils/util.js');
 const QR = require("../../utils/qrcode.js");
+const App = getApp();
 const {
   requestAppid,
   customerDiscountCodeDetail,
+  applyRefund
 } = URL;
 const { 
   getDetailList,
-  formatTimeDay
+  formatTimeDay,
+  isEmpty
  } = util;
 Page({
 
@@ -17,6 +21,11 @@ Page({
   data: {
     item:{},
     detail:{},
+
+    modalBottom: "-100%",
+    showShadow: false,
+
+    returnReason:''
   },
 
   /**
@@ -89,12 +98,7 @@ Page({
     })
   },
 
-  //退款
-  refund(){
-    wx.navigateTo({
-      url: '../refund/refund',
-    })
-  },
+ 
 
   //适配不同屏幕大小的canvas
   setCanvasSize: function () {
@@ -126,7 +130,7 @@ Page({
 
   getCodeEventDetail(item) {
     const that = this;
-    // const { item } = that.data;
+    //const { item } = that.data;
     const param = {
       discountCodeId: item.discountCodeId,
       type: item.type,
@@ -138,7 +142,9 @@ Page({
       data.coverImgUrl = data.coverImgUrl ? data.coverImgUrl.split(",") : [];
       data.detailList = getDetailList(data);
       data.buyTime = formatTimeDay(new Date(data.createtime));
-      data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime))
+      data.discountCodeEndTime = formatTimeDay(new Date(data.discountCodeEndTime));
+
+      data.discountCode = data.discountCode.replace(/\d(?=(\d{4})+\.)/g, "&nbsp;").replace(/\d{4}(?![,.]|$)/g, "$& ")
       
       console.log(data, that);
       that.createQrCode(data.discountCode, "mycanvas");
@@ -146,6 +152,118 @@ Page({
       that.setData({
         detail: data
       })
+    })
+  },
+
+
+  /**
+   * 跳转商品详情后分享出去
+   */
+  giveGift:function(){
+    
+  },
+
+  //退款
+  refund() {
+    const that = this;
+    this.setData({
+      showShadow: true
+    }, () => {
+      this.setData({
+        modalBottom: 0,
+      })
+    })
+  },
+
+  closeModal: function (e) {
+    console.log(e)
+    const that = this;
+    const query = wx.createSelectorQuery();
+    
+    //选择id
+    query.select('.modal').boundingClientRect(function (rect) {
+      // console.log(rect.width)
+      //元素高度
+      let rectHeight = rect.height;
+
+      //获取系统信息
+      wx.getSystemInfo({
+        success: function (res) {
+          //窗口高度
+          let windowHeight = res.windowHeight;
+          if (e.touches[0].clientY < windowHeight - rectHeight){
+            that.setData({
+                modalBottom: "-100%",
+              })
+
+              setTimeout(function(){
+                that.setData({
+                  showShadow: false,
+                })
+              },500)
+          }
+        }
+      })
+    }).exec();
+  },
+
+  /**
+   * 退款情况
+   */
+  refundDetail() {
+    const that = this;
+    const { returnReason, item} = this.data;
+    if (isEmpty(returnReason)){
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: "请选择退款原因"
+      });
+      that.showToast();
+
+      return false;
+    }
+    
+    requestAppid({
+      URL: applyRefund,
+      param:{
+        refundReason: returnReason,
+        discountCodeId: item.discountCodeId
+      },
+    },
+      function (data) {
+        // app.globaData.successData = item;
+        // wx.redirectTo({
+        //   url: '../refund/refund?item=' + JSON.stringify(item),
+        //   success: function () {
+        //   }
+        // })
+        App.globalData.successData = item;
+        wx.redirectTo({
+          url: '../success/success?successText=申请成功&&toPag=refund',
+          success: function () {
+          }
+        })
+      }, function (msg) {
+        //设置toast时间，toast内容  
+        that.setData({
+          count: 2000,
+          toastText: msg
+        });
+        that.showToast();
+      }
+    )
+    
+    
+  },
+  
+  /**
+   * 选择退款原因
+   */
+  selectReason:function(e){
+    console.log('选择的退款原因：', e.detail.value);
+    this.setData({
+      returnReason: e.detail.value
     })
   },
   
@@ -173,7 +291,50 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (e) {
+    const that = this;
+    const { detail, item } = that.data;
+    const globalData = getApp().globalData;
+    const { loginInfo } = globalData;
+    console.log(detail, item, e, globalData);
+    console.log(detail.coverImgUrl);
     
+    if(e.from=="button"){
+      return {
+        title: `${loginInfo.name}赠送你一个“${detail.eventName}”的优惠事件【立即领取】`,
+        path: "/pages/experience/experience?isGive=true&customerId=" + detail.customerId + "&discountCodeId=" + detail.discountCodeId + "&type=" + item.type + "&id=" + detail.id ,
+        imageUrl: detail.coverImgUrl[0],
+        success: function (res) {
+          console.log("转发成功", res);
+        },
+        fail: function (res) {
+          console.log("转发失败", res);
+        }
+      }
+    }
+    
+    // wx.navigateTo({
+    //   url: '../details/details?id=' + detail.id,
+    //   success: function () {
+    //   }
+    // })
+  },
+
+
+
+  //显示自定义提示框
+  showToast: function () {
+    var _this = this;
+    common.showToast(_this)
+  },
+  //提示框的确定按钮
+  buttonConfirm: function () {
+    var _this = this
+    common.buttonConfirm(_this)
+  },
+  //提示框的去登陆按钮
+  toAgainLogin: function () {
+    var _this = this
+    common.toAgainLogin(_this)
   }
 })

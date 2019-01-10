@@ -1,4 +1,4 @@
-<view class='box' style='width:100%;position: relative;'>
+<view class='box'>
   <swiper indicator-dots="{{indicatorDots}}"
       autoplay="{{autoplay}}" 
       interval="{{interval}}"
@@ -13,6 +13,6 @@
       </block>
   </swiper>
   <view class='numIcon'>
-    {{imgIndex}}/{{coverImgUrl.length}}
+    <view>{{imgIndex}}/{{coverImgUrl.length}}</view>
   </view>
 </view>

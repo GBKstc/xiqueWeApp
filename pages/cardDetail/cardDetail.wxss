@@ -1,0 +1,140 @@
+/* pages/cardDetail/cardDetail.wxss */
+.box{
+  background-color: #f5f5f5;
+}
+
+.list{
+  background-color: white;
+  margin-bottom: 20rpx;
+  padding: 0 60rpx 34rpx;
+  position: relative;
+}
+.item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30rpx;
+}
+.titleLine{
+  content: "";
+  display: block;
+  width:56rpx;
+  height:4rpx;
+  background:rgba(253,149,149,1);
+  position: absolute;
+  top: 84rpx;
+  left: 60rpx;
+}
+.title{
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999999;
+}
+.listTitle{
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999999;
+  margin-bottom: 30rpx;
+  padding-top: 50rpx;
+}
+.title1{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+  width: 550rpx;
+}
+.item .number{
+  font-size: 36rpx;
+  line-height: 36rpx;
+  color: #333333;
+  width: 100rpx;
+}
+.rightLogo{
+  width: 12rpx;
+  height: 22rpx;
+  display: block;
+}
+.surplusDays{
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999999;
+  padding-top: 26rpx;
+  padding-bottom: 20rpx;
+}
+
+
+
+/*
+  浮动框
+*/
+.shadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background:rgba(0,0,0,0.5);
+}
+.modal{
+  transition: all 0.8s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius:10rpx 10rpx 0px 0px;
+}
+
+.detailList{
+  margin: 0 auto;
+  padding: 0 60rpx;
+  
+}
+.detailItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 60rpx;
+}
+.detailItem .title{
+  display: flex;
+  justify-content: start;
+  align-items: flex-end;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+}
+.titleRemark{
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  margin-left: 20rpx;
+  line-height: 28rpx;
+}
+.detailItem .number{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+}
+.buttonBox{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 60rpx;
+  margin-bottom: 30rpx;
+}
+.button{
+  width:440rpx;
+  height:70rpx;
+  background:rgba(253,149,149,1);
+  border-radius:10rpx;
+  text-align: center;
+  line-height: 70rpx;
+  font-size: 32rpx;
+  color:rgba(255,255,255,1);
+}
+.noCardLiaochengDetailProducts{
+  text-align: center;
+  margin-top: 40rpx;
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color:rgba(153,153,153,1);
+}

@@ -2,7 +2,7 @@
 var common = require('../../utils/commonConfirm.js');
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
-const { getUserScheduleServiceList, requestAppid } = URL;
+const { myInfo, requestAppid } = URL;
 const { isEmpty } = util
 Page({
 
@@ -98,7 +98,7 @@ Page({
    */
   onShow: function () {
     if (!isEmpty(getApp().globalData.loginInfo)) {
-      this.userScheduleServiceList();
+      this.getMyInfo();
     }
     var that = this
     // that.setData({//进来就先隐藏掉
@@ -234,19 +234,15 @@ Page({
 
   // },
 
-  userScheduleServiceList() {
+ getMyInfo() {
     const that = this;
     requestAppid({
-      URL: getUserScheduleServiceList,
-      param: {
-        status: 2,
-        pageNo: 1,
-        pageSize: 999,
-      }
+      URL: myInfo,
     }, function (res) {
       console.log(res);
       that.setData({
-        flag: res.flag||"",
+        flag: res.flag || "",
+        isWeixinShowCardInfo: res.isWeixinShowCardInfo||"",
       })
     })
   },
@@ -298,11 +294,16 @@ Page({
     })
   },
   //查看严选券
-  select: function () {
+  select: function (e) {
+    console.log(e.currentTarget.dataset.url);
+    const goToUrl = e.currentTarget.dataset.url;
+    if (isEmpty(e.currentTarget.dataset.url)){
+      return false;
+    }
     var that = this
     if (!that.data.isLogin) {//登录了
       wx.navigateTo({
-        url: '../select/select',
+        url: goToUrl,
         success: function () {
         }
       })
@@ -410,6 +411,8 @@ Page({
       }
     })
   },
+
+ 
   //显示自定义提示框
   showToast: function () {
     var _this = this;

@@ -224,7 +224,7 @@ Page({
           isBottom:true//触底显示出来
         })
     }
-    console.log('触底了111' + that.data.pageNo)
+    // console.log('触底了111' + that.data.pageNo)
     if(that.data.pageNo < that.data.totalPages){
       console.log('xiaoyu')
       wx.showLoading({

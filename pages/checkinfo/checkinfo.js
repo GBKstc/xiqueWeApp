@@ -162,9 +162,7 @@ Page({
   //点击确定
   modifySuccess:function(){
     var that=this
-    that.setData({//点击确定，立马禁用掉确定按钮
-      confirmDisabled: true
-    });
+    
     if (that.data.appointmentId === that.data.customerId){//本人预约
         that.setData({
           type:0
@@ -192,12 +190,20 @@ Page({
         // 打印预约请求参数
         console.log('预约请求参数')
         console.log(sendData)
+
+        that.setData({//发送请求前禁用掉确定按钮
+          confirmDisabled: true
+        });
+
         wx.request({
           url: getApp().url + 'schedule/addOrder',
           method: 'POST',
           data: sendData,
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
+            that.setData({//解除确定按钮禁用
+              confirmDisabled: false
+            });
             console.log(res.data)
             if (res.data.status === 200) {
 
@@ -216,13 +222,26 @@ Page({
                 toastText: msg
               });
               that.showToast();
+              //common.showToast(res.data.msg)//状态401和402
+            }else{
+              //common.showToast(res.data.msg)//状态401和402
+              var msg = res.data.msg
+              //设置toast时间，toast内容  
+              that.setData({
+                count: 2000,
+                toastText: msg
+              });
+              that.showToast();
             }
-            common.status(res, that)//状态401和402
-
+            
+            
           }
         })
       },
       fail: function () {
+        that.setData({//解除确定按钮禁用
+          confirmDisabled: false
+        });
         console.log('核对信息页获取随机数失败')
       }
     })

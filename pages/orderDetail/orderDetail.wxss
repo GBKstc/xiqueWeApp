@@ -177,7 +177,10 @@
 .checkbox{
   color:#333;
   font-size:32rpx;
-   vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+   /* vertical-align: middle; */
 }
 .checkbox .target{
   margin-right:10rpx;
@@ -186,6 +189,15 @@
 }
 .textColor{
   color:#fd9595!important;
+  line-height:32rpx;
+  /* position: relative;
+  top: -2rpx; */
+}
+.textColor2{
+  color:#333333!important;
+  line-height:32rpx;
+  /* position: relative;
+  top: -2rpx; */
 }
 
 
@@ -276,4 +288,116 @@
   font-size:36rpx;
   background-color: #fff;
   /* border:1px solid #d2d3d5; */
+}
+
+
+.consumeDetailRow{
+  display: flex;
+  justify-content: space-between;
+  margin-top:90rpx;
+}
+.rightLogo{
+  display: block;
+  width: 12rpx;
+  height: 22rpx;
+}
+
+
+
+/*
+  浮动框
+*/
+.shadow{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background:rgba(0,0,0,0.5);
+}
+.modal{
+  transition: all 0.8s;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  overflow: auto;
+  background-color: white;
+  border-radius:10rpx 10rpx 0px 0px;
+}
+
+.consumeDetailList{
+  margin: 0 auto;
+  padding: 0 60rpx;
+  min-height: 80%;
+}
+.consumeDetailList .detailItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30rpx;
+}
+.consumeDetailList .detailItem .title{
+  /* display: flex;
+  justify-content: start;
+  align-items: flex-end; */
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.consumeDetailList .titleRemark{
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  margin-left: 20rpx;
+  line-height: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.consumeDetailList .detailItem .number{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+}
+.consumeDetailList .consumeDetail{
+  padding-bottom: 1rpx;
+}
+.consumeDetailTitle{
+  color:rgba(153,153,153,1);
+  font-size:28rpx;
+  line-height: 28rpx;
+  margin-top: 30rpx;
+  padding-bottom: 15rpx;
+  position: relative;
+}
+.consumeDetailTitle::after{
+  content: "";
+  display: block;
+  width:40rpx;
+  height:4rpx;
+  background:rgba(253,149,149,1);
+  border-radius:2rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.buttonBox{
+  display: flex;
+  justify-content: space-around;
+}
+.button{
+  width:440rpx;
+  height:70rpx;
+  background:rgba(253,149,149,1);
+  border-radius:10rpx;
+  text-align: center;
+  line-height: 70rpx;
+  font-size: 32rpx;
+  color:rgba(255,255,255,1);
+  margin-bottom:30rpx;
 }

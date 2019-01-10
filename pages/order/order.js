@@ -19,7 +19,12 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好' 
+    toastText: '你好' ,
+
+
+    //订单详情
+
+    //优惠码核销
   },
 
   /**
@@ -60,8 +65,12 @@ Page({
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        console.log('页面获取到随机数为')
-        console.log(res.data)
+        // console.log('页面获取到随机数为')
+        // console.log(res.data)
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
         wx.request({
           url: getApp().url + 'userScheduleService/getUserScheduleServiceList',
           method: 'POST',
@@ -298,9 +307,6 @@ Page({
   //头部导航点击切换
   timeSelected: function (e) {
     var that=this
-    // console.log(999)
-    // console.log(e)
-    // console.log(e.target.dataset.num)
     var statusNow = e.currentTarget.dataset.status
     that.setData({
       status: statusNow
@@ -309,8 +315,12 @@ Page({
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        console.log('页面获取到随机数为')
-        console.log(res.data)
+        // console.log('页面获取到随机数为')
+        // console.log(res.data)
+        wx.showLoading({
+          title: '加载中',
+          mask: true
+        })
         wx.request({
           url: getApp().url + 'userScheduleService/getUserScheduleServiceList',
           method: 'POST',
@@ -322,7 +332,8 @@ Page({
           },
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            console.log(res.data)
+            // console.log(res.data)
+            wx.hideLoading();
             if (res.data.status === 200) {
               console.log(200)
               // 重构响应数据
@@ -387,17 +398,18 @@ Page({
                 count: 2000,
                 toastText: msg
               });
-              that.showToast();
+              //that.showToast();
             }
             common.status(res, that)//状态401和402
           },
           fail: function (res) {
+            wx.hideLoading();
             //设置toast时间，toast内容  
             that.setData({
               count: 2000,
               toastText: "服务器错误"
             });
-            that.showToast();
+            //that.showToast();
           }
         })
       },

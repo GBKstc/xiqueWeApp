@@ -12,7 +12,7 @@ const {
   userScheduleServiceSaveEvaluate,
 } = URL;
 const { 
-  isEmpty
+  isEmpty,
 } = util;
 Page({
 
@@ -54,7 +54,12 @@ Page({
     img4: false,
     img5: false,
     bg: {},//初始化每一个评价标签对应的颜色状态，这里个bg应该是{1:false,3:true}这种对象形式
-    arrObj: []//初始化赋值，这个是上面的升级版，每个对象里面同时包含evaluateLableId(标签id)和evaluateType(标签类型)这两个属性，例如[{id:flase,evaluateLableId:5,evaluateType:1},{id:flase,evaluateLableId:9,evaluateType:2}]这种形式，目的是点击提交按钮时，便于统计点击的标签是哪个类型的，id是多少，这些要传递给后台
+    arrObj: [],//初始化赋值，这个是上面的升级版，每个对象里面同时包含evaluateLableId(标签id)和evaluateType(标签类型)这两个属性，例如[{id:flase,evaluateLableId:5,evaluateType:1},{id:flase,evaluateLableId:9,evaluateType:2}]这种形式，目的是点击提交按钮时，便于统计点击的标签是哪个类型的，id是多少，这些要传递给后台
+
+
+    //消费详情模态框
+    modalBottom: "-100%",
+    showShadow: false
   },
 
   /**
@@ -96,7 +101,7 @@ Page({
           data: sendData ,
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            console.log(res.data)
+            console.log(res.data,"订单详情")
             if (res.data.status === 200) {
               // console.log(200)
               // 重构响应数据，需要把原始响应数据里的date，serviceStartTime，evaluateScore这三个属性改造
@@ -184,7 +189,7 @@ Page({
                   // arrObj[i].evaluateLableId = newArr[i].evaluateLableId
                   newArr[i][newArr[i].evaluateLableId] = false
                 }
-
+        
                 that.setData({
                   bg: obj,
                   arrObj: newArr
@@ -764,6 +769,27 @@ Page({
       cancelMask: false
     })
   },
+
+  //gotoConsumeDetail查看消费详情
+  gotoConsumeDetail: function () {
+    const that = this;
+    this.getOrderDetail();
+    this.setData({
+      showShadow: true
+    }, () => {
+      this.setData({
+        modalBottom: 0,
+      })
+    })
+  },
+
+  closeModal: function () {
+    const that = this;
+    this.setData({
+      showShadow: false,
+      modalBottom: "-100%",
+    })
+  },
   //显示自定义提示框
   showToast: function () {
     var _this = this;
@@ -778,5 +804,53 @@ Page({
   toAgainLogin: function () {
     var _this = this
     common.toAgainLogin(_this)
-  }
+  },
+
+  //获取订单详情用的通用获取接口
+  getData(key){
+    const that = this;
+    const { recordData} = that.data;
+    requestAppid({
+      URL:URL[key],
+      param: { serviceId: recordData.serviceId}
+    },function (data) {
+      
+      if(isEmpty(data)){
+        return ;
+      }
+      console.log(data, key)
+      const Data = {};
+      Data[key] = data;
+      that.setData({
+        ...Data
+      })
+    })
+  },
+
+  //获取订单所有详情
+  getOrderDetail(){
+    const that = this;
+    //所有要获取的详情接口list
+    const getKeyList = [
+      "serviceOpenCardInfo",
+      "serviceCardRecharge",
+      "serviceCardBuy",
+      "serviceCardConsume",
+      "serviceCardPick",
+      "serviceCardReturn",
+      "serviceCardTrans",
+      "serviceCardDiscountCodeGive",
+    ];
+
+    for(let key of getKeyList){
+      console.log(key);
+      that.getData(key);
+    }
+
+
+  },
+
+  //保留两位
+  
+
 })

@@ -1,14 +1,19 @@
 <view class='allBox' wx:if="{{!isShowRegret}}">
   <view class='header baseBox'>
     <Carousel coverImgUrl="{{detail.carouselImgUrl}}"></Carousel>
-    <view class="headerContent">
-      <text class='headerContentText'>{{detail.eventName}}</text>
+  </view>
+  <view class="headerContent">
+      <view class='headerContentStyle'>
+        <view class="headerLine"></view>
+        <view class='headerContentText'>{{detail.eventName}}</view>
+        <view class="headerLine"></view>
+      </view>
+      
       <view class='infoContent' wx:if="{{detail.remind}}">
         <image wx:if="{{detail.remind}}" class='near' src='../../image/att.png'></image>
         <text >{{detail.remind}}</text>
       </view>
     </view>
-  </view>
 
   <view class='topBorder baseBox'>
     <view class='detailsContent'>
@@ -38,19 +43,18 @@
     </view>
   </view>
 
-  <view class='topBorder baseBox'>
+  <view class='baseBox' style='margin-bottom:30rpx'>
     <view class='detailsContent'>
       <view class='contentHeader'>
         <text class='goodsName'>商品详情</text>
         <image src='../../image/zs.png' mode="aspectFill"></image>
       </view>
       <view wx:if="{{detail.goodsDetail}}" class='detailsText'>{{detail.goodsDetail}}</view>
-      <view class='imgList'>
-        <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
-          <image   src='{{item}}' mode="aspectFill"></image>
-        </view>
-        
-      </view>
+    </view>
+  </view>
+  <view class='imgList'>
+    <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
+      <image   src='{{item}}' mode="aspectFill"></image>
     </view>
   </view>
 
@@ -70,8 +74,8 @@
       <view class='storeList' wx:for="{{detail.usableStoreList}}" wx:key="{{item.id}}">
         <view class='storeName'>
           <view>{{item.name}}</view>
-          <view wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceK}}公里</view>
-          <view wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}米</view>
+          <view class='storeDistance' wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">(约{{item.distanceK}}公里)</view>
+          <view class='storeDistance' wx:elif="{{item.distance||item.distance==0}}">(约{{item.distance}}米)</view>
         </view>
         <view class='storeAdress'>
           <view class="storeAdressText">{{item.address}}</view>
@@ -84,12 +88,16 @@
   </view>
 
   <view class='footer'>
-    <view class='footerBox'>
+    <view wx:if="{{customerId}}" class='getCode' bindtap='getReceiveDiscountCode'>立即领取</view>
+    <view class='footerBox' wx:else>
       <view class='price'>
-        <text class='priceNew'>￥{{detail.currentPrice}}</text>
-        <text class='priceOld'>{{detail.originPrice}}</text>
+        <view class='priceNew'>
+          <view class='priceOld'>￥</view>
+          <view>{{detail.currentPrice}}</view>
+        </view>
+        <view class='priceOld' style='color: rgb(204, 204, 204);text-decoration: line-through;'>{{detail.originPrice}}</view>
       </view>
-      <button bindlongpress="longTap" bindtap='aclick'>限时抢购</button>
+      <button  bindlongpress="longTap" bindtap='aclick'>限时抢购</button>
     </view>
   </view>
 </view>

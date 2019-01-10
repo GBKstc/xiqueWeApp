@@ -1,8 +1,13 @@
 {
   "pages": [
+
+   
     
+   
     "pages/index/index",
+    "pages/cardList/cardList",
     "pages/refund/refund",
+    "pages/personalCenter/personalCenter",
     "pages/orderDetailChance/orderDetailChance",
     "pages/orderDetail/orderDetail",
     "pages/scrapeprice/scrapeprice",
@@ -12,21 +17,23 @@
     "pages/modifyPhone/modifyPhone",
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/order/order",
-    "pages/personalCenter/personalCenter",
+    "pages/experience/experience",
+    
     "pages/select/select",
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",
     "pages/checkinfo/checkinfo",
     "pages/two_demision/two_demision",
     "pages/assess/assess",
-    "pages/experience/experience",
     "pages/storeDistribution/storeDistribution",
     "pages/details/details",
     "pages/accounts/accounts",
     "pages/login/login",
     "pages/time/time",
-    "pages/success/success"
+    "pages/success/success",
+    "pages/cardDetail/cardDetail",
     
+    "pages/consumeDetail/consumeDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
@@ -34,7 +41,8 @@
     "navigationBarTextStyle": "#fff",
     "backgroundTextStyle": "light",
     "backgroundColor": "#999",
-    "enablePullDownRefresh": false
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance":50
   },
   "tabBar": {
     "color": "#333",

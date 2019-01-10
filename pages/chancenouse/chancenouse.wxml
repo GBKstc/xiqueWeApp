@@ -1,15 +1,19 @@
 <view class='detail'>
   <view>
     <text class='detail_header'>{{detail.eventName}}</text>
-    <text class='detail_header_two {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}'> ({{detail.discountCodeStatusName}})</text>
+    <text class='detail_header_two  {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}' wx:if="{{detail.discountCodeStatusName}}"> ({{detail.discountCodeStatusName}})</text>
   </view>
   <view class='favour_time'>
-    <view class='favour mabottom'>优惠码:</view>
-    <text class='favour_font {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detail_colorNo"}}'>{{detail.discountCode}}</text>
+    <view style='margin-bottom:5rpx'>
+      <text class='favour_font {{detail.discountCodeStatusName=="未使用"?"detail_colorYse":"detailconsumeDetailTitcolorNo"}}'>{{detail.discountCode}}</text>
+      <text class='detail_header_two detail_colorNo'>(优惠码)</text>
+    </view>
+    
   </view>
-  <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view>
-  <view style='padding-bottom: 50rpx'>
-    <canvas  hidden="{{canvasHidden}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;" canvas-id="mycanvas"/>
+  <!-- <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0}}">退款</view> -->
+  <view style='padding-bottom: 50rpx;position:relative;z-index:10'>
+    <canvas wx:if="{{!showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;opacity:{{showShadow?0:1}}"  hidden="{{canvasHidden}}"  canvas-id="mycanvas"/>
+    <view  wx:if="{{showShadow}}" style="width: 300rpx;height: 300rpx;background:#f1f1f1;"></view>
   </view>
   <view class='count' wx:if="{{detail.remind}}">
     <text class='favour' >注意 : </text>
@@ -37,7 +41,7 @@
     </view>
   </view>
 
-  <view>
+  <view style='padding-bottom:48rpx'>
     <text class='produce'>商品介绍</text>
     <view>
       <image class='produce_img' src='../../image/zs.png'></image>
@@ -46,6 +50,11 @@
       <view class='five_logo' wx:for="{{detail.detailList}}" wx:key="{{item.name}}"><text class='five_right'>{{item.numString}}</text>{{item.name}}<text class='appoint' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text></view>
       
     </view>
+  </view>
+  <view class='refund' bindtap='refund' wx:if="{{item.type==2&&detail.discountCodeStatus==0&&detail.isOtherGive==1}}">
+  <!-- <view class='refund' bindtap='refund' > -->
+    <view>申请退款</view>
+    <image class='storesImage' src='../../image/craftManBack.png'></image>
   </view>
   <view wx:if="{{item.type==2}}">
     <text class='produce'>购买信息</text>
@@ -66,4 +75,60 @@
     </view>
   </view>
 </view>
-<button class='gobtn'  bindtap='subscribe' wx:if="{{(!detail.discountCodeActiveEntityVO)&&(detail.discountCodeStatus!=1)}}">立即预约</button>
+<view class='bottonBox'>
+  <button class='giveFriend' open-type='share'  wx:if="{{(!detail.discountCodeActiveEntityVO)&&(detail.discountCodeStatus!=1)&&(detail.isBuyerUse==1)}}">赠送朋友</button>
+  <button class='gobtn'  bindtap='subscribe' wx:if="{{(!detail.discountCodeActiveEntityVO)&&(detail.discountCodeStatus!=1)}}">立即预约</button>
+</view>
+
+<!-- 退款浮动框 -->
+<view class='shadow' wx:if="{{showShadow}}" bindtap='closeModal' >
+    <view class='modal' id="modal" style='bottom:{{modalBottom}}' data-className='modal' >
+      <view class='consumeDetailList'>
+        <view class='consumeDetail'>
+          <view class='consumeDetailTitle'>
+            <view>退款原因</view>
+            <view class='titleRemark'>(必选)</view>
+          </view>
+          <radio-group bindchange='selectReason'>
+            <view class='detailItem'>
+              <view class='title'>买多了/买错了</view>
+              <view class='number'>
+                <radio color="#FD9595" value="买多了/买错了"  checked='{{returnReason=="买多了/买错了"}}' class='radioStyle'/>
+              </view>
+            </view>
+            <view class='detailItem'>
+              <view class='title'>自己没时间</view>
+              <view class='number'>
+                <radio color="#FD9595" value="自己没时间" checked='{{returnReason=="自己没时间"}}' class='radioStyle'/>
+              </view>
+            </view>
+            <view class='detailItem'>
+              <view class='title'>预约不到</view>
+              <view class='number'>
+                <radio color="#FD9595" value="预约不到" checked='{{returnReason=="预约不到"}}' class='radioStyle'/>
+              </view>
+            </view>
+            <view class='detailItem'>
+              <view class='title'>给朋友买的，不能用</view>
+              <view class='number'>
+                <radio color="#FD9595" value="给朋友买的，不能用" checked='{{returnReason=="给朋友买的，不能用"}}' class='radioStyle'/>
+              </view>
+            </view>
+            <view class='detailItem'>
+              <view class='title'>其他原因</view>
+              <view class='number'>
+                <radio color="#FD9595" value="其他原因" checked='{{returnReason=="其他原因"}}' class='radioStyle'/>
+              </view>
+            </view>
+          </radio-group>
+          
+        </view>
+      
+        <view class='buttonBox' >
+          <view class='button okButtonStyle' style='opacity:{{returnReason?1:0.6}}' bindtap='refundDetail'>提交</view>
+        </view>
+      </view>
+    </view>
+  </view>
+<!--mask-->
+<include src="../../utils/commonConfirm.wxml"/>   

@@ -63,7 +63,7 @@ Page({
     let amount = 0;
     if (isEmpty(detail.buyTimes) || (number < detail.buyTimes)) {
       number = number + 1;
-      amount = currentPrice * number;
+      amount = currentPrice* 100 * number / 100;
     } else {
       that.setData({
         cardRankInfo:"已经到最大可购买量"
@@ -84,7 +84,7 @@ Page({
     let amount = 0;
     if (number >= 2) {
       number = number - 1;
-      amount = currentPrice * number;
+      amount = currentPrice * 100 * number / 100;;
     } else {
       return;
     }

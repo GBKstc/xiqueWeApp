@@ -8,7 +8,7 @@ const {
   getBuyDiscountCodeEventDetail,
   checkCardrank,
   checkTimes,
-  
+  receiveDiscountCode,
 } = URL;
 let pageObj = {
   data: {
@@ -42,10 +42,19 @@ Page({
   onLoad: function (options) {
     const that = this;
     //console.log("details",options);
-    let { id, recommendId } = options;
+    let { 
+      id, //优惠券事件ID
+      recommendId,//推荐人ID
+      customerId,//赠送顾客ID
+      discountCodeId,//优惠券ID
+      type,//优惠事件的类型1优惠码 2优惠码-购买 3优惠码-赠送
+     } = options;
     //scene = decodeURIComponent(scene)
     that.setData({
       id: id,
+      customerId,
+      type,
+      discountCodeId
     })
 
     var random = wx.getStorageSync(app.globalData.appid);
@@ -363,6 +372,37 @@ Page({
         isShowRegret: true
       })
     })
+  },
+
+  //领取优惠券
+  getReceiveDiscountCode(){
+    const that = this;
+    const { customerId, discountCodeId, type,id} = that.data;
+    isLogin(function(){
+      requestAppid({
+        URL: receiveDiscountCode,
+        param: {
+          customerId, discountCodeId, type
+        },
+      },
+        function (data) {
+          wx.redirectTo({
+            url: '../success/success?successText=领取成功&toPag=select',
+          })
+        },
+        function (msg) {
+          //设置toast时间，toast内容  
+          that.setData({
+            count: 2000,
+            toastText: msg,
+          });
+          that.showToast();
+          wx.redirectTo({
+            url: '../experience/experience',
+          })
+        })
+    });
+   
   },
 
   /**

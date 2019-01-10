@@ -9,6 +9,7 @@
   font-size:30rpx;
   color:#333;
   background-color: #fff;
+  z-index: 999;
 }
 .changeBlock{
   display: inline-block;
@@ -21,8 +22,19 @@
 }
 .list{
   width:630rpx;
-  margin:0 auto;
-  margin-top:100rpx;
+  padding: 100rpx 60rpx 0 60rpx;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  top: 0;
+  left: 0;
+}
+.noOrderText{
+  margin-top: 500rpx;
+  text-align: center;
+  font-size:32rpx;
+  font-weight:400;
+  color:rgba(153,153,153,1);
 }
 .listItem{
   padding:60rpx 0;

@@ -34,7 +34,7 @@ Page({
    */
   onLoad: function (options) {
     // const that = this;
-    // that.customerDiscountCodeList(1);
+    // that.customerDiscountCodeList(1,1);
   },
 
 
@@ -42,7 +42,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    // const that = this;
+    // that.customerDiscountCodeList(1, 1);
   },
 
   /**
@@ -129,7 +130,7 @@ Page({
 
   customerDiscountCodeList: function (page, type = 1) {
     const that = this;
-    const {
+    let {
       noUseList,
       disabledList,
       noUsePage,
@@ -138,15 +139,18 @@ Page({
       disabledTotalPages,
       
     } = that.data;
-    if (type == 1) {
-      if ((noUsePage > page) || (page >= noUseTotalPages)) {
-        return false;
-      }
-    } else if (type == 2) {
-      if ((disabledPage > page) || (page >= disabledTotalPages)) {
-        return false;
+    if(page!=1){
+      if (type == 1) {
+        if ((noUsePage > page) || (page >= noUseTotalPages)) {
+          return false;
+        }
+      } else if (type == 2) {
+        if ((disabledPage > page) || (page >= disabledTotalPages)) {
+          return false;
+        }
       }
     }
+    
     requestAppid(
       {
         URL: getCustomerDiscountCodeList,
@@ -165,11 +169,14 @@ Page({
           i.endTime = formatTimeDay(new Date(i.discountCodeEndTime));
         }
         if (type == 1) {
-          
           // if ((noUsePage > page) || (page >= noUseTotalPages)) {
           //   return false;
           // }
-          noUseList.push(...newList);
+          if(page==1){
+            noUseList = newList;
+          }else{
+            noUseList.push(...newList);
+          }
           that.setData({
             noUseList: noUseList,
             noUseTotalPages: data.totalPages,
@@ -180,7 +187,11 @@ Page({
           // if ((disabledPage > page) || (page >= disabledTotalPages)) {
           //   return false;
           // }
-          disabledList.push(...newList);
+          if (page == 1) {
+            disabledList = newList;
+          }else{
+            disabledList.push(...newList);
+          }
           that.setData({
             disabledList: disabledList,
             disabledTotalPages: data.totalPages,

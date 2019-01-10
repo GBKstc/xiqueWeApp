@@ -228,7 +228,14 @@
 }
 .storeList .storeName{
   display: flex;
-  justify-content: space-between;
+  justify-content: start;
+  align-items: flex-end;
+}
+.storeDistance{
+  margin-left: 10rpx;
+  font-size:28rpx;
+  color:rgba(153,153,153,1);
+  line-height:30rpx;
 }
 .storeList .storeAdress{
   display: flex;

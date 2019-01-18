@@ -35,6 +35,11 @@
     
     "pages/consumeDetail/consumeDetail"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "获取地理位置才能准确推荐距离您最近的门店哦！"
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
     "navigationBarTitleText": "静博士喜鹊来了",

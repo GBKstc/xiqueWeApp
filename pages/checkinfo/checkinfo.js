@@ -235,6 +235,17 @@ Page({
             }
             
             
+          },
+          fail:function(res){
+            that.setData({//解除确定按钮禁用
+              confirmDisabled: false
+            });
+            //设置toast时间，toast内容  
+            that.setData({
+              count: 2000,
+              toastText: "接口报错"
+            });
+            that.showToast();
           }
         })
       },

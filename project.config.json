@@ -5,12 +5,13 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.1.1",
+	"libVersion": "2.5.2",
 	"appid": "wxab4355d28417d914",
-	"projectname": "%E7%9A%87%E5%98%89%E9%87%91%E6%AE%BF",
+	"projectname": "xiqueWeApp",
 	"condition": {
 		"search": {
 			"current": -1,

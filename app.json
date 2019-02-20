@@ -43,7 +43,7 @@
   "window": {
     "navigationBarBackgroundColor": "#fd9595",
     "navigationBarTitleText": "静博士喜鹊来了",
-    "navigationBarTextStyle": "#fff",
+    "navigationBarTextStyle": "white",
     "backgroundTextStyle": "light",
     "backgroundColor": "#999",
     "enablePullDownRefresh": false,

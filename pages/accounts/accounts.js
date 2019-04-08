@@ -148,12 +148,11 @@ Page({
             cancelBuyParam.payStatus = "04";
           };
           
-          requestAppid({
-            URL:cancelBuy,
-            param: cancelBuyParam,
-          },function(){
-            
-          })
+          // requestAppid({
+          //   URL:cancelBuy,
+          //   param: cancelBuyParam,
+          // },function(){
+          // })
           
         }
         wx.requestPayment(reqData);

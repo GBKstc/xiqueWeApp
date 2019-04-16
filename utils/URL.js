@@ -41,18 +41,18 @@ const requestAppid = function({URL,param = {}},succ,fail){
   })
 }
 
-const request = function ({ URL, param = {} }, succ) {
+const request = function ({ URL, param = {}, method="POST" }, succ) {
   wx.showLoading({
     title: '加载中',
     mask: true
   })
   wx.request({
-    url: getApp().url + URL,
-    method: 'POST',
+    url: URL,
+    method: method,
     data: param,
     header: { 'content-type': 'application/x-www-form-urlencoded' },
     success: function (res) {
-      if (res.data.status === 200) {
+      if (res.data.status === 200 || res.data.status === 0) {
         if (succ) {
           succ(res.data.data);
         }

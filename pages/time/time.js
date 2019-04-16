@@ -265,7 +265,7 @@ Page({
           timeduan: timeduan
         })
       }else{//时间选人
-        if (hour24 < 21) {//今天，还没过21点
+        if (hour24 < 24) {//今天，还没过21点
           that.timetocraftmancommon()
           that.setData({ toggleDay:currDate})
         } else {//自动显示第二天的数据
@@ -288,7 +288,7 @@ Page({
       that.setData({
         istimetocraftman: true
       })
-      if (hour24 < 21) {//今天，还没过21点
+      if (hour24 < 24) {//今天，还没过21点
         var sendDate = currDate//发送请求需要的时间参数，
         //发送请求
         wx.getStorage({//异步获取随机数
@@ -707,6 +707,45 @@ Page({
           that.setData({ isActive: newisActive })
         }
         break
+      case '21:00:00':
+        if (!isTody || hour < 21) {
+          var newisActive = that.data.isActive
+          newisActive[27] = true
+          that.setData({ isActive: newisActive })
+        }
+        break
+      case '21:30:00':
+        if (!isTody || hour < 21 || (hour === 21 && minuts < 30)) {
+          var newisActive = that.data.isActive
+          newisActive[28] = true
+          that.setData({ isActive: newisActive })
+        }
+      case '22:00:00':
+        if (!isTody || hour < 22 ) {
+          var newisActive = that.data.isActive
+          newisActive[29] = true
+          that.setData({ isActive: newisActive })
+        }
+      case '22:30:00':
+        if (!isTody || hour < 22 || (hour === 22 && minuts < 30)) {
+          var newisActive = that.data.isActive
+          newisActive[30] = true
+          that.setData({ isActive: newisActive })
+        }
+      case '23:00:00':
+        if (!isTody || hour < 23) {
+          var newisActive = that.data.isActive
+          newisActive[31] = true
+          that.setData({ isActive: newisActive })
+        }
+        break
+      case '23:30:00':
+        if (!isTody || hour < 23 || (hour === 23 && minuts < 30)) {
+          var newisActive = that.data.isActive
+          newisActive[32] = true
+          that.setData({ isActive: newisActive })
+        }
+        break
     }
   },
   // 公共计算后七天日期函数
@@ -736,250 +775,27 @@ Page({
   timetocraftmancommon:function(){
     var that=this
     var date=new Date()
-    var hour24 = date.getHours(), mints24 = date.getMinutes()
-    var newisActive = that.data.isActive
-    if (hour24 < 9 || (hour24 === 9 && mints24 < 30)) {
-      for (var w in newisActive) {
-        newisActive[w] = true
-      }
-      that.setData({ isActive: newisActive })
+    const hour24 = hourNow;
+    const mints24 = minutsNow;
+    const newisActive = that.data.isActive
 
-    } else if (hour24 < 10) {
-      wx.pageScrollTo({
-        scrollTop: 54,
+    let listIndex = (hour24-7)*2 + 1;
+    if (mints24<30){
+      listIndex = listIndex - 1;
+    }
+    //如果早于8点 不屏蔽时间
+    if(listIndex<=0){
+      return false;
+    }
+
+    for (let i=listIndex;i<33;i++){
+      newisActive[i] = true;
+    }
+    wx.pageScrollTo({
+      scrollTop: 54 * (listIndex-1) + 10,
         duration: 0
       })
-      for (var w in newisActive) {
-        if (w != 4) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 10 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 2 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 11) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 3 + 10,
-        duration: 0
-      })
-      console.log('xxxxxxx')
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 11 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 4 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 12) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 5 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 12 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 6 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 13) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 7 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 13 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 8 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 14) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 9 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 14 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 10 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 15) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 11+10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 15 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 12 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 16) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 13 + 10,
-        duration: 0
-      })
-      console.log('zhemokuai')
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16)) {
-          console.log(w)
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 16 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 14 + 10,
-        duration: 0
-      })
-      console.log('zhemokuai2')
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 17) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 15 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 17 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 16 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 18) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 17 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19 || w == 20)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 18 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 18 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19 || w == 20 || w == 21)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 19) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 19 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19 || w == 20 || w == 21 || w == 22)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 === 19 && mints24 < 30) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 20 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19 || w == 20 || w == 21 || w == 22 || w == 23)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } else if (hour24 < 20) {
-      wx.pageScrollTo({
-        scrollTop: 54 * 21 + 10,
-        duration: 0
-      })
-      for (var w in newisActive) {
-        if (!(w == 4 || w == 5 || w == 6 || w == 7 || w == 8 || w == 9 || w == 10 || w == 11 || w == 12 || w == 13 || w == 14 || w == 15 || w == 16 || w == 17 || w == 18 || w == 19 || w == 20 || w == 21 || w == 22 || w == 23 || w == 24)) {
-          newisActive[w] = true
-        }
-      }
-      that.setData({ isActive: newisActive })
-    } 
+    that.setData({ isActive: newisActive })
   },
   //定位到第一个标红的位置公共函数
   pageScrollToCommon:function(scrollto){
@@ -1146,8 +962,7 @@ Page({
           //今天，如果过了19，显示已满
           var date = new Date()
           var hour19 = date.getHours(), mints19 = date.getMinutes()
-        if (hour19 < 21) {//今天，还没过21
-          console.log('今天，未到19点')
+        if (hour19 < 24) {//今天，还没过21
           //  先置灰所有的时间块
           var resetIsActive = that.data.isActive
           for (var i in resetIsActive) {
@@ -1192,7 +1007,7 @@ Page({
         //今天，如果过了19，显示已满
         var date = new Date()
         var hour19 = date.getHours(), mints19 = date.getMinutes()
-        if (hour19 < 21) {//今天，还没过21
+        if (hour19 < 24) {//今天，还没过21
           that.timeSelectedcommon(currentClickDate,sendDate,function (){
             that.setData({
               allMask: true//关闭覆盖层
@@ -1257,204 +1072,7 @@ Page({
                     var obj = sTime[i]
                     for (var key in obj) {
                       console.log(nowORtomorrow.toDateString(),jinDate.toDateString())
-                      // if (nowORtomorrow.toDateString() !== jinDate.toDateString()){
                       that.setTimeList(obj[key], nowORtomorrow.toDateString() == jinDate.toDateString());
-                      // }
-                      // switch (obj[key]) {
-                      //   case '08:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 8) {//明天，成立，今天小于9点，成立，今天小于九点半，成立
-                      //       // console.log('明天或小于当前2')
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[4] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '08:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 8 || (hour === 8 && minuts < 30)) {//明天，成立，今天小于9点，成立，今天小于九点半，成立
-                      //       // console.log('明天或小于当前2')
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[4] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '09:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 9) {//明天，成立，今天小于9点，成立，今天小于九点半，成立
-                      //       // console.log('明天或小于当前2')
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[4] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '09:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 9 || (hour === 9 && minuts < 30)) {//明天，成立，今天小于9点，成立，今天小于九点半，成立
-                      //       // console.log('明天或小于当前2')
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[4] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '10:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 10) {//明天，成立，今天小于10点，成立
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[5] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '10:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 10 || (hour === 10 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[6] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '11:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 11) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[7] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '11:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 11 || (hour === 11 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[8] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '12:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 12) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[9] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '12:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 12 || (hour === 12 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[10] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '13:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 13) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[11] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '13:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 13 || (hour === 13 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[12] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '14:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 14) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[13] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '14:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 14 || (hour === 14 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[14] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '15:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 15) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[15] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '15:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 15 || (hour === 15 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[16] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '16:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 16) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[17] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '16:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 16 || (hour === 16 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[18] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '17:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 17) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[19] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '17:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 17 || (hour === 17 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[20] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '18:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 18) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[21] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '18:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 18 || (hour === 18 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[22] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '19:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 19) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[23] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '19:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 19 || (hour === 19 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[24] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '20:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 20 || (hour === 20 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[25] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '20:30:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 20) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[26] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      //   case '21:00:00':
-                      //     if (nowORtomorrow.toDateString() !== jinDate.toDateString() || hour < 21 || (hour === 21 && minuts < 30)) {
-                      //       var newisActive = that.data.isActive
-                      //       newisActive[27] = true
-                      //       that.setData({ isActive: newisActive })
-                      //     }
-                      //     break
-                      // }
                     }
                   }
                   // 有可能0_time和s_time有重合的，要以o_time为准，所以要后运行o_time,覆盖掉s_time
@@ -1549,8 +1167,6 @@ Page({
               arr.push(intI)
             }
           }
-          // console.log('点亮的数组')
-          // console.log(arr)
           if (arr.length === 0){
             isToggleX[numNum] = !isToggleX[numNum]
             that.setData({
@@ -1558,20 +1174,9 @@ Page({
               timeduan: 0.5
             })
           } else if (arr.length === 1){
-            // console.log('1个')
+      
             var arrOne = parseInt(arr[0])
-            // 分连续和不连续两种
-            // if ((numNum + 1 === arrOne) || (numNum - 1 === arrOne)){//连续
-            //   // console.log('1个连续')
-            //   var timeduan = 2 * 0.5//计算已选择的小时数
-            //   //只切换当前或相邻状态
-            //   isToggleX[numNum] = !isToggleX[numNum]
-            //   that.setData({
-            //     isToggleX: isToggleX,
-            //     timeduan: timeduan,
-            //     isclick: false,
-            //   })
-            // } else if (numNum === arrOne){
+          
             if (numNum === arrOne) {
               var timeduan = 0;//计算已选择的小时数
               isToggleX[numNum] = !isToggleX[numNum]

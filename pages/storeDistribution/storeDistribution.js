@@ -3,6 +3,8 @@ var common = require('../../utils/commonConfirm.js')
 // 引入SDK核心类
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
+let URL = require('../../utils/URL.js');
+const { request } = URL;
 Page({
 
   /**
@@ -509,38 +511,83 @@ Page({
       var latitude = e.currentTarget.dataset.latitude//获取标签上绑定的维度
       var longitude = e.currentTarget.dataset.longitude//获取标签上绑定的经度
       var name = e.currentTarget.dataset.name
-      var address = e.currentTarget.dataset.address
-      // 调用坐标转换接口
-      qqmapsdk.reverseGeocoder({
-        location: {
-          latitude: latitude,
-          longitude: longitude
+      var address = e.currentTarget.dataset.address;
+
+      wx.showLoading({
+        title: '加载中',
+        mask: true
+      })
+      wx.request({
+        url: `https://apis.map.qq.com/ws/coord/v1/translate?locations=${latitude},${longitude}&type=3&key=WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF`,
+        method: 'GET',
+        header: { 'content-type': 'application/x-www-form-urlencoded' },
+        success: function (res) {
+          if (res.data.status === 0) {
+            var loca = res.data.locations[0];
+            wx.openLocation({
+              latitude: loca.lat,
+              longitude: loca.lng,
+              scale: 18,
+              name: name,
+              address: address
+            })
+          } else {
+            console.log("请求错误码", res.data.status);
+          }
+          wx.hideLoading();
         },
-        coord_type:3,
-        success: function (res) {//门店有经纬度
-          console.log('腾讯地图调用成功'+res)
-          var loca = res.result.ad_info.location;
-          wx.openLocation({
-            latitude: loca.lat,
-            longitude: loca.lng,
-            scale: 18,
-            name: name,
-            address: address
-          })
-        },
-        fail: function (res) {//门店没有经纬度
-          console.log('获取经纬度失败');
-          //设置toast时间，toast内容  
+        fail: function (res) {
           that.setData({
             count: 1000,
             toastText: "定位中..."
           });
           that.showToast();
-        },
-        complete: function (res) {
-          console.log(res);
         }
-      });
+      })
+      // request(
+      //   { URL: "https://apis.map.qq.com/ws/coord/v1/translate?locations=39.12,116.83;30.21,115.43&type=3&key=WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF", method:"GET"},function(data){
+
+      //       var loca = res.result.ad_info.location;
+      //       wx.openLocation({
+      //         latitude: loca.lat,
+      //         longitude: loca.lng,
+      //         scale: 18,
+      //         name: name,
+      //         address: address
+      //       })
+      //     }
+      // )
+      // // 调用坐标转换接口
+      // qqmapsdk.reverseGeocoder({
+      //   location: {
+      //     latitude: latitude,
+      //     longitude: longitude
+      //   },
+      //   coord_type:3,
+      //   success: function (res) {//门店有经纬度
+      //     console.log('腾讯地图调用成功'+res)
+      //     var loca = res.result.ad_info.location;
+      //     wx.openLocation({
+      //       latitude: loca.lat,
+      //       longitude: loca.lng,
+      //       scale: 18,
+      //       name: name,
+      //       address: address
+      //     })
+      //   },
+      //   fail: function (res) {//门店没有经纬度
+      //     console.log('获取经纬度失败');
+      //     //设置toast时间，toast内容  
+      //     that.setData({
+      //       count: 1000,
+      //       toastText: "定位中..."
+      //     });
+      //     that.showToast();
+      //   },
+      //   complete: function (res) {
+      //     console.log(res);
+      //   }
+      // });
     }
   },
   //显示自定义提示框

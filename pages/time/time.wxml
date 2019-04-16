@@ -159,6 +159,22 @@
           <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[27]?'changeActive':''}} {{isActive[27]?'scrollTimeCellAc':''}}" data-num='27'>
             21:00
           </view>
+
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[28]?'changeActive':''}} {{isActive[28]?'scrollTimeCellAc':''}}" data-num='28'>
+            21:30
+          </view>
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[29]?'changeActive':''}} {{isActive[29]?'scrollTimeCellAc':''}}" data-num='29'>
+            22:00
+          </view>
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[30]?'changeActive':''}} {{isActive[30]?'scrollTimeCellAc':''}}" data-num='30'>
+            22:30
+          </view>
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[31]?'changeActive':''}} {{isActive[31]?'scrollTimeCellAc':''}}" data-num='31'>
+            23:00
+          </view>
+          <view bindtap='changeActive' class="scrollTimeCell {{isToggleX[32]?'changeActive':''}} {{isActive[32]?'scrollTimeCellAc':''}}" data-num='32'>
+            23:30
+          </view>
         </view>
       <!-- </scroll-view> -->
       <view class='kongCon' wx:else>

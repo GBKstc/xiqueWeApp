@@ -67,7 +67,13 @@ Page({
       25: false,
       26: false,
       26: false,
-      27:false
+      27:false,
+      28: false,
+      29: false,
+      30: false,
+      31: false,
+      32: false,
+    
     },
     isToggleX: {
       1: false,
@@ -97,6 +103,11 @@ Page({
       25: false,
       26: false,
       27: false,
+      28: false,
+      29: false,
+      30: false,
+      31: false,
+      32: false,
     },
     //下面三个只有跳转到核对信息页面用
     userId: 0,//技师id，上个页面传过来的
@@ -321,14 +332,14 @@ Page({
                   for (var i = 0; i < sTime.length; i++) {//可用的，把对应的isActive变true
                     var obj = sTime[i]
                     for (var key in obj) {
-                      that.setTimeList(obj[key]);
+                      that.setTimeList(obj[key], true,true);
                     }
                   }
                   // 有可能0_time和s_time有重合的，要以o_time为准，所以要后运行o_time,覆盖掉s_time
-                  for (var j = 0; j < oTime.length; j++) {//可用的，把对应的isActive变true
+                  for (var j = 0; j < oTime.length; j++) {//不可用的，把对应的isActive变false
                     var oto = oTime[j]
                     for (var key in oto) {
-                      that.setTimeList(oto[key]);
+                      that.setTimeList(oto[key],false);
                     }
                   }
                   //没有2个连续的红时间块，就显示已满
@@ -434,14 +445,14 @@ Page({
                   for (var i = 0; i < sTime.length; i++) {//可用的，把对应的isActive变true
                     var obj = sTime[i]
                     for (var key in obj) {
-                      that.setTimeList(obj[key])
+                      that.setTimeList(obj[key],true)
                     }
                   }
                   // 有可能0_time和s_time有重合的，要以o_time为准，所以要后运行o_time,覆盖掉s_time
-                  for (var j = 0; j < oTime.length; j++) {//可用的，把对应的isActive变true
+                  for (var j = 0; j < oTime.length; j++) {//不可用的，把对应的isActive变false
                     var oto = oTime[j]
                     for (var key in oto) {
-                      that.setTimeList(oto[key])
+                      that.setTimeList(oto[key],false)
                     }
                   }
                   //没有三个连续的红时间块，就显示已满
@@ -516,30 +527,30 @@ Page({
     
   },
   //设置时间列表对象
-  setTimeList(itmeString, isTody){
+  setTimeList(itmeString, boolean, isTody){
     const hour = hourNow//今天的小时数
     const minuts = minutsNow//今天的分钟数
     const that = this;
-
+    
     switch (itmeString) {
       case '8:00:00':
         if (!isTody || hour < 8) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
-          newisActive[1] = true
+          newisActive[1] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '8:30:00':
         if (!isTody || hour < 8 || (hour === 8 && minuts < 30)) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
-          newisActive[2] = true
+          newisActive[2] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '9:00:00':
         if (!isTody || hour < 9) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
-          newisActive[3] = true
+          newisActive[3] = boolean
           that.setData({ isActive: newisActive })
         }
         break
@@ -547,21 +558,21 @@ Page({
         //这个判断是今天过了的时间块，置灰掉
         if (!isTody || hour < 9 || (hour === 9 && minuts < 30)) {//明天，成立，今天小于9点，成立，今天小于九点半，成立
           var newisActive = that.data.isActive
-          newisActive[4] = true
+          newisActive[4] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '10:00:00':
         if (!isTody || hour < 10) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
-          newisActive[5] = true
+          newisActive[5] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '10:30:00':
         if (!isTody || hour < 10 || (hour === 10 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[6] = true
+          newisActive[6] = boolean
           that.setData({ isActive: newisActive })
         }
 
@@ -569,56 +580,56 @@ Page({
       case '11:00:00':
         if (!isTody || hour < 11) {
           var newisActive = that.data.isActive
-          newisActive[7] = true
+          newisActive[7] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '11:30:00':
         if (!isTody || hour < 11 || (hour === 11 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[8] = true
+          newisActive[8] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '12:00:00':
         if (!isTody || hour < 12) {
           var newisActive = that.data.isActive
-          newisActive[9] = true
+          newisActive[9] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '12:30:00':
         if (!isTody || hour < 12 || (hour === 12 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[10] = true
+          newisActive[10] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '13:00:00':
         if (!isTody || hour < 13) {
           var newisActive = that.data.isActive
-          newisActive[11] = true
+          newisActive[11] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '13:30:00':
         if (!isTody || hour < 13 || (hour === 13 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[12] = true
+          newisActive[12] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '14:00:00':
         if (!isTody || hour < 14) {
           var newisActive = that.data.isActive
-          newisActive[13] = true
+          newisActive[13] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '14:30:00':
         if (!isTody || hour < 14 || (hour === 14 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[14] = true
+          newisActive[14] = boolean
           that.setData({ isActive: newisActive })
         }
 
@@ -626,123 +637,126 @@ Page({
       case '15:00:00':
         if (!isTody || hour < 15) {
           var newisActive = that.data.isActive
-          newisActive[15] = true
+          newisActive[15] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '15:30:00':
         if (!isTody || hour < 15 || (hour === 15 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[16] = true
+          newisActive[16] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '16:00:00':
         if (!isTody || hour < 16) {
           var newisActive = that.data.isActive
-          newisActive[17] = true
+          newisActive[17] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '16:30:00':
         if (!isTody || hour < 16 || (hour === 16 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[18] = true
+          newisActive[18] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '17:00:00':
         if (!isTody || hour < 17) {
           var newisActive = that.data.isActive
-          newisActive[19] = true
+          newisActive[19] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '17:30:00':
         if (!isTody || hour < 17 || (hour === 17 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[20] = true
+          newisActive[20] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '18:00:00':
         if (!isTody || hour < 18) {
           var newisActive = that.data.isActive
-          newisActive[21] = true
+          newisActive[21] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '18:30:00':
         if (!isTody || hour < 18 || (hour === 18 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[22] = true
+          newisActive[22] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '19:00:00':
         if (!isTody || hour < 19) {
           var newisActive = that.data.isActive
-          newisActive[23] = true
+          newisActive[23] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '19:30:00':
         if (!isTody || hour < 19 || (hour === 19 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[24] = true
+          newisActive[24] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '20:00:00':
         if (!isTody || hour < 20) {
           var newisActive = that.data.isActive
-          newisActive[25] = true
+          newisActive[25] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '20:30:00':
         if (!isTody || hour < 20 || (hour === 20 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[26] = true
+          newisActive[26] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '21:00:00':
         if (!isTody || hour < 21) {
           var newisActive = that.data.isActive
-          newisActive[27] = true
+          newisActive[27] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '21:30:00':
         if (!isTody || hour < 21 || (hour === 21 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[28] = true
+          newisActive[28] = boolean
           that.setData({ isActive: newisActive })
         }
+        break
       case '22:00:00':
         if (!isTody || hour < 22 ) {
           var newisActive = that.data.isActive
-          newisActive[29] = true
+          newisActive[29] = boolean
           that.setData({ isActive: newisActive })
         }
+        break
       case '22:30:00':
         if (!isTody || hour < 22 || (hour === 22 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[30] = true
+          newisActive[30] = boolean
           that.setData({ isActive: newisActive })
         }
+        break
       case '23:00:00':
         if (!isTody || hour < 23) {
           var newisActive = that.data.isActive
-          newisActive[31] = true
+          newisActive[31] = boolean
           that.setData({ isActive: newisActive })
         }
         break
       case '23:30:00':
         if (!isTody || hour < 23 || (hour === 23 && minuts < 30)) {
           var newisActive = that.data.isActive
-          newisActive[32] = true
+          newisActive[32] = boolean
           that.setData({ isActive: newisActive })
         }
         break
@@ -1060,7 +1074,7 @@ Page({
                 //下面，所有的判断的前提是，明天或者不晚于19：00
                 var nowORtomorrow = currentClickDate;
                 var jinDate = new Date()//今天时间对象
-                if (nowORtomorrow.toDateString() !== jinDate.toDateString() || jinDate.getHours() < 19) {//第一个比是不是今天，不是今天，那就是明天，成立，或者，第二个，是今天，比大小，小于晚八点，成立。其他情况就只剩今天晚八点以后了，这种就是全部灰色，就是默认色，不需要处理
+                if (nowORtomorrow.toDateString() !== jinDate.toDateString() || jinDate.getHours() < 23) {//第一个比是不是今天，不是今天，那就是明天，成立，或者，第二个，是今天，比大小，小于晚八点，成立。其他情况就只剩今天晚八点以后了，这种就是全部灰色，就是默认色，不需要处理
                   // 重构isActive
                   // console.log('明天或小于当前1')
                   var sTime = JSON.parse(JSON.stringify(res.data.data.s_time));//可用
@@ -1072,14 +1086,14 @@ Page({
                     var obj = sTime[i]
                     for (var key in obj) {
                       console.log(nowORtomorrow.toDateString(),jinDate.toDateString())
-                      that.setTimeList(obj[key], nowORtomorrow.toDateString() == jinDate.toDateString());
+                      that.setTimeList(obj[key], true,nowORtomorrow.toDateString() == jinDate.toDateString());
                     }
                   }
                   // 有可能0_time和s_time有重合的，要以o_time为准，所以要后运行o_time,覆盖掉s_time
-                  for (var j = 0; j < oTime.length; j++) {//可用的，把对应的isActive变true
+                  for (var j = 0; j < oTime.length; j++) {//不可用的，把对应的isActive变false
                     var oto = oTime[j]
                     for (var key in oto) {
-                      that.setTimeList(oto[key])
+                      that.setTimeList(oto[key],false)
                     }
                   }
                   //没有三个连续的红时间块，就显示已满

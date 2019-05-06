@@ -75,7 +75,7 @@
 }
 .detailsText{
   color: #333333;
-  line-height: 32rpx;
+  line-height: 48rpx;
   font-size:32rpx;
   text-indent:64rpx;
 }
@@ -140,7 +140,7 @@
    display: flex;
    align-items: center;
    justify-content: space-between;
-    margin-top: 41rpx;
+    margin-top: 35rpx;
 }
 .bannerList .itemName{
   display: -webkit-box;
@@ -150,6 +150,7 @@
 .itemName text{
   display: block;
   font-size: 32rpx;
+  line-height: 48rpx;
 }
 .itemName .remark{
   font-size: 27rpx;

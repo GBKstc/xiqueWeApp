@@ -41,6 +41,11 @@
   box-sizing: border-box;
   border-bottom:1px solid #f5f5f5;
 }
+.listItem:nth-last-child(1){
+  padding:60rpx 0 160rpx 0;
+  box-sizing: border-box;
+  border-bottom:1px solid #f5f5f5;
+}
 .up .date{
   color:#333;
   font-size:40rpx;

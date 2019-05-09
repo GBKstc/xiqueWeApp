@@ -354,9 +354,14 @@ Page({
     }, function (data) {
       
       //处理图片
-      data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item +"?x-oss-process=image/resize,w_400") : [];
-      data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_400") : [];
+      data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item +"?x-oss-process=image/resize,w_1000") : [];
+      data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_1000") : [];
       console.log(data.carouselImgUrl);
+
+      // data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item) : [];
+      // data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item) : [];
+      // console.log(data.carouselImgUrl);
+      
       data.detailList = getDetailList(data);
       
       if (data.usableStoreList && data.usableStoreList.length>0){

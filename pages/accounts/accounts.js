@@ -108,7 +108,7 @@ Page({
       //recommendId //推荐人ID
     }
     //有推荐人 且推荐优惠码ID为购买ID 
-    if (recommendId && flag && recommendGiftId == detail.id){
+    if (recommendId && flag){
       param.recommendId = recommendId;
       param.flag = flag;
     }
@@ -128,6 +128,9 @@ Page({
         console.log(reqData);
         const orderno = data.orderno;
         reqData.success = function(){
+          //清空推荐人
+          // getApp().globalData.recommendId = "";
+
           wx.redirectTo({
             url: '../select/select',
           });

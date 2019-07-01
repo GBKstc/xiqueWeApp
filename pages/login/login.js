@@ -1,11 +1,14 @@
 // pages/login/login.js
-var common = require('../../utils/commonConfirm.js');
-let URL = require('../../utils/URL.js');
+const common = require('../../utils/commonConfirm.js');
+const URL = require('../../utils/URL.js');
+const config = require('../../utils/config.js');
 const {
   requestAppid,
   getVoiceVerificationCode
 } = URL;
+const { isMobile } = config.regex;
 const app = getApp();
+
 Page({
   /**
    * 页面的初始数据
@@ -55,30 +58,22 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
-  },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -92,9 +87,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
-  },
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
@@ -110,7 +103,7 @@ Page({
     })
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (value.length !== 0 && !re.test(value) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if (value.length !== 0 && !re.test(value) && isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -129,7 +122,7 @@ Page({
     })
     // console.log(value)
     //判断手机号格式是否正确，来解禁发送验证码按钮
-    if (/^1[2|3|4|5|7|8|9][0-9]{9}$/.test(value)) {
+    if (isMobile.test(value)) {
       // console.log("chenggong")
       this.setData({
         volidate: false,
@@ -144,7 +137,7 @@ Page({
 
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && isMobile.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -163,7 +156,7 @@ Page({
     })
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && /^1[2|3|4|5|7|8|9][0-9]{9}$/.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
+    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -294,8 +287,6 @@ Page({
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        // console.log('登录页获取到随机数为')
-        // console.log(res.data)
         wx.request({
           url: getApp().url + 'user/login',
           data: {
@@ -307,17 +298,10 @@ Page({
           method: 'POST',
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            
-            console.log(res)
             //成功
             if (res.data.status === 200) {
-              //app.globalData.loginInfo = res.data.data;
-              console.log(res.data)
-              // wx.setStorageSync(that.data.random + 'CustomerId', res.data.data.id)//存用户id
-              // wx.setStorageSync(getApp().globalData.appid + 'CustomerId', res.data.data.id)//存用户id
-              var howTo = that.data.howTo
-              // console.log('howto' + typeof (howTo))
-              var url = ""
+              var howTo = that.data.howTo;
+              var url = "";
               if (howTo === 'true') {
                 var userId = that.data.userId
                 var scheduleId = that.data.scheduleId
@@ -331,20 +315,11 @@ Page({
                   fail: function (res) { },
                   complete: function (res) { },
                 })
-              } else{
-                wx.navigateBack({})
-                // url = "../personalCenter/personalCenter"//跳转到我的页面
-                // wx.switchTab({
-                //   url: url,
-                //   success: function (res) {
-                //     // clearInterval(timer)
-                //   }
-                // })
-              }
+              } else{wx.navigateBack({})}
+
               getApp().globalData.loginInfo = res.data.data;
 
             } else if (res.data.status === 400) {//失败
-              console.log(400)
               var msg = res.data.msg
               app.globalData.loginInfo = {};
               //设置toast时间，toast内容  

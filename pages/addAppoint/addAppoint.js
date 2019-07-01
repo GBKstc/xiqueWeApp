@@ -1,8 +1,9 @@
 // pages/modifyName/modifyName.js
-var common = require('../../utils/commonConfirm.js');
+const common = require('../../utils/commonConfirm.js');
 const util = require('../../utils/util.js');
 const URL = require('../../utils/URL.js');
-
+const config = require('../../utils/config.js');
+const { isMobile } = config.regex;
 const { isEmpty } = util;
 const { updateAppointment, addAppointment} = URL;
 Page({
@@ -122,7 +123,7 @@ Page({
     // console.log(value)
 
     //如果手机号格式正确，姓名格式也正确，确定按钮解禁
-    if (/^1[3|4|5|7|8][0-9]{9}$/.test(value) && this.data.maValue.length !== 0 && !re.test(this.data.maValue)) {
+    if (isMobile.test(value) && this.data.maValue.length !== 0 && !re.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -141,7 +142,7 @@ Page({
     })
     //如果手机号格式正确，姓名格式也正确，确定按钮解禁
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.maValue.length !== 0 && !re.test(this.data.maValue) && /^1[3|4|5|7|8][0-9]{9}$/.test(this.data.phoneValue)) {
+    if (this.data.maValue.length !== 0 && !re.test(this.data.maValue) && isMobile.test(this.data.phoneValue)) {
       console.log("chenggong")
       this.setData({
         isMa: false

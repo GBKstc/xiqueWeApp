@@ -53,14 +53,7 @@ Page({
       phoneNumber: "18757103261",
       success: function () {
       },
-      fail: function () {
-        // //设置toast时间，toast内容  
-        // that.setData({
-        //   count: 5000,
-        //   toastText: '如果联系客服，必须先授权拨打电话功能'
-        // });
-        // that.showToast();
-      }
+      fail: function () {}
     })
   },
 

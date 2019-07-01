@@ -16,6 +16,7 @@
     </view>
   </view>
   <!-- 三栏项 -->
+  <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">asdfdsf</button>
   <view class='operation'>
     <view class='operationItem' bindtap="toOrder" style='border-bottom:1px solid #eee;'>
       <view class='operationCenter'>

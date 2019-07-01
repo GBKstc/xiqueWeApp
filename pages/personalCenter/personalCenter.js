@@ -2,7 +2,7 @@
 var common = require('../../utils/commonConfirm.js');
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
-const { myInfo, requestAppid } = URL;
+const { myInfo, requestAppid, request, wxLogin } = URL;
 const { isEmpty } = util
 Page({
 
@@ -32,8 +32,6 @@ Page({
    */
   onLoad: function () {
     var that = this;
-    
-    
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -79,8 +77,6 @@ Page({
         console.log('个人中心获取随机数失败')
       }
     })
-
-    
   },
 
   
@@ -100,27 +96,7 @@ Page({
     if (!isEmpty(getApp().globalData.loginInfo)) {
       this.getMyInfo();
     }
-    var that = this
-    // that.setData({//进来就先隐藏掉
-    //   isLogin: true//隐藏姓名和手机号
-    // })
-    // console.log('个人中心的onshow触发了')
-    // console.log('获取所有缓存')
-    // console.log(wx.getStorageInfoSync())
-    //获取微信图像
-    // wx.getUserInfo({
-    //   success: function (res) {
-    //     var userInfo = res.userInfo
-    //     var avatarUrl = userInfo.avatarUrl
-    //     that.setData({
-    //       avatarUrl: avatarUrl
-    //     })
-    //     console.log(avatarUrl)
-    //   },
-    //   fail: function () {
-    //     console.log('获取图像失败')
-    //   }
-    // })
+    var that = this;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -223,9 +199,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
-  },
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
@@ -233,6 +207,47 @@ Page({
   // onShareAppMessage:function () {
 
   // },
+
+  getPhoneNumber(e) {
+      console.log(e);
+      console.log(e.detail.iv);
+      console.log(e.detail.encryptedData);
+    wx.checkSession({
+      success() {
+        console.log("还在登录")
+        //session_key 未过期，并且在本生命周期一直有效
+        //直接调用登录接口
+      },
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        wx.login({
+          success: res => {
+            const data = {
+              code: res.code,
+              appid: getApp().globalData.appid,
+              secret: getApp().globalData.secret,
+            };
+            request(
+              { URL: wxLogin, param: data },
+              ({ data }) => {
+                if (data.status == 200) {
+                  //异步存随机数，在它的回调函数里
+                  wx.setStorage({
+                    key: appid,
+                    data: data.data.thirdSessionId,
+                    success: function () {},
+                    fail: function () {}
+                  })
+
+                  //调用登录接口
+                }
+              }
+            )
+          },
+        }) //重新登录
+      }
+    })
+  },
 
  getMyInfo() {
     const that = this;
@@ -283,14 +298,7 @@ Page({
       phoneNumber: that.data.telephone,
       success: function () {
       },
-      fail: function () {
-        // //设置toast时间，toast内容  
-        // that.setData({
-        //   count: 5000,
-        //   toastText: '如果联系客服，必须先授权拨打电话功能'
-        // });
-        // that.showToast();
-      }
+      fail: function () {}
     })
   },
   //查看严选券

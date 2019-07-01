@@ -1,27 +1,20 @@
 // pages/craftsman/craftsman.js
-var common = require('../../utils/commonConfirm.js')
+const common = require('../../utils/commonConfirm.js');
+const config = require('../../utils/config');
+const { imgUrl } = config;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
+
+    
     // random: wx.getStorageSync(getApp().globalData.appid),
     isPeopleShow: true,//点击手艺人模板页面
     departmentName:'',//门店名称,上个页面穿过来的 
-    craftData:[
-      // {
-      //   "id": 209,
-      //   "username": "王晚霞",
-      //   "departmentId": 10,
-      //   "avatarapp": "http://image.beautysaas.com/xibao/face/5a9f67ee-d712-42e7-9e80-2705c244bad2"
-      // },
-      // {
-      //   "id": 383,
-      //   "username": "叶景美",
-      //   "avatarapp": "http://image.beautysaas.com/xibao/face/81d965fe-727e-4b04-bbde-e547490f8cca"
-      // }
-    ],
+    craftData:[],
     //toast默认不显示  
     isShowToast: false,
     isShowToastButton: false,

@@ -4,7 +4,7 @@
       <view class='marLeft'>
         <view class='nameTpl'>
           <text class='name2Tpl'>{{item.username}}</text>
-          <image class='craftManBack' src='../../image/craftManBack.png'></image>
+          <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
         </view>
         <!-- <view><text class='storeTpl'>西湖银泰店</text> <text class='distanceTpl'>2.6公里</text> </view> -->
       </view>

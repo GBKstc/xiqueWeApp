@@ -73,6 +73,7 @@ const request = function ({ URL, param = {}, method="POST" }, succ) {
 
 //登录验证
 const checkLogin = "user/checkLogin";
+const wxLogin = "wxLogin/login";
 //获取登录者信息
 const getCurrentUser = "user/getCurrentUser";
 

@@ -1,6 +1,8 @@
 // pages/ONE/one.js
 var common = require('../../utils/commonConfirm.js');
 var util = require('../../utils/util');
+const config = require('../../utils/config');
+const { imgUrl} = config;
 const app = getApp();
 Page({
 
@@ -8,6 +10,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
+
+
     // random: wx.getStorageSync(getApp().globalData.appid),
     receiveData: 'y',//默认首页有排班，有接收到数据，就是传过来有data参数，没有排班的话，就不传data参数。
     name:'',//输入框值
@@ -52,84 +57,23 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    // wx.showLoading({//首页覆盖
-    //   title: '小喜鹊飞奔中...',
-    //   mask: true
-    // })
-
-
-
-    // var that = this;
-    // let recommendId = "";
-    // let flag = "";
-    // console.log("index", options);
-
-    // //判断分享来源
-
-    // //如果是分享 跳转详情
-    // if (options && options.isShare) {
-    //   console.log("分享", options);
-    //   recommendId = options.recommendId;
-    //   flag = 2;
-    //   wx.navigateTo({
-    //     url: '/pages/details/details?id=' + options.id + '&recommendId=' + recommendId,
-    //   })
-    // }
-    // //如果是二维码， 跳转详情
-    // if (options && options.scene) {
-    //   console.log("二维码", options);
-    //   recommendId = decodeURIComponent(options.scene);
-    //   flag = 1;
-    //   wx.navigateTo({
-    //     url: '/pages/details/details?id=' + options.id + '&recommendId=' + recommendId,
-    //   })
-    // }
-
-    // app.globalData.recommendGiftId = options.id;
-    // app.globalData.recommendId = recommendId;
-    // app.globalData.flag = flag;
-
-
-
-    
-    //console.log("onLoad");
-    
-  },
+  onLoad: function (options) {},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    //console.log("onReady");
-    // this.setData({
-    //   isFirst: true,
-    // })
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // console.log('首页show首页show首页show首页show首页show首页show')
     var that=this
     var app = getApp()
     var random = wx.getStorageSync(app.globalData.appid);
-    // var random = '3c375316-9d51-4908-a383-2c99dece3b17';
     if (random) {//有随机数
       that.loadHou(random)//调用原index里的函数
     }else{
       this.login();
-      
-      // wx.getStorage({//异步获取随机数
-      //   key: getApp().globalData.appid,
-      //   success: function (res) {
-      //     console.log('首页onshow里的获取首页渲染数据')
-      //     that.loadHou(res.data)//调用原index里的函数
-      //   },
-      //   fail:function(){
-      //     console.log('fail，onshow时，没有获取到随机数')
-      //   }
-      // })
     }
     //console.log("onShow")
     
@@ -141,8 +85,6 @@ Page({
     wx.login({
       success: function (res) {
         var code = res.code;
-        // console.log(code)
-        // console.log('获取login到了code' + code)
         //调用公共方法
         wx.getLocation({
           type: 'gcj02',
@@ -168,14 +110,7 @@ Page({
           }
         })
       },
-      fail: function () {
-        console.log('获取用户code失败')
-        // console.log('app页面获取用户登录态失败！' + res.errMsg)
-        // wx.showToast({
-        //   title: '获取用户登录态失败',
-        //   duration: 2000
-        // })
-      }
+      fail: function () {}
     });
   },
   //获取随机数
@@ -199,39 +134,25 @@ Page({
         secret: secret
       }
     }
-    // console.log('获取随机数的参数')
-    // console.log(sendData)
     wx.request({
       url: getApp().url + 'wxLogin/login',
       data: sendData,
       method: 'POST',
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
-        console.log('首页的login接口成功')
-        console.log(res.data.status)
         if (res.data.status == 200) {
-          console.log('首页的login接口成功')
           wx.setStorage({//异步存随机数，在它的回调函数里走原index函数
             key: appid,
             data: res.data.data.thirdSessionId,
             success: function () {
-              // console.log('保存随机数成功，开始调用首页数据')
               that.loadFirst(res.data.data.thirdSessionId)//调用原index里的函数,传入随机数
             },
             fail: function () {
-              // console.log('保存随机数失败')
+             
             }
           })
 
-        } else if (res.data.status == 400) {
-          // console.log('调用随机数借口400')
-          // var msg = res.data.msg
-          // //验证签名失败
-          // wx.showToast({
-          //   title: 'login' + msg,
-          //   duration: 2000
-          // })
-        }
+        } else if (res.data.status == 400) {}
       },
       fail:function(){
         // console.log('调用随机数借口fail')

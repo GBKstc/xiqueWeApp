@@ -1,76 +1,119 @@
 @import "../../utils/commonConfirm.wxss";
 .contain{
   padding-top:212rpx;
-   width:640rpx; 
+   width:750rpx; 
   /* width:70vw; */
   margin:0 auto;
 }
 .item{
-  padding-bottom:60rpx;
-  margin-bottom:60rpx;
+  padding-bottom:44rpx;
+  margin-bottom:48rpx;
   border-bottom:1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.up{
-  margin-bottom:50rpx;
+.item .itemBox{
+  width: 670rpx;
+  margin: 0 auto;
 }
-.up:after{
-  content:" ";
-  display: block;
-  clear:both;
+.item .itemHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.store{
-  font-size:40rpx;
-  color:#333;
-  float:left;
+.itemHeader .storeName{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  color: #666666;
+  letter-spacing: -0.86rpx;
+  line-height: 36rpx;
+  width: 50%;
 }
-.distance{
-  font-size:36rpx;
-  color:#b1b1b1;
-   float:right;
-}
-.down{
-  font-size:28rpx;
-  color:#b1b1b1;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  position: relative;
-  padding-right:40rpx;
-}
-.goPng{
-  position: absolute;
-  top:50%;
-  transform: translateY(-50%);
-  right:0;
-  width:35rpx;
-  height:41rpx;
-}
-.down text{
-  width:400rpx;
-  margin-right: 16rpx;
-}
-.offtenGo{
-  float:left;
-  margin-left: 20rpx;
-  background-color: #fedbdb;
-  color:#c94242;
-  font-size:24rpx;
-  width:88rpx;
-  height:40rpx;
-  line-height:40rpx;
+.storeName .offenLogo{
+  width: 64rpx;
+  height: 36rpx;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  letter-spacing: -0.58rpx;
   text-align: center;
+  line-height: 36rpx;
+  background: #FD9595;
+  border-radius: 4rpx;
+  margin-left: 32rpx;
+}
+.share{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.share image{
+  width: 32rpx;
+  height: 33rpx;
+  display: flex;
+}
+.share .shareText{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FD9595;
+  letter-spacing: -0.68rpx;
+  text-align: center;
+  margin-left: 16rpx;
+  line-height: 33rpx;
+}
+.address{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FD9595;
+  letter-spacing: -0.68rpx;
+  line-height: 28rpx;
+  margin-top: 32rpx;
+}
+.buttonBox{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-top: 44rpx;
+}
+.buttonBox .button{
+  width: 178rpx;
+  height: 56rpx;
+  border: 2rpx solid #FD9595;
   border-radius: 8rpx;
-  margin-top: 8rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.button image{
+  display: block;
+  width: 32rpx;
+  height: 32rpx;
+}
+.button .buttonText{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FD9595;
+  letter-spacing: -0.68rpx;
+  line-height: 28rpx;
+  margin-left:6rpx; 
 }
 
-
+/* 搜索样式 */
+.searchBox{
+  width: 750rpx;
+  height: 180rpx;
+  background-color: #fff;
+}
 .search{
   position:relative;  
   width:640rpx;
   padding-top:60rpx;
   padding-bottom:40rpx;
   margin:0 auto;
-  margin-bottom: 40rpx;
   background-color: #fff;
 }
 /* 搜索输入框字体大小 */
@@ -78,20 +121,22 @@
   box-sizing: border-box;
   width:100%;
   height:80rpx;
-  border-bottom:1px solid #f1f1f1;
+  border:1px solid #E1E1E1;
   /* border-radius: 20rpx; */
-  padding-left: 80rpx;
-  padding-right:40rpx;
-  font-size: 46rpx;
-  color:#b1b1b1;
+  padding-left: 20rpx;
+  padding-right:80rpx;
+  font-size: 36rpx;
+  color:#B8B8B8;
+  border-radius: 8rpx;
+  letter-spacing: -0.86rpx;
 }
 .searchCraft{
   position: absolute;
   top:50%;
-  transform: translateY(-30%);
-  left:20rpx;
-  width:40rpx;
-  height:40rpx;
+  transform: translateY(-25%);
+  right:32rpx;
+  width:48rpx;
+  height:48rpx;
 }
 .phcolor{
   color:#b1b1b1;
@@ -99,7 +144,9 @@
 }
 .changeFixed{
   position:fixed;
+  width: 750rpx;
    z-index: 10000; 
+   background-color: white;
   /* top:0; */
    left:50%; 
    transform:translateX(-50%); 

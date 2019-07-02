@@ -2,14 +2,19 @@
 var common = require('../../utils/commonConfirm.js');
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
+const config = require('../../utils/config');
 const { myInfo, requestAppid, request, wxLogin } = URL;
-const { isEmpty } = util
+const { isEmpty } = util;
+const { imgUrl } = config;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
+
+
     // random: wx.getStorageSync(getApp().globalData.appid),
     isLogin: true,
     avatarUrl: '../../image/login.png',

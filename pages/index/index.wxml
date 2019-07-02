@@ -53,7 +53,7 @@
           </view>  
           <view class='img'>
             <!-- 新客 -->
-            <image wx:if="{{near}}" mode="aspectFit" src='../../image/new.png'></image>
+            <image wx:if="{{near}}" mode="aspectFit" src='../../image/login.png'></image>
             <!-- 老客 -->
             <image wx:else mode="aspectFit" src="{{startData.avatarApp||'../../image/login.png'}}"></image>
           </view>

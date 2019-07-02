@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/order/order",
     "pages/index/index",
+    "pages/storeDistribution/storeDistribution",
     "pages/cardList/cardList",
     "pages/refund/refund",
     "pages/personalCenter/personalCenter",
@@ -12,7 +14,6 @@
     "pages/addAppoint/addAppoint",
     "pages/modifyPhone/modifyPhone",
     "pages/checkmodifyinfo/checkmodifyinfo",
-    "pages/order/order",
     "pages/experience/experience",
     "pages/select/select",
     "pages/chancenouse/chancenouse",
@@ -20,14 +21,14 @@
     "pages/checkinfo/checkinfo",
     "pages/two_demision/two_demision",
     "pages/assess/assess",
-    "pages/storeDistribution/storeDistribution",
     "pages/details/details",
     "pages/accounts/accounts",
     "pages/login/login",
     "pages/time/time",
     "pages/success/success",
     "pages/cardDetail/cardDetail",
-    "pages/consumeDetail/consumeDetail"
+    "pages/consumeVerify/consumeVerify",
+    "pages/orderFinish/orderFinish"
   ],
   "permission": {
     "scope.userLocation": {

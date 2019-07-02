@@ -1,21 +1,48 @@
 <view>
-  <view class="search changeFixed">
-            <input  placeholder='搜索门店' placeholder-class="phcolor" bindfocus="handlefocus" bindblur="handleblur" bindinput='handleInput' value="{{name}}"></input>
-            <image class='searchCraft' src='../../image/search.png'></image>
+  <view class='changeFixed'>
+    <view class="search">
+      <image mode='aspectFit' class='searchCraft' src='{{imgUrl}}/Icon_search@3x.png'></image>
+      <input  placeholder='搜索门店' placeholder-class="phcolor" bindfocus="handlefocus" bindblur="handleblur" bindinput='handleInput' value="{{name}}"></input>
+    </view>
   </view>
+
+
   <view class="contain">
-     <view class='item'  wx:for="{{stopRecord}}" wx:key="stopRecord" bindtap='tocraftsmanOrMap' data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-department='{{item.id}}'>
-      <view class='up'>
+     <view class='item'  wx:for="{{stopRecord}}" wx:key="stopRecord" >
+     <view class='itemBox'>
+      <view class='itemHeader'>
+        <view class='storeName'>
+          <view>{{item.name}}</view>
+          <view class='offenLogo'>常去</view>
+        </view>
+        <view class='share'>
+          <image mode='aspectFit' src='../../image/icon_mddh_share@3x.png'></image>
+          <view class='shareText'>分享</view>
+        </view>
+      </view>
+      <view class='address'>{{item.address}}</view>
+      <view class='buttonBox'>
+        <view class='button'>
+          <image mode='aspectFit' src='../../image/icon_fxmd_phone@3x.png'></image>
+          <view class='buttonText'>联系门店</view>
+        </view>
+        <view class='button' style='margin-left:32rpx' bindtap='tocraftsmanOrMap' data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-department='{{item.id}}'>
+          <image mode='aspectFit' src='../../image/icon_fxmd_dh@3x.png'></image>
+          <view class='buttonText' wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceChange}}公里</view>
+          <view class='buttonText' wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}米</view>
+          <view class='buttonText' wx:else>门店导航</view>
+        </view>
+      </view>
+
+     </view>
+      <!-- <view class='up'>
         <text class='store'>{{item.name}}</text><text wx:if="{{item.offten}}" class='offtenGo'>常去</text> 
         <text class='distance' wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceChange}}公里</text>
         <text class='distance' wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}米</text>
       </view>
       <view class='down'>
-        <!-- <text class='down1'>{{item.province}}</text>
-        <text class='down1'>{{item.city}}</text>
-        <text class='down2'>{{item.district}}</text> -->
         <text class='down3'>{{item.address}}</text><image wx:if="{{fromWhere==='false'}}" src='../../image/go.png' class='goPng'></image>
-      </view> 
+      </view>  -->
     </view>
     <view wx:if="{{isBottom}}" style='height:50px;line-height:50px;text-align:center;background-color:#fff;color:#b1b1b1;font-size:16px'>已经到底了</view>
   </view>

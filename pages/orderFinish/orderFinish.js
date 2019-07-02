@@ -1,4 +1,4 @@
-// pages/consumeDetail/consumeDetail.js
+// pages/orderFinish.js
 Page({
 
   /**

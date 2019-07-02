@@ -9,8 +9,6 @@ Page({
    */
   data: {
     imgUrl: imgUrl,
-
-    
     // random: wx.getStorageSync(getApp().globalData.appid),
     isPeopleShow: true,//点击手艺人模板页面
     departmentName:'',//门店名称,上个页面穿过来的 

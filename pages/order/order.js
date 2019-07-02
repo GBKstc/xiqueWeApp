@@ -1,12 +1,16 @@
 // pages/order/order.js
-var common = require('../../utils/commonConfirm.js')
+var common = require('../../utils/commonConfirm.js');
+const config = require('../../utils/config');
+const { imgUrl } = config;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-      
+    
+    imgUrl:imgUrl,
+
     // random: wx.getStorageSync(getApp().globalData.appid),
     status:1,//表示待服务
     pageNo: 1,//默认初始化是第一页
@@ -428,6 +432,14 @@ Page({
     var evaluateGiftId = e.currentTarget.dataset.evaluategiftid||"";
     wx.navigateTo({
       url: '../orderDetail/orderDetail?status=' + status + '&scheduleServiceId=' + scheduleServiceId + "&evaluateGiftId=" + evaluateGiftId,
+      success: function () {
+      }
+    })
+  },
+
+  goToIndex(){
+    wx.navigateTo({
+      url: "../../index/index",
       success: function () {
       }
     })

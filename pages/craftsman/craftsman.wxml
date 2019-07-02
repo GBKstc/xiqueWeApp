@@ -1,14 +1,16 @@
 <template name="peoplelistPage">
-  <view class='itemClickTpl' data-id='{{item.id}}' data-avatarapp='{{item.avatarapp}}' data-username='{{item.username}}' bindtap='selectClickPeople'>
+  <view class='itemClickTpl' data-id='{{id}}' data-avatarapp='{{avatarapp}}' data-username='{{username}}' bindtap='selectClickPeople'>
     <view class='centerTpl'>
       <view class='marLeft'>
         <view class='nameTpl'>
-          <text class='name2Tpl'>{{item.username}}</text>
-          <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+          <text class='name2Tpl'>{{username}}</text>
+          <view class='rightBox'>
+            <view class='infoText'>今日已预约满</view>
+            <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+          </view>
         </view>
-        <!-- <view><text class='storeTpl'>西湖银泰店</text> <text class='distanceTpl'>2.6公里</text> </view> -->
       </view>
-      <view class='centerImg'><image lazy-load src="{{item.avatarapp||'../../image/login.png'}}"></image></view>
+      <view class='centerImg'><image lazy-load src="{{avatarapp||'../../image/login.png'}}"></image></view>
     </view>
   </view>
 </template>
@@ -16,7 +18,7 @@
 
 <view>
   <block wx:for="{{craftData}}" wx:key="craftData">
-    <template is="peoplelistPage" data="{{item}}"/>
+    <template is="peoplelistPage" data="{{...item,imgUrl}}"/>
   </block>
 </view>
 

@@ -1,6 +1,98 @@
-<view style='background-color:#f5f5f5;overflow:hidden'>
+<view class='box'>
+<view class='headerBox'>
+  <view class='headerPerson'>
+    <view class='personHead'>
+      <view class="personHeadData">
+        <open-data  type="userAvatarUrl"></open-data>
+      </view>
+    </view>
+    <view class='personName'>
+      <view class='personNameText' bindtap='tologin' wx:if='{{isLogin}}'>
+        <view>请登录</view>
+        <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+      </view>
+      <view class='personNameText' bindtap='tologin' wx:else>
+        <view>{{maxname?maxname:customInfo.name}}</view>
+        <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+      </view>
+      <view class='personTime'>这是你使用喜鹊来了的第389天</view>
+    </view>
+  </view>
+  <view class='serviceContent'>
+    <view class='contentBox' bindtap="toOrder">
+      <view class='contentLogo'>
+        <image mode='aspectFit' src='{{imgUrl}}/Icon_yyjl@3x.png'></image>
+        <view class='hint'>2个待服务</view>
+      </view>
+      <view class='contentTitle' >预约记录</view>
+    </view>
+    <view class='contentBox' bindtap="toOrder">
+      <view class='contentLogo' bindtap="toOrder">
+        <image mode='aspectFit' src='{{imgUrl}}/Icon_lszd@3x.png'></image>
+        <view class='hint'>5个抽奖机会</view>
+      </view>
+      <view class='contentTitle'>历史账单</view>
+    </view>
+    <view class='contentBox' data-url='../select/select' bindtap='select'>
+      <view class='contentLogo'>
+        <image mode='aspectFit' src='{{imgUrl}}/Icon_yxq@3x.png'></image>
+      </view>
+      <view class='contentTitle'>优选券</view>
+    </view>
+  </view>
+</view>
+
+<view class='operation'>
+  <view class='operationLine' bindtap='select' data-url='../consumeVerify/consumeVerify'>
+    <view class='operationLineLeft'>
+      <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_xfqr@3x.png'></image></view>
+      <view class='lineLeftText'>消费确认</view>
+    </view>
+    <view class='operationLineRight'>
+      <view class='lineRightText'>待确认</view>
+      <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
+    </view>
+  </view>
+  <view class='operationLine' wx:if="{{isWeixinShowCardInfo==2}}" bindtap='select' data-url='../cardList/cardList'>
+    <view class='operationLineLeft'>
+      <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_hykye@3x.png'></image></view>
+      <view class='lineLeftText'>会员卡余额</view>
+    </view>
+    <view class='operationLineRight'>
+      <!-- <view class='lineRightText'>待确认</view> -->
+      <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
+    </view>
+  </view>
+  <view class='operationLine' bindtap='tostoreDistribution'>
+    <view class='operationLineLeft'>
+      <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_pphd@3x.png'></image></view>
+      <view class='lineLeftText'>门店详情</view>
+    </view>
+    <view class='operationLineRight'>
+      <!-- <view class='lineRightText'>待确认</view> -->
+      <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
+    </view>
+  </view>
+  <view class='operationLine' bindtap='makePhoneCall'>
+    <view class='operationLineLeft'>
+      <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_lxkf@3x.png'></image></view>
+      <view class='lineLeftText'>联系客服</view>
+    </view>
+    <view class='operationLineRight'>
+      <!-- <view class='lineRightText'>待确认</view> -->
+      <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
+    </view>
+  </view>
+</view>
+
+<view class='footBox'>
+  <text class='companyName'>喜鹊喜报</text>
+  <text class='footContent'>提供技术支持</text>
+</view>
+
+
 <!-- 头像及姓名电话 -->
-  <view class='personName'>
+  <!-- <view class='personName'>
     <view class='nameCenter'>
       <view class='virtualName' bindtap='tologin' wx:if='{{isLogin}}'>请登录</view>  
       <view wx:else>
@@ -14,17 +106,19 @@
     <view class='loginPicture'>
       <open-data type="userAvatarUrl"></open-data>
     </view>
-  </view>
+  </view> -->
+
+  <!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">asdfdsf</button> -->
+
   <!-- 三栏项 -->
-  <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">asdfdsf</button>
-  <view class='operation'>
+  <!-- <view class='operation'>
     <view class='operationItem' bindtap="toOrder" style='border-bottom:1px solid #eee;'>
       <view class='operationCenter'>
         <view class='checkIcon'>
-          <image mode='widthFix' src='../../image/checkOrder.png'></image>
+          <image mode='aspectFit' src='{{imgUrl}}/Icon_xfqr@3x.png'></image>
         </view>
         <view class='checkText'>查看订单</view>  
-        <image class='checkBack2' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack2'  src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
         <view class="evaluationGift" wx:if="{{flag}}">评价送礼</view>
       </view>
     </view>
@@ -35,41 +129,41 @@
            <image mode='widthFix' src='../../image/tyq.png'></image>
          </view>
            <view class='checkText'>优选劵</view>
-        <image class='checkBack'  mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack'  src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
        </view>
     </view>
 
     <view wx:if="{{isWeixinShowCardInfo==2}}" class='operationItem' style='margin-bottom:20rpx' bindtap='select' data-url='../cardList/cardList'>
       <view class='operationCenter'>
         <view class='checkIcon' >
-          <image  src='../../image/cardLogo.png' style='height:32rpx'></image>
+          <image mode='aspectFit' src='../../image/cardLogo.png' style='height:32rpx'></image>
         </view>
         <view class='checkText'>会员卡</view>
-        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack' mode='aspectFit' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
       </view>
     </view>
 
     <view class='operationItem' style='margin-bottom:20rpx' bindtap='tostoreDistribution'>
       <view class='operationCenter'>
         <view class='checkIcon'>
-          <image mode='widthFix' src='../../image/bar.png'></image>
+          <image mode='aspectFit' src='{{imgUrl}}/Icon_pphd@3x.png'></image>
         </view>
         <view class='checkText'>门店分布</view>
-        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack' mode='aspectFit' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
       </view>
     </view>
     <view class='operationItem' bindtap='makePhoneCall'>
       <view class='operationCenter'>
         <view class='checkIcon'>
-          <image mode='widthFix' src='../../image/callMe.png'></image>
+          <image mode='aspectFit' src='{{imgUrl}}/Icon_lxkf@3x.png'></image>
         </view>
         <view class='checkText'>联系客服</view>
-        <image class='checkBack' mode='aspectFit' src='../../image/personalBack.png'></image>
+        <image class='checkBack' mode='aspectFit' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
       </view>
     </view>
-  </view>
+  </view> -->
   <!-- 预留空隙 -->
-  <view class='reserve'>
+  <!-- <view class='reserve'>
     <view class='reservelogo'>
       <view>
         <image mode='widthFix' src='../../image/log.png' style='width:50px;height:50px;'></image>
@@ -78,7 +172,7 @@
         <image mode='widthFix' src='../../image/sheme.png' style='width:50px;height:50px;'></image>
       </view>
     </view>
-  </view>
+  </view> -->
 </view>
 
 <!--mask-->

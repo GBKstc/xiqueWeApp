@@ -4,6 +4,8 @@ var common = require('../../utils/commonConfirm.js')
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
 let URL = require('../../utils/URL.js');
+const config = require('../../utils/config');
+const { imgUrl } = config;
 const { request } = URL;
 Page({
 
@@ -11,6 +13,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
+
+
+
     // random: wx.getStorageSync(getApp().globalData.appid),
     name:'',
     kong:false,

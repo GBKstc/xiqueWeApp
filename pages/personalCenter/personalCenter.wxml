@@ -19,14 +19,14 @@
     </view>
   </view>
   <view class='serviceContent'>
-    <view class='contentBox' bindtap="toOrder">
+    <view class='contentBox' data-url='../order/order' bindtap='select'>
       <view class='contentLogo'>
         <image mode='aspectFit' src='{{imgUrl}}/Icon_yyjl@3x.png'></image>
         <view class='hint'>2个待服务</view>
       </view>
       <view class='contentTitle' >预约记录</view>
     </view>
-    <view class='contentBox' bindtap="toOrder">
+    <view class='contentBox' data-url='../orderFinish/orderFinish' bindtap='select'>
       <view class='contentLogo' bindtap="toOrder">
         <image mode='aspectFit' src='{{imgUrl}}/Icon_lszd@3x.png'></image>
         <view class='hint'>5个抽奖机会</view>

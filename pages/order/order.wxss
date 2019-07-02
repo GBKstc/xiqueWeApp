@@ -66,12 +66,6 @@
 }
 .listItem:nth-last-child(1){
   margin: 14rpx auto 132rpx;
-  padding:17rpx 20rpx;
-  box-sizing: border-box;
-  background: #FFFFFF;
-  border: 2rpx solid #FFFFFF;
-  box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
-  border-radius: 16rpx;
 }
 .up .date{
   color:#333;
@@ -117,6 +111,20 @@
   color:#b1b1b1;
   font-size:28rpx;
   vertical-align: middle;
+}
+.down .infoText{
+  width: 108rpx;
+  height: 48rpx;
+  border: 1rpx solid #FD9595;
+  border-radius: 4rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FD9595;
+  letter-spacing: 0.12rpx;
+  line-height: 48rpx;
+  text-align: center;
+
 }
 
 .evaluate{

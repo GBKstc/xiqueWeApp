@@ -1,3 +1,4 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "历史账单",
+  "backgroundColor": "#ffffff"
 }

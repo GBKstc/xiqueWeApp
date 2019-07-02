@@ -1,1 +1,158 @@
-/* pages/orderFinish.wxss */
+@import "../../utils/commonConfirm.wxss";
+.tabTop{
+  position:fixed;
+  top:0;
+  left:0;
+  height:100rpx;
+  line-height: 100rpx;
+  border-bottom: 2px solid #F4f4F4;
+  font-size:30rpx;
+  color:#333;
+  background-color: #fff;
+  z-index: 999;
+}
+.changeBlock{
+  display: inline-block;
+  width:50vw; 
+  text-align: center;
+}
+.swiperCell{
+  display:  inline-block;
+  font-size: 36rpx;
+  color: #000000;
+  letter-spacing: -0.86rpx;
+  text-align: center;
+  line-height: 100rpx;
+}
+.swiperCellActive{
+  display:  inline-block;
+  font-size: 36rpx;
+  color: #FD9595;
+  letter-spacing: -0.86rpx;
+  text-align: center;
+  border-bottom:2px solid #fd9595;
+  line-height: 100rpx;
+}
+.list{
+  width:710rpx;
+  padding: 0 20rpx 0 20rpx;
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+  top: 0;
+  left: 0;
+}
+.noOrder{
+  width: 354rpx;
+  height: 250rpx;
+  display: block;
+  margin: 286rpx auto 0;
+}
+.noOrderText{
+  margin-top: 36rpx;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #888888;
+}
+.listItem{
+  margin: 14rpx auto 32rpx;
+  padding:34rpx 40rpx;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border: 2rpx solid #FFFFFF;
+  box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
+  border-radius: 16rpx;
+}
+.listItem:nth-last-child(1){
+  margin: 14rpx auto 32rpx;
+}
+.up .date{
+  color:#333;
+  font-size:40rpx;
+  line-height: 40rpx;
+  margin-right:20rpx;
+  vertical-align: middle;
+}
+.down{
+  color:#333;
+  font-size:40rpx;
+  line-height: 40rpx;
+  margin-top:24rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.up{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.down .week{
+  color:#b1b1b1;
+  font-size:28rpx;
+  margin-left:20rpx;
+  vertical-align: middle;
+}
+.up .time{
+  color:#666666;
+  font-size:28rpx;
+  line-height: 28rpx;
+  margin-right: 20rpx;
+  vertical-align: sub;
+}
+.down .time{
+  color:#b1b1b1;
+  font-size:28rpx;
+  margin-right: 20rpx;
+  vertical-align: middle;
+}
+.up .noon{
+  color:#b1b1b1;
+  font-size:28rpx;
+  vertical-align: middle;
+}
+.down .infoText{
+  width: 108rpx;
+  height: 48rpx;
+  border: 1rpx solid #FD9595;
+  border-radius: 4rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FD9595;
+  letter-spacing: 0.12rpx;
+  line-height: 48rpx;
+  text-align: center;
+
+}
+
+.evaluate{
+  width:120rpx;
+  height:50rpx;
+  line-height: 50rpx;
+  display: inline-block;
+  color:#fd9595;
+  font-size:24rpx;
+  border:1px solid #fd9595;
+  border-radius: 6rpx;
+  text-align: center;
+  float:right;
+}
+
+
+.appointment{
+  margin: 40rpx auto 0;
+
+  width: 670rpx;
+  height: 94rpx;
+  background: #FD9595;
+  border: 1px solid rgba(5,5,5,0.08);
+  border-radius: 10rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  line-height: 94rpx;
+  color: #FFFFFF;
+  text-align: center;
+}

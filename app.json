@@ -1,14 +1,18 @@
 {
   "pages": [
-    "pages/personalCenter/personalCenter",
+    
+    "pages/orderDetail/orderDetail",
     "pages/index/index",
+    "pages/select/select",
+    "pages/personalCenter/personalCenter",
+    
     "pages/order/order",
     "pages/storeDistribution/storeDistribution",
     "pages/cardList/cardList",
     "pages/refund/refund",
     
     "pages/orderDetailChance/orderDetailChance",
-    "pages/orderDetail/orderDetail",
+    
     "pages/scrapeprice/scrapeprice",
     "pages/craftsman/craftsman",
     "pages/craftsmantime/craftsmantime",
@@ -16,7 +20,7 @@
     "pages/modifyPhone/modifyPhone",
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/experience/experience",
-    "pages/select/select",
+    
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",
     "pages/checkinfo/checkinfo",

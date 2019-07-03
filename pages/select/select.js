@@ -1,5 +1,7 @@
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
+const config = require('../../utils/config');
+const { imgUrl } = config;
 const {
   requestAppid,
   getCustomerDiscountCodeList
@@ -16,6 +18,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
     noUseList: [],
     disabledList: [],
     noUsePage: 0,   //当前未使用第几页
@@ -258,6 +261,14 @@ Page({
     // that.setData({
     //   page
     // })
+  },
+
+  goToExperience() {
+    wx.navigateTo({
+      url: "../../index/index",
+      success: function () {
+      }
+    })
   },
 
   /**

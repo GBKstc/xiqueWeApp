@@ -1,0 +1,94 @@
+.buttonBig{
+  margin: 40rpx auto 0;
+  width: 670rpx;
+  height: 94rpx;
+  background: #FD9595;
+  border: 1px solid rgba(5,5,5,0.08);
+  border-radius: 10rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  line-height: 94rpx;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+.fontSize20{
+  font-family: PingFangSC-Regular;
+  font-size: 40rpx;
+  letter-spacing: -0.96rpx;
+  line-height: 40rpx;
+}
+
+.fontSize18{
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  letter-spacing: -0.86rpx;
+  line-height: 36rpx;
+}
+
+.fontSize16{
+  font-family: PingFangSC-Medium;
+  font-size: 32rpx;
+  letter-spacing: -0.78rpx;
+  line-height: 32rpx;
+}
+
+.fontSize14{
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  letter-spacing: -0.68rpx;
+  line-height: 28rpx;
+}
+
+.fontSize12{
+  font-family: PingFangSC-Medium;
+  font-size: 24rpx;
+  letter-spacing: -0.58rpx;
+  line-height: 24rpx;
+}
+/* 超出省略 */
+.textOverHidden{
+  overflow: hidden;/*超出部分隐藏*/
+  text-overflow:ellipsis;/* 超出部分显示省略号 */
+  white-space: nowrap;/*规定段落中的文本不进行换行 */
+}
+/* 超出省略 多行*/
+.textMoreHidden{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /* -webkit-line-clamp: 3; */
+  overflow: hidden;
+}
+
+.spaceBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.spaceEndBox{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.spaceTopBox{
+  display: flex;
+  justify-content: space-between;
+}
+
+.endBox{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+.startBox{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.startTopBox{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}

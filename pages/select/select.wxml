@@ -24,8 +24,10 @@
         </view>
       </view>
 
-      <view class='select' style='background:url("https://image.beautysaas.com/xique/noDiscount.png") no-repeat;background-size: cover;' wx:else>
-        <view class='noCardText'>您还没有优选券</view>
+      <view wx:else class='list'>
+        <image mode='aspectFit' class='noOrder' src='{{imgUrl}}/empty_myxq@3x.png'></image>
+        <view class='noOrderText'>您还没有优选券，去看看</view>
+        <view class='buttonBig' bindtap='goToExperience'>去看看</view>
       </view>
 
 
@@ -43,8 +45,10 @@
         
       </view>
       
-      <view class='select' style='background:url("https://image.beautysaas.com/xique/noDiscount.png") no-repeat;background-size: cover;' wx:else>
-        <view class='noCardText'>您还没有优惠券</view>
+      <view wx:else class='list'>
+        <image mode='aspectFit' class='noOrder' src='{{imgUrl}}/empty_myxq@3x.png'></image>
+        <view class='noOrderText'>您还没有优选券，去看看</view>
+        <view class='buttonBig' bindtap='goToExperience'>去看看</view>
       </view>
 
     </view>

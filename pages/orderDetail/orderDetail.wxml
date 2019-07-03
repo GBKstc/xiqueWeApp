@@ -1,3 +1,195 @@
+<view class='box'>
+  <!-- 头部信息 -->
+  <view class='spaceTopBox header'>
+    <view class='headerLeft'>
+      <view class='orderStatus fontSize20'>服务完成</view>
+      <view class='spaceBox orderCode'>
+        <view class='fontSize16'>{{recordData.serviceCode}}</view>
+        <view class='copyButton fontSize12' bindtap='setClipboard' wx:if="{{recordData.serviceCode}}">复制</view>
+      </view>
+    </view>
+    <view class='headerRight'>
+      <image mode='aspectFit' src='{{imgUrl}}/img_xfqr@3x.png'></image>
+    </view>
+  </view>
+  <!-- 导航 -->
+  <view class='nativigation'>
+    <view class='nativigationBox endBox'>
+      <view class='selectNat'>消费明细</view>
+      <view class='noselectNat'>服务信息</view>
+      <view class='noselectNat'>服务评价</view>
+    </view>
+  </view>
+  <!-- 消费明细 -->
+  <view class='consumeDetailList'>
+
+    <view class='consumeDetail'  wx:if="{{serviceOpenCardInfo}}">
+      <view class='consumeDetailTitle'>开卡</view>
+      <view class='detailItem'>
+        <view class='title'>
+          <text>{{serviceOpenCardInfo.cardrankName}}</text>
+          <text class='titleRemark'>({{serviceOpenCardInfo.cardNo}})</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(serviceOpenCardInfo.realPay)}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+
+    <view class='consumeDetail'  wx:if="{{serviceCardRecharge}}">
+      <view class='consumeDetailTitle'>充值</view>
+      <view class='detailItem'>
+        <view class='title'>
+          <text>{{serviceCardRecharge.cardNo}}</text>
+        </view>
+        <view class='number'>￥{{utils.toFix(serviceCardRecharge.rechargeAmount)}}</view>
+      </view>
+    </view>
+
+    <view class='consumeDetail'  wx:if="{{serviceCardBuy}}">
+      <view class='consumeDetailTitle'>购买</view>
+      <view class='detailItem' wx:for="{{serviceCardBuy}}" wx:key>
+        <view class='title'>
+          <text>{{item.productName}}</text> * <text class='titleRemark'>{{item.count||"0"}}{{item.unit||"次"}}</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)||"0"}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+
+    <view class='consumeDetail'  wx:if="{{serviceCardConsume}}">
+      <view class='consumeDetailTitle'>消费</view>
+      <view class='detailItem' wx:for="{{serviceCardConsume}}" wx:key>
+        <view class='title'>
+          <text>{{item.projectName}}</text> * <text class='titleRemark'>{{item.count||"0"}}次</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)||"0"}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+
+    <view class='consumeDetail'  wx:if="{{serviceCardPick}}">
+      <view class='consumeDetailTitle'>取货</view>
+      <view class='detailItem' wx:for="{{serviceCardPick}}" wx:key>
+        <view class='title'>
+          <text>{{item.goodsName}}</text> * <text class='titleRemark'>{{item.count||"0"}}{{item.unit||"个"}}</text>
+        </view>
+        <view class='number'  wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)||"0"}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+
+    <view class='consumeDetail'  wx:if="{{serviceCardReturn}}">
+      <view class='consumeDetailTitle'>退货</view>
+      <view class='detailItem' wx:for="{{serviceCardReturn}}" wx:key>
+        <view class='title'>
+          <text>{{item.productName}}</text> * <text class='titleRemark'>{{item.count||"0"}}{{item.unit||"次"}}</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)||"0"}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+
+    <view class='consumeDetail' wx:if="{{serviceCardTrans}}">
+      <view class='consumeDetailTitle'>转账</view>
+      <view wx:for="{{serviceCardTrans}}" wx:key>
+        <view class='detailItem'>
+          <view class='title' style='width:"50%"'>转入账户</view>
+          <view class='titleRemark'>{{item.customerName}}<text style='margin-left:20rpx'>({{item.cardNo}})</text></view>
+        </view>
+        <view class='detailItem'>
+          <view class='title'>转入金额</view>
+          <view class='number' >￥{{utils.toFix(item.tranAmount)||"0"}}</view>
+          
+        </view>
+        <view wx:if="{{item.products.length>0}}">
+          <view class='detailItem'  wx:for="{{item.products}}" wx:key>
+            <view class='title'>{{item.productName}}</view>
+            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.convAmount)||"0"}}</view>
+            <view class='number' wx:else></view>
+          </view>
+        </view>
+        
+      </view>
+      
+    </view>
+
+    <view class='consumeDetail' wx:if="{{serviceCardDiscountCodeGive}}">
+      <view class='consumeDetailTitle'>优惠码核销</view>
+      <view class='detailItem' wx:if="{{serviceCardDiscountCodeGive.giveAmount}}">
+        <view class='title'>赠送金额</view>
+        <view class='number'>￥{{utils.toFix(serviceCardDiscountCodeGive.giveAmount)}}</view>
+      </view>
+      <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.projects}}" wx:key>
+        <view class='title'>
+          <text>{{item.projectName}}</text>
+          <text class='titleRemark'>({{item.num}}次)</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)}}</view>
+        <view class='number' wx:else></view>
+      </view>
+      <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.goods}}" wx:key>
+        <view class='title'>
+          <text>{{item.goodsName}}</text>
+          <text class='titleRemark'>({{item.num+item.unit}})</text>
+        </view>
+        <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">￥{{utils.toFix(item.amount)}}</view>
+        <view class='number' wx:else></view>
+      </view>
+    </view>
+  </view>
+  <!-- 服务信息 -->
+  <view class='serviceInfo'>
+    <view class='serviceTitle'>
+      <view class='fontSize18'>服务信息</view>
+    </view>
+    <view class='serviceContent'>
+      <view class='contentBox startTopBox'>
+        <view class='contentLeft fontSize16'>服务时间</view>
+        <view class='contentRight'>
+          <view class='startBox rightLine '>
+            <view class='fontSize16 rightLineTitle'>{{recordData.timePart}}</view>
+            <view class='fontSize14 rightLineContent'>({{recordData.timeDuan}}小时)</view>
+          </view>
+          <view class='startBox rightLine '>
+            <view class='fontSize16 rightLineTitle'>{{recordData.date}}</view>
+            <view class='fontSize14 rightLineContent'>({{recordData.week}}小时)</view>
+          </view>
+        </view>
+      </view>
+      <view class='contentBox startTopBox'>
+        <view class='contentLeft fontSize16'>门店</view>
+        <view class='contentRight'>
+          <view class='startBox rightLine '>
+            <view class='fontSize16 rightLineTitle'>{{recordData.departmentName}}</view>
+            <!-- <view class='fontSize14 rightLineContent'>({{recordData.timeDuan}}小时)</view> -->
+          </view>
+          <view class='startBox rightLine '>
+            <!-- <view class='fontSize16 rightLineTitle'>{{recordData.date}}</view> -->
+            <view class='fontSize14 rightLineContent textOverHidden'>{{recordData.province||''}}{{recordData.city||''}}{{recordData.district||''}}{{recordData.address}}</view>
+          </view>
+        </view>
+        <view class='goLogo'>
+          <image mode='aspectFit' bindtap='toWhere'  data-longitude="{{recordData.longitude}}" data-latitude="{{recordData.latitude}}" data-name="{{recordData.departmentName}}" data-address="{{recordData.address}}" src='{{imgUrl}}/Icon_pphd@3x.png'></image>
+        </view>
+      </view>
+      <view class='contentBox startTopBox'>
+        <view class='contentLeft fontSize16'>手艺人</view>
+        <view class='contentRight'>
+          <view class='startBox rightLine '>
+            <view wx:if="{{isArray}}" class='fontSize16 rightLineTitle'>
+              <text wx:for="{{recordData.beauticianList}}" wx:key="beauticianList">{{index===0?'':' , '}}{{item.username}}</text>
+            </view>
+            <view wx:else class='fontSize16 rightLineTitle'>{{recordData.userName}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+
+
 <view style='background-color:#f5f5f5'>
 <!-- 门店块 -->
   <view class='store'>
@@ -136,7 +328,6 @@
 <view class='shadow' wx:if="{{showShadow}}">
     <view class='modal' style='bottom:{{modalBottom}}'>
       <view class='consumeDetailList'>
-
         <view class='consumeDetail'  wx:if="{{serviceOpenCardInfo}}">
           <view class='consumeDetailTitle'>开卡</view>
           <view class='detailItem'>
@@ -207,7 +398,6 @@
           </view>
         </view>
 
-
          <view class='consumeDetail' wx:if="{{serviceCardTrans}}">
           <view class='consumeDetailTitle'>转账</view>
           <view wx:for="{{serviceCardTrans}}" wx:key>
@@ -232,8 +422,6 @@
           
         </view>
 
-        
-        
         <view class='consumeDetail' wx:if="{{serviceCardDiscountCodeGive}}">
           <view class='consumeDetailTitle'>优惠码核销</view>
           <view class='detailItem' wx:if="{{serviceCardDiscountCodeGive.giveAmount}}">
@@ -257,6 +445,7 @@
             <view class='number' wx:else></view>
           </view>
         </view>
+
       </view>
       <view class='buttonBox' bindtap='closeModal'>
           <view class='button'>确定</view>

@@ -29,7 +29,7 @@
      <!-- </block>  -->
   </view>
   <view wx:else class='list'>
-    <image mode='aspectFit' class='noOrder' src='{{imgUrl}}/empty_mxfqr@3x.png'></image>
+    <image mode='aspectFit' class='noOrder' src='{{imgUrl}}/empty_mlsdd@3x.png'></image>
     <view class='noOrderText'>您还没有订单，去预约</view>
     <view class='appointment' bindtap='goToIndex'>立即预约</view>
   </view>

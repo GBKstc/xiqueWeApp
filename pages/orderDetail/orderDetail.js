@@ -6,6 +6,8 @@ var qqmapsdk;
 
 const URL = require('../../utils/URL.js');
 const util = require('../../utils/util');
+const config = require('../../utils/config');
+const { imgUrl } = config;
 const {
   requestAppid,
   raffle,
@@ -20,6 +22,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    imgUrl: imgUrl,
+
+
     showPrize:true,//刮奖蒙层
 
 
@@ -72,8 +77,8 @@ Page({
     qqmapsdk = new QQMapWX({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
-    let status = options.status;//记录1，2还是3
-    let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
+    let status = options.status || 2;//记录1，2还是3
+    let scheduleServiceId = options.scheduleServiceId || 2521398;//排班订单服务id
     let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId:"";
     console.log('服务订单' , scheduleServiceId)
     that.setData({
@@ -88,7 +93,7 @@ Page({
         var sendData={
           thirdSessionId: res.data,
           status: status,
-          scheduleServiceId: scheduleServiceId
+          scheduleServiceId: scheduleServiceId 
         }
         if (evaluateGiftId){
           sendData.evaluateGiftId = evaluateGiftId;
@@ -157,6 +162,7 @@ Page({
               if (recordData.customerName.length>4){//如果预约人姓名大于四个，增加一个属性，否则不加
                 recordData.maxname = recordData.customerName.substr(0,4)
               }
+              
               //更新数据
               that.setData({
                 recordData: recordData,
@@ -170,10 +176,8 @@ Page({
                 day:Y+'-'+M+'-'+D,
                 cancelDisabled:false//解禁取消预约
               })
-
-
-
-
+              //获取订单详情
+              that.getOrderDetail(recordData.serviceId);
               //初始化bg的值，即评价标签的状态，同时初始化arrObj这个数组对象
               var arrOrigin = recordData.evaluateLableList//未评价时所有的标签列表
               if (arrOrigin) {//未评价
@@ -622,69 +626,6 @@ Page({
       });
       that.showToast();
     })
-
-    // wx.getStorage({//异步获取随机数
-    //   key: getApp().globalData.appid,
-    //   success: function (res) {
-    //     // console.log('页面获取到随机数为')
-    //     console.log(res.data)
-    //     wx.request({
-    //       url: getApp().url + 'userScheduleService/saveEvaluate',
-    //       data: {
-    //         thirdSessionId: res.data,
-    //         serviceId: that.data.serviceId,//服务单id
-    //         evaluateScore: that.data.nScore,//评分
-    //         departLabels: departLabelsString,
-    //         beauticianLabels: beauticianLabelsString,
-    //         isAnonymous: isAnonymous
-    //       },
-    //       method: 'POST',
-    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
-    //       success: function (res) {
-    //         console.log(res.data)
-    //         if (res.data.status === 200) {
-    //           //如果有活动ID 说明可以抽奖
-    //           if (evaluateGiftId){
-    //             that.lottery()
-    //           }else{
-    //             //页面跳转成功后，设置上个页面值
-    //             var pages = getCurrentPages();
-    //             var prevPage = pages[pages.length - 2]//上一个页面
-    //             //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-    //             prevPage.setData({
-    //               status: 2
-    //             })
-    //             console.log('提交成功')
-    //             wx.navigateBack({
-    //               delta: 1,
-    //               // url: '../order/order',
-    //               success: function () {
-
-    //               }
-    //             })
-    //           }
-              
-    //         } else if (res.data.status === 400) {//失败
-    //           console.log(400)
-    //           var msg = res.data.msg
-    //           //设置toast时间，toast内容  
-    //           that.setData({
-    //             count: 2000,
-    //             toastText: msg
-    //           });
-    //           that.showToast();
-    //         }
-    //         common.status(res, that)//状态401和402
-
-
-    //       }
-    //     })
-    //   },
-    //   fail: function () {
-    //     console.log('页面获取随机数失败')
-    //   }
-    // })
-    
   },
   //取消预约
   showModal:function(){
@@ -773,7 +714,8 @@ Page({
   //gotoConsumeDetail查看消费详情
   gotoConsumeDetail: function () {
     const that = this;
-    this.getOrderDetail();
+    const { recordData } = that.data;
+    this.getOrderDetail(recordData.serviceId);
     this.setData({
       showShadow: true
     }, () => {
@@ -807,12 +749,11 @@ Page({
   },
 
   //获取订单详情用的通用获取接口
-  getData(key){
+  getData(key, serviceId){
     const that = this;
-    const { recordData} = that.data;
     requestAppid({
       URL:URL[key],
-      param: { serviceId: recordData.serviceId}
+      param: { serviceId: serviceId}
     },function (data) {
       
       if(isEmpty(data)){
@@ -828,7 +769,7 @@ Page({
   },
 
   //获取订单所有详情
-  getOrderDetail(){
+  getOrderDetail(serviceId){
     const that = this;
     //所有要获取的详情接口list
     const getKeyList = [
@@ -843,8 +784,7 @@ Page({
     ];
 
     for(let key of getKeyList){
-      console.log(key);
-      that.getData(key);
+      that.getData(key, serviceId);
     }
 
 

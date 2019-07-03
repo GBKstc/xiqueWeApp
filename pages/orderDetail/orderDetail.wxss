@@ -1,4 +1,200 @@
 @import "../../utils/commonConfirm.wxss";
+@import "../../utils/commonWxss/common.wxss";
+.box{
+  width: 750rpx;
+  background-color: white;
+}
+/* 头部 */
+.box .header{
+  width: 670rpx;
+  height: 268rpx;
+  background: #FD9595;
+  padding: 0 40rpx;
+}
+.box .headerLeft{
+  padding-top: 82rpx;
+}
+
+.headerLeft .orderStatus{
+  color: white;
+}
+.headerLeft .orderCode{
+  padding-top: 24rpx;
+  color: white;
+}
+.orderCode .copyButton{
+  padding: 8rpx 18rpx;
+  background-color: white;
+  border-radius: 20rpx;
+  color: #FD9595;
+  margin-left: 14rpx;
+}
+.headerRight{
+  width: 212rpx;
+  height: 204rpx;
+}
+.headerRight image{
+  display: block;
+  width: 212rpx;
+  height: 204rpx;
+}
+/* 导航栏 */
+.box .nativigation{
+  width: 750rpx;
+  height: 116rpx;
+}
+.nativigation .nativigationBox{
+  padding: 46rpx 32rpx 0 32rpx;
+  margin-bottom:34rpx;
+}
+.nativigationBox .selectNat{
+  font-family: PingFangSC-Medium;
+  font-size: 36rpx;
+  letter-spacing: -0.86rpx;
+  line-height: 36rpx;
+  color: #FD9595;
+  padding-right: 44rpx;
+}
+.nativigationBox .noselectNat{
+  font-family: PingFangSC-Medium;
+  font-size: 28rpx;
+  letter-spacing: -0.68rpx;
+  line-height: 28rpx;
+  padding-right: 44rpx;
+}
+/* 消费明细 */
+.consumeDetailList{
+  margin: 0 auto;
+  padding: 0 40rpx;
+}
+.consumeDetailList .consumeDetail{
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
+  border-radius: 8rpx;
+  margin-bottom: 32rpx;
+}
+.consumeDetail .consumeDetailTitle{
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  line-height: 36rpx;
+  color: #000000;
+  letter-spacing: -0.86rpx;
+  text-align: left;
+  position: relative;
+  width: 590rpx;
+  margin: 0 auto;
+  padding: 20rpx;
+  border-bottom: 2rpx solid #F4F4F4; 
+}
+/* .consumeDetail .consumeDetailTitle::after{
+  content: "";
+  display: block;
+  width:40rpx;
+  height:4rpx;
+  background:rgba(253,149,149,1);
+  border-radius:2rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+} */
+.consumeDetailList .detailItem{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #000000;
+  letter-spacing: -0.78rpx;
+  text-align: center;
+  line-height: 32rpx;
+  padding: 0 56rpx 0 40rpx;
+  width: 574rpx;
+  height: 104rpx;
+}
+.consumeDetailList .detailItem .title{
+  /* display: flex;
+  justify-content: start;
+  align-items: flex-end; */
+  /* font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333;
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+}
+.consumeDetailList .titleRemark{
+  /* font-size:28rpx;
+  color:rgba(153,153,153,1);
+  margin-left: 20rpx;
+  line-height: 28rpx;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; */
+}
+.consumeDetailList .detailItem .number{
+  /* font-size: 32rpx;
+  line-height: 32rpx;
+  color: #333333; */
+}
+.consumeDetailList .consumeDetail{
+  padding-bottom: 1rpx;
+}
+/* 服务信息 */
+.serviceInfo{
+  margin-top: 102rpx;
+}
+.serviceInfo .serviceTitle{
+  text-align: center;
+  color: #000000;
+}
+.serviceInfo .serviceContent{
+  margin-top: 40rpx;
+}
+.serviceContent .contentBox{
+  width: 670rpx;
+  padding: 36rpx 40rpx 20rpx 40rpx;
+  border-bottom: 2rpx solid #F4F4F4;
+}
+.serviceContent .contentBox:last-child{
+  border-bottom: none;
+}
+.contentBox .contentLeft{
+  width: 196rpx;
+  color: #666666;
+}
+.contentBox .contentRight{
+  width: 392rpx;
+}
+.contentRight .rightLine{
+  height: 32rpx;
+  margin-bottom: 16rpx;
+}
+.rightLine .rightLineTitle{
+  color: #333333;
+  margin-right: 16rpx;
+}
+.rightLine .rightLineContent{
+  color: #666666;
+}
+.contentBox .goLogo{
+  height: 84rpx;
+  width: 36rpx;
+  padding-left: 38rpx;
+  border-left: 2px solid #F4F4F4;
+} 
+.goLogo image{
+  display: block;
+  width: 42rpx;
+  height: 48rpx;
+  margin-top: 24rpx;
+}
+
+
+
+
+
+
 .store{
   padding:60rpx;
   background-color: #fff;
@@ -46,9 +242,6 @@
   /* margin-bottom:20rpx; */
   background-color: #fff;
   padding:60rpx;
-}
-.detailItem{
-  margin-bottom:40rpx;
 }
 .detailLable{
   display:inline-block;
@@ -327,65 +520,7 @@
   border-radius:10rpx 10rpx 0px 0px;
 }
 
-.consumeDetailList{
-  margin: 0 auto;
-  padding: 0 60rpx;
-  min-height: 80%;
-}
-.consumeDetailList .detailItem{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 30rpx;
-}
-.consumeDetailList .detailItem .title{
-  /* display: flex;
-  justify-content: start;
-  align-items: flex-end; */
-  font-size: 32rpx;
-  line-height: 32rpx;
-  color: #333333;
-  width: 70%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.consumeDetailList .titleRemark{
-  font-size:28rpx;
-  color:rgba(153,153,153,1);
-  margin-left: 20rpx;
-  line-height: 28rpx;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.consumeDetailList .detailItem .number{
-  font-size: 32rpx;
-  line-height: 32rpx;
-  color: #333333;
-}
-.consumeDetailList .consumeDetail{
-  padding-bottom: 1rpx;
-}
-.consumeDetailTitle{
-  color:rgba(153,153,153,1);
-  font-size:28rpx;
-  line-height: 28rpx;
-  margin-top: 30rpx;
-  padding-bottom: 15rpx;
-  position: relative;
-}
-.consumeDetailTitle::after{
-  content: "";
-  display: block;
-  width:40rpx;
-  height:4rpx;
-  background:rgba(253,149,149,1);
-  border-radius:2rpx;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
+
 .buttonBox{
   display: flex;
   justify-content: space-around;

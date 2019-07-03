@@ -1,3 +1,4 @@
+@import "../../utils/commonWxss/common.wxss";
 .select_img{
   width: 180rpx;
   height: 180rpx;
@@ -133,27 +134,16 @@
 }
 
 /*没内容  */
-.isNo{
-  width: 100%;
-}
-
-.isNo .imgBox{
-  margin-top: 250rpx;
-  width:180rpx;
-  height:180rpx;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.imgBox image{
+.noOrder{
+  width: 750rpx;
+  height: 250rpx;
   display: block;
-  height: 100%;
-  width: 100%;
+  margin: 266rpx auto 0;
 }
-.textContent{
-  display: block;
-  margin-top: 81rpx;
-  font-size: 30rpx;
-  color: #999999;
+.noOrderText{
+  margin-top: 36rpx;
   text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #888888;
 }

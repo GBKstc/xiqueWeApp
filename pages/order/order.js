@@ -438,8 +438,8 @@ Page({
   },
 
   goToIndex(){
-    wx.navigateTo({
-      url: "../../index/index",
+    wx.switchTab({
+      url: "../index/index",
       success: function () {
       }
     })

@@ -340,12 +340,8 @@ Page({
   onPageScroll: function (obj) {
     // console.log(obj);
   },
-  /**
-   * 用户点击右上角分享
-   */
-  // onShareAppMessage: function (obj) {
-   
-  // },
+  
+ 
   //输入门店
   handleInput: function (e) {
     var that = this
@@ -501,100 +497,57 @@ Page({
     })
 
   },
-  //点击跳转美容师页面或者地图页面
-  tocraftsmanOrMap:function(e){
+  //跳转地图
+  toMapPage:function(e){
+    const latitude = e.currentTarget.dataset.latitude;//获取标签上绑定的维度
+    const longitude = e.currentTarget.dataset.longitude;//获取标签上绑定的经度
+    const name = e.currentTarget.dataset.name;
+    const address = e.currentTarget.dataset.address;
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wx.request({
+      url: `https://apis.map.qq.com/ws/coord/v1/translate?locations=${latitude},${longitude}&type=3&key=WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF`,
+      method: 'GET',
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      success: function (res) {
+        if (res.data.status === 0) {
+          var loca = res.data.locations[0];
+          wx.openLocation({
+            latitude: loca.lat,
+            longitude: loca.lng,
+            scale: 18,
+            name: name,
+            address: address
+          })
+        } else {
+          console.log("请求错误码", res.data.status);
+        }
+        wx.hideLoading();
+      },
+      fail: function (res) {
+        that.setData({
+          count: 1000,
+          toastText: "定位中..."
+        });
+        that.showToast();
+      }
+    })
+  },
+  //点击跳转美容师页面
+  tocraftsman:function(e){
     var that=this
-    if (this.data.fromWhere==='true'){//从预约点击进来的
-      var departmentId = e.currentTarget.dataset.department//获取部门id
-      var name = e.currentTarget.dataset.name//店名
-      console.log(departmentId)
+    var departmentId = e.currentTarget.dataset.department//获取部门id
+    var name = e.currentTarget.dataset.name//店名
+    if ((this.data.fromWhere === 'true')&&departmentId&&name){
       wx.navigateTo({
         url: '../craftsman/craftsman?departmentId=' + departmentId + '&name=' + name,
         success: function () {
         }
       })
-    }else{//从我的里的门店分布点击进来的
-      var latitude = e.currentTarget.dataset.latitude//获取标签上绑定的维度
-      var longitude = e.currentTarget.dataset.longitude//获取标签上绑定的经度
-      var name = e.currentTarget.dataset.name
-      var address = e.currentTarget.dataset.address;
-
-      wx.showLoading({
-        title: '加载中',
-        mask: true
-      })
-      wx.request({
-        url: `https://apis.map.qq.com/ws/coord/v1/translate?locations=${latitude},${longitude}&type=3&key=WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF`,
-        method: 'GET',
-        header: { 'content-type': 'application/x-www-form-urlencoded' },
-        success: function (res) {
-          if (res.data.status === 0) {
-            var loca = res.data.locations[0];
-            wx.openLocation({
-              latitude: loca.lat,
-              longitude: loca.lng,
-              scale: 18,
-              name: name,
-              address: address
-            })
-          } else {
-            console.log("请求错误码", res.data.status);
-          }
-          wx.hideLoading();
-        },
-        fail: function (res) {
-          that.setData({
-            count: 1000,
-            toastText: "定位中..."
-          });
-          that.showToast();
-        }
-      })
-      // request(
-      //   { URL: "https://apis.map.qq.com/ws/coord/v1/translate?locations=39.12,116.83;30.21,115.43&type=3&key=WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF", method:"GET"},function(data){
-
-      //       var loca = res.result.ad_info.location;
-      //       wx.openLocation({
-      //         latitude: loca.lat,
-      //         longitude: loca.lng,
-      //         scale: 18,
-      //         name: name,
-      //         address: address
-      //       })
-      //     }
-      // )
-      // // 调用坐标转换接口
-      // qqmapsdk.reverseGeocoder({
-      //   location: {
-      //     latitude: latitude,
-      //     longitude: longitude
-      //   },
-      //   coord_type:3,
-      //   success: function (res) {//门店有经纬度
-      //     console.log('腾讯地图调用成功'+res)
-      //     var loca = res.result.ad_info.location;
-      //     wx.openLocation({
-      //       latitude: loca.lat,
-      //       longitude: loca.lng,
-      //       scale: 18,
-      //       name: name,
-      //       address: address
-      //     })
-      //   },
-      //   fail: function (res) {//门店没有经纬度
-      //     console.log('获取经纬度失败');
-      //     //设置toast时间，toast内容  
-      //     that.setData({
-      //       count: 1000,
-      //       toastText: "定位中..."
-      //     });
-      //     that.showToast();
-      //   },
-      //   complete: function (res) {
-      //     console.log(res);
-      //   }
-      // });
     }
+    
   },
   //显示自定义提示框
   showToast:function() {
@@ -610,5 +563,37 @@ Page({
   toAgainLogin: function () {
     var _this = this
     common.toAgainLogin(_this)
+  },
+
+  //联系客服
+  makePhoneCall: function () {
+    var that = this
+    wx.makePhoneCall({
+      phoneNumber: that.data.telephone,
+      success: function () {
+      },
+      fail: function () { }
+    })
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function (options) {
+　　var that = this;
+　　// 设置转发内容
+　　var shareObj = {
+  　　　　title: "转发的标题",
+  　　　　path: 'pages/storeDetail/storeDetail',        // 默认是当前页面，必须是以‘/’开头的完整路径
+  　　　　imgUrl: '',     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
+　　};
+　　// 来自页面内的按钮的转发
+　　if (options.from == 'button') {
+  // 　　　　var dataid = options.target.dataset; //上方data-id=shareBtn设置的值
+  　　　　// 此处可以修改 shareObj 中的内容
+    // shareObj.path = '/pages/storeDetail/storeDetail';
+　　}
+　　// 返回shareObj
+　　return shareObj;
   }
 })

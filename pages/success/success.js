@@ -14,14 +14,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(App.globalData)
+    console.log(options);
     const towhere = options.towhere;
     const toPag = options.toPag;
-    const successText = options.successText ||"预约成功";
+    const content = options.content;
+    const successText = options.successText || "预约成功";
+    const buttonText = options.buttonText ||"确定";
     this.setData({
       towhere: towhere,
       successText: successText,
-      toPag: toPag
+      toPag: toPag,
+      content: content,
+      buttonText: buttonText
     })
   },
 
@@ -80,6 +84,14 @@ Page({
     })
     const { toPag, towhere} = this.data;
     if (toPag){
+      if(toPag=="index"){
+        wx.switchTab({
+          url: "../index/index",
+          success: function () {
+            wx.hideLoading();
+          }
+        })
+      }
       wx.redirectTo({
         url: '../' + toPag + '/' + toPag,
         success: function () {

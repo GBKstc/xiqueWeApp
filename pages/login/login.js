@@ -347,6 +347,12 @@ Page({
     })
     
   },
+  //获取用户手机号
+  getphonenumber(e) {
+    console.log(e.detail.errMsg)
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
+  },
   //显示自定义提示框
   showToast: function () {
     var _this = this;

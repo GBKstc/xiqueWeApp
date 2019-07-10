@@ -1,0 +1,33 @@
+<!--pages/storeDetail/storeDetail.wxml-->
+<view class='box'>
+
+  <view class='headerBox'>
+    <image mode='aspectFill' src='https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562558755455&di=be62209f71edc3d430278eea438cd288&imgtype=0&src=http%3A%2F%2Fpic37.nipic.com%2F20140113%2F8800276_184927469000_2.png'/>
+  </view>
+
+  <view class='fontSize18 headerTitle'>静博士养生美容连锁(和平广场店)</view>
+
+  <view class='lineBox spaceBox' catchtap='toMapPage'>
+    <view class='lineBoxLeft startBox'>
+      <image src='../../image/icon_fxmd_dh@3x.png'></image>
+      <view class='fontSize16 address'>下城区绍兴路177号</view>
+      <view class='fontSize16 distance'>0.8公里</view>
+    </view>
+    <view class='lineBoxRight'>
+      <image src='{{imgUrl}}/icon_arrow_right@3x.png' />
+    </view>
+  </view>
+
+  <view class='lineBox spaceBox' catchtap='makePhoneCall'>
+    <view class='lineBoxLeft startBox'>
+      <image mode='aspectFit' src='../../image/icon_fxmd_phone@3x.png'></image>
+      <view class='fontSize16 address'>0571-28089566</view>
+      <view class='fontSize16 distance'>0571-86907836</view>
+    </view>
+    <view class='lineBoxRight'>
+      <image mode='aspectFit' src='{{imgUrl}}/icon_arrow_right@3x.png' />
+    </view>
+  </view>
+
+  <view class='bottomButton' catchtap='goToIndex'>立即预约</view>
+</view>

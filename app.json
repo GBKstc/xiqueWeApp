@@ -1,18 +1,17 @@
 {
   "pages": [
-    
-    "pages/orderDetail/orderDetail",
     "pages/index/index",
-    "pages/select/select",
+    "pages/login/login",
+   
+    "pages/storeDetail/storeDetail",
     "pages/personalCenter/personalCenter",
-    
+    "pages/orderDetail/orderDetail",
+    "pages/select/select",
     "pages/order/order",
     "pages/storeDistribution/storeDistribution",
     "pages/cardList/cardList",
     "pages/refund/refund",
-    
     "pages/orderDetailChance/orderDetailChance",
-    
     "pages/scrapeprice/scrapeprice",
     "pages/craftsman/craftsman",
     "pages/craftsmantime/craftsmantime",
@@ -20,7 +19,6 @@
     "pages/modifyPhone/modifyPhone",
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/experience/experience",
-    
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",
     "pages/checkinfo/checkinfo",
@@ -28,12 +26,13 @@
     "pages/assess/assess",
     "pages/details/details",
     "pages/accounts/accounts",
-    "pages/login/login",
+   
     "pages/time/time",
     "pages/success/success",
     "pages/cardDetail/cardDetail",
     "pages/consumeVerify/consumeVerify",
     "pages/orderFinish/orderFinish"
+    
   ],
   "permission": {
     "scope.userLocation": {

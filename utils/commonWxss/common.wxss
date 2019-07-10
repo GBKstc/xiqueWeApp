@@ -1,3 +1,19 @@
+.bottomButton{
+  width: 750rpx;
+  height: 104rpx;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #FD9595;
+
+  font-family: PingFangSC-Regular;
+  font-size: 32rpx;
+  color: #FFFFFF;
+  letter-spacing: -0.78rpx;
+  text-align: center;
+  line-height: 104rpx;
+}
+
 .buttonBig{
   margin: 40rpx auto 0;
   width: 670rpx;
@@ -11,6 +27,12 @@
   line-height: 94rpx;
   color: #FFFFFF;
   text-align: center;
+}
+
+.sbutton{
+  background: #FD9595;
+  border-radius: 4px;
+  color: white;
 }
 
 .fontSize20{
@@ -47,6 +69,14 @@
   letter-spacing: -0.58rpx;
   line-height: 24rpx;
 }
+
+.fontSize10{
+  font-family: PingFangSC-Medium;
+  font-size: 20rpx;
+  letter-spacing: -0.48rpx;
+  line-height: 20rpx;
+}
+
 /* 超出省略 */
 .textOverHidden{
   overflow: hidden;/*超出部分隐藏*/
@@ -86,9 +116,16 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  flex-wrap: wrap;
 }
 .startTopBox{
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+}
+
+.centerBox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

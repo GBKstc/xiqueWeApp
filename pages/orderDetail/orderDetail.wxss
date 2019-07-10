@@ -3,6 +3,7 @@
 .box{
   width: 750rpx;
   background-color: white;
+  padding-bottom: 136rpx;
 }
 /* 头部 */
 .box .header{
@@ -64,7 +65,7 @@
 }
 /* 消费明细 */
 .consumeDetailList{
-  margin: 0 auto;
+  margin: 0 auto 102rpx;
   padding: 0 40rpx;
 }
 .consumeDetailList .consumeDetail{
@@ -142,11 +143,20 @@
 }
 /* 服务信息 */
 .serviceInfo{
-  margin-top: 102rpx;
+  
 }
 .serviceInfo .serviceTitle{
   text-align: center;
   color: #000000;
+}
+.serviceTitle .titleLogo{
+  height: 16rpx;
+  width: 32rpx;
+}
+.titleLogo image{
+  display: block;
+  height: 16rpx;
+  width: 32rpx;
 }
 .serviceInfo .serviceContent{
   margin-top: 40rpx;
@@ -189,138 +199,16 @@
   height: 48rpx;
   margin-top: 24rpx;
 }
-
-
-
-
-
-
-.store{
-  padding:60rpx;
-  background-color: #fff;
-  
-}
-.store .up{
-  margin-bottom:20rpx;
-}
-.storeLable{
-  display: inline-block;
-  color:#999;
-  width:120rpx;
-  font-size:28rpx;
-   margin-right:30rpx; 
-}
-.storeTittle{
-  color:#333;
-  font-size:32rpx;
-}
-.address{
-  color:#b1b1b1;
-  font-size:28rpx;
-}
- .down{
-  padding-left:150rpx;
-  position: relative;
-  width:70%;
-} 
-.down .storeLable{
-  
-}
-.down .address{
- 
-}
-.goPng{
-  width:40rpx;
-  height:46rpx;
-  position: absolute;
-  right:-40rpx;
-  top:50%;
-  transform: translateY(-30%);
-}
-.detail{
-  margin-top:20rpx;
-  /* margin-bottom:20rpx; */
-  background-color: #fff;
-  padding:60rpx;
-}
-.detailLable{
-  display:inline-block;
-  width:120rpx;
-  color:#999;
-  font-size:28rpx;
-  margin-right:30rpx;
-}
-.detailValue{
-  color:#333;
-  font-size:32rpx;
-  /* margin-right:40rpx; */
-}
-.detailValue2{
-  color:#999;
-  font-size:28rpx;
-  /* margin-right:40rpx; */
-}
-.detailValueTime{
-  margin-left:10rpx;
-  color:#999;
-  font-size:28rpx;
-}
-.changeTime{
-  /* margin-left:10rpx; */
-  color:#fd9595;
-  font-size: 28rpx;
-  float:right;
-  padding:3rpx 15rpx;
-  height:50rpx;
-  line-height:50rpx;
-  border:1px solid #fd9595;
-  text-align:center;
-  border-radius:6rpx;
-}
-.detailValueCopy{
-  float:right;
-  width:100rpx;
-  height:50rpx;
-  line-height: 50rpx;
-  border:1px solid #fd9595;
-  border-radius:6rpx;
-  text-align: center;
-  color:#fd9595;
-  font-size:24rpx;
-}
-.evaluate{
-  margin-top:20rpx;
-  padding:60rpx;
-  background-color: #fff;
-  position:relative;
-}
-.evaluateTitle{
-  font-size:28rpx;
-  color:#b1b1b1;
-  margin-bottom:60rpx;
+/* 服务评价 */
+.evaluateStars{
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.evaluateTitle2{
-  font-size:28rpx;
-  color:#b1b1b1;
-  margin-bottom:60rpx;
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
-}
-.evaluateStars:after{
-  content:"";
-  display: block;
-  clear:both;
+  padding-top: 52rpx;
 }
 .star{
   width:44rpx;
   height:44rpx;
-  float:left;
   /* margin-right:40rpx; */
-  padding: 0 20rpx;
+  padding: 0 8.4rpx;
 }
 .starLatest{
   margin-right:0;
@@ -331,68 +219,65 @@
 .evaluateItem{
   margin-top:60rpx;
 }
-.itemCell{
+.evaluateText{
+  margin-top: 30rpx;
+  color: #FD9595;
+  text-align: center;
+}
+.evaluateInfo{
+  margin-top: 30rpx;
+  text-align: center;
+  color: #666666;
+}
+.evaluateLogo{
+  width: 590rpx;
+  margin: 40rpx auto 0;
+}
+.evaluateLogo .itemCell{
   box-sizing: border-box;
   display: inline-block;
   /* width:140rpx; */
   padding:0 20rpx;
-  height:50rpx;
-  line-height: 50rpx;
-  border:1px solid #666;
-  border-radius:8rpx;
+  height:58rpx;
+  line-height: 54rpx;
+  border:2rpx solid #E1E1E1;
+  border-radius:30rpx;
   text-align:center;
   font-size:24rpx;
-  color:#666;
-  margin-right:40rpx;
-  margin-bottom:40rpx;
+  color:#666666;
+  margin-right:24rpx;
+  margin-bottom:24rpx;
 }
-.bgColor{
-  background-color: #fd9595;
-  color:#fff;
-  border:none;
+.evaluateLogo .bgColor{
+  color: #FD9595;
+  /* border:2rpx solid #FD9595; */
 }
+.evaluateContent{
+  margin:16rpx auto 0;
+  padding: 13rpx 20rpx;
+  line-height: 34rpx;
+  width: 546rpx;
+  height: 186rpx;
+  border: 2rpx solid #E1E1E1;
+  color: #666666;
+}
+/* 按钮样式 */
 .submit{
-  background-color: #fff;
-  padding-bottom: 60rpx;
+  background-color:#FD9595;
+  position: fixed;
+  width: 100%;
+  height: 104rpx;
+  bottom: 0;
+  left: 0;
 }
 .submitButton{
-  background-color: #fd9595;
-  border-radius: 8rpx;
   color:#fff;
-  font-size:32rpx;
-  width:440rpx;
-  height:70rpx;
-  line-height: 70rpx;
-  margin:0 auto;
-  text-align:center;
+  width: 100%;
+  height: 104rpx;
+  line-height: 104rpx;
+  text-align: center;
   /* opacity: 0.6; */
 }
-.checkbox{
-  color:#333;
-  font-size:32rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-   /* vertical-align: middle; */
-}
-.checkbox .target{
-  margin-right:10rpx;
-  vertical-align: middle;
-  color:#fd9595!important;
-}
-.textColor{
-  color:#fd9595!important;
-  line-height:32rpx;
-  /* position: relative;
-  top: -2rpx; */
-}
-.textColor2{
-  color:#333333!important;
-  line-height:32rpx;
-  /* position: relative;
-  top: -2rpx; */
-}
-
 
 
 /*取消预约*/  
@@ -509,15 +394,28 @@
   background:rgba(0,0,0,0.5);
 }
 .modal{
-  transition: all 0.8s;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  overflow: auto;
-  background-color: white;
-  border-radius:10rpx 10rpx 0px 0px;
+  top: 160rpx;
+  left: 40rpx;
+  width: 670rpx;
+  height: 932rpx;
+  background: #FFFFFF;
+  box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
+  border-radius: 8rpx;
+}
+.modal .shadowTitle{
+  margin: 40rpx auto 0;
+  width: 590rpx;
+}
+.modal .anonymity{
+  color: #666666;
+}
+.modal .radioBox{
+  transform:scale(0.7,0.7);
+}
+.modal .modalButton{
+  width: 590rpx;
+  margin: 48rpx auto 0;
 }
 
 

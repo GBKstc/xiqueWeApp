@@ -64,6 +64,9 @@
   text-align: center;
   margin-left: 16rpx;
   line-height: 33rpx;
+  width: 56rpx;
+  border: none;
+  padding: 0;
 }
 .address{
   font-family: PingFangSC-Regular;
@@ -71,13 +74,13 @@
   color: #FD9595;
   letter-spacing: -0.68rpx;
   line-height: 28rpx;
-  margin-top: 32rpx;
+  margin: 32rpx 0 44rpx 0;
 }
 .buttonBox{
   display: flex;
   justify-content: start;
   align-items: center;
-  margin-top: 44rpx;
+  
 }
 .buttonBox .button{
   width: 178rpx;

@@ -8,25 +8,25 @@
 
 
   <view class="contain">
-     <view class='item'  wx:for="{{stopRecord}}" wx:key="stopRecord" >
+     <view class='item' bindtap='tocraftsman' data-department='{{item.id}}' data-name="{{item.name}}"  wx:for="{{stopRecord}}" wx:key="stopRecord" >
      <view class='itemBox'>
       <view class='itemHeader'>
         <view class='storeName'>
           <view>{{item.name}}</view>
           <view class='offenLogo'>常去</view>
         </view>
-        <view class='share'>
+        <view class='share' >
           <image mode='aspectFit' src='../../image/icon_mddh_share@3x.png'></image>
-          <view class='shareText'>分享</view>
+          <button class='shareText' catchtap='shareFun' data-id="shareBtn" open-type="share" plain="true">分享</button>
         </view>
       </view>
       <view class='address'>{{item.address}}</view>
       <view class='buttonBox'>
-        <view class='button'>
+        <view class='button' catchtap='makePhoneCall'>
           <image mode='aspectFit' src='../../image/icon_fxmd_phone@3x.png'></image>
           <view class='buttonText'>联系门店</view>
         </view>
-        <view class='button' style='margin-left:32rpx' bindtap='tocraftsmanOrMap' data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-name="{{item.name}}" data-address="{{item.address}}" data-department='{{item.id}}'>
+        <view class='button' style='margin-left:32rpx' catchtap='toMapPage' data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}" data-name="{{item.name}}" data-address="{{item.address}}">
           <image mode='aspectFit' src='../../image/icon_fxmd_dh@3x.png'></image>
           <view class='buttonText' wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">约{{item.distanceChange}}公里</view>
           <view class='buttonText' wx:elif="{{item.distance||item.distance==0}}">约{{item.distance}}米</view>

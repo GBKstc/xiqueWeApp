@@ -23,11 +23,7 @@ Page({
    */
   data: {
     imgUrl: imgUrl,
-
-
     showPrize:true,//刮奖蒙层
-
-
     // random: wx.getStorageSync(getApp().globalData.appid),
     status:1,
     isArray:false,//手艺人，默认是1或3的状态
@@ -45,25 +41,19 @@ Page({
     timeFormat: '',//跟换订单的预约间块
     customerId:'',//顾客id
     day: '',//更改换时间的订单时间，精确到日（2018-03-06）
-    recordData:{
-      
-      },
+    recordData:{},
     //toast默认不显示  
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
     toastText: '你好' ,
-    // img1: false,
-    img2: false,
-    img3: false,
-    img4: false,
-    img5: false,
+    starList:[true,true,true,true,true],
     bg: {},//初始化每一个评价标签对应的颜色状态，这里个bg应该是{1:false,3:true}这种对象形式
     arrObj: [],//初始化赋值，这个是上面的升级版，每个对象里面同时包含evaluateLableId(标签id)和evaluateType(标签类型)这两个属性，例如[{id:flase,evaluateLableId:5,evaluateType:1},{id:flase,evaluateLableId:9,evaluateType:2}]这种形式，目的是点击提交按钮时，便于统计点击的标签是哪个类型的，id是多少，这些要传递给后台
 
 
-    //消费详情模态框
-    modalBottom: "-100%",
+    //确认订单模态框
+    // modalBottom: "-100%",
     showShadow: false
   },
 
@@ -78,7 +68,7 @@ Page({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
     let status = options.status || 2;//记录1，2还是3
-    let scheduleServiceId = options.scheduleServiceId || 2521398;//排班订单服务id
+    let scheduleServiceId = options.scheduleServiceId || 2699040;//排班订单服务id
     let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId:"";
     console.log('服务订单' , scheduleServiceId)
     that.setData({
@@ -152,6 +142,10 @@ Page({
               }
               recordData.week = week
               //把number类型的评分改成对应的数组,以便于遍历
+              const list = [];
+              for(let i=0;i<5;i++){
+                list[i] = (i <= recordData.evaluateScore);
+              }
               switch (recordData.evaluateScore) {
                 case 1: recordData.evaluateScore = [1]; break
                 case 2: recordData.evaluateScore = [1, 2]; break
@@ -165,6 +159,7 @@ Page({
               
               //更新数据
               that.setData({
+                starList:list,
                 recordData: recordData,
                 serviceCode: recordData.serviceCode,
                 serviceId: recordData.serviceId,
@@ -413,66 +408,21 @@ Page({
     console.log(111111)
   },
   //点击五角星
-  // handleToggle1:function(){
-  //   this.setData({
-  //     img1:!this.data.img1
-  //   })
-  // },
-  handleToggle2: function () {
-    this.setData({
-      img2: !this.data.img2
-    })
-    if (this.data.img3 === false) {
-      this.setData({
-        img3: true,
-        img4: true,
-        img5: true
-      })
+  handleToggle:function(e){
+    const objList = [
+      "非常不满意，特别失望",
+      "不满意，有点失望",
+      "一般，普普通通",
+      "比较满意，仍可改善",
+      "非常满意",
+    ];
+    const that = this;
+    const index = e.currentTarget.dataset.index;
+    const list = [];
+    for(let i=0;i<5;i++){
+      list[i] = (i <= index);
     }
-  },
-  handleToggle3: function () {
-    this.setData({
-      img3: !this.data.img3
-    })
-    if (this.data.img2 === true) {
-      this.setData({
-        img2: false,
-      })
-    }
-    if (this.data.img4===false) {
-      this.setData({
-        img4: true,
-        img5: true
-      })
-    }
-  },
-  handleToggle4: function () {
-    this.setData({
-      img4: !this.data.img4
-    })
-    if (this.data.img3 === true) {
-      this.setData({
-        img2: false,
-        img3: false,
-      })
-    }
-    if (this.data.img5 === false) {
-      this.setData({
-        img5: true
-      })
-    }
-  },
-  handleToggle5: function () {
-    this.setData({
-      img5: !this.data.img5
-    })
-    if (this.data.img4 === true) {
-      this.setData({
-        img2: false,
-        img3: false,
-        img4: false
-      })
-    }
+    this.setData({ starList: list, starText: objList[index]});
   },
   //点击评价标签
   handleBg:function(e){
@@ -504,8 +454,6 @@ Page({
 
   },
   
-
-
   //抽奖
   lottery:function(){
     const that = this;
@@ -533,29 +481,22 @@ Page({
         })
       })
   },
-
   //提交评价
   submitEvevate:function(){
     var that=this
-    const { evaluateGiftId } = that.data;
+    const { evaluateGiftId, starList } = that.data;
+    let starNum = 0;
     // 获取五角星的个数
-    if(!this.data.img5){//红色
-      this.setData({
-        nScore:5
-      })
-    } else if (!this.data.img4){
-      this.setData({
-        nScore: 4
-      })
-    } else if (!this.data.img3) {
-      this.setData({
-        nScore: 3
-      })
-    } else if (!this.data.img2) {
-      this.setData({
-        nScore: 2
-      })
+    for(let item of starList){
+      if(item){
+        starNum++
+      }else{
+        break;
+      }
     }
+    this.setData({
+      nScore: starNum
+    })
     //是否匿名转换成y或n
     var isAnonymous=""
     if (this.data.isAnonymous){
@@ -585,47 +526,58 @@ Page({
     }
     
     //提交评价
-
-    requestAppid({
-      URL: userScheduleServiceSaveEvaluate,
-      param: {
+    console.log({
         serviceId: that.data.serviceId,//服务单id
         evaluateScore: that.data.nScore,//评分
         departLabels: departLabelsString,
         beauticianLabels: beauticianLabelsString,
         isAnonymous: isAnonymous
-      }
-    }, function (data) {
-      //如果有活动ID 说明可以抽奖
-      if (evaluateGiftId) {
-        that.lottery()
-      } else {
-        //页面跳转成功后，设置上个页面值
-        var pages = getCurrentPages();
-        var prevPage = pages[pages.length - 2]//上一个页面
-        //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-        prevPage.setData({
-          status: 2
-        })
-        console.log('提交成功')
-        wx.navigateBack({
-          delta: 1,
-          // url: '../order/order',
-          success: function () {
-
-          }
-        })
-      }
-      
-      common.status(res, that)//状态401和402
-    }, function (msg) {
-      //设置toast时间，toast内容  
-      that.setData({
-        count: 2000,
-        toastText: msg
       });
-      that.showToast();
+      
+    that.closeModal();
+    wx.redirectTo({
+      url: '../success/success?successText=消费确认成功&toPag=index&content=消费确认成功,请预约下次护理哦~&buttonText=立即预约',
     })
+    // requestAppid({
+    //   URL: userScheduleServiceSaveEvaluate,
+    //   param: {
+    //     serviceId: that.data.serviceId,//服务单id
+    //     evaluateScore: that.data.nScore,//评分
+    //     departLabels: departLabelsString,
+    //     beauticianLabels: beauticianLabelsString,
+    //     isAnonymous: isAnonymous
+    //   }
+    // }, function (data) {
+    //   //如果有活动ID 说明可以抽奖
+    //   if (evaluateGiftId) {
+    //     that.lottery()
+    //   } else {
+    //     //页面跳转成功后，设置上个页面值
+    //     var pages = getCurrentPages();
+    //     var prevPage = pages[pages.length - 2]//上一个页面
+    //     //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+    //     prevPage.setData({
+    //       status: 2
+    //     })
+    //     console.log('提交成功')
+    //     wx.navigateBack({
+    //       delta: 1,
+    //       // url: '../order/order',
+    //       success: function () {
+
+    //       }
+    //     })
+    //   }
+      
+    //   common.status(res, that)//状态401和402
+    // }, function (msg) {
+    //   //设置toast时间，toast内容  
+    //   that.setData({
+    //     count: 2000,
+    //     toastText: msg
+    //   });
+    //   that.showToast();
+    // })
   },
   //取消预约
   showModal:function(){
@@ -718,10 +670,13 @@ Page({
     this.getOrderDetail(recordData.serviceId);
     this.setData({
       showShadow: true
-    }, () => {
-      this.setData({
-        modalBottom: 0,
-      })
+    })
+  },
+
+  openModal:function(){
+    const that = this;
+    this.setData({
+      showShadow: true,
     })
   },
 
@@ -729,7 +684,6 @@ Page({
     const that = this;
     this.setData({
       showShadow: false,
-      modalBottom: "-100%",
     })
   },
   //显示自定义提示框
@@ -791,6 +745,18 @@ Page({
   },
 
   //保留两位
+  
+  goToIndex(){
+    wx.switchTab({
+      url: "../index/index",
+      success: function () {
+        console.log("success")
+      },
+      fail:function(e){
+        console.log(e)
+      }
+    })
+  }
   
 
 })

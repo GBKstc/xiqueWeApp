@@ -1,0 +1,49 @@
+/* pages/storeDetail/storeDetail.wxss */
+@import "../../utils/commonWxss/common.wxss";
+.box{
+  width: 670rpx;
+  padding: 0 40rpx;
+  background-color: white;
+}
+.box .headerBox{
+  width: 670rpx;
+  height: 350rpx;
+  border-radius: 8rpx;
+  margin-top: 32rpx;
+}
+.headerBox image{
+  width: 670rpx;
+  height: 350rpx;
+  border-radius: 16rpx;
+}
+.box .headerTitle{
+  margin: 48rpx 0 16rpx 0;
+}
+.box .lineBox{
+  height: 140rpx;
+}
+.lineBox .lineBoxLeft{
+  
+}
+.lineBoxLeft image{
+  height: 32rpx;
+  width: 28rpx;
+  display: block;
+}
+.lineBoxLeft .address{
+  color: #666666;
+  margin-left: 20rpx;
+}
+.lineBoxLeft .distance{
+  color: #666666;
+  margin-left: 32rpx;
+}
+.lineBox .lineBoxRight{
+  width: 16rpx;
+  height: 32rpx;
+}
+.lineBoxRight image{
+  display: block;
+  width: 16rpx;
+  height: 32rpx;
+}

@@ -11,6 +11,13 @@
   text-align: center;
   margin-bottom:140rpx;
 }
+.content{
+  font-family: PingFangSC-Regular;
+  font-size: 14px;
+  color: #888888;
+  text-align: center;
+  margin-bottom:48rpx;
+}
 .confirm{
   background-color: #fd9595;
   border-radius: 10rpx;

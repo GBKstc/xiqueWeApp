@@ -29,18 +29,18 @@
         <view class='item' style='margin-top:0' bindtap='toStore'>
           <view class="labelText" >门店</view>
           <view class='indexInput' style='position:relative' wx:if="{{startData}}">
-            {{startData.department_name}}
+            <view>{{startData.department_name}}</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class='indexInputx' style='position:relative' wx:else>
-            请选择
+            <view>请选择</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
         </view>
         <view class='item people' bindtap='toPeople'>
           <view class="labelText">手艺人</view>
           <view class="indexInput"  wx:if="{{near}}">
-          五星手艺人
+          <view>五星手艺人</view>
           <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class="indexInput" wx:elif="{{startData}}">
@@ -48,7 +48,7 @@
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class="indexInputx" wx:else>
-          未匹配到合适手艺人
+          <view>未匹配到合适手艺人</view>
           <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>  
           <view class='img'>
@@ -64,7 +64,7 @@
             <text class='date'>{{startData.date}}</text><text class='week' wx:if="{{startData.week}}">({{startData.week}})</text><text class='hour'>{{startData.startTime}}</text><text class='noon' wx:if="{{startData.noon}}">({{startData.noon}})</text>
           </view>
           <view class="indexInputx" wx:else style="color:#FD9595;">
-            请选择
+            <view>请选择</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view> 
         </view>

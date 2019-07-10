@@ -1,3 +1,4 @@
+<!-- <web-view src="https://wqs.jd.com/my/indexv2.shtml?ptag=138567.16.5&wdref=https%3A%2F%2Fwq.jd.com%2Fwxportal%2Findex_v7%3FPTAG%3D17007.23.9%26ptype%3D1"></web-view> -->
 <view style='position: relative'>
   <view class='isLogin' wx:if="{{loading}}">
     

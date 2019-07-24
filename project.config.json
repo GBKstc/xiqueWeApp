@@ -12,6 +12,8 @@
 	"libVersion": "2.5.2",
 	"appid": "wxab4355d28417d914",
 	"projectname": "xiqueWeApp",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

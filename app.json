@@ -1,9 +1,5 @@
 {
   "pages": [
-
-   
-    
-   
     "pages/index/index",
     "pages/cardList/cardList",
     "pages/refund/refund",
@@ -18,7 +14,6 @@
     "pages/checkmodifyinfo/checkmodifyinfo",
     "pages/order/order",
     "pages/experience/experience",
-    
     "pages/select/select",
     "pages/chancenouse/chancenouse",
     "pages/chance/chance",
@@ -32,7 +27,6 @@
     "pages/time/time",
     "pages/success/success",
     "pages/cardDetail/cardDetail",
-    
     "pages/consumeDetail/consumeDetail"
   ],
   "permission": {
@@ -47,7 +41,7 @@
     "backgroundTextStyle": "light",
     "backgroundColor": "#999",
     "enablePullDownRefresh": false,
-    "onReachBottomDistance":50
+    "onReachBottomDistance": 50
   },
   "tabBar": {
     "color": "#333",
@@ -73,5 +67,6 @@
         "selectedIconPath": "image/myselected.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -160,9 +160,9 @@ Page({
   
   // },
   //点击确定
-  modifySuccess:function(){
-    var that=this
-    
+  modifySuccess:function(e){
+    console.log(e.detail.formId);
+    var that=this;
     if (that.data.appointmentId === that.data.customerId){//本人预约
         that.setData({
           type:0
@@ -185,7 +185,8 @@ Page({
           userId: that.data.userId,
           customerId: that.data.customerId,
           scheduleId: that.data.scheduleId,
-          timeFormat: that.data.timeFormat
+          timeFormat: that.data.timeFormat,
+          formId:e.detail.formId
         }
         // 打印预约请求参数
         console.log('预约请求参数')

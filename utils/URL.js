@@ -10,12 +10,14 @@ const requestAppid = function({URL,param = {}},succ,fail){
     success: function (res) {
       console.log("异步获取随机数",res.data);
       param.thirdSessionId = res.data;
+      // param.thirdSessionId = "504800e9-7d00-4488-b8bc-e57d12254c47";
       wx.request({
         url: getApp().url + URL,
         method: 'POST',
         data: param,
         header: { 'content-type': 'application/x-www-form-urlencoded' },
         success: function (res) {
+          wx.hideLoading();
           if (res.data.status === 200) {
             if (succ) {
               succ(res.data.data);
@@ -26,7 +28,7 @@ const requestAppid = function({URL,param = {}},succ,fail){
               fail(res.data.msg)
             }
           }
-          wx.hideLoading();
+          
         },
         fail: function (res) {
           wx.hideLoading();
@@ -47,7 +49,7 @@ const request = function ({ URL, param = {}, method="POST" }, succ) {
     mask: true
   })
   wx.request({
-    url: URL,
+    url: getApp().url + URL,
     method: method,
     data: param,
     header: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -73,6 +75,8 @@ const request = function ({ URL, param = {}, method="POST" }, succ) {
 
 //登录验证
 const checkLogin = "user/checkLogin";
+const loginOut = "user / loginOut";
+const checkWxLogin = "wxLogin/getWxPhoneNumber";
 const wxLogin = "wxLogin/login";
 //获取登录者信息
 const getCurrentUser = "user/getCurrentUser";
@@ -88,6 +92,7 @@ const getCustomerDiscountCodeList = "myDiscountCode/getCustomerDiscountCodeList"
 
 const raffle = "evaluteGift/raffle";//评价活动抽奖
 const userScheduleServiceSaveEvaluate = "userScheduleService/saveEvaluate";//提交评价
+const billConfirmBill = "bill/confirmBill";//提交订单（ERP结账）
 const customerDiscountCodeDetail = "myDiscountCode/customerDiscountCodeDetail";//顾客优惠码详情
 const buyDiscountCode = "buyDiscountCode/buy";//支付接口
 const cancelBuy = "buyDiscountCode/cancelBuy";//取消支付接口
@@ -128,12 +133,17 @@ const refundDetail = "myDiscountCode/refundDetail";//优惠码领取
 const applyRefund = "myDiscountCode/applyRefund";//优惠码退款
 const myInfo = "user/myInfo";//我的信息
 
+const storeDetail = "user/getStoreDetail";//获取门店详情
+
 module.exports = {
   request,
   requestAppid,
 
 
-  checkLogin,
+  checkLogin, 
+  loginOut,
+  checkWxLogin,
+  wxLogin,
   myInfo,
   getCurrentUser,
   updateAppointment,
@@ -150,6 +160,7 @@ module.exports = {
   getQRcode,
   getUserScheduleServiceList,
   userScheduleServiceSaveEvaluate,
+  billConfirmBill,
   getVoiceVerificationCode,
 
   //订单详情接口
@@ -178,5 +189,7 @@ module.exports = {
   //优惠券退款详情
   refundDetail,
   //优惠券申请
-  applyRefund
+  applyRefund,
+
+  storeDetail
 }

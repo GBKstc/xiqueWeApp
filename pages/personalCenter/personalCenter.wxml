@@ -1,35 +1,32 @@
 <view class='box'>
 <view class='headerBox'>
-  <view class='headerPerson'>
+  <view class='headerPerson' data-url='../personDetail/personDetail' bindtap='select'>
     <view class='personHead'>
       <view class="personHeadData">
         <open-data  type="userAvatarUrl"></open-data>
       </view>
     </view>
     <view class='personName'>
-      <view class='personNameText' bindtap='tologin' wx:if='{{isLogin}}'>
-        <view>请登录</view>
-        <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+      <view class='personNameText'>
+        <view><open-data  type="userNickName"></open-data></view>
+        <!-- <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image> -->
       </view>
-      <view class='personNameText' wx:else>
-        <view>{{maxname?maxname:customInfo.name}}</view>
-        <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
-      </view>
-      <view class='personTime'>这是你使用喜鹊来了的第389天</view>
+      <view class='personTime' wx:if="{{useDays&&!isLogin}}">这是您来到静博士的第{{useDays}}天</view>
     </view>
   </view>
   <view class='serviceContent'>
     <view class='contentBox' data-url='../order/order' bindtap='select'>
       <view class='contentLogo'>
         <image mode='aspectFit' src='{{imgUrl}}/Icon_yyjl@3x.png'></image>
-        <view class='hint'>2个待服务</view>
+        <view wx:if="{{waitScheduleService&&!isLogin}}" class='hint'>{{waitScheduleService}}个待服务</view>
       </view>
       <view class='contentTitle' >预约记录</view>
     </view>
     <view class='contentBox' data-url='../orderFinish/orderFinish' bindtap='select'>
-      <view class='contentLogo' bindtap="toOrder">
+      <view class='contentLogo'>
         <image mode='aspectFit' src='{{imgUrl}}/Icon_lszd@3x.png'></image>
-        <view class='hint'>5个抽奖机会</view>
+        <view wx:if="{{waitEvaluateGiftCount&&!isLogin}}" class='hint'>{{waitEvaluateGiftCount}}个抽奖机会</view>
+        <view wx:if="{{waitEvaluateCount&&!isLogin}}" class='hint'>{{waitEvaluateCount}}个待评价</view>
       </view>
       <view class='contentTitle'>历史账单</view>
     </view>
@@ -43,13 +40,13 @@
 </view>
 
 <view class='operation'>
-  <view class='operationLine' bindtap='select' data-url='../orderDetail/orderDetail'>
+  <view class='operationLine' bindtap='select' data-url='../orderDetail/orderDetail?status=0&serviceId={{confirmServiceId||""}}'>
     <view class='operationLineLeft'>
       <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_xfqr@3x.png'></image></view>
       <view class='lineLeftText'>消费确认</view>
     </view>
     <view class='operationLineRight'>
-      <view class='lineRightText'>待确认</view>
+      <view wx:if="{{confirmServiceId}}" class='lineRightText'>待确认</view>
       <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
     </view>
   </view>
@@ -89,6 +86,8 @@
   <text class='companyName'>喜鹊喜报</text>
   <text class='footContent'>提供技术支持</text>
 </view>
+
+ <!-- <view class='signOut' catchtap='signOut'>退出</view> -->
 
 
 <!-- 头像及姓名电话 -->
@@ -183,10 +182,10 @@
     <view class="cancel_toast_content">  
       <view class="cancel_toast_content-text">
         <view class="cancel_toast_content_text1">提示</view>
-        <view class="cancel_toast_content_text2">确定要退出登录么？</view>  
+        <view class="cancel_toast_content_text2">确定要切换手机号么？</view>  
       </view>
       <view class='cancel_toast_content_button'>
-        <text class='cancel_toast_content_button1' bindtap='signOutFail'>取消</text><text bindtap='signOutSuccess' class='cancel_toast_content_button2'>退出登录</text>
+        <text class='cancel_toast_content_button1' bindtap='signOutFail'>取消</text><text bindtap='signOutSuccess' class='cancel_toast_content_button2'>确定</text>
     </view>
     </view> 
      

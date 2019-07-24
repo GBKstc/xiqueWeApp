@@ -176,8 +176,6 @@ Page({
         secret: secret
       }
     }
-    // console.log('获取随机数的参数')
-    // console.log(sendData)
     wx.request({
       url: getApp().url + 'wxLogin/login',
       data: sendData,
@@ -191,29 +189,14 @@ Page({
             data: res.data.data.thirdSessionId,
             success: function () {
              console.log('保存随机数成功，开始调用回调函数')
-             if(cb){
-               cb(param)
-             }
-             // that.loadFirst(res.data.data.thirdSessionId)//调用原index里的函数,传入随机数
+             if(cb){cb(param)}
             },
-            fail: function () {
-              // console.log('保存随机数失败')
-            }
+            fail: function () {}
           })
 
-        } else if (res.data.status == 400) {
-          // console.log('调用随机数借口400')
-          // var msg = res.data.msg
-          // //验证签名失败
-          // wx.showToast({
-          //   title: 'login' + msg,
-          //   duration: 2000
-          // })
-        }
+        } else if (res.data.status == 400) {}
       },
-      fail: function () {
-        // console.log('调用随机数借口fail')
-      }
+      fail: function () {}
     });
   },
 
@@ -273,7 +256,6 @@ Page({
       id: detail.id,
       times: 1
     }
-    console.log(getApp());
     isLogin(function(){
       //验证卡等级
       requestAppid({
@@ -336,11 +318,6 @@ Page({
       wx.navigateTo({
         url: '../two_demision/two_demision?eventName=' + detail.eventName + '&id=' + id,
       })
-      // getApp().getAccessToken(
-      //   function (data) {
-         
-      //   }
-      // );
     });
     
     
@@ -352,16 +329,10 @@ Page({
       URL: getBuyDiscountCodeEventDetail,
       param,
     }, function (data) {
-      
       //处理图片
       data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item +"?x-oss-process=image/resize,w_1000") : [];
       data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item + "?x-oss-process=image/resize,w_1000") : [];
-      console.log(data.carouselImgUrl);
-
-      // data.carouselImgUrl = data.carouselImgUrl ? data.carouselImgUrl.split(",").map((item) => item) : [];
-      // data.goodsDetailImgUrl = data.goodsDetailImgUrl ? data.goodsDetailImgUrl.split(",").map((item) => item) : [];
-      // console.log(data.carouselImgUrl);
-      
+        
       data.detailList = getDetailList(data);
       
       if (data.usableStoreList && data.usableStoreList.length>0){
@@ -370,9 +341,12 @@ Page({
           i.distanceK = ((i.distance - 0) / 1000);
         }
       }
+
+      if (!isEmpty(data.goodsDetail)){
+        data.goodsDetail = data.goodsDetail.split("&");
+      }
       that.setData({
         detail: data,
-        //isShowRegret:false
       })
     },function(msg){
       that.setData({

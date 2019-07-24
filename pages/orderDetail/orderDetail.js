@@ -12,6 +12,7 @@ const {
   requestAppid,
   raffle,
   userScheduleServiceSaveEvaluate,
+  billConfirmBill,
 } = URL;
 const { 
   isEmpty,
@@ -28,8 +29,9 @@ Page({
     status:1,
     isArray:false,//手艺人，默认是1或3的状态
     isAnonymous:false,//匿名评价
+    evaluateContent:"",//评价内容
     cancelDisabled:true,//'取消预约'按钮默认禁用
-    nScore:1,//评分，就是五角星的个数，点击操作之后得到的
+    nScore:0,//评分，就是五角星的个数，点击操作之后得到的
     serviceCode:0,//服务单号
     serviceId: 0,//服务单id
     scheduleServiceId: '',//排版定单id,这个是订单页面传过来的，在本页面初始化时要用和换时间时要传到核对修改信息页面
@@ -54,28 +56,48 @@ Page({
 
     //确认订单模态框
     // modalBottom: "-100%",
-    showShadow: false
+    showShadow: false,
+
+
+    //选中的订单模块
+    selectModuleList:[true]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //关闭分享
+    wx.hideShareMenu();
     console.log('orderDetail', options)
     const that=this
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
-    let status = options.status || 2;//记录1，2还是3
-    let scheduleServiceId = options.scheduleServiceId || 2699040;//排班订单服务id
+    let status = options.status;//记录1，2还是3
+    let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
+    let serviceId = options.serviceId;//服务单服务id 小程序结账
     let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId:"";
-    console.log('服务订单' , scheduleServiceId)
+    let url = "";//请求接口 订单（erp小程序结账）请求getServiceDetailBySid 服务单请求getServiceDetail
     that.setData({
       status: status,
       scheduleServiceId: scheduleServiceId,
+      serviceId: serviceId,
       evaluateGiftId,
     })
+    //如果scheduleServiceId为空 不获取数据
+    if (!(scheduleServiceId || serviceId)){
+      return false;
+    }
+
+    if (scheduleServiceId) {
+      url = "getServiceDetail"
+    }
+    if (serviceId) {
+      url = "getServiceDetailBySid"
+    }
+
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
@@ -83,7 +105,8 @@ Page({
         var sendData={
           thirdSessionId: res.data,
           status: status,
-          scheduleServiceId: scheduleServiceId 
+          scheduleServiceId: scheduleServiceId || "" ,
+          serviceId: serviceId || "" 
         }
         if (evaluateGiftId){
           sendData.evaluateGiftId = evaluateGiftId;
@@ -91,7 +114,7 @@ Page({
         console.log('订单详情初始化参数')
         console.log(sendData)
         wx.request({
-          url: getApp().url + 'userScheduleService/getServiceDetail',
+          url: getApp().url + 'userScheduleService/'+url,
           method: 'POST',
           data: sendData ,
           header: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -106,7 +129,7 @@ Page({
                 now = new Date(recordData.orderStartTime);
                 now2 = new Date(recordData.orderEndTime + 60000);
                 timeDuan = (recordData.orderEndTime + 60000 - recordData.orderStartTime) / 1000 / 3600
-                recordData.timeDuan = timeDuan
+                recordData.timeDuan = timeDuan.toFixed(2);
               //求2017-10-30和11:59
               Y = now.getFullYear() ;
               M = (now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1) ;
@@ -146,13 +169,13 @@ Page({
               for(let i=0;i<5;i++){
                 list[i] = (i <= recordData.evaluateScore);
               }
-              switch (recordData.evaluateScore) {
-                case 1: recordData.evaluateScore = [1]; break
-                case 2: recordData.evaluateScore = [1, 2]; break
-                case 3: recordData.evaluateScore = [1, 2, 3]; break
-                case 4: recordData.evaluateScore = [1, 2, 3, 4]; break
-                case 5: recordData.evaluateScore = [1, 2, 3, 4, 5]; break
-              }
+              // switch (recordData.evaluateScore) {
+              //   case 1: starList = [true,false,false,false,false]; break
+              //   case 2: starList = [true, true, false, false, false]; break
+              //   case 3: starList = [true, true, true, false, false]; break
+              //   case 4: starList = [true, true, true, true, false]; break
+              //   case 5: starList = [true, true, true, true, true]; break
+              // }
               if (recordData.customerName.length>4){//如果预约人姓名大于四个，增加一个属性，否则不加
                 recordData.maxname = recordData.customerName.substr(0,4)
               }
@@ -167,12 +190,16 @@ Page({
                 timeFormat: recordData.timeFormat,
                 customerId: recordData.customerId,
                 isShowChangeTime: recordData.showChangeTime,
+                status: recordData.serviceStatus,
                 
                 day:Y+'-'+M+'-'+D,
                 cancelDisabled:false//解禁取消预约
               })
               //获取订单详情
-              that.getOrderDetail(recordData.serviceId);
+              if (recordData.serviceId){
+                that.getOrderDetail(recordData.serviceId);
+              }
+              
               //初始化bg的值，即评价标签的状态，同时初始化arrObj这个数组对象
               var arrOrigin = recordData.evaluateLableList//未评价时所有的标签列表
               if (arrOrigin) {//未评价
@@ -424,6 +451,13 @@ Page({
     }
     this.setData({ starList: list, starText: objList[index]});
   },
+  //更改评价内容
+  changeEvaluateContent:function(e){
+    const that = this;
+    that.setData({
+      evaluateContent: e.detail.value
+    })
+  },
   //点击评价标签
   handleBg:function(e){
     var target = e.currentTarget.dataset.str//获取当前对象
@@ -482,21 +516,27 @@ Page({
       })
   },
   //提交评价
-  submitEvevate:function(){
-    var that=this
-    const { evaluateGiftId, starList } = that.data;
+  submitEvevate:function(e){
+    // console.log(e.detail.formId)
+    var that=this;
+    const { evaluateGiftId, starList, status } = that.data;
     let starNum = 0;
     // 获取五角星的个数
+    
     for(let item of starList){
       if(item){
         starNum++
       }else{
         break;
       }
+    };
+    if (starNum==0) {
+      that.openToast("评价分数不能为空", 2000)
+      return false;
     }
-    this.setData({
-      nScore: starNum
-    })
+    // this.setData({
+    //   nScore: starNum
+    // });
     //是否匿名转换成y或n
     var isAnonymous=""
     if (this.data.isAnonymous){
@@ -506,7 +546,6 @@ Page({
     }
     //获取门店标签id与手艺人标签id
     var arrObj=that.data.arrObj
-    console.log(arrObj)
     var departLabels =[]
     var beauticianLabels = []
     var departLabelsString = ''
@@ -527,104 +566,118 @@ Page({
     
     //提交评价
     console.log({
+      serviceId: that.data.serviceId,//服务单id
+      evaluateScore: starNum,//评分
+      departLabels: departLabelsString,
+      beauticianLabels: beauticianLabelsString,
+      isAnonymous: isAnonymous,
+      evaluateContent: that.data.evaluateContent,//评价详情
+      formId: e.detail.formId
+    });
+    that.closeModal();
+    let url;
+    if(status==0){
+      url = billConfirmBill;
+    }else{
+      url = userScheduleServiceSaveEvaluate;
+    }
+    requestAppid({
+      URL: url,
+      param: {
         serviceId: that.data.serviceId,//服务单id
-        evaluateScore: that.data.nScore,//评分
+        evaluateScore: starNum,//评分
         departLabels: departLabelsString,
         beauticianLabels: beauticianLabelsString,
-        isAnonymous: isAnonymous
-      });
-      
-    that.closeModal();
-    wx.redirectTo({
-      url: '../success/success?successText=消费确认成功&toPag=index&content=消费确认成功,请预约下次护理哦~&buttonText=立即预约',
-    })
-    // requestAppid({
-    //   URL: userScheduleServiceSaveEvaluate,
-    //   param: {
-    //     serviceId: that.data.serviceId,//服务单id
-    //     evaluateScore: that.data.nScore,//评分
-    //     departLabels: departLabelsString,
-    //     beauticianLabels: beauticianLabelsString,
-    //     isAnonymous: isAnonymous
-    //   }
-    // }, function (data) {
-    //   //如果有活动ID 说明可以抽奖
-    //   if (evaluateGiftId) {
-    //     that.lottery()
-    //   } else {
-    //     //页面跳转成功后，设置上个页面值
-    //     var pages = getCurrentPages();
-    //     var prevPage = pages[pages.length - 2]//上一个页面
-    //     //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-    //     prevPage.setData({
-    //       status: 2
-    //     })
-    //     console.log('提交成功')
-    //     wx.navigateBack({
-    //       delta: 1,
-    //       // url: '../order/order',
-    //       success: function () {
+        isAnonymous: isAnonymous,
+        evaluateContent: that.data.evaluateContent,//评价详情
+        formId: e.detail.formId
+      }
+    }, function (data) {
+      //如果有活动ID 说明可以抽奖
+      if (evaluateGiftId) {
+        that.lottery()
+      } else if (status==0){ //erp小程序结账
+        wx.redirectTo({
+          url: '../success/success?successText=消费确认成功&toPag=index&content=消费确认成功,请预约下次护理哦~&buttonText=立即预约',
+        })
+      }else {
+        //页面跳转成功后，设置上个页面值
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2]//上一个页面
+        //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+        prevPage.setData({
+          status: 2
+        })
+        console.log('提交成功')
+        wx.navigateBack({
+          delta: 1,
+          // url: '../order/order',
+          success: function () {
 
-    //       }
-    //     })
-    //   }
+          }
+        })
+      }
       
-    //   common.status(res, that)//状态401和402
-    // }, function (msg) {
-    //   //设置toast时间，toast内容  
-    //   that.setData({
-    //     count: 2000,
-    //     toastText: msg
-    //   });
-    //   that.showToast();
-    // })
+      // common.status(res, that)//状态401和402
+    }, function (msg) {
+      //设置toast时间，toast内容
+      that.openToast(msg);
+      // that.setData({
+      //   count: 2000,
+      //   toastText: msg
+      // });
+      // that.showToast();
+    })
   },
   //取消预约
-  showModal:function(){
-    var that=this
-    console.log('ddddddddd' + that.data.scheduleServiceId)
+  showModal:function(e){
+    const that=this;
     that.setData({
-      cancelMask:true//显示模态框
+      cancelMask:true,//显示模态框
+      formId: e.detail.formId,
     })
   },
   // 取消预约确定
   cancelSuccess:function(){
-    var that=this
+    var that=this;
+    const { formId} = that.data;
     that.setData({
       cancelMask:false
     })
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        console.log('发送取消预约参数')
-        console.log(res.data + ',' + that.data.scheduleServiceId)
         wx.request({
           url: getApp().url + 'schedule/cancelOrder',
           method: 'POST',
           data: {
             thirdSessionId: res.data,
-            scheduleServiceId: that.data.scheduleServiceId//排班订单id
+            scheduleServiceId: that.data.scheduleServiceId,//排班订单id
+            formId: formId
           },
           header:{ 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
             console.log('success响应数据')
             console.log(res.data)
-            //页面跳转成功后，设置上个页面值
-            var pages = getCurrentPages();
-            var prevPage = pages[pages.length - 2]//上一个页面
-            //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-            prevPage.setData({
-              status: 3
-            })
+            // //页面跳转成功后，设置上个页面值
+            // var pages = getCurrentPages();
+            // var prevPage = pages[pages.length - 2]//上一个页面
+            // //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+            // prevPage.setData({
+            //   status: 3
+            // })
             if (res.data.status === 200) {
               //页面跳转到订单列表页面
-              wx.navigateBack({
-                delta: 1,
-                // url: '../order/order',
-                success: function () {
-
-                }
+              wx.redirectTo({
+                url: '../order/order?status=3',
               })
+              // wx.navigateBack({
+              //   delta: 1,
+              //   // url: '../order/order',
+              //   success: function () {
+
+              //   }
+              // })
             } else if (res.data.status === 400) {
               console.log(400)
               var msg = res.data.msg
@@ -686,6 +739,16 @@ Page({
       showShadow: false,
     })
   },
+  //消息提醒
+  openToast: function (toastText,time){
+    const that = this;
+    //设置toast时间，toast内容  
+    that.setData({
+      count: time||2000,
+      toastText: toastText
+    });
+    that.showToast();
+  },
   //显示自定义提示框
   showToast: function () {
     var _this = this;
@@ -714,7 +777,7 @@ Page({
         return ;
       }
       console.log(data, key)
-      const Data = {};
+      const Data = { showConsumeTitle:true};
       Data[key] = data;
       that.setData({
         ...Data
@@ -740,11 +803,19 @@ Page({
     for(let key of getKeyList){
       that.getData(key, serviceId);
     }
-
-
   },
 
-  //保留两位
+  changeModule:function(e){
+    console.log(e.target.dataset.index);
+    const selectModuleList = [];
+    for (let i = 0; i < e.target.dataset.index; i++) {
+      selectModuleList[i] = false;
+    }
+    selectModuleList[e.target.dataset.index] = true;
+    this.setData({
+      selectModuleList
+    })
+  },
   
   goToIndex(){
     wx.switchTab({
@@ -756,7 +827,5 @@ Page({
         console.log(e)
       }
     })
-  }
-  
-
+  },
 })

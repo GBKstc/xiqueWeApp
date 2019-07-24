@@ -75,9 +75,8 @@
 }
 .detailsText{
   color: #333333;
-  line-height: 48rpx;
+  line-height: 60rpx;
   font-size:32rpx;
-  text-indent:64rpx;
 }
 .imgList{
   width: 100%;

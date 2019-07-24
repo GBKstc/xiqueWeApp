@@ -48,7 +48,7 @@ const formatNumber = n => {
   * 检查是否登录
   *
   **/
-const isLogin = function(suc){
+const isLogin = function(suc,fail,error){
   //检查是否登录,登录返回登录信息 
   requestAppid({ 
     URL:checkLogin,  
@@ -61,10 +61,15 @@ const isLogin = function(suc){
         suc()
       }
     }else{
-      //未登录
-      wx.navigateTo({
-        url: '../login/login',
-      })
+      if (fail){
+        fail()
+      }else{
+        //未登录
+        wx.navigateTo({
+          url: '../login/login',
+        })
+      }
+      
     }
     
   },function(){

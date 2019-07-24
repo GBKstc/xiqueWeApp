@@ -35,10 +35,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const that = this;
     wx.showLoading({
       title: '加载中',
       mask: true
     })
+    if (options.status){
+      that.setData({
+        status: options.status
+      })
+    }
     // console.log('触发了order的onLoad')
   },
   /**
@@ -52,18 +58,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var that = this
-    console.log('订单页面的status')
-    console.log(this.data.status)
-    var pages = getCurrentPages()
-    var currPage = pages[pages.length - 1]//当前页面
-    console.log('订单页面获取上个页面的status')
-    console.log(currPage.data.status)
-    console.log(currPage.data)
-    var newStatus = parseInt(currPage.data.status)//取出上个页面传来的值，如果上个页面没有传，就是本页数据
-    that.setData({//重新设置一下
-      status: newStatus
-    })
+    const that = this;
+    // console.log('订单页面的status')
+    // console.log(this.data.status)
+    // var pages = getCurrentPages()
+    // var currPage = pages[pages.length - 1]//当前页面
+    // console.log('订单页面获取上个页面的status')
+    // console.log(currPage.data.status)
+    // console.log(currPage.data)
+    // var newStatus = parseInt(currPage.data.status)//取出上个页面传来的值，如果上个页面没有传，就是本页数据
+    // that.setData({//重新设置一下
+    //   status: newStatus
+    // })
     
     // 初始化页面
     wx.getStorage({//异步获取随机数
@@ -392,6 +398,7 @@ Page({
               //更新数据
               that.setData({
                 totalPages: res.data.data.totalPages,
+                pageNo:1,
                 listData: arr
               })
             } else if (res.data.status === 400) {//失败

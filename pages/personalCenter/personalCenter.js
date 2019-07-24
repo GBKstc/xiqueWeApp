@@ -2,6 +2,7 @@
 var common = require('../../utils/commonConfirm.js');
 let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
+const app = getApp();
 const config = require('../../utils/config');
 const { myInfo, requestAppid, request, wxLogin } = URL;
 const { isEmpty } = util;
@@ -13,10 +14,8 @@ Page({
    */
   data: {
     imgUrl: imgUrl,
-
-
     // random: wx.getStorageSync(getApp().globalData.appid),
-    isLogin: true,
+    isLogin: true, //true 代表未登录
     avatarUrl: '../../image/login.png',
     maxname: "",//姓名截取之后的值
     customInfo: {
@@ -35,7 +34,89 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
+  onLoad: function (options) {
+    const that = this;
+    that.getTelephone();
+
+    this.setData({
+      showOrder: true
+    })
+    
+    // app.globalData.showOrder = true;
+    //如果是二维码,且sence有form=code 判断登录 如果已经登录 去消费确认 如果没登录去登录页面 
+    if (options && options.scene) {
+
+      let scene = decodeURIComponent(options.scene);
+      let arr = scene.split('&');
+      let length = arr.length;
+      let res = {};
+      for (var i = 0; i < length; i++) {
+        res[arr[i].split('=')[0]] = arr[i].split('=')[1];
+      }
+      if(res.from = "code"){
+        this.setData({
+          showOrder:true
+        })
+        app.globalData.showOrder = true;
+      }      
+    }
+
+  },
+
+  
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+ 
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    var that = this;
+    that.checkLogin();
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    setTimeout(function () {
+      wx.stopPullDownRefresh();
+    }, 1000)
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {},
+
+  /**
+   * 用户点击右上角分享
+   */
+  // onShareAppMessage:function () {
+
+  // },
+
+  getTelephone(){
     var that = this;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
@@ -84,29 +165,11 @@ Page({
     })
   },
 
-  
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
- 
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    if (!isEmpty(getApp().globalData.loginInfo)) {
-      this.getMyInfo();
-    }
+  checkLogin(){
     var that = this;
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        console.log('个人中心获取到随机数为')
-        console.log(res.data)
         //检查是否登录,登录返回登录信息 
         wx.request({
           url: getApp().url + 'user/checkLogin',
@@ -116,12 +179,18 @@ Page({
           method: 'POST',
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            // console.log(res)
             var obj = {};
             if (res.data.status === 200) {
+              // console.log(that.data.showOrder);
+              // console.log(app);
+              // if (!that.data.isLogin) {//登录了 获取用户服务单后 去服务单详情
 
+              // } else {//没登录 设置app.globalData.showOrder = true; 去登录页面然后返回本页面 获取用户服务单后 去服务单详情
+              // }
               if (res.data.data.login) {//登录了
                 console.log('登录了')
+                //如果有登陆 获取登陆信息
+                that.getMyInfo();
                 var name = res.data.data.name
                 var mobile = res.data.data.mobile
                 var customId = res.data.data.id
@@ -142,7 +211,12 @@ Page({
                   }
                 })
               } else if (!res.data.data.login) {//没登录
-                console.log('没登录')
+
+                if (app.globalData.showOrder==true){//如果showOrder为true 就去登录页面让登录后回来获取订单详情
+                  that.tologin();
+                  app.globalData.showOrder = false;
+                  return ;
+                }
                 that.setData({
                   isLogin: true//隐藏姓名和手机号
                 })
@@ -175,51 +249,12 @@ Page({
         console.log('个人中心获取随机数失败')
       }
     })
-
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    setTimeout(function () {
-      wx.stopPullDownRefresh();
-    }, 1000)
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {},
-
-  /**
-   * 用户点击右上角分享
-   */
-  // onShareAppMessage:function () {
-
-  // },
 
   getPhoneNumber(e) {
-      console.log(e);
-      console.log(e.detail.iv);
-      console.log(e.detail.encryptedData);
     wx.checkSession({
       success() {
-        console.log("还在登录")
+        // console.log("还在登录")
         //session_key 未过期，并且在本生命周期一直有效
         //直接调用登录接口
       },
@@ -254,18 +289,31 @@ Page({
     })
   },
 
- getMyInfo() {
+  getMyInfo() {
     const that = this;
     requestAppid({
       URL: myInfo,
     }, function (res) {
-      console.log(res);
       that.setData({
-        flag: res.flag || "",
-        isWeixinShowCardInfo: res.isWeixinShowCardInfo||"",
+        isWeixinShowCardInfo: res.isWeixinShowCardInfo || "",
+        confirmServiceId: res.confirmServiceId, //待服务单id
+        waitScheduleService: res.waitScheduleService, //待服务单个数
+        waitEvaluateGiftCount: res.waitEvaluateGiftCount,//待抽奖
+        waitEvaluateCount: res.waitEvaluateCount,//待评价服务单数
+        useDays: res.useDays,//使用喜报天数
       })
+
+      if(app.globalData.showOrder==true){
+        wx.navigateTo({
+          url: "../orderDetail/orderDetail?status=0&serviceId=" + (res.confirmServiceId||""),
+          success: function () {
+          }
+        })
+        app.globalData.showOrder=false;
+      }
     })
   },
+
   //点击登录
   tologin: function () {
     wx.navigateTo({
@@ -306,7 +354,7 @@ Page({
       fail: function () {}
     })
   },
-  //查看严选券
+  
   select: function (e) {
     console.log(e.currentTarget.dataset.url);
     const goToUrl = e.currentTarget.dataset.url;
@@ -321,12 +369,14 @@ Page({
         }
       })
     } else {//没登录
+
+      that.tologin();
       //设置toast时间，toast内容  
-      that.setData({
-        count: 2000,
-        toastText: '请先登录'
-      });
-      that.showToast();
+      // that.setData({
+      //   count: 2000,
+      //   toastText: '请先登录'
+      // });
+      // that.showToast();
     }
     
   },

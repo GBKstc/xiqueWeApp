@@ -5,7 +5,7 @@
         <view class='nameTpl'>
           <text class='name2Tpl'>{{username}}</text>
           <view class='rightBox'>
-            <view class='infoText'>今日已预约满</view>
+            <view wx:if="{{isFull=='y'}}" class='infoText'>今日已预约满</view>
             <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
         </view>

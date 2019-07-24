@@ -13,16 +13,19 @@
       <view class='itemHeader'>
         <view class='storeName'>
           <view>{{item.name}}</view>
-          <view class='offenLogo'>常去</view>
+          <view wx:if="{{item.offten}}" class='offenLogo'>常去</view>
         </view>
-        <view class='share' >
-          <image mode='aspectFit' src='../../image/icon_mddh_share@3x.png'></image>
-          <button class='shareText' catchtap='shareFun' data-id="shareBtn" open-type="share" plain="true">分享</button>
+        <view class='shareBox'>
+          <button style='padding:0;' class='share'  catchtap='shareFun' data-name="{{item.name}}" data-id="{{item.id}}" open-type="share" plain="true">
+            <image mode='aspectFit' src='../../image/icon_mddh_share@3x.png'></image>
+            <view class='shareText'>分享</view>
+          </button>
         </view>
+        
       </view>
       <view class='address'>{{item.address}}</view>
       <view class='buttonBox'>
-        <view class='button' catchtap='makePhoneCall'>
+        <view class='button' catchtap='makePhoneCall' data-phone="{{item.phone}}">
           <image mode='aspectFit' src='../../image/icon_fxmd_phone@3x.png'></image>
           <view class='buttonText'>联系门店</view>
         </view>

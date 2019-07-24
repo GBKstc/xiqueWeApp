@@ -29,7 +29,7 @@
         <view class='item' style='margin-top:0' bindtap='toStore'>
           <view class="labelText" >门店</view>
           <view class='indexInput' style='position:relative' wx:if="{{startData}}">
-            <view>{{startData.department_name}}</view>
+            <view style='color: #FD9595;'>{{startData.department_name}}</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class='indexInputx' style='position:relative' wx:else>
@@ -40,7 +40,7 @@
         <view class='item people' bindtap='toPeople'>
           <view class="labelText">手艺人</view>
           <view class="indexInput"  wx:if="{{near}}">
-          <view>五星手艺人</view>
+          <view style='color: #FD9595;'>五星手艺人</view>
           <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class="indexInput" wx:elif="{{startData}}">
@@ -59,14 +59,18 @@
           </view>
         </view>
         <view class='item timeBox' bindtap='toTime'>
-          <view class="labelText">时间</view>
-          <view class="indexInput" wx:if="{{startData}}">
-            <text class='date'>{{startData.date}}</text><text class='week' wx:if="{{startData.week}}">({{startData.week}})</text><text class='hour'>{{startData.startTime}}</text><text class='noon' wx:if="{{startData.noon}}">({{startData.noon}})</text>
-          </view>
-          <view class="indexInputx" wx:else style="color:#FD9595;">
-            <view>请选择</view>
+          <view class="labelText fontSize16">时间</view>
+          <view class='spaceBox'>
+            <view class="indexInput" wx:if="{{startData}}">
+              <text class='date fontSize24'>{{startData.date}}</text><text class='week fontSize16' wx:if="{{startData.week}}">({{startData.week}})</text><text class='hour fontSize24'>{{startData.startTime}}</text><text class='noon fontSize16' wx:if="{{startData.noon}}">({{startData.noon}})</text>
+            </view>
+            <view class="indexInputx" wx:else style="color:#FD9595;">
+              <view>请选择</view>
+              <!-- <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image> -->
+            </view> 
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
-          </view> 
+          </view>
+          
         </view>
         <!-- button按钮 -->
         <view class="yueButton">

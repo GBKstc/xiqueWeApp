@@ -292,6 +292,8 @@ Page({
         }
       })
      
+    }else{
+      
     }
   },
 
@@ -431,7 +433,7 @@ Page({
   },
 
   goToIndex(){
-    wx.navigateTo({
+    wx.switchTab({
       url: "../../index/index",
       success: function () {
       }

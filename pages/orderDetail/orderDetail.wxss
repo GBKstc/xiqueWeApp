@@ -3,7 +3,7 @@
 .box{
   width: 750rpx;
   background-color: white;
-  padding-bottom: 136rpx;
+  padding-bottom: 34rpx;
 }
 /* 头部 */
 .box .header{
@@ -11,6 +11,7 @@
   height: 268rpx;
   background: #FD9595;
   padding: 0 40rpx;
+  margin-bottom: 102rpx;
 }
 .box .headerLeft{
   padding-top: 82rpx;
@@ -45,8 +46,8 @@
   height: 116rpx;
 }
 .nativigation .nativigationBox{
-  padding: 46rpx 32rpx 0 32rpx;
-  margin-bottom:34rpx;
+  padding: 46rpx 32rpx 34rpx 32rpx;
+  /* margin-bottom:34rpx; */
 }
 .nativigationBox .selectNat{
   font-family: PingFangSC-Medium;
@@ -67,6 +68,9 @@
 .consumeDetailList{
   margin: 0 auto 102rpx;
   padding: 0 40rpx;
+}
+.consumeDetailList .kong{
+  height: 40rpx;
 }
 .consumeDetailList .consumeDetail{
   background: #FFFFFF;
@@ -143,7 +147,7 @@
 }
 /* 服务信息 */
 .serviceInfo{
-  
+  margin: 0 auto 104rpx;
 }
 .serviceInfo .serviceTitle{
   text-align: center;
@@ -179,6 +183,10 @@
 .contentRight .rightLine{
   height: 32rpx;
   margin-bottom: 16rpx;
+}
+.rightLine .changeTime{
+  margin-left: 10rpx;
+  color: #FD9595;
 }
 .rightLine .rightLineTitle{
   color: #333333;
@@ -276,6 +284,10 @@
   height: 104rpx;
   line-height: 104rpx;
   text-align: center;
+  padding: 0;
+  border-radius: 0;
+  background-color: #FD9595;
+  /* border: 1px solid #FD9595; */
   /* opacity: 0.6; */
 }
 
@@ -381,6 +393,39 @@
 }
 
 
+/* 
+
+  评价模块非浮动
+
+ */
+.evaluateBox{
+  height: 100%;
+  width: 100%;
+  margin-bottom: 104rpx;
+  /* background:rgba(0,0,0,0.5); */
+}
+.evaluateBox .evaluateBox1{
+  margin: 0 auto;
+  width: 670rpx;
+  background: #FFFFFF;
+  /* box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50); */
+  /* border-radius: 8rpx; */
+}
+
+.evaluateBox1 .shadowTitle{
+  margin: 40rpx auto 0;
+  width: 590rpx;
+}
+.evaluateBox1 .anonymity{
+  color: #666666;
+}
+.evaluateBox1 .radioBox{
+  transform:scale(0.7,0.7);
+}
+.evaluateBox1 .modalButton{
+  width: 590rpx;
+  margin: 48rpx auto 0;
+}
 
 /*
   浮动框
@@ -433,4 +478,21 @@
   font-size: 32rpx;
   color:rgba(255,255,255,1);
   margin-bottom:30rpx;
+}
+
+
+/* 空页面样式 */
+.kongBox{
+  width: 100%;
+}
+.kongBox .infoText{
+  padding-top: 40rpx;
+  text-align: center;
+  color: #888888;
+}
+.kongBox image{
+  display: block;
+  width: 354rpx;
+  height: 238rpx;
+  margin: 306rpx auto 0;
 }

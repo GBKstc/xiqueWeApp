@@ -1,4 +1,5 @@
 @import "../../utils/commonConfirm.wxss";
+@import "../../utils/commonWxss/common.wxss";
 .tabTop{
   position:fixed;
   top:0;
@@ -36,11 +37,11 @@
 .list{
   width:710rpx;
   padding: 100rpx 20rpx 0 20rpx;
-  position: fixed;
+  /* position: fixed; */
   height: 100%;
   overflow: auto;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
 }
 .noOrder{
   width: 354rpx;
@@ -64,9 +65,9 @@
   box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
   border-radius: 16rpx;
 }
-.listItem:nth-last-child(1){
+/* .listItem:nth-last-child(1){
   margin: 14rpx auto 132rpx;
-}
+} */
 .up .date{
   color:#333;
   font-size:40rpx;
@@ -126,6 +127,20 @@
   text-align: center;
 
 }
+.down .infoText2{
+  width: 108rpx;
+  height: 48rpx;
+  border: 1rpx solid #B8B8B8;
+  border-radius: 4rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #B8B8B8;
+  letter-spacing: 0.12rpx;
+  line-height: 48rpx;
+  text-align: center;
+
+}
 
 .evaluate{
   width:120rpx;
@@ -155,4 +170,9 @@
   line-height: 94rpx;
   color: #FFFFFF;
   text-align: center;
+}
+.footer{
+  text-align: center;
+  padding:17rpx 0 34rpx 0;
+  color: #666666;
 }

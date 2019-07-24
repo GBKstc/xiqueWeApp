@@ -1,6 +1,13 @@
 // pages/storeDetail/storeDetail.js
 const config = require('../../utils/config');
 const { imgUrl } = config;
+const util = require('../../utils/util');
+const URL = require('../../utils/URL');
+
+const {
+  requestAppid,
+  storeDetail
+} = URL;
 Page({
 
   /**
@@ -8,13 +15,17 @@ Page({
    */
   data: {
     imgUrl: imgUrl,
+    depart:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    const that = this;
+    that.setData({
+      departId: options.departId
+    })
   },
 
   /**
@@ -28,7 +39,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getLocationFun()
   },
 
   /**
@@ -71,9 +82,10 @@ Page({
    * 联系客服
    */
   makePhoneCall: function () {
-    var that = this
+    const that = this;
+    const { phone} = that.data.depart;
     wx.makePhoneCall({
-      phoneNumber: "123456",
+      phoneNumber: phone,
       success: function () {
       },
       fail: function () { }
@@ -134,6 +146,41 @@ Page({
         wx.hideLoading();
       }
     })
-  }
+  },
 
+  /**
+   * 获取地理位置
+   */
+  getLocationFun:function(){
+    const that = this;
+    wx.getLocation({
+      type: 'gcj02',
+      success: function (res) {//用户允许地图功能
+        that.getStoreDetail({ longitude: res.longitude, latitude: res.latitude});
+      },
+      fail: function () {//用户拒绝地图功能
+        that.getStoreDetail()
+      }
+    })
+  },
+
+  /**
+   * 获取门店详情
+   */
+  getStoreDetail:function(param={}){
+    const that = this;
+    requestAppid({
+      URL: storeDetail,
+      param: Object.assign({
+        departId: that.data.departId || 76
+      },param)
+    }, (data) => {
+      console.log(data);
+      data.distanceChange = (data.distance / 1000).toFixed(1)
+      that.setData({
+        depart:data
+      })
+    })
+    
+  }
 })

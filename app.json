@@ -1,14 +1,17 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/login/login",
-   
-    "pages/storeDetail/storeDetail",
+    "pages/storeDistribution/storeDistribution",
+    
     "pages/personalCenter/personalCenter",
+    "pages/personDetail/personDetail",
+    "pages/login/login",
+    "pages/storeDetail/storeDetail",
+    "pages/orderFinish/orderFinish",
     "pages/orderDetail/orderDetail",
     "pages/select/select",
     "pages/order/order",
-    "pages/storeDistribution/storeDistribution",
+    
     "pages/cardList/cardList",
     "pages/refund/refund",
     "pages/orderDetailChance/orderDetailChance",
@@ -26,12 +29,10 @@
     "pages/assess/assess",
     "pages/details/details",
     "pages/accounts/accounts",
-   
     "pages/time/time",
     "pages/success/success",
     "pages/cardDetail/cardDetail",
-    "pages/consumeVerify/consumeVerify",
-    "pages/orderFinish/orderFinish"
+    "pages/consumeVerify/consumeVerify"
     
   ],
   "permission": {

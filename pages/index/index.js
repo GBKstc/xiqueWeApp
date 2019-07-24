@@ -3,9 +3,9 @@ var common = require('../../utils/commonConfirm.js');
 var util = require('../../utils/util');
 const config = require('../../utils/config');
 const { imgUrl} = config;
+const { isLogin } = util;
 const app = getApp();
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -697,68 +697,74 @@ Page({
     that.setData({
       disabled:true
     })
-    // console.log(userId, scheduleId, timeFormat)
-    // console.log('马上预约取得随机数')
-    // console.log(that.data.random)
     //检查是否登录,登录返回登录信息 
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        // console.log('页面获取到随机数为')
-        // console.log(res.data)
-        wx.request({
-          url: getApp().url + 'user/checkLogin',
-          data: {
-            thirdSessionId: res.data
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log(res.data)
-            var obj = {};
-            if (res.data.status === 200) {
-              if (res.data.data.login) {//登录了,去核对信息页面
-                wx.navigateTo({
-                  url: '../checkinfo/checkinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
-                  success: function () {
-                  }
-                })
-              } else if (!res.data.data.login) {//没登录，去登陆页面
-                console.log('没登录了')
-                wx.navigateTo({
-                  url: '../login/login?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
-                  success: function () {
-                  }
-                })
-
-              }
-            } else if (res.data.status === 400) {//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-            }
-            common.status(res, that)//状态401和402   
-          },
-          fail: function (res) {
-            // console.log('fail')
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: '网络错误'
-            });
-            that.showToast();
-          }
-        })
-      },
-      fail: function () {
-        console.log('页面获取随机数失败')
-      }
+    isLogin(
+      //登录了,去核对信息页面
+      ()=>{
+      wx.navigateTo({
+        url: '../checkinfo/checkinfo?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat,
+        success: function () {
+        }
+      })
+    },
+    //没登录，去登陆页面
+    ()=>{
+      wx.navigateTo({
+        url: '../login/login?userId=' + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat + '&howto=' + true,
+        success: function () {
+        }
+      })
     })
+    // wx.getStorage({//异步获取随机数
+    //   key: getApp().globalData.appid,
+    //   success: function (res) {
+    //     // console.log('页面获取到随机数为')
+    //     // console.log(res.data)
+    //     wx.request({
+    //       url: getApp().url + 'user/checkLogin',
+    //       data: {
+    //         thirdSessionId: res.data
+    //       },
+    //       method: 'POST',
+    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
+    //       success: function (res) {
+    //         console.log(res.data)
+    //         var obj = {};
+    //         if (res.data.status === 200) {
+    //           if (res.data.data.login) {//登录了,去核对信息页面
+                
+    //           } else if (!res.data.data.login) {//没登录，去登陆页面
+    //             console.log('没登录了')
+                
+
+    //           }
+    //         } else if (res.data.status === 400) {//失败
+    //           console.log(400)
+    //           var msg = res.data.msg
+    //           //设置toast时间，toast内容  
+    //           that.setData({
+    //             count: 2000,
+    //             toastText: msg
+    //           });
+    //           that.showToast();
+    //         }
+    //         common.status(res, that)//状态401和402   
+    //       },
+    //       fail: function (res) {
+    //         // console.log('fail')
+    //         //设置toast时间，toast内容  
+    //         that.setData({
+    //           count: 2000,
+    //           toastText: '网络错误'
+    //         });
+    //         that.showToast();
+    //       }
+    //     })
+    //   },
+    //   fail: function () {
+    //     console.log('页面获取随机数失败')
+    //   }
+    // })
     
 
 

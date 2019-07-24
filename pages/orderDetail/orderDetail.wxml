@@ -1,4 +1,4 @@
-<view class='box'>
+<view class='box' wx:if="{{scheduleServiceId||serviceId}}">
   <!-- 头部信息 -->
   <view class='spaceTopBox header'>
     <view class='headerLeft'>
@@ -13,15 +13,55 @@
     </view>
   </view>
   <!-- 导航 -->
-  <view class='nativigation'>
+  <!-- <view class='nativigation'>
     <view class='nativigationBox endBox'>
-      <view class='selectNat' wx:if="{{recordData.isWeixinShowConsumeDetail==2}}">消费明细</view>
-      <view class='noselectNat'>服务信息</view>
-      <view class='noselectNat' wx:if="{{status==2&&recordData.isEvaluate==='y'}}">服务评价</view>
+      <view data-index="0" bindtap='changeModule' class='{{selectModuleList[0]?"selectNat":"noselectNat"}}' wx:if="{{recordData.isWeixinShowConsumeDetail==2}}">消费明细</view>
+      <view data-index="1" bindtap='changeModule' class='{{selectModuleList[1]?"selectNat":"noselectNat"}}'>服务信息</view>
+      <view data-index="2" bindtap='changeModule' class='{{selectModuleList[2]?"selectNat":"noselectNat"}}' wx:if="{{status==2&&recordData.isEvaluate==='y'}}">服务评价</view>
+    </view>
+  </view> -->
+
+  <!-- 确认订单 -->
+  <view class='evaluateBox' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
+    <view class='evaluateBox1'>
+      <view class='shadowTitle spaceBox'>
+        <view class='fontSize18'>服务评价</view>
+        <view class='fontSize12 startBox'>
+          <view class='radioBox'><radio bindtap='anonymous' checked="{{isAnonymous}}"/></view>
+          <view class='anonymity'>匿名评价</view>
+        </view>
+      </view>
+
+      <view class='evaluateStars centerBox' >
+        <view class='star' wx:for="{{starList}}" wx:key='{{index}}' bindtap='handleToggle' data-index='{{index}}'>
+          <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
+          <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image>
+        </view>
+      </view>
+      <view class='fontSize12 evaluateText'>{{starText}}</view>
+      <view class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
+
+      <view class='startBox evaluateLogo'>
+        <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
+        <view class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
+
+        <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
+      </view>
+      <textarea value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
+      <form bindsubmit="submitEvevate" report-submit="true">
+        <button form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"立即评价"}}</button>
+      </form>
     </view>
   </view>
+
   <!-- 消费明细 -->
-  <view class='consumeDetailList' wx:if="{{recordData.isWeixinShowConsumeDetail==2}}">
+  <view class='consumeDetailList' wx:if="{{recordData.isWeixinShowConsumeDetail==2&&showConsumeTitle}}">
+    <view class='serviceTitle centerBox'>
+      <view class='titleLogo'><image src="../../image/pic_fwxx@3x.png"/></view>
+      <view class='fontSize18' style='padding: 0 20rpx;'>消费明细</view>
+      <view class='titleLogo'><image src="../../image/pic_fwxx@3x.png"/></view>
+    </view>
+    <view class='kong'></view>
     <view class='consumeDetail'  wx:if="{{serviceOpenCardInfo}}">
       <view class='consumeDetailTitle'>开卡</view>
       <view class='detailItem'>
@@ -145,15 +185,17 @@
     </view>
     <view class='serviceContent'>
       <view class='contentBox startTopBox'>
-        <view class='contentLeft fontSize16'>服务时间</view>
+        <view class='contentLeft fontSize16' wx:if="{{status==1}}">预约时间</view>
+        <view class='contentLeft fontSize16' wx:else>服务时间</view>
         <view class='contentRight'>
           <view class='startBox rightLine '>
             <view class='fontSize16 rightLineTitle'>{{recordData.timePart}}</view>
             <view class='fontSize14 rightLineContent'>({{recordData.timeDuan}}小时)</view>
+            <view class='changeTime fontSize14' bindtap='changeTime' wx:if='{{status==1&&isShowChangeTime}}'>换时间</view>
           </view>
           <view class='startBox rightLine '>
             <view class='fontSize16 rightLineTitle'>{{recordData.date}}</view>
-            <view class='fontSize14 rightLineContent'>({{recordData.week}}小时)</view>
+            <view class='fontSize14 rightLineContent'>({{recordData.week}})</view>
           </view>
         </view>
       </view>
@@ -173,7 +215,7 @@
           <image mode='aspectFit' bindtap='toWhere'  data-longitude="{{recordData.longitude}}" data-latitude="{{recordData.latitude}}" data-name="{{recordData.departmentName}}" data-address="{{recordData.address}}" src='{{imgUrl}}/Icon_pphd@3x.png'></image>
         </view>
       </view>
-      <view class='contentBox startTopBox'>
+      <view class='contentBox startTopBox' wx:if="{{recordData.userName}}">
         <view class='contentLeft fontSize16'>手艺人</view>
         <view class='contentRight'>
           <view class='startBox rightLine '>
@@ -195,7 +237,7 @@
     </view>
 
     <view class='evaluateStars centerBox' >
-      <view class='star' wx:for="{{starList}}" wx:key='{{index}}' bindtap='handleToggle' data-index='{{index}}'>
+      <view class='star' wx:for="{{starList}}" wx:key='{{index}}'  data-index='{{index}}'>
         <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
         <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image>
       </view>
@@ -209,30 +251,31 @@
       <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
     </view>
 
-    <view class='evaluateContent fontSize12'>门店环境很好，美容师很细心呀，但是门店的隔音不是很好，在房间里能明显听的到外面的声音</view>
+    <view wx:if="{{recordData.evaluateContent}}" class='evaluateContent fontSize12'>{{recordData.evaluateContent}}</view>
   </view>
 
-   <!-- 提交按钮 -->
-  <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&!recordData.evaluateGiftEntity}}">
+   <!-- 消费确认按钮 -->
+  <view class='submit' wx:if="{{status==0&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
     <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >消费确认</view>
   </view>
 
     <!-- 提交按钮 -->
-  <!-- <view class='submit' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&!recordData.evaluateGiftEntity}}">
-    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='submitEvevate' >提交</view>
+  <!-- <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&!recordData.evaluateGiftEntity}}">
+    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >立即评价</view>
   </view> -->
    <!-- 提交抽奖 -->
- <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&recordData.evaluateGiftEntity}}">
-    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='submitEvevate' >立即抽奖</view>
-  </view>
-
+ <!-- <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&recordData.evaluateGiftEntity}}">
+    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >立即抽奖</view>
+  </view> -->
   <!-- 取消预约按钮 -->
   <view class='submit' wx:elif="{{status==1}}">
-    <view  class='submitButton fontSize16' bindtap='submitEvevate' bindtap='showModal' disabled="{{cancelDisabled}}">取消预约</view>
+    <form bindsubmit="showModal" report-submit="true">
+      <button form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约</button>
+    </form>
   </view>
   <!-- 预约下次护理 -->
   <view class='submit' wx:else>
-    <view  class='submitButton fontSize16' bindtap='goToIndex'>预约下次护理</view>
+    <view  class='submitButton fontSize16' bindtap='goToIndex'>回到首页预约</view>
   </view>
   <!-- 确认订单模态框 -->
   <view class='shadow' wx:if="{{showShadow}}">
@@ -260,10 +303,10 @@
 
         <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
       </view>
-
-      <textarea placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
-
-      <button class='modalButton sbutton' bindtap='submitEvevate'>提交</button>
+      <textarea value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
+      <form bindsubmit="submitEvevate" report-submit="true">
+        <button form-type="submit"  class='modalButton sbutton'>提交</button>
+      </form>
     </view>
   </view>
 <!--mask-->  
@@ -287,6 +330,12 @@
 <wxs module="utils" src="../../utils/utils.wxs"></wxs>
 </view>
 
+<view class='kongBox' wx:else>
+  <image src='{{imgUrl}}/empty_mxfqr@3x.png'></image>
+  <view class='fontSize14 infoText'>您还没有待确认的账单，去预约</view>
+  <view class='buttonBig' bindtap='goToIndex'>立即预约</view>
+</view>
+
 
 
 
@@ -302,7 +351,7 @@
       <text class='detailLable'></text>
       <text class='detailValue2'>{{recordData.date}}</text>
       <text class='detailValueTime'>({{recordData.week}})</text>
-      <text class='changeTime' bindtap='changeTime' wx:if='{{status==="1"&&isShowChangeTime}}'>换时间</text>
+      
     </view> -->
     <!-- <view class='detailItem'>
       <text class='detailLable'>手艺人:</text> -->

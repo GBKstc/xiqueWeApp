@@ -566,34 +566,37 @@ Page({
   },
 
   //联系客服
-  makePhoneCall: function () {
-    var that = this
-    wx.makePhoneCall({
-      phoneNumber: that.data.telephone,
-      success: function () {
-      },
-      fail: function () { }
-    })
+  makePhoneCall: function (e) {
+    var that = this;
+    if (e.currentTarget.dataset.phone){
+      wx.makePhoneCall({
+        phoneNumber: e.currentTarget.dataset.phone,
+        success: function () {},
+        fail: function () {}
+      })
+    }
+    
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function (options) {
-　　var that = this;
-　　// 设置转发内容
-　　var shareObj = {
-  　　　　title: "转发的标题",
-  　　　　path: 'pages/storeDetail/storeDetail',        // 默认是当前页面，必须是以‘/’开头的完整路径
-  　　　　imgUrl: '',     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
-　　};
-　　// 来自页面内的按钮的转发
-　　if (options.from == 'button') {
-  // 　　　　var dataid = options.target.dataset; //上方data-id=shareBtn设置的值
-  　　　　// 此处可以修改 shareObj 中的内容
-    // shareObj.path = '/pages/storeDetail/storeDetail';
-　　}
-　　// 返回shareObj
-　　return shareObj;
+  onShareAppMessage: function (options) { 
+    console.log(options);
+    var that = this;
+    console.log(that.data.imgUrl + "/img_fxms_l@3x.png");
+    // 设置转发内容
+    var shareObj = {};
+    
+    // 来自页面内的按钮的转发
+    if (options.from == 'button') {
+      shareObj = {
+        title: options.target.dataset.name,
+        path: 'pages/storeDetail/storeDetail?departId=' + options.target.dataset.id,        // 默认是当前页面，必须是以‘/’开头的完整路径
+        imageUrl: that.data.imgUrl + "/img_fxms_l@3x.png",     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
+      }
+    }
+  　// 返回shareObj
+  　return shareObj;
   }
 })

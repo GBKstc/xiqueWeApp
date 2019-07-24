@@ -35,6 +35,20 @@
   color: white;
 }
 
+.fontSize24{
+  font-family: PingFangSC-Regular;
+  font-size: 48rpx;
+  letter-spacing: -1.16rpx;
+  line-height: 48rpx;
+}
+
+.fontSize22{
+  font-family: PingFangSC-Regular;
+  font-size: 44rpx;
+  letter-spacing: -1.08rpx;
+  line-height: 44rpx;
+}
+
 .fontSize20{
   font-family: PingFangSC-Regular;
   font-size: 40rpx;

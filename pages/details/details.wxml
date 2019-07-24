@@ -29,12 +29,6 @@
           </view>
           <text class='itemPrice'>{{item.numString}}</text>
         </view>
-        <!-- <view class='bannerList'>
-          <view class='itemName'>
-            <text>谷物黄金素(悦享版)</text>
-          </view>
-          <text class='itemPrice'>*1</text>
-        </view> -->
       </view>
       <view class='footerInfo'>
           <image src='../../image/att.png'></image>
@@ -49,7 +43,7 @@
         <text class='goodsName'>商品详情</text>
         <image src='../../image/zs.png' mode="aspectFill"></image>
       </view>
-      <view wx:if="{{detail.goodsDetail}}" class='detailsText'>{{detail.goodsDetail}}</view>
+      <view wx:if="{{detail.goodsDetail}}" wx:key="{{index}}" wx:for="{{detail.goodsDetail}}" class='detailsText'>{{item}}</view>
     </view>
   </view>
   <view class='imgList'>
@@ -78,7 +72,7 @@
           <view class='storeDistance' wx:elif="{{item.distance||item.distance==0}}">(约{{item.distance}}米)</view>
         </view>
         <view class='storeAdress'>
-          <view class="storeAdressText">{{item.address}}</view>
+          <view class="storeAdressText">{{item.address||"--"}}</view>
           <view bindtap='toMap' data-name="{{item.name}}" data-address="{{item.address}}"  data-longitude="{{item.longitude}}" data-latitude="{{item.latitude}}"><image src='../../image/go.png'></image></view>
         </view>
       </view>

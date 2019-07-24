@@ -4,7 +4,10 @@ const URL = require('../../utils/URL.js');
 const config = require('../../utils/config.js');
 const {
   requestAppid,
-  getVoiceVerificationCode
+  request,
+  getVoiceVerificationCode,
+  checkWxLogin,
+  wxLogin
 } = URL;
 const { isMobile } = config.regex;
 const app = getApp();
@@ -26,7 +29,7 @@ Page({
     voiceIsUse: true,//初始时是禁用语音验证
     isMa: true,
     sendContent: '发送验证码',
-    nameValue:'',
+    // nameValue:'',
     phoneValue:'',
     maValue:'',
     //toast默认不显示  
@@ -35,13 +38,21 @@ Page({
     count: 3000,
     toastText: '你好',
     //codeText:"收不到短信试试语音验证？"
-    codeText: "收不到短信试试语音验证？"
+    codeText: "收不到短信试试语音验证？",
+
+    //是否手机登陆 默认验证登陆
+    phoneLogin: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+
+    //验证登陆
+    this.checkLogin()
+
+
     var howTo=options.howto;
     //下面三个参数从登陆页面进来不传，从首页的马上预约和排班页的确定进来才有
     var userId = options.userId || options.userId;
@@ -137,7 +148,7 @@ Page({
 
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && isMobile.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
+    if ( isMobile.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -156,7 +167,7 @@ Page({
     })
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
-    if (this.data.nameValue.length !== 0 && !re.test(this.data.nameValue) && isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
+    if (isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
       // console.log("chenggong")
       this.setData({
         isMa: false
@@ -291,7 +302,7 @@ Page({
           url: getApp().url + 'user/login',
           data: {
             thirdSessionId: res.data,
-            customerName: that.data.nameValue,
+            // customerName: that.data.nameValue,
             mobile: that.data.phoneValue,
             verificCode: that.data.maValue
           },
@@ -349,10 +360,162 @@ Page({
   },
   //获取用户手机号
   getphonenumber(e) {
+    const that = this;
     console.log(e.detail.errMsg)
-    console.log(e.detail.iv)
-    console.log(e.detail.encryptedData)
+    // console.log(e.detail.iv)
+    // console.log(e.detail.encryptedData)
+    if (e.detail.errMsg !="getPhoneNumber:ok"){
+      that.setData({
+        phoneLogin:true
+      })
+      return false;
+    }
+    const param = {
+      encryptData: e.detail.encryptedData,
+      iv: e.detail.iv,
+    };
+    //调用登录接口
+    that.wxLoginFun(param);
+
+    // wx.login({
+    //   success: res => {
+    //     console.log(res);
+    //     const data = {
+    //       code: res.code,
+    //       appid: getApp().globalData.appid,
+    //       secret: getApp().globalData.secret,
+    //     };
+    //     requestAppid(
+    //       { URL: wxLogin, param: data },
+    //       (data) => {
+    //         //异步存随机数，在它的回调函数里
+    //         wx.setStorage({
+    //           key: getApp().globalData.appid,
+    //           data: data.thirdSessionId,
+    //           success: function () {
+    //             //调用登录接口
+    //             that.wxLoginFun(param);
+    //           },
+    //           fail: function () { }
+    //         })
+    //       }
+    //     )
+    //   },
+    // }) //重新登录
+
   },
+
+  checkLogin:function(){
+
+    wx.login({
+      success: res => {
+        const data = {
+          code: res.code,
+          appid: getApp().globalData.appid,
+          secret: getApp().globalData.secret,
+        };
+        requestAppid(
+          { URL: wxLogin, param: data },
+          (data) => {
+            //异步存随机数，在它的回调函数里
+            wx.setStorage({
+              key: getApp().globalData.appid,
+              data: data.thirdSessionId,
+              success: function () {
+                // //调用登录接口
+                // that.wxLoginFun(param);
+              },
+              fail: function () { }
+            })
+
+
+          }
+        )
+      },
+    }) //重新登录   
+
+
+    // wx.checkSession({
+    //   success() {
+    //     console.log("还在登录");
+    //     //session_key 未过期，并且在本生命周期一直有效
+    //     //直接调用登录接口
+    //     // that.wxLoginFun(param);
+    //   },
+    //   fail() {
+    //     console.log("登录已经失效");
+    //     // session_key 已经失效，需要重新执行登录流程
+        
+    //   }
+    // })
+  },
+
+  wxLoginFun:function(data){
+    const that = this;
+    requestAppid({
+      URL: checkWxLogin,
+      param:data
+    },
+      (data) => {
+      //成功
+      var howTo = that.data.howTo;
+      var url = "";
+      if (howTo === 'true') {
+        var userId = that.data.userId
+        var scheduleId = that.data.scheduleId
+        var timeFormat = that.data.timeFormat
+        url = "../checkinfo/checkinfo?userId=" + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat//跳转到核对预约信息
+        wx.redirectTo({//因为这个页面是个中间人，跳转后要把这个页面删除掉
+          url: url,
+          success: function (res) {
+            // clearInterval(timer)
+          },
+          fail: function (res) { },
+          complete: function (res) { },
+        })
+      } else { wx.navigateBack({}) }
+
+      getApp().globalData.loginInfo = data;
+      
+      // common.status(res, that)//状态401和402
+    },(msg)=>{
+        var msg = msg
+        app.globalData.loginInfo = {};
+        //设置toast时间，toast内容  
+        that.setData({
+          count: 2000,
+          toastText: msg
+        });
+        that.showToast();
+    }
+    )
+  },
+
+  goToPhoneLogin(){
+    this.setData({
+      phoneLogin: true
+    })
+  },
+
+
+
+
+
+  formSubmit: function (e) {
+    const that = this;
+    // that.setData({
+    //   count: 150000,
+    //   toastText: e.detail.formId
+    // });
+    // that.showToast();
+    console.log(e.detail.formId);
+  
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+  },
+  formReset: function () {
+    console.log('form发生了reset事件')
+  },
+
   //显示自定义提示框
   showToast: function () {
     var _this = this;

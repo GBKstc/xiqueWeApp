@@ -1,4 +1,6 @@
 @import "../../utils/commonConfirm.wxss";
+@import "../../utils/commonWxss/common.wxss";
+
 /* pages/ONE/one.wxss */
 /* *{
   box-sizing: border-box;
@@ -59,8 +61,6 @@
 }
 .labelText{
   color:#666666;
-  font-size: 36rpx;
-  line-height: 36rpx;
   margin-bottom: 24rpx;
   width:636rpx;
 }
@@ -108,19 +108,21 @@
   border-radius: 50%;
 }
 .date{
-  margin-right: 10rpx;
+  margin-right: 20rpx;
+  color: #FD9595;
 }
 .week{
-  margin-right: 30rpx;
-  color:#b1b1b1;
+  margin-right: 50rpx;
+  color:#B8B8B8;
   font-size: 32rpx;
 }
 .hour{
-    margin-right: 10rpx; 
+    margin-right: 20rpx; 
+    color: #FD9595;
 }
 .noon{
   /* margin-right: 35px; */
-  color:#b1b1b1;
+  color:#B8B8B8;
   font-size:32rpx;
 }
 .itemTpl{

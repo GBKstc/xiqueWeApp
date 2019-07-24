@@ -9,9 +9,13 @@
           <label class='lableName'>手机号:</label><input placeholder-class="phcolor" class='nameEntry' type='number' placeholder='请输入手机号' bindinput='acceptPhone' disabled value='{{phoneValue}}'></input>
       </view>
     </view>
+    
     <view style='margin-top:110rpx'>
-      <button class='submit' disabled='{{confirmDisabled}}'  bindtap='modifySuccess'>确定</button>
-    </view>
+      <form bindsubmit="modifySuccess" report-submit="true">
+        <button class='submit' form-type="submit"  disabled='{{confirmDisabled}}' >确定</button>
+      </form>
+    </view> 
+    
     <view style='margin-top:30rpx'>
       <button class='replaceMan'  bindtap='modifyPre'>更换预约人</button>
     </view>

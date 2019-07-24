@@ -19,13 +19,15 @@
       </view>
       <view class='down'>
         <view>{{item.departmentName}}</view>
-        <view class='infoText'>待服务</view>
+        <view wx:if="{{item.isEvaluate=='n'}}" class='infoText'>{{item.evaluateGiftId?"评价送礼":"去评价"}}</view>
       </view>
       <view class='down'>
         <text class='time'>{{item.date}}({{item.week}})</text>
         <!-- <text class='week'></text><text class='evaluate' wx:if="{{item.isEvaluate==='n'&&item.isOther===0?true:false}}">{{item.evaluateGiftId?"评价送礼":"去评价"}}</text> -->
       </view>
     </view> 
+
+    <view wx:if="{{pageNo+1 > totalPages}}" class='fontSize12 footer'>已经到底了</view>
      <!-- </block>  -->
   </view>
   <view wx:else class='list'>

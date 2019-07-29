@@ -11,7 +11,7 @@
   height: 268rpx;
   background: #FD9595;
   padding: 0 40rpx;
-  margin-bottom: 102rpx;
+  margin-bottom: 60rpx;
 }
 .box .headerLeft{
   padding-top: 82rpx;
@@ -105,18 +105,18 @@
 .consumeDetailList .detailItem{
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items:flex-start;
   font-family: PingFangSC-Regular;
   font-size: 32rpx;
   color: #000000;
   letter-spacing: -0.78rpx;
-  text-align: center;
-  line-height: 32rpx;
-  padding: 0 56rpx 0 40rpx;
+  text-align: left;
+  line-height: 48rpx;
+  padding: 20rpx 56rpx 20rpx 40rpx;
   width: 574rpx;
-  height: 104rpx;
+  /* height: 104rpx; */
 }
-.consumeDetailList .detailItem .title{
+.detailItem .title{
   /* display: flex;
   justify-content: start;
   align-items: flex-end; */
@@ -138,9 +138,8 @@
   text-overflow: ellipsis; */
 }
 .consumeDetailList .detailItem .number{
-  /* font-size: 32rpx;
-  line-height: 32rpx;
-  color: #333333; */
+  padding-left: 10rpx;
+  text-align: right;
 }
 .consumeDetailList .consumeDetail{
   padding-bottom: 1rpx;
@@ -413,13 +412,16 @@
 }
 
 .evaluateBox1 .shadowTitle{
-  margin: 40rpx auto 0;
+  margin: 0 auto 0;
   width: 590rpx;
 }
 .evaluateBox1 .anonymity{
   color: #666666;
 }
 .evaluateBox1 .radioBox{
+  position: relative;
+  z-index: 998;
+  opacity: 0;
   transform:scale(0.7,0.7);
 }
 .evaluateBox1 .modalButton{
@@ -454,6 +456,7 @@
 }
 .modal .anonymity{
   color: #666666;
+  
 }
 .modal .radioBox{
   transform:scale(0.7,0.7);
@@ -461,6 +464,23 @@
 .modal .modalButton{
   width: 590rpx;
   margin: 48rpx auto 0;
+}
+.anonymity{
+  position: relative;
+}
+.anonymity .radioLogo{
+  /* background: url("../../image/pic_icon-selected@3x.png") no-repeat;
+  background-size: cover; */
+  width: 32rpx;
+  height: 32rpx;
+  position: absolute;
+  top: -3rpx;
+  left: -44rpx;
+}
+.radioLogo image{
+  width: 32rpx;
+  height: 32rpx;
+  display: block;
 }
 
 

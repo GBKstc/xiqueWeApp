@@ -23,7 +23,7 @@
 <view class='wxLoginBox' wx:else >
   <view class='wxLoginHeader centerBox'>
     <!-- <view class='line'></view> -->
-    <view class='fontSize22 text'>嗨，欢迎来到静博士</view>
+    <view class='fontSize22 text'>嗨，欢迎来到{{companyName}}</view>
     <!-- <view class='line'></view> -->
   </view> 
   <view class='logoBox centerBox'>
@@ -41,7 +41,7 @@
   <view class='wxLoginHeader centerBox' bindtap='goToPhoneLogin'>
     <view class='fontSize16 text'>手机注册登录</view>
   </view> -->
-  <view class='fontSize12 footerBox' bindtap='goToPhoneLogin'>手机号登录</view>
+  <view class='fontSize14 footerBox' bindtap='goToPhoneLogin'>手机号登录</view>
 </view>
 
 

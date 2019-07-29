@@ -55,7 +55,7 @@ Page({
   },
 
   getGift:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../success/success?towhere=select&successText=领取成功',
     })
   },

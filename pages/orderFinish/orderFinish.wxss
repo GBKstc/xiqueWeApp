@@ -114,7 +114,8 @@
   vertical-align: middle;
 }
 .down .infoText{
-  width: 108rpx;
+  /* width: 108rpx; */
+  padding:0 10rpx;
   height: 48rpx;
   border: 1rpx solid #FD9595;
   border-radius: 4rpx;

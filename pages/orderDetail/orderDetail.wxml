@@ -22,20 +22,28 @@
   </view> -->
 
   <!-- 确认订单 -->
-  <view class='evaluateBox' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
+  <view class='evaluateBox' wx:if="{{status==2&&recordData.isEvaluate==='n'}}">
     <view class='evaluateBox1'>
       <view class='shadowTitle spaceBox'>
         <view class='fontSize18'>服务评价</view>
         <view class='fontSize12 startBox'>
           <view class='radioBox'><radio bindtap='anonymous' checked="{{isAnonymous}}"/></view>
-          <view class='anonymity'>匿名评价</view>
+          <view class='anonymity'>匿名评价
+            <view class='radioLogo' wx:if="{{isAnonymous}}">
+              <image src='../../image/pic_icon-selected@3x.png'></image>
+            </view>
+            <view class='radioLogo' wx:else>
+              <image src='../../image/pic_icon-noselected@3x.png'></image>
+            </view>
+          </view>
         </view>
       </view>
 
       <view class='evaluateStars centerBox' >
         <view class='star' wx:for="{{starList}}" wx:key='{{index}}' bindtap='handleToggle' data-index='{{index}}'>
-          <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
-          <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image>
+          <image mode="widthFix"  src='{{item?"../../image/evaluated.png":"../../image/evaluate.png"}}'></image>
+          <!-- <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
+          <image mode="widthFix" wx:else src='../../image/evaluate.png'></image> -->
         </view>
       </view>
       <view class='fontSize12 evaluateText'>{{starText}}</view>
@@ -47,7 +55,7 @@
 
         <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
       </view>
-      <textarea value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
+      <textarea maxlength="50" value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
       <form bindsubmit="submitEvevate" report-submit="true">
         <button form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"立即评价"}}</button>
       </form>
@@ -190,12 +198,12 @@
         <view class='contentRight'>
           <view class='startBox rightLine '>
             <view class='fontSize16 rightLineTitle'>{{recordData.timePart}}</view>
-            <view class='fontSize14 rightLineContent'>({{recordData.timeDuan}}小时)</view>
-            <view class='changeTime fontSize14' bindtap='changeTime' wx:if='{{status==1&&isShowChangeTime}}'>换时间</view>
+            <view class='fontSize14 rightLineContent'>({{recordData.timeDuan==0?"":recordData.timeDuan+'小时'}}{{recordData.timeMin}}分钟)</view>
           </view>
           <view class='startBox rightLine '>
             <view class='fontSize16 rightLineTitle'>{{recordData.date}}</view>
             <view class='fontSize14 rightLineContent'>({{recordData.week}})</view>
+            <view class='changeTime fontSize16' bindtap='changeTime' wx:if='{{status==1&&isShowChangeTime}}'>换时间</view>
           </view>
         </view>
       </view>
@@ -238,8 +246,7 @@
 
     <view class='evaluateStars centerBox' >
       <view class='star' wx:for="{{starList}}" wx:key='{{index}}'  data-index='{{index}}'>
-        <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
-        <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image>
+        <image mode="widthFix"  src='{{item?"../../image/evaluated.png":"../../image/evaluate.png"}}'></image>
       </view>
     </view>
     <view class='fontSize12 evaluateText'>{{starText}}</view>
@@ -255,8 +262,13 @@
   </view>
 
    <!-- 消费确认按钮 -->
-  <view class='submit' wx:if="{{status==0&&recordData.isEvaluate==='n'&&recordData.isOther===0}}">
+  <view class='submit' wx:if="{{status==0&&recordData.serviceType==0}}">
     <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >消费确认</view>
+  </view>
+  <view class='submit' wx:elif="{{status==0&&recordData.serviceType==1}}">
+    <form bindsubmit="submitEvevate" report-submit="true">
+      <button form-type="submit"  class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal'>消费确认</button>
+    </form>
   </view>
 
     <!-- 提交按钮 -->
@@ -270,7 +282,7 @@
   <!-- 取消预约按钮 -->
   <view class='submit' wx:elif="{{status==1}}">
     <form bindsubmit="showModal" report-submit="true">
-      <button form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约</button>
+      <button form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约           </button>
     </form>
   </view>
   <!-- 预约下次护理 -->
@@ -284,14 +296,22 @@
         <view class='fontSize18'>服务评价</view>
         <view class='fontSize12 startBox'>
           <view class='radioBox'><radio bindtap='anonymous' checked="{{isAnonymous}}"/></view>
-          <view class='anonymity'>匿名评价</view>
+          <view class='anonymity'>匿名评价
+            <view class='radioLogo' wx:if="{{isAnonymous}}">
+              <image src='../../image/pic_icon-selected@3x.png'></image>
+            </view>
+            <view class='radioLogo' wx:else>
+              <image src='../../image/pic_icon-noselected@3x.png'></image>
+            </view>
+          </view>
         </view>
       </view>
 
       <view class='evaluateStars centerBox' >
         <view class='star' wx:for="{{starList}}" wx:key='{{index}}' bindtap='handleToggle' data-index='{{index}}'>
-          <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
-          <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image>
+        <image mode="widthFix"  src='{{item?"../../image/evaluated.png":"../../image/evaluate.png"}}'></image>
+          <!-- <image mode="widthFix" wx:if="{{item}}" src='../../image/evaluated.png'></image>
+          <image mode="widthFix" wx:else="{{item}}" src='../../image/evaluate.png'></image> -->
         </view>
       </view>
       <view class='fontSize12 evaluateText'>{{starText}}</view>
@@ -303,9 +323,9 @@
 
         <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
       </view>
-      <textarea value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
+      <textarea maxlength="50" value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
       <form bindsubmit="submitEvevate" report-submit="true">
-        <button form-type="submit"  class='modalButton sbutton'>提交</button>
+        <button form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"提交"}}</button>
       </form>
     </view>
   </view>

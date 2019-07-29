@@ -70,10 +70,19 @@
   border: none;
   padding:0;
 }
+.rightLogo{
+  width:18rpx;
+  height:32rpx;
+}
+.rightLogo image{
+  display:block;
+  width:18rpx;
+  height:32rpx;
+}
 .address{
   font-family: PingFangSC-Regular;
   font-size: 28rpx;
-  color: #FD9595;
+  color: #979797;
   letter-spacing: -0.68rpx;
   line-height: 28rpx;
   margin: 32rpx 0 44rpx 0;

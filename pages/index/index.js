@@ -3,7 +3,7 @@ var common = require('../../utils/commonConfirm.js');
 var util = require('../../utils/util');
 const config = require('../../utils/config');
 const { imgUrl} = config;
-const { isLogin } = util;
+const { isLogin, throttle } = util;
 const app = getApp();
 Page({
   /**
@@ -267,32 +267,18 @@ Page({
               completeStartTime: timeTransform//存储完整的预约时间
             })
           } else {
-            // //设置toast时间，toast内容  
-            // that.setData({
-            //   count: 3000,
-            //   toastText: '没有合适手艺人',
-            // });
-            // that.showToast();
             that.setData({
               isloadingMask2: true,
               receiveData:'n'//首页没有排班，没有接收到数据
             })
           }
-        } else if (res.data.status === 400) {//失败
-          // console.log('连上服务器了,只不过是400')
-          // var msg = res.data.msg
-          // //设置toast时间，toast内容  
-          // that.setData({
-          //   count: 2000,
-          //   toastText: msg
-          // });
-          // that.showToast();
+        } else{//失败
           that.setData({
             isloadingMask2: true,
             receiveData: 'n'//首页没有排班，没有接收到数据
           })
         }
-        common.status(res, that)//状态401和402
+        // common.status(res, that)//状态401和402
 
       },
       fail: function () {
@@ -433,14 +419,8 @@ Page({
                 departmentName: obj.department_name,//部门名称
                 completeStartTime: timeTransform//存储完整的预约时间
               })
-              // wx.hideLoading();//关闭首页加载框
-          } else {//没有排班数据，例如{status: 200, msg: "成功"}
-            // //设置toast时间，toast内容  
-            // that.setData({
-            //   count: 3000,
-            //   toastText: '没有合适手艺人',
-            // });
-            // that.showToast();
+            
+          } else {//没有排班数据
             that.setData({
               isloadingMask2:true,
               receiveData: 'n'//首页没有排班，没有接收到数据
@@ -460,31 +440,16 @@ Page({
             isloadingMask2: true,
             receiveData: 'n'//首页没有排班，没有接收到数据
           })
-        } else if (res.data.status === 401) {//被挤掉了
+        } else if (res.data.status === 401 || res.data.status === 402) {//被挤掉了
           that.login()//重新获取随机数，并获取首页数据
-          console.log(401)
-          var msg = res.data.msg
+        }else{
           //设置toast时间，toast内容  
-          that.setData({
+          that.setData({//没必要让顾客知道
             count: 2000,
-            toastText: '您没有登录，请登录',
-            isShowToast: true,
-            isShowToastButton: true//按钮显示
+            toastText: res.data.msg
           });
-        } else if (res.data.status === 402) {//随机数过期
-          that.login()//重新获取随机数，并获取首页数据
-          console.log(402)
-          var msg = res.data.msg
-          //设置toast时间，toast内容  
-          that.setData({
-            count: 2000,
-            toastText: '登录过期，请重新登录',
-            isShowToast: true,
-            isShowToastButton: true//按钮显示
-          });
+          that.showToast();
         }
-        // common.status(res, that)//状态401和402
-
       },
       fail: function () {
         wx.hideLoading();//关闭首页加载框
@@ -612,7 +577,7 @@ Page({
               that.setData({
                 searchData: searchData
               })
-            } else if (res.data.status === 400) {
+            } else{
               // console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -622,7 +587,7 @@ Page({
               });
               that.showToast();
             }
-            common.status(res, that)//状态401和402
+            // common.status(res, that)//状态401和402
           },
           fail: function (res) {
             wx.hideLoading();//关闭加载框
@@ -714,83 +679,24 @@ Page({
         success: function () {
         }
       })
-    })
-    // wx.getStorage({//异步获取随机数
-    //   key: getApp().globalData.appid,
-    //   success: function (res) {
-    //     // console.log('页面获取到随机数为')
-    //     // console.log(res.data)
-    //     wx.request({
-    //       url: getApp().url + 'user/checkLogin',
-    //       data: {
-    //         thirdSessionId: res.data
-    //       },
-    //       method: 'POST',
-    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
-    //       success: function (res) {
-    //         console.log(res.data)
-    //         var obj = {};
-    //         if (res.data.status === 200) {
-    //           if (res.data.data.login) {//登录了,去核对信息页面
-                
-    //           } else if (!res.data.data.login) {//没登录，去登陆页面
-    //             console.log('没登录了')
-                
-
-    //           }
-    //         } else if (res.data.status === 400) {//失败
-    //           console.log(400)
-    //           var msg = res.data.msg
-    //           //设置toast时间，toast内容  
-    //           that.setData({
-    //             count: 2000,
-    //             toastText: msg
-    //           });
-    //           that.showToast();
-    //         }
-    //         common.status(res, that)//状态401和402   
-    //       },
-    //       fail: function (res) {
-    //         // console.log('fail')
-    //         //设置toast时间，toast内容  
-    //         that.setData({
-    //           count: 2000,
-    //           toastText: '网络错误'
-    //         });
-    //         that.showToast();
-    //       }
-    //     })
-    //   },
-    //   fail: function () {
-    //     console.log('页面获取随机数失败')
-    //   }
-    // })
-    
-
-
-    
-    
+    }) 
   },
   //输入美容师
   handleInput:function(e){
-    
-
     var that = this
     // 每次搜索时，都先把pageNo设为1
     that.setData({
       pageNo:1
     })
     var name = e.detail.value;
-    console.log('输入值为'+name)
     that.setData({
       name:name
     })
     if (name){//有值
-      console.log('有值')
       this.setData({
         isShow: false,//隐藏局部首页，保留搜索框
         isSearchShow: true,//搜索手艺人模板显示
-        pullOk:true//可以上拉触底了
+        pullOk: true//可以上拉触底了
       })
     }else{//没值
       console.log('为空')
@@ -800,7 +706,6 @@ Page({
         pullOk: false//不可以上拉触底
       })
     }
-    console.log(name)
     wx.getSetting({//判断是否授权了地理位置
       success: (res) => {
         if (!res.authSetting['scope.userLocation']){//没有授权地理位置
@@ -861,60 +766,63 @@ Page({
             pageSize: 10
           }
         }
-        wx.request({
-          url: getApp().url + 'staff/searchStaffByName',
-          data: sendData,
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log(res.data)
-            if (res.data.status === 200) {
-              var searchData = res.data.data.list
-              var totalPages = res.data.data.totalPages
-              for (var i = 0; i < searchData.length; i++) {
-                var curr = searchData[i]
-                if (curr.distance >= 1000) {
-                  curr.distanceChange = (curr.distance / 1000).toFixed(1)
+        if (sendData.name){
+          
+          wx.request({
+            url: getApp().url + 'staff/searchStaffByName',
+            data: sendData,
+            method: 'POST',
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            success: function (res) {
+              console.log(res.data)
+              if (res.data.status === 200) {
+                var searchData = res.data.data.list
+                var totalPages = res.data.data.totalPages
+                for (var i = 0; i < searchData.length; i++) {
+                  var curr = searchData[i]
+                  if (curr.distance >= 1000) {
+                    curr.distanceChange = (curr.distance / 1000).toFixed(1)
+                  }
                 }
-              }
-              that.setData({
-                totalPages: totalPages,
-                searchData: searchData
-              })
-              console.log(that.data.searchData)
-              //是否显示没找到手艺人
-              if (searchData.length === 0) {//显示出来没找到页面
                 that.setData({
-                  kong: true
+                  totalPages: totalPages,
+                  searchData: searchData
                 })
+                console.log(that.data.searchData)
+                //是否显示没找到手艺人
+                if (searchData.length === 0) {//显示出来没找到页面
+                  that.setData({
+                    kong: true
+                  })
+                } else {
+                  that.setData({
+                    kong: false
+                  })
+                }
               } else {
-                that.setData({
-                  kong: false
-                })
+                console.log(res.data);
+                var msg = res.data.msg;
+                //设置toast时间，toast内容  
+                that.setData({//没必要让顾客知道
+                  count: 2000,
+                  toastText: msg
+                });
+                that.showToast();
               }
-            } else if (res.data.status === 400) {
-              console.log(400)
-              var msg = res.data.msg
-              console.log(msg)
+              // common.status(res, that)//状态401和402
+            },
+            fail: function (res) {
+              console.log(res);
               //设置toast时间，toast内容  
-              // that.setData({//没必要让顾客知道
-              //   count: 2000,
-              //   toastText: msg
-              // });
-              // that.showToast();
+              that.setData({
+                count: 2000,
+                toastText: "服务器错误"
+              });
+              that.showToast();
             }
-            common.status(res, that)//状态401和402
-          },
-          fail: function (res) {
-            console.log(res);
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: "服务器错误"
-            });
-            that.showToast();
-          }
-        })
+          })
+        }
+        
       },
       fail: function () {
         console.log('页面获取随机数失败')

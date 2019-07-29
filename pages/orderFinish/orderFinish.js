@@ -141,7 +141,7 @@ Page({
                 totalPages: res.data.data.totalPages,
                 listData: arr
               })
-            } else if (res.data.status === 400) {//失败
+            } else {//失败
               console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -151,7 +151,7 @@ Page({
               });
               that.showToast();
             }
-            common.status(res, that)//状态401和402
+            // common.status(res, that)//状态401和402
           },
           fail: function (res) {
             wx.hideLoading();
@@ -264,7 +264,7 @@ Page({
                 that.setData({
                   listData: tt
                 })
-              } else if (res.data.status === 400) {//失败
+              } else {//失败
                 console.log(400)
                 var msg = res.data.msg
                 //设置toast时间，toast内容  
@@ -274,7 +274,7 @@ Page({
                 });
                 that.showToast();
               }
-              common.status(res, that)//状态401和402
+              // common.status(res, that)//状态401和402
             },
             fail: function (res) {
               wx.hideLoading();//关闭加载框
@@ -389,7 +389,7 @@ Page({
                 totalPages: res.data.data.totalPages,
                 listData: arr
               })
-            } else if (res.data.status === 400) {//失败
+            } else {//失败
               console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -399,7 +399,7 @@ Page({
               });
               //that.showToast();
             }
-            common.status(res, that)//状态401和402
+            // common.status(res, that)//状态401和402
           },
           fail: function (res) {
             wx.hideLoading();
@@ -434,7 +434,7 @@ Page({
 
   goToIndex(){
     wx.switchTab({
-      url: "../../index/index",
+      url: "../index/index",
       success: function () {
       }
     })

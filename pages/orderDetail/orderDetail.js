@@ -104,7 +104,7 @@ Page({
         
         var sendData={
           thirdSessionId: res.data,
-          status: status,
+          status: status || "",
           scheduleServiceId: scheduleServiceId || "" ,
           serviceId: serviceId || "" 
         }
@@ -125,11 +125,14 @@ Page({
               // 重构响应数据，需要把原始响应数据里的date，serviceStartTime，evaluateScore这三个属性改造
               var recordData = Object.assign({}, res.data.data)//声明一个无关联的新对象
               //时间转换
-              var now, now2, Y, M, D, h, hh, m, mm, timeDuan, week
-                now = new Date(recordData.orderStartTime);
-                now2 = new Date(recordData.orderEndTime + 60000);
-                timeDuan = (recordData.orderEndTime + 60000 - recordData.orderStartTime) / 1000 / 3600
-                recordData.timeDuan = timeDuan.toFixed(2);
+              var now, now2, Y, M, D, h, hh, m, mm, timeDuan, timeMin, allMin, week;
+              now = new Date(recordData.orderStartTime);
+              now2 = new Date(recordData.orderEndTime + 60000);
+              allMin = (recordData.orderEndTime + 60000 - recordData.orderStartTime) / 1000 / 60;
+              console.log(allMin);
+              timeMin = allMin % 60;
+              recordData.timeMin = timeMin.toFixed(0);
+              recordData.timeDuan = (allMin - timeMin)/60;
               //求2017-10-30和11:59
               Y = now.getFullYear() ;
               M = (now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1) ;
@@ -167,7 +170,7 @@ Page({
               //把number类型的评分改成对应的数组,以便于遍历
               const list = [];
               for(let i=0;i<5;i++){
-                list[i] = (i <= recordData.evaluateScore);
+                list[i] = (i < recordData.evaluateScore);
               }
               // switch (recordData.evaluateScore) {
               //   case 1: starList = [true,false,false,false,false]; break
@@ -191,6 +194,7 @@ Page({
                 customerId: recordData.customerId,
                 isShowChangeTime: recordData.showChangeTime,
                 status: recordData.serviceStatus,
+                evaluateGiftId: recordData.evaluateGiftEntity ? recordData.evaluateGiftEntity.evaluateGiftId:"",
                 
                 day:Y+'-'+M+'-'+D,
                 cancelDisabled:false//解禁取消预约
@@ -454,9 +458,12 @@ Page({
   //更改评价内容
   changeEvaluateContent:function(e){
     const that = this;
-    that.setData({
-      evaluateContent: e.detail.value
-    })
+    console.log(e.detail.value && (e.detail.value.length < 51));
+    if (e.detail.value && (e.detail.value.length<51)){
+      that.setData({
+        evaluateContent: e.detail.value
+      })
+    }
   },
   //点击评价标签
   handleBg:function(e){
@@ -486,8 +493,7 @@ Page({
       }
     }
 
-  },
-  
+  }, 
   //抽奖
   lottery:function(){
     const that = this;
@@ -519,7 +525,7 @@ Page({
   submitEvevate:function(e){
     // console.log(e.detail.formId)
     var that=this;
-    const { evaluateGiftId, starList, status } = that.data;
+    const { evaluateGiftId, starList, status, recordData } = that.data;
     let starNum = 0;
     // 获取五角星的个数
     
@@ -530,10 +536,11 @@ Page({
         break;
       }
     };
-    if (starNum==0) {
+    if (starNum == 0 && recordData.serviceType!=1) {
       that.openToast("评价分数不能为空", 2000)
       return false;
     }
+    // return false;
     // this.setData({
     //   nScore: starNum
     // });
@@ -594,7 +601,7 @@ Page({
       }
     }, function (data) {
       //如果有活动ID 说明可以抽奖
-      if (evaluateGiftId) {
+      if (evaluateGiftId || recordData.evaluateGiftEntity) {
         that.lottery()
       } else if (status==0){ //erp小程序结账
         wx.redirectTo({
@@ -728,13 +735,20 @@ Page({
 
   openModal:function(){
     const that = this;
-    this.setData({
-      showShadow: true,
-    })
+    const { recordData } = that.data;
+    if (recordData.serviceType==1){
+      that.submitEvevate();
+    }else{
+      this.setData({
+        showShadow: true,
+      })
+    }
+    
   },
 
   closeModal: function () {
     const that = this;
+    
     this.setData({
       showShadow: false,
     })

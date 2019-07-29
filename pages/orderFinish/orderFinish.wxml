@@ -19,7 +19,7 @@
       </view>
       <view class='down'>
         <view>{{item.departmentName}}</view>
-        <view wx:if="{{item.isEvaluate=='n'}}" class='infoText'>{{item.evaluateGiftId?"评价送礼":"去评价"}}</view>
+        <view wx:if="{{item.isEvaluate=='n'}}" class='infoText'>{{item.evaluateGiftId?"去抽奖":"去评价"}}</view>
       </view>
       <view class='down'>
         <text class='time'>{{item.date}}({{item.week}})</text>

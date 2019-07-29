@@ -7,10 +7,10 @@
 
   <view class='fontSize18 headerTitle'>{{depart.name}}</view>
 
-  <view class='lineBox spaceBox' catchtap='toMapPage'>
+  <view class='lineBox spaceBox' catchtap='toMapPage' catchtap='toMapPage' data-longitude="{{depart.longitude}}" data-latitude="{{depart.latitude}}" data-name="{{depart.name}}" data-address="{{depart.address}}">
     <view class='lineBoxLeft startBox'>
       <image src='../../image/icon_fxmd_dh@3x.png'></image>
-      <view class='fontSize16 address textOverHidden'>{{depart.address}}</view>
+      <view class='fontSize16 address'>{{depart.address}}</view>
       <view wx:if="{{(depart.distance||depart.distance==0)&&depart.distance>=1000}}" class='fontSize16 distance'>{{depart.distanceChange}}公里</view>
       <view wx:elif="{{item.distance||item.distance==0}}" class='fontSize16 distance'>{{depart.distance}}米</view>
 

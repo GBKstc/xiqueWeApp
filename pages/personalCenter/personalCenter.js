@@ -4,7 +4,7 @@ let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
 const app = getApp();
 const config = require('../../utils/config');
-const { myInfo, requestAppid, request, wxLogin } = URL;
+const { myInfo, requestAppid, request, wxLogin, getServiceTelephone, companyInfo } = URL;
 const { isEmpty } = util;
 const { imgUrl } = config;
 Page({
@@ -37,7 +37,7 @@ Page({
   onLoad: function (options) {
     const that = this;
     that.getTelephone();
-
+    that.getCompanyInfo();
     this.setData({
       showOrder: true
     })
@@ -118,51 +118,65 @@ Page({
 
   getTelephone(){
     var that = this;
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        //获取客服电话 
-        wx.request({
-          url: getApp().url + 'user/getServiceTelephone',
-          data: {
-            thirdSessionId: res.data
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            // console.log(res)
-            var obj = {};
-            if (res.data.status === 200) {
-              that.setData({
-                telephone: res.data.data//更新客服电话
-              })
-            } else if (res.data.status === 400) {//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-            }
-            common.status(res, that)//状态401和402   
-          },
-          fail: function (res) {
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: '网络错误',
-              isLogin: true//隐藏姓名和手机号
-            });
-            that.showToast();
-          }
-        })
-      },
-      fail: function () {
-        console.log('个人中心获取随机数失败')
-      }
+    requestAppid({
+      URL: getServiceTelephone
+    }, (data)=>{
+      that.setData({
+        telephone: data//更新客服电话
+      })
+    },(msg)=>{
+      //设置toast时间，toast内容  
+      that.setData({
+        count: 2000,
+        toastText: msg
+      });
+      that.showToast();
     })
+    // wx.getStorage({//异步获取随机数
+    //   key: getApp().globalData.appid,
+    //   success: function (res) {
+    //     //获取客服电话 
+    //     wx.request({
+    //       url: getApp().url + 'user/getServiceTelephone',
+    //       data: {
+    //         thirdSessionId: res.data
+    //       },
+    //       method: 'POST',
+    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
+    //       success: function (res) {
+    //         // console.log(res)
+    //         var obj = {};
+    //         if (res.data.status === 200) {
+    //           that.setData({
+    //             telephone: res.data.data//更新客服电话
+    //           })
+    //         } else{//失败
+    //           console.log(400)
+    //           var msg = res.data.msg
+    //           //设置toast时间，toast内容  
+    //           that.setData({
+    //             count: 2000,
+    //             toastText: msg
+    //           });
+    //           that.showToast();
+    //         }
+    //         // common.status(res, that)//状态401和402   
+    //       },
+    //       fail: function (res) {
+    //         //设置toast时间，toast内容  
+    //         that.setData({
+    //           count: 2000,
+    //           toastText: '网络错误',
+    //           isLogin: true//隐藏姓名和手机号
+    //         });
+    //         that.showToast();
+    //       }
+    //     })
+    //   },
+    //   fail: function () {
+    //     console.log('个人中心获取随机数失败')
+    //   }
+    // })
   },
 
   checkLogin(){
@@ -181,12 +195,7 @@ Page({
           success: function (res) {
             var obj = {};
             if (res.data.status === 200) {
-              // console.log(that.data.showOrder);
-              // console.log(app);
-              // if (!that.data.isLogin) {//登录了 获取用户服务单后 去服务单详情
-
-              // } else {//没登录 设置app.globalData.showOrder = true; 去登录页面然后返回本页面 获取用户服务单后 去服务单详情
-              // }
+              // app.globalData.companyName = res.data.companyName;
               if (res.data.data.login) {//登录了
                 console.log('登录了')
                 //如果有登陆 获取登陆信息
@@ -221,7 +230,9 @@ Page({
                   isLogin: true//隐藏姓名和手机号
                 })
               }
-            } else if (res.data.status === 400) {//失败
+            } else if (res.data.status === 402 || res.data.status === 401){
+              getApp().login();
+            }else{//失败
               console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -232,7 +243,7 @@ Page({
               });
               that.showToast();
             }
-            common.status(res, that)//状态401和402   
+            // common.status(res, that)//状态401和402   
           },
           fail: function (res) {
             //设置toast时间，toast内容  
@@ -296,10 +307,10 @@ Page({
     }, function (res) {
       that.setData({
         isWeixinShowCardInfo: res.isWeixinShowCardInfo || "",
-        confirmServiceId: res.confirmServiceId, //待服务单id
-        waitScheduleService: res.waitScheduleService, //待服务单个数
-        waitEvaluateGiftCount: res.waitEvaluateGiftCount,//待抽奖
-        waitEvaluateCount: res.waitEvaluateCount,//待评价服务单数
+        confirmServiceId: res.confirmServiceId || "", //待服务单id
+        waitScheduleService: res.waitScheduleService || "", //待服务单个数
+        waitEvaluateGiftCount: res.waitEvaluateGiftCount || "",//待抽奖
+        waitEvaluateCount: res.waitEvaluateCount || "",//待评价服务单数
         useDays: res.useDays,//使用喜报天数
       })
 
@@ -311,6 +322,20 @@ Page({
         })
         app.globalData.showOrder=false;
       }
+    })
+  },
+
+  getCompanyInfo() {
+    // companyInfo
+    const that = this;
+    requestAppid({
+      URL: companyInfo,
+    }, function (res) {
+      console.log(res);
+      that.setData({
+        isShowConfirmService: res.isShowConfirmService,//是否显示待确认消费
+      })
+      app.globalData.companyName = res.companyName;
     })
   },
 
@@ -432,7 +457,7 @@ Page({
               that.setData({
                 isLogin: true//隐藏姓名和手机号
               })
-            } else if (res.data.status === 400) {//失败
+            } else{//失败
               console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -442,7 +467,7 @@ Page({
               });
               that.showToast();
             }
-            common.status(res, that)//状态401和402   
+            // common.status(res, that)//状态401和402   
           },
           fail: function (res) {
             //设置toast时间，toast内容  

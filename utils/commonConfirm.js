@@ -12,15 +12,16 @@ function status(res,that) {
     });
   } else if (res.data.status === 402) {//随机数过期
     getApp().login()
-    console.log(402)
-    var msg = res.data.msg
-    //设置toast时间，toast内容  
-    that.setData({
-      count: 2000,
-      toastText: '登录过期，请重新登录',
-      isShowToast: true,
-      isShowToastButton: true//按钮显示
-    });
+    console.log(402);
+    console.log("登录过期，请重新登录");
+    // var msg = res.data.msg
+    // //设置toast时间，toast内容  
+    // that.setData({
+    //   count: 2000,
+    //   toastText: '登录过期，请重新登录',
+    //   isShowToast: true,
+    //   isShowToastButton: true//按钮显示
+    // });
   }
 }
 function showToast(_this) {

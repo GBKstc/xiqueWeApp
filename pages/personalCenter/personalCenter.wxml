@@ -40,7 +40,7 @@
 </view>
 
 <view class='operation'>
-  <view class='operationLine' bindtap='select' data-url='../orderDetail/orderDetail?status=0&serviceId={{confirmServiceId||""}}'>
+  <view wx:if="{{isShowConfirmService=='y'}}" class='operationLine' bindtap='select' data-url='../orderDetail/orderDetail?status=0&serviceId={{confirmServiceId||""}}'>
     <view class='operationLineLeft'>
       <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_xfqr@3x.png'></image></view>
       <view class='lineLeftText'>消费确认</view>

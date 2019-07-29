@@ -12,9 +12,9 @@ App({
 
 
   // url: 'http://115.236.38.186:9020/weixin-xique/',//张卫泽
-  url: 'http://192.168.18.70:8084/weixin-xique/',//张卫泽
+  // url: 'http://192.168.18.70:8084/weixin-xique/',//张卫泽
   // url: 'http://115.236.38.186:28091/weixin-xique/',//预发环境
-  // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
+  url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
   // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
 

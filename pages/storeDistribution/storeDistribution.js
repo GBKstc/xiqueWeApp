@@ -144,7 +144,8 @@ Page({
               }
               that.setData({
                 totalPages: res.data.data.totalPages,
-                stopRecord: dataList
+                stopRecord: dataList,
+                companyName: res.data.data.companyName
               })
             } else if (res.data.status === 400) {//失败
               console.log(400)
@@ -537,10 +538,10 @@ Page({
   },
   //点击跳转美容师页面
   tocraftsman:function(e){
-    var that=this
+    var that = this;
     var departmentId = e.currentTarget.dataset.department//获取部门id
     var name = e.currentTarget.dataset.name//店名
-    if ((this.data.fromWhere === 'true')&&departmentId&&name){
+    if ((that.data.fromWhere === 'true')&&departmentId&&name){
       wx.navigateTo({
         url: '../craftsman/craftsman?departmentId=' + departmentId + '&name=' + name,
         success: function () {
@@ -584,14 +585,14 @@ Page({
   onShareAppMessage: function (options) { 
     console.log(options);
     var that = this;
-    console.log(that.data.imgUrl + "/img_fxms_l@3x.png");
+    // console.log(that.data.imgUrl + "/img_fxms_l@3x.png");
     // 设置转发内容
     var shareObj = {};
     
     // 来自页面内的按钮的转发
     if (options.from == 'button') {
       shareObj = {
-        title: options.target.dataset.name,
+        title: that.data.companyName+" - "+options.target.dataset.name,
         path: 'pages/storeDetail/storeDetail?departId=' + options.target.dataset.id,        // 默认是当前页面，必须是以‘/’开头的完整路径
         imageUrl: that.data.imgUrl + "/img_fxms_l@3x.png",     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
       }

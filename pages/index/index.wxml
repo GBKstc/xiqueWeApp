@@ -43,7 +43,7 @@
           <view style='color: #FD9595;'>五星手艺人</view>
           <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
-          <view class="indexInput" wx:elif="{{startData}}">
+          <view style='color: #FD9595;' class="indexInput" wx:elif="{{startData}}">
           {{startData.username}}
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>

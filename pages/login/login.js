@@ -340,7 +340,7 @@ Page({
               });
               that.showToast();
             }
-            common.status(res, that)//状态401和402
+            // common.status(res, that)//状态401和402
           },
           fail: function (res) {
             //设置toast时间，toast内容  
@@ -406,7 +406,7 @@ Page({
   },
 
   checkLogin:function(){
-
+    const that = this;
     wx.login({
       success: res => {
         const data = {
@@ -428,7 +428,9 @@ Page({
               fail: function () { }
             })
 
-
+            that.setData({
+              companyName:data.companyName
+            })
           }
         )
       },
@@ -503,14 +505,7 @@ Page({
 
   formSubmit: function (e) {
     const that = this;
-    // that.setData({
-    //   count: 150000,
-    //   toastText: e.detail.formId
-    // });
-    // that.showToast();
-    console.log(e.detail.formId);
-  
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    console.log('微信快捷登录');
   },
   formReset: function () {
     console.log('form发生了reset事件')

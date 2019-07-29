@@ -22,7 +22,13 @@ const requestAppid = function({URL,param = {}},succ,fail){
             if (succ) {
               succ(res.data.data);
             }
-          }else{
+          } else if (res.data.status === 402){
+            getApp().login();
+            // console.log("请求错误码", res.data.status);
+            // if (fail) {
+            //   fail(res.data.msg)
+            // }
+          } else {
             console.log("请求错误码", res.data.status);
             if (fail) {
               fail(res.data.msg)
@@ -75,9 +81,12 @@ const request = function ({ URL, param = {}, method="POST" }, succ) {
 
 //登录验证
 const checkLogin = "user/checkLogin";
+const companyInfo = "company/info";
 const loginOut = "user / loginOut";
 const checkWxLogin = "wxLogin/getWxPhoneNumber";
 const wxLogin = "wxLogin/login";
+const getServiceTelephone = "user/getServiceTelephone";
+
 //获取登录者信息
 const getCurrentUser = "user/getCurrentUser";
 
@@ -141,8 +150,10 @@ module.exports = {
 
 
   checkLogin, 
+  companyInfo,
   loginOut,
   checkWxLogin,
+  getServiceTelephone,
   wxLogin,
   myInfo,
   getCurrentUser,

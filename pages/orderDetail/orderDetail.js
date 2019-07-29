@@ -537,7 +537,7 @@ Page({
       }
     };
     if (starNum == 0 && recordData.serviceType!=1) {
-      that.openToast("评价分数不能为空", 2000)
+      that.openToast("星级是必选的哦!", 2000)
       return false;
     }
     // return false;

@@ -34,7 +34,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) {3
+    wx.hideShareMenu();
     const that = this;
     that.getTelephone();
     that.getCompanyInfo();
@@ -53,7 +54,7 @@ Page({
       for (var i = 0; i < length; i++) {
         res[arr[i].split('=')[0]] = arr[i].split('=')[1];
       }
-      if(res.from = "code"){
+      if(res.from == "code"){
         this.setData({
           showOrder:true
         })

@@ -89,12 +89,15 @@ Page({
 
               //时间转换
               // var date, M, D, h, m, week
-              var date, date2, Y, M, D, h, hh, m, mm, week, timeDuan
+              var date, date2, Y, M, D, h, hh, m, mm, week, timeDuan, timeMin, allMin;
               for (var i = 0; i < arr.length; i++) {
                 date = new Date(arr[i].serviceStartTime);
                 date2 = new Date(arr[i].serviceEndTime + 60000);//结束时间
-                timeDuan = (arr[i].serviceEndTime + 60000 - arr[i].serviceStartTime) / 1000 / 3600
-                arr[i].timeDuan = timeDuan
+                allMin = (arr[i].serviceEndTime + 60000 - arr[i].serviceStartTime) / 1000 / 60;
+                timeMin = allMin % 60;
+                arr[i].timeMin = timeMin.toFixed(0);
+                arr[i].timeDuan = timeDuan;
+                arr[i].timeDuan = (allMin - timeMin) / 60;
                 //求2018/02/01
                 Y = date.getFullYear() + '/';
                 M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '/';

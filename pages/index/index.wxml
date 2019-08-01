@@ -40,11 +40,11 @@
         <view class='item people' bindtap='toPeople'>
           <view class="labelText">手艺人</view>
           <view class="indexInput"  wx:if="{{near}}">
-          <view style='color: #FD9595;'>五星手艺人</view>
-          <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+            <view style='color: #FD9595;'>五星手艺人</view>
+            <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
-          <view style='color: #FD9595;' class="indexInput" wx:elif="{{startData}}">
-          {{startData.username}}
+          <view  class="indexInput" wx:elif="{{startData}}">
+            <view style='color: #FD9595;'>{{startData.username}}</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class="indexInputx" wx:else>

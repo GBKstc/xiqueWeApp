@@ -453,7 +453,7 @@ Page({
     for(let i=0;i<5;i++){
       list[i] = (i <= index);
     }
-    this.setData({ starList: list, starText: objList[index]});
+    this.setData({ starList: list, starText: objList[index], selectStarIndex: index});
   },
   //更改评价内容
   changeEvaluateContent:function(e){

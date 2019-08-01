@@ -47,7 +47,7 @@
         </view>
       </view>
       <view class='fontSize12 evaluateText'>{{starText}}</view>
-      <view class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
+      <view wx:if="{{selectStarIndex&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
 
       <view class='startBox evaluateLogo'>
         <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
@@ -250,7 +250,7 @@
       </view>
     </view>
     <view class='fontSize12 evaluateText'>{{starText}}</view>
-
+    <view  wx:if="{{selectStarIndex&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
     <view class='startBox evaluateLogo'>
       <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
       <view class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
@@ -332,22 +332,22 @@
 <!--mask-->  
 <include src="../../utils/commonConfirm.wxml"/>
 <!-- 点击取消预约出来的模态框 -->
-<view class="cancel_toast_mask" wx:if="{{cancelMask}}">
-  <view class="cancel_toast_content_box">  
-    <view class="cancel_toast_content">  
-      <view class="cancel_toast_content-text">
-        <view class="cancel_toast_content_text1">提示</view>
-        <view class="cancel_toast_content_text2">你确定取消么？</view>  
+  <view class="cancel_toast_mask" wx:if="{{cancelMask}}">
+    <view class="cancel_toast_content_box">  
+      <view class="cancel_toast_content">  
+        <view class="cancel_toast_content-text">
+          <view class="cancel_toast_content_text1">提示</view>
+          <view class="cancel_toast_content_text2">你确定取消么？</view>  
+        </view>
+        <view class='cancel_toast_content_button'>
+          <text class='cancel_toast_content_button1' bindtap='cancelFail'>取消</text><text bindtap='cancelSuccess' class='cancel_toast_content_button2'>确定</text>
       </view>
-      <view class='cancel_toast_content_button'>
-        <text class='cancel_toast_content_button1' bindtap='cancelFail'>取消</text><text bindtap='cancelSuccess' class='cancel_toast_content_button2'>确定</text>
-    </view>
-    </view> 
-     
+      </view> 
+      
+    </view>  
   </view>  
-</view>  
 
-<wxs module="utils" src="../../utils/utils.wxs"></wxs>
+  <wxs module="utils" src="../../utils/utils.wxs"></wxs>
 </view>
 
 <view class='kongBox' wx:else>

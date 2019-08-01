@@ -15,10 +15,7 @@ Page({
     status:2,//表示已完成
     pageNo: 1,//默认初始化是第一页
     totalPages: 0,
-    listData: [
-      // { "id": 1, "isOther": 0, "date": '10-30',"week":'周二', "departId": 10, "serviceStartTime": '11:59',"timePart":'中午', "departmentName": "浙大店", "isEvaluate": "y" },
-      // { "id": 2, "date": '10-30', "week": '周四', "departId": 10, "serviceStartTime": '11:59', "timePart": '中午', "departmentName": "城西店", "isEvaluate": "n" }
-    ],
+    listData: undefined,
     //toast默认不显示  
     isShowToast: false,
     isShowToastButton: false,

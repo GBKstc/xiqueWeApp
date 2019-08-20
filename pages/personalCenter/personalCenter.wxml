@@ -11,7 +11,7 @@
         <view><open-data  type="userNickName"></open-data></view>
         <!-- <image class='craftManBack' src='{{imgUrl}}/icon_arrow_right@3x.png'></image> -->
       </view>
-      <view class='personTime' wx:if="{{useDays&&!isLogin}}">这是您来到静博士的第{{useDays}}天</view>
+      <view class='personTime' wx:if="{{useDays&&!isLogin}}">这是您来到{{companyName}}的第{{useDays}}天</view>
     </view>
   </view>
   <view class='serviceContent'>

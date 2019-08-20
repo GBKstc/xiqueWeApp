@@ -1,7 +1,12 @@
 // pages/order/order.js
 var common = require('../../utils/commonConfirm.js');
 const config = require('../../utils/config');
+const util = require('../../utils/util');
 const { imgUrl } = config;
+const {
+  isEmpty,
+  isLogin
+} = util;
 Page({
 
   /**
@@ -32,11 +37,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.showLoading({
-      title: '加载中',
-      mask: true
-    })
-    // console.log('触发了order的onLoad')
+    //验证是否登陆
+    isLogin(() => {})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -56,15 +58,14 @@ Page({
     that.setData({//重新设置一下
       status: newStatus
     })
-    
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     // 初始化页面
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
         wx.request({
           url: getApp().url + 'userScheduleService/getUserScheduleServiceList',
           method: 'POST',
@@ -82,8 +83,6 @@ Page({
               // 重构响应数据
               var arrOrigin = res.data.data.list;//响应数据
               var arr = JSON.parse(JSON.stringify(arrOrigin));//声明一个无关联的新数组
-
-
               //时间转换
               // var date, M, D, h, m, week
               var date, date2, Y, M, D, h, hh, m, mm, week, timeDuan, timeMin, allMin;

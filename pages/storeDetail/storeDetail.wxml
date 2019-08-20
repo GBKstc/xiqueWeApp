@@ -1,9 +1,9 @@
 <!--pages/storeDetail/storeDetail.wxml-->
 <view class='box'>
 
-  <view class='headerBox'>
+  <!-- <view class='headerBox'>
     <image mode='aspectFill' src='{{imgUrl + "/img_fxms_l@3x.png"}}'/>
-  </view>
+  </view> -->
 
   <view class='fontSize18 headerTitle'>{{depart.name}}</view>
 

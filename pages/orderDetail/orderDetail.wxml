@@ -1,4 +1,4 @@
-<view class='box' wx:if="{{scheduleServiceId||serviceId}}">
+<view class='box' wx:if="{{(scheduleServiceId||serviceId)&&serviceCode}}">
   <!-- 头部信息 -->
   <view class='spaceTopBox header'>
     <view class='headerLeft'>
@@ -47,7 +47,7 @@
         </view>
       </view>
       <view class='fontSize12 evaluateText'>{{starText}}</view>
-      <view wx:if="{{selectStarIndex&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
+      <view wx:if="{{(selectStarIndex == 0 || selectStarIndex)&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
 
       <view class='startBox evaluateLogo'>
         <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
@@ -83,7 +83,13 @@
     </view>
 
     <view class='consumeDetail'  wx:if="{{serviceCardRecharge}}">
-      <view class='consumeDetailTitle'>充值</view>
+      <view class='consumeDetailTitle' >充值</view>
+      <!-- <view class='detailItem' wx:for="{{serviceCardRecharge}}" wx:key="{{cardNo}}">
+        <view class='title'>
+          <text>{{item.cardNo}}</text>
+        </view>
+        <view class='number'>￥{{utils.toFix(item.rechargeAmount)}}</view>
+      </view> -->
       <view class='detailItem'>
         <view class='title'>
           <text>{{serviceCardRecharge.cardNo}}</text>
@@ -250,7 +256,7 @@
       </view>
     </view>
     <view class='fontSize12 evaluateText'>{{starText}}</view>
-    <view  wx:if="{{selectStarIndex&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
+    <view  wx:if="{{(selectStarIndex == 0 || selectStarIndex)&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
     <view class='startBox evaluateLogo'>
       <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
       <view class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
@@ -315,7 +321,7 @@
         </view>
       </view>
       <view class='fontSize12 evaluateText'>{{starText}}</view>
-      <view class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
+      <view wx:if="{{(selectStarIndex == 0 || selectStarIndex)&&selectStarIndex<3}}" class='fontSize12 evaluateInfo'>对于此次服务我们非常关注，请反馈您的建议，我们会及时处理</view>
 
       <view class='startBox evaluateLogo'>
         <view class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</view>
@@ -349,7 +355,10 @@
 
   <wxs module="utils" src="../../utils/utils.wxs"></wxs>
 </view>
-
+<view class='kongBox' wx:elif="{{scheduleServiceId||serviceId}}">
+ <image src='{{imgUrl}}/empty_mxfqr@3x.png'></image>
+  <view class='fontSize14 infoText'>信息加载中</view>
+</view>
 <view class='kongBox' wx:else>
   <image src='{{imgUrl}}/empty_mxfqr@3x.png'></image>
   <view class='fontSize14 infoText'>您还没有待确认的账单，去预约</view>

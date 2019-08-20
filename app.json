@@ -1,9 +1,9 @@
 {
   "pages": [
-    "pages/index/index",
-    "pages/storeDistribution/storeDistribution",
     
+    "pages/index/index",
     "pages/personalCenter/personalCenter",
+    "pages/storeDistribution/storeDistribution",
     "pages/personDetail/personDetail",
     "pages/login/login",
     "pages/storeDetail/storeDetail",
@@ -11,7 +11,6 @@
     "pages/orderDetail/orderDetail",
     "pages/select/select",
     "pages/order/order",
-    
     "pages/cardList/cardList",
     "pages/refund/refund",
     "pages/orderDetailChance/orderDetailChance",

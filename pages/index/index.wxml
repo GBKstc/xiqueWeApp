@@ -61,7 +61,7 @@
         <view class='item timeBox' bindtap='toTime'>
           <view class="labelText fontSize16">时间</view>
           <view class='spaceBox'>
-            <view class="indexInput" wx:if="{{startData}}">
+            <view class="indexInput" wx:if="{{startData&&startData.date}}">
               <text class='date fontSize24'>{{startData.date}}</text><text class='week fontSize16' wx:if="{{startData.week}}">({{startData.week}})</text><text class='hour fontSize24'>{{startData.startTime}}</text><text class='noon fontSize16' wx:if="{{startData.noon}}">({{startData.noon}})</text>
             </view>
             <view class="indexInputx" wx:else style="color:#FD9595;">

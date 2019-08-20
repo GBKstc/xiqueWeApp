@@ -4,12 +4,12 @@ function status(res,that) {
     console.log(401)
     var msg = res.data.msg
     //设置toast时间，toast内容  
-    that.setData({
-      count: 2000,
-      toastText: '您没有登录，请登录',
-      isShowToast: true,
-      isShowToastButton: true//按钮显示
-    });
+    // that.setData({
+    //   count: 2000,
+    //   toastText: '您没有登录，请登录',
+    //   isShowToast: true,
+    //   isShowToastButton: true//按钮显示
+    // });
   } else if (res.data.status === 402) {//随机数过期
     getApp().login()
     console.log(402);

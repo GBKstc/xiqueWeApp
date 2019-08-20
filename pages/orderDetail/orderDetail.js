@@ -3,7 +3,7 @@ var common = require('../../utils/commonConfirm.js')
 // 引入SDK核心类
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
-
+const app = getApp();
 const URL = require('../../utils/URL.js');
 const util = require('../../utils/util');
 const config = require('../../utils/config');
@@ -16,6 +16,7 @@ const {
 } = URL;
 const { 
   isEmpty,
+  isLogin
 } = util;
 Page({
 
@@ -69,198 +70,20 @@ Page({
   onLoad: function (options) {
     //关闭分享
     wx.hideShareMenu();
-    console.log('orderDetail', options)
+    // console.log('orderDetail', options)
     const that=this
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
-    let status = options.status;//记录1，2还是3
-    let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
-    let serviceId = options.serviceId;//服务单服务id 小程序结账
-    let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId:"";
-    let url = "";//请求接口 订单（erp小程序结账）请求getServiceDetailBySid 服务单请求getServiceDetail
-    that.setData({
-      status: status,
-      scheduleServiceId: scheduleServiceId,
-      serviceId: serviceId,
-      evaluateGiftId,
-    })
-    //如果scheduleServiceId为空 不获取数据
-    if (!(scheduleServiceId || serviceId)){
-      return false;
-    }
-
-    if (scheduleServiceId) {
-      url = "getServiceDetail"
-    }
-    if (serviceId) {
-      url = "getServiceDetailBySid"
-    }
-
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        
-        var sendData={
-          thirdSessionId: res.data,
-          status: status || "",
-          scheduleServiceId: scheduleServiceId || "" ,
-          serviceId: serviceId || "" 
-        }
-        if (evaluateGiftId){
-          sendData.evaluateGiftId = evaluateGiftId;
-        }
-        console.log('订单详情初始化参数')
-        console.log(sendData)
-        wx.request({
-          url: getApp().url + 'userScheduleService/'+url,
-          method: 'POST',
-          data: sendData ,
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log(res.data,"订单详情")
-            if (res.data.status === 200) {
-              // console.log(200)
-              // 重构响应数据，需要把原始响应数据里的date，serviceStartTime，evaluateScore这三个属性改造
-              var recordData = Object.assign({}, res.data.data)//声明一个无关联的新对象
-              //时间转换
-              var now, now2, Y, M, D, h, hh, m, mm, timeDuan, timeMin, allMin, week;
-              now = new Date(recordData.orderStartTime);
-              now2 = new Date(recordData.orderEndTime + 60000);
-              allMin = (recordData.orderEndTime + 60000 - recordData.orderStartTime) / 1000 / 60;
-              console.log(allMin);
-              timeMin = allMin % 60;
-              recordData.timeMin = timeMin.toFixed(0);
-              recordData.timeDuan = (allMin - timeMin)/60;
-              //求2017-10-30和11:59
-              Y = now.getFullYear() ;
-              M = (now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1) ;
-              D = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
-              h = now.getHours() + ':';
-              hh = now2.getHours() + ':';
-              m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()
-              mm = now2.getMinutes() < 10 ? '0' + now2.getMinutes() : now2.getMinutes()
-              recordData.date = Y +'/'+ M+'/' + D
-              recordData.timePart = h + m + "-" + hh + mm
-              // 求是否是今，明，后天，后者是星期几
-              var jinDate = new Date()//今天时间对象
-              var mingms = Date.parse(jinDate) + 1 * 24 * 60 * 60 * 1000
-              var mingDate = new Date(mingms)//明天时间对象
-              var houms = Date.parse(jinDate) + 2 * 24 * 60 * 60 * 1000
-              var houDate = new Date(houms)//后天时间对象
-              if (now.toDateString() === jinDate.toDateString()) {
-                week = '今天'
-              } else if (now.toDateString() === mingDate.toDateString()) {
-                week = '明天'
-              } else if (now.toDateString() === houDate.toDateString()) {
-                week = '后天'
-              } else {
-                switch (now.getDay()) {
-                  case 0: week = "星期天"; break
-                  case 1: week = "星期一"; break
-                  case 2: week = "星期二"; break
-                  case 3: week = "星期三"; break
-                  case 4: week = "星期四"; break
-                  case 5: week = "星期五"; break
-                  case 6: week = "星期六"; break
-                }
-              }
-              recordData.week = week
-              //把number类型的评分改成对应的数组,以便于遍历
-              const list = [];
-              for(let i=0;i<5;i++){
-                list[i] = (i < recordData.evaluateScore);
-              }
-              // switch (recordData.evaluateScore) {
-              //   case 1: starList = [true,false,false,false,false]; break
-              //   case 2: starList = [true, true, false, false, false]; break
-              //   case 3: starList = [true, true, true, false, false]; break
-              //   case 4: starList = [true, true, true, true, false]; break
-              //   case 5: starList = [true, true, true, true, true]; break
-              // }
-              if (recordData.customerName.length>4){//如果预约人姓名大于四个，增加一个属性，否则不加
-                recordData.maxname = recordData.customerName.substr(0,4)
-              }
-              
-              //更新数据
-              that.setData({
-                starList:list,
-                recordData: recordData,
-                serviceCode: recordData.serviceCode,
-                serviceId: recordData.serviceId,
-                scheduleId: recordData.scheduleId,
-                timeFormat: recordData.timeFormat,
-                customerId: recordData.customerId,
-                isShowChangeTime: recordData.showChangeTime,
-                status: recordData.serviceStatus,
-                evaluateGiftId: recordData.evaluateGiftEntity ? recordData.evaluateGiftEntity.evaluateGiftId:"",
-                
-                day:Y+'-'+M+'-'+D,
-                cancelDisabled:false//解禁取消预约
-              })
-              //获取订单详情
-              if (recordData.serviceId){
-                that.getOrderDetail(recordData.serviceId);
-              }
-              
-              //初始化bg的值，即评价标签的状态，同时初始化arrObj这个数组对象
-              var arrOrigin = recordData.evaluateLableList//未评价时所有的标签列表
-              if (arrOrigin) {//未评价
-                //var evaluateLableList=recordData.evaluateLableList//未评价时所有的标签列表
-                var newArr = JSON.parse(JSON.stringify(arrOrigin))//声明一个无关联的新数组
-                var obj = {}
-                var arrObj = []
-                for (var i = 0; i < newArr.length; i++) {//让evaluateLableId的value作为obj的key
-                  obj[newArr[i].evaluateLableId] = false//初始化全是false,即未选中状态
-                  //arrObj每个对象需要三个属性
-                  // arrObj[i][newArr[i].evaluateLableId] = false
-                  // arrObj[i].evaluateType = newArr[i].evaluateType
-                  // arrObj[i].evaluateLableId = newArr[i].evaluateLableId
-                  newArr[i][newArr[i].evaluateLableId] = false
-                }
-        
-                that.setData({
-                  bg: obj,
-                  arrObj: newArr
-                })
-              }
-
-              // 判断手艺人从哪个地方取，是从“beauticianList数组”取，还是从“userName”取
-              if (recordData.beauticianList && recordData.beauticianList.length > 0) {//手艺人，是beauticianList数组
-                that.setData({
-                  isArray: true
-                })
-              } else {//手艺人，是userName
-                //不用写
-              }
-            } else if (res.data.status === 400) {//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg,
-                cancelDisabled: true//禁用取消预约
-              });
-              that.showToast();
-            }
-            common.status(res, that)//状态401和402
-          },
-          fail: function (res) {
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: "服务器错误"
-            });
-            that.showToast();
-          }
-        })
-      },
-      fail: function () {
-        console.log('页面获取随机数失败')
-      }
-    })
+    app.globalData.orderDetailOptions = options;
+    //验证是否登陆
+    // isLogin(()=>{
+    //   //获取订单详情
+    //   // that.getOrderDetailFun(options);
+    // })
+    
+   
    
   },
 
@@ -275,9 +98,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // var pages = getCurrentPages()
-    // console.log('订单详情页面noshow')
-    // console.log(pages)
+    const that = this;
+    //获取订单详情
+    if (!isEmpty(app.globalData.orderDetailOptions)){
+      that.getOrderDetailFun(app.globalData.orderDetailOptions);
+    }
+    
   },
 
   /**
@@ -316,11 +142,208 @@ Page({
   // onShareAppMessage: function () {
   
   // },
+
+
+  getOrderDetailFun(options){
+    const that = this;
+    let status = options.status;//记录1，2还是3
+    let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
+    let serviceId = options.serviceId;//服务单服务id 小程序结账
+    let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId : "";
+    let url = "";//请求接口 订单（erp小程序结账）请求getServiceDetailBySid 服务单请求getServiceDetail
+    that.setData({
+      status: status,
+      scheduleServiceId: scheduleServiceId,
+      serviceId: serviceId,
+      evaluateGiftId,
+    })
+    //如果scheduleServiceId为空 不获取数据
+    if (!(scheduleServiceId || serviceId)) {
+      return false;
+    }
+
+    if (scheduleServiceId) {
+      url = "getServiceDetail"
+    }
+    if (serviceId) {
+      url = "getServiceDetailBySid"
+    }
+
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
+    wx.getStorage({//异步获取随机数
+      key: app.globalData.appid,
+      success: function (res) {
+        var sendData = {
+          thirdSessionId: res.data,
+          status: status || "",
+          scheduleServiceId: scheduleServiceId || "",
+          serviceId: serviceId || ""
+        }
+        if (evaluateGiftId) {
+          sendData.evaluateGiftId = evaluateGiftId;
+        }
+        console.log('订单详情初始化参数');
+        console.log(sendData);
+        wx.request({
+          url: app.url + 'userScheduleService/' + url,
+          method: 'POST',
+          data: sendData,
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          success: function (res) {
+            wx.hideLoading();
+            console.log(res.data, "订单详情")
+            if (res.data.status === 200) {
+              // console.log(200)
+              // 重构响应数据，需要把原始响应数据里的date，serviceStartTime，evaluateScore这三个属性改造
+              var recordData = Object.assign({}, res.data.data)//声明一个无关联的新对象
+              //时间转换
+              var now, now2, Y, M, D, h, hh, m, mm, timeDuan, timeMin, allMin, week;
+              now = new Date(recordData.startTime);
+              now2 = new Date(recordData.endTime + 60000);
+              allMin = (recordData.endTime + 60000 - recordData.startTime) / 1000 / 60;
+              console.log(allMin);
+              timeMin = allMin % 60;
+              recordData.timeMin = timeMin.toFixed(0);
+              recordData.timeDuan = (allMin - timeMin) / 60;
+              //求2017-10-30和11:59
+              Y = now.getFullYear();
+              M = (now.getMonth() + 1 < 10 ? '0' + (now.getMonth() + 1) : now.getMonth() + 1);
+              D = now.getDate() < 10 ? '0' + now.getDate() : now.getDate();
+              h = now.getHours() + ':';
+              hh = now2.getHours() + ':';
+              m = now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()
+              mm = now2.getMinutes() < 10 ? '0' + now2.getMinutes() : now2.getMinutes()
+              recordData.date = Y + '/' + M + '/' + D
+              recordData.timePart = h + m + "-" + hh + mm
+              // 求是否是今，明，后天，后者是星期几
+              var jinDate = new Date()//今天时间对象
+              var mingms = Date.parse(jinDate) + 1 * 24 * 60 * 60 * 1000
+              var mingDate = new Date(mingms)//明天时间对象
+              var houms = Date.parse(jinDate) + 2 * 24 * 60 * 60 * 1000
+              var houDate = new Date(houms)//后天时间对象
+              if (now.toDateString() === jinDate.toDateString()) {
+                week = '今天'
+              } else if (now.toDateString() === mingDate.toDateString()) {
+                week = '明天'
+              } else if (now.toDateString() === houDate.toDateString()) {
+                week = '后天'
+              } else {
+                switch (now.getDay()) {
+                  case 0: week = "星期天"; break
+                  case 1: week = "星期一"; break
+                  case 2: week = "星期二"; break
+                  case 3: week = "星期三"; break
+                  case 4: week = "星期四"; break
+                  case 5: week = "星期五"; break
+                  case 6: week = "星期六"; break
+                }
+              }
+              recordData.week = week
+              //把number类型的评分改成对应的数组,以便于遍历
+              const list = [];
+              for (let i = 0; i < 5; i++) {
+                list[i] = (i < recordData.evaluateScore);
+              }
+              // switch (recordData.evaluateScore) {
+              //   case 1: starList = [true,false,false,false,false]; break
+              //   case 2: starList = [true, true, false, false, false]; break
+              //   case 3: starList = [true, true, true, false, false]; break
+              //   case 4: starList = [true, true, true, true, false]; break
+              //   case 5: starList = [true, true, true, true, true]; break
+              // }
+              if (recordData.customerName.length > 4) {//如果预约人姓名大于四个，增加一个属性，否则不加
+                recordData.maxname = recordData.customerName.substr(0, 4)
+              }
+
+              //更新数据
+              that.setData({
+                starList: list,
+                recordData: recordData,
+                serviceCode: recordData.serviceCode,
+                serviceId: recordData.serviceId,
+                scheduleId: recordData.scheduleId,
+                timeFormat: recordData.timeFormat,
+                customerId: recordData.customerId,
+                isShowChangeTime: recordData.showChangeTime,
+                status: recordData.serviceStatus,
+                evaluateGiftId: recordData.evaluateGiftEntity ? recordData.evaluateGiftEntity.evaluateGiftId : "",
+
+                day: Y + '-' + M + '-' + D,
+                cancelDisabled: false//解禁取消预约
+              })
+              //获取订单详情
+              if (recordData.serviceId) {
+                that.getOrderDetail(recordData.serviceId);
+              }
+
+              //初始化bg的值，即评价标签的状态，同时初始化arrObj这个数组对象
+              var arrOrigin = recordData.evaluateLableList//未评价时所有的标签列表
+              if (arrOrigin) {//未评价
+                //var evaluateLableList=recordData.evaluateLableList//未评价时所有的标签列表
+                var newArr = JSON.parse(JSON.stringify(arrOrigin))//声明一个无关联的新数组
+                var obj = {}
+                var arrObj = []
+                for (var i = 0; i < newArr.length; i++) {//让evaluateLableId的value作为obj的key
+                  obj[newArr[i].evaluateLableId] = false//初始化全是false,即未选中状态
+                  //arrObj每个对象需要三个属性
+                  // arrObj[i][newArr[i].evaluateLableId] = false
+                  // arrObj[i].evaluateType = newArr[i].evaluateType
+                  // arrObj[i].evaluateLableId = newArr[i].evaluateLableId
+                  newArr[i][newArr[i].evaluateLableId] = false
+                }
+
+                that.setData({
+                  bg: obj,
+                  arrObj: newArr
+                })
+              }
+
+              // 判断手艺人从哪个地方取，是从“beauticianList数组”取，还是从“userName”取
+              if (recordData.beauticianList && recordData.beauticianList.length > 0) {//手艺人，是beauticianList数组
+                that.setData({
+                  isArray: true
+                })
+              } else {//手艺人，是userName
+                //不用写
+              }
+            } else if (res.data.status === 400) {//失败
+              console.log(400)
+              var msg = res.data.msg
+              //设置toast时间，toast内容  
+              that.setData({
+                count: 2000,
+                toastText: msg,
+                cancelDisabled: true//禁用取消预约
+              });
+              that.showToast();
+            }
+            common.status(res, that)//状态401和402
+          },
+          fail: function (res) {
+            wx.hideLoading();
+            //设置toast时间，toast内容  
+            that.setData({
+              count: 2000,
+              toastText: "服务器错误"
+            });
+            that.showToast();
+          }
+        })
+      },
+      fail: function () {
+        wx.hideLoading();
+        console.log('页面获取随机数失败')
+      }
+    })
+  },
   //点击换时间
   changeTime:function(){
     var that=this
     wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
+      key: app.globalData.appid,
       success: function (res) {
         var sendData = {
           thirdSessionId: res.data,
@@ -333,7 +356,7 @@ Page({
         console.log('订单详情初始化参数')
         console.log(sendData)
         wx.request({
-          url: getApp().url + 'staff/replaceTime',
+          url: app.url + 'staff/replaceTime',
           method: 'POST',
           data: sendData,
           header: { 'content-type': 'application/x-www-form-urlencoded' },
@@ -458,7 +481,7 @@ Page({
   //更改评价内容
   changeEvaluateContent:function(e){
     const that = this;
-    console.log(e.detail.value && (e.detail.value.length < 51));
+    // console.log(e.detail.value && (e.detail.value.length < 51));
     if (e.detail.value && (e.detail.value.length<51)){
       that.setData({
         evaluateContent: e.detail.value
@@ -540,6 +563,11 @@ Page({
       that.openToast("星级是必选的哦!", 2000)
       return false;
     }
+    //限制输入的内容
+    if (/\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]/.test(that.data.evaluateContent)){
+      that.openToast("评价内容不支持表情哦!", 2000)
+      return false;
+    }
     // return false;
     // this.setData({
     //   nScore: starNum
@@ -619,9 +647,7 @@ Page({
         wx.navigateBack({
           delta: 1,
           // url: '../order/order',
-          success: function () {
-
-          }
+          success: function () {}
         })
       }
       
@@ -652,10 +678,10 @@ Page({
       cancelMask:false
     })
     wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
+      key: app.globalData.appid,
       success: function (res) {
         wx.request({
-          url: getApp().url + 'schedule/cancelOrder',
+          url: app.url + 'schedule/cancelOrder',
           method: 'POST',
           data: {
             thirdSessionId: res.data,

@@ -145,7 +145,7 @@ Page({
               that.setData({
                 totalPages: res.data.data.totalPages,
                 stopRecord: dataList,
-                companyName: res.data.data.companyName
+                companyName:res.data.data.companyName?res.data.data.companyName.substring(0, 4):"",
               })
             } else if (res.data.status === 400) {//失败
               console.log(400)
@@ -594,7 +594,7 @@ Page({
       shareObj = {
         title: that.data.companyName+" - "+options.target.dataset.name,
         path: 'pages/storeDetail/storeDetail?departId=' + options.target.dataset.id,        // 默认是当前页面，必须是以‘/’开头的完整路径
-        imageUrl: that.data.imgUrl + "/img_fxms_l@3x.png",     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
+        // imageUrl: that.data.imgUrl + "/img_fxms_l@3x.png",     //转发时显示的图片路径，支持网络和本地，不传则使用当前页默认截图。
       }
     }
   　// 返回shareObj

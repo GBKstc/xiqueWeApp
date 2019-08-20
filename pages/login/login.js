@@ -2,6 +2,7 @@
 const common = require('../../utils/commonConfirm.js');
 const URL = require('../../utils/URL.js');
 const config = require('../../utils/config.js');
+const utils = require('../../utils/util.js');
 const {
   requestAppid,
   request,
@@ -11,7 +12,7 @@ const {
 } = URL;
 const { isMobile } = config.regex;
 const app = getApp();
-
+const { isRandom } = utils;
 Page({
   /**
    * 页面的初始数据
@@ -58,11 +59,13 @@ Page({
     var userId = options.userId || options.userId;
     var scheduleId = options.scheduleid;
     var timeFormat = options.timeformat;
+    var phoneLogin = options.phoneLogin;
     this.setData({
       howTo:howTo,
       userId: userId,
       scheduleId: scheduleId,
-      timeFormat: timeFormat
+      timeFormat: timeFormat,
+      phoneLogin
     })
   },
 
@@ -406,7 +409,7 @@ Page({
   },
 
   checkLogin:function(){
-    const that = this;
+    const that = this;  
     wx.login({
       success: res => {
         const data = {
@@ -414,7 +417,7 @@ Page({
           appid: getApp().globalData.appid,
           secret: getApp().globalData.secret,
         };
-        requestAppid(
+        request(
           { URL: wxLogin, param: data },
           (data) => {
             //异步存随机数，在它的回调函数里
@@ -460,25 +463,26 @@ Page({
     },
       (data) => {
       //成功
-      var howTo = that.data.howTo;
-      var url = "";
-      if (howTo === 'true') {
-        var userId = that.data.userId
-        var scheduleId = that.data.scheduleId
-        var timeFormat = that.data.timeFormat
-        url = "../checkinfo/checkinfo?userId=" + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat//跳转到核对预约信息
-        wx.redirectTo({//因为这个页面是个中间人，跳转后要把这个页面删除掉
-          url: url,
-          success: function (res) {
-            // clearInterval(timer)
-          },
-          fail: function (res) { },
-          complete: function (res) { },
-        })
-      } else { wx.navigateBack({}) }
-
-      getApp().globalData.loginInfo = data;
-      
+        var howTo = that.data.howTo;
+        var url = "";
+        getApp().globalData.loginInfo = data;
+        if (howTo === 'true') {
+          var userId = that.data.userId
+          var scheduleId = that.data.scheduleId
+          var timeFormat = that.data.timeFormat
+          url = "../checkinfo/checkinfo?userId=" + userId + '&scheduleid=' + scheduleId + '&timeformat=' + timeFormat//跳转到核对预约信息
+          wx.redirectTo({//因为这个页面是个中间人，跳转后要把这个页面删除掉
+            url: url,
+            success: function (res) {
+              // clearInterval(timer)
+            },
+            fail: function (res) { },
+            complete: function (res) { },
+          })
+        } else { 
+          console.log(getCurrentPages());
+          wx.navigateBack({}) 
+          }
       // common.status(res, that)//状态401和402
     },(msg)=>{
         var msg = msg

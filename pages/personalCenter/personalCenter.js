@@ -5,7 +5,7 @@ let util = require('../../utils/util.js');
 const app = getApp();
 const config = require('../../utils/config');
 const { myInfo, requestAppid, request, wxLogin, getServiceTelephone, companyInfo } = URL;
-const { isEmpty } = util;
+const { isEmpty, isLogin, isRandom } = util;
 const { imgUrl } = config;
 Page({
 
@@ -34,19 +34,16 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {3
+  onLoad: function (options) {
     wx.hideShareMenu();
     const that = this;
-    that.getTelephone();
-    that.getCompanyInfo();
-    this.setData({
-      showOrder: true
-    })
     
+    // this.setData({
+    //   showOrder: true
+    // })
     // app.globalData.showOrder = true;
     //如果是二维码,且sence有form=code 判断登录 如果已经登录 去消费确认 如果没登录去登录页面 
     if (options && options.scene) {
-
       let scene = decodeURIComponent(options.scene);
       let arr = scene.split('&');
       let length = arr.length;
@@ -54,14 +51,27 @@ Page({
       for (var i = 0; i < length; i++) {
         res[arr[i].split('=')[0]] = arr[i].split('=')[1];
       }
-      if(res.from == "code"){
+      if(res.form == "code"){
         this.setData({
           showOrder:true
         })
         app.globalData.showOrder = true;
       }      
+    } else if (options){
+      // let scene = decodeURIComponent(options);
+      // let arr = scene.split('&');
+      // let length = arr.length;
+      // let res = {};
+      // for (var i = 0; i < length; i++) {
+      //   res[arr[i].split('=')[0]] = arr[i].split('=')[1];
+      // }
+      if (options.form == "code") {
+        this.setData({
+          showOrder: true
+        })
+        app.globalData.showOrder = true;
+      }      
     }
-
   },
 
   
@@ -77,7 +87,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (options) {
     var that = this;
     that.checkLogin();
   },
@@ -133,134 +143,43 @@ Page({
       });
       that.showToast();
     })
-    // wx.getStorage({//异步获取随机数
-    //   key: getApp().globalData.appid,
-    //   success: function (res) {
-    //     //获取客服电话 
-    //     wx.request({
-    //       url: getApp().url + 'user/getServiceTelephone',
-    //       data: {
-    //         thirdSessionId: res.data
-    //       },
-    //       method: 'POST',
-    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
-    //       success: function (res) {
-    //         // console.log(res)
-    //         var obj = {};
-    //         if (res.data.status === 200) {
-    //           that.setData({
-    //             telephone: res.data.data//更新客服电话
-    //           })
-    //         } else{//失败
-    //           console.log(400)
-    //           var msg = res.data.msg
-    //           //设置toast时间，toast内容  
-    //           that.setData({
-    //             count: 2000,
-    //             toastText: msg
-    //           });
-    //           that.showToast();
-    //         }
-    //         // common.status(res, that)//状态401和402   
-    //       },
-    //       fail: function (res) {
-    //         //设置toast时间，toast内容  
-    //         that.setData({
-    //           count: 2000,
-    //           toastText: '网络错误',
-    //           isLogin: true//隐藏姓名和手机号
-    //         });
-    //         that.showToast();
-    //       }
-    //     })
-    //   },
-    //   fail: function () {
-    //     console.log('个人中心获取随机数失败')
-    //   }
-    // })
   },
 
   checkLogin(){
     var that = this;
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        //检查是否登录,登录返回登录信息 
-        wx.request({
-          url: getApp().url + 'user/checkLogin',
-          data: {
-            thirdSessionId: res.data
-          },
-          method: 'POST',
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            var obj = {};
-            if (res.data.status === 200) {
-              // app.globalData.companyName = res.data.companyName;
-              if (res.data.data.login) {//登录了
-                console.log('登录了')
-                //如果有登陆 获取登陆信息
-                that.getMyInfo();
-                var name = res.data.data.name
-                var mobile = res.data.data.mobile
-                var customId = res.data.data.id
-                if (name.length > 4) {//大于四，就有截取之后的值，否者，没有值
-                  that.setData({
-                    maxname: name.substr(0, 4)
-                  })
-                } else {
-                  that.setData({
-                    maxname: ""
-                  })
-                }
-                that.setData({
-                  isLogin: false,//显示姓名和手机号
-                  customInfo: {
-                    name: name,
-                    mobile: mobile
-                  }
-                })
-              } else if (!res.data.data.login) {//没登录
-
-                if (app.globalData.showOrder==true){//如果showOrder为true 就去登录页面让登录后回来获取订单详情
-                  that.tologin();
-                  app.globalData.showOrder = false;
-                  return ;
-                }
-                that.setData({
-                  isLogin: true//隐藏姓名和手机号
-                })
-              }
-            } else if (res.data.status === 402 || res.data.status === 401){
-              getApp().login();
-            }else{//失败
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg,
-                isLogin: true//隐藏姓名和手机号
-              });
-              that.showToast();
-            }
-            // common.status(res, that)//状态401和402   
-          },
-          fail: function (res) {
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: '网络错误',
-              isLogin: true//隐藏姓名和手机号
-            });
-            that.showToast();
-          }
+    isLogin(() => {
+      // app.globalData.showOrder = false;
+      //如果有登陆 获取登陆信息
+      that.getTelephone();//获取客服电话
+      that.getCompanyInfo();//获取公司信息
+      that.getMyInfo();  //获取个人信息
+      that.setData({
+        isLogin: false
+      })
+    },()=>{
+      that.getTelephone();//获取客服电话
+      that.getCompanyInfo();//获取公司信息
+      if (app.globalData.showOrder == true){
+        app.globalData.showOrder = false;
+        //未登录
+        wx.navigateTo({
+          url: '../login/login',
         })
-      },
-      fail: function () {
-        console.log('个人中心获取随机数失败')
       }
-    })
+      
+    },()=>{
+      isRandom(() => {
+        that.getTelephone();//获取客服电话
+        that.getCompanyInfo();//获取公司信息
+        if (app.globalData.showOrder == true) {
+          app.globalData.showOrder = false;
+          //未登录
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
+      })
+    });
   },
 
   getPhoneNumber(e) {
@@ -335,6 +254,7 @@ Page({
       console.log(res);
       that.setData({
         isShowConfirmService: res.isShowConfirmService,//是否显示待确认消费
+        companyName: res.companyName,//是否显示待确认消费
       })
       app.globalData.companyName = res.companyName;
     })

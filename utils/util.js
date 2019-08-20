@@ -1,6 +1,6 @@
 import URL from "./URL.js";
-const { requestAppid, checkLogin} = URL;
-
+const { requestAppid, checkLogin, request, wxLogin} = URL;
+const app = getApp();
 const formatTime = date => {
   if (!date) {
     return ""
@@ -49,35 +49,88 @@ const formatNumber = n => {
   *
   **/
 const isLogin = function(suc,fail,error){
-  //检查是否登录,登录返回登录信息 
-  requestAppid({ 
-    URL:checkLogin,  
-  },function(data){
-    console.log(data);
-    if(data.login){
-      getApp().globalData.loginInfo = data;
-      //登录
-      if (suc) {
-        suc()
+  var random = wx.getStorageSync(app.globalData.appid);
+  if (random) {//有随机数
+    //检查是否登录,登录返回登录信息 
+    requestAppid({
+      URL: checkLogin,
+    }, function (data) {
+      if (data.login) {
+        getApp().globalData.loginInfo = data;
+        //登录
+        if (suc) {
+          suc()
+        }
+      } else {
+        if (fail) {
+          fail()
+        } else {
+          //未登录
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
       }
-    }else{
-      if (fail){
+    }, function () {
+      if (fail) {
         fail()
-      }else{
+      } else {
         //未登录
         wx.navigateTo({
           url: '../login/login',
         })
       }
-      
-    }
-    
-  },function(){
-    //未登录
-    wx.navigateTo({
-      url: '../login/login',
     })
-  })
+  } else {
+    //未登录
+    if (error) {
+      error()
+    } else {
+      //未登录
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+  }
+};
+/**
+  * 检查是否有随机数
+  *
+  **/
+const isRandom = function (suc, fail, error) {
+  var random = wx.getStorageSync(app.globalData.appid);
+  if (random) {//有随机数
+    if (suc) {
+      suc()
+    }
+  } else {
+    //没有随机数 去后台获取随机数
+    wx.login({
+      success: res => {
+        const data = {
+          code: res.code,
+          appid: getApp().globalData.appid,
+          secret: getApp().globalData.secret,
+        };
+        request(
+          { URL: wxLogin, param: data },
+          (data) => {
+            //异步存随机数，在它的回调函数里
+            wx.setStorage({
+              key: getApp().globalData.appid,
+              data: data.thirdSessionId,
+              success: function () {
+                if (suc) {
+                  suc(data)
+                }
+              },
+              fail: function () { }
+            })
+          }
+        )
+      },
+    })   
+  }
 };
 /**
   * 组件共通时把组件中的方法合并到页面中
@@ -351,6 +404,7 @@ module.exports = {
   timeToObj: timeToObj,
   getDetailList:getDetailList,
   isLogin: isLogin,
+  isRandom: isRandom,
   toFix: toFix,
   sTypeOf: sTypeOf
 }

@@ -188,7 +188,7 @@ Page({
       }
       that.setData({
         cardLiaochengDetailProducts: list,
-        surplusTimes: data.surplusTimes
+        surplusTimes: data.surplusTimes||""
       })
     })
   },

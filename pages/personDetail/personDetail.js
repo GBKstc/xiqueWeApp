@@ -102,8 +102,17 @@ Page({
     requestAppid({
       URL: loginOut,
     },()=>{
-      wx.navigateTo({
-        url: '../login/login',
+      let pages = getCurrentPages();
+      let prevPage = pages[pages.length - 2];
+      if (prevPage.route == "pages/personalCenter/personalCenter"){
+        //关闭登陆状态
+        prevPage.setData({
+          isLogin: true
+        });
+      }
+      
+      wx.redirectTo({
+        url: '../login/login?phoneLogin=true',
         success: function (res) {},
         fail: function (res) {},
         complete: function (res) {},

@@ -36,7 +36,7 @@
 }
 .list{
   width:710rpx;
-  padding: 0 20rpx 0 20rpx;
+  padding: 20rpx 20rpx 0 20rpx;
   /* position: fixed; */
   height: 100%;
   overflow: auto;

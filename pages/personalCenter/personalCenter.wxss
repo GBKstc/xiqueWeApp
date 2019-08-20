@@ -12,6 +12,7 @@
   height: 384rpx;
   width: 750rpx;
   background-color: #FD9595;
+  margin-bottom: 20rpx;
 }
 .headerBox .headerPerson{
   width: 622rpx;
@@ -73,7 +74,7 @@
 .serviceContent{
   width: 568rpx;
   height: 140rpx;
-  background: #FFFFFF;
+  background: #fff;
   box-shadow: 4rpx 4rpx 4rpx 0 rgba(236,236,236,0.50), -4rpx -4rpx 4rpx 0 rgba(236,236,236,0.50);
   border-radius: 8rpx;
   margin: 28rpx auto 0;

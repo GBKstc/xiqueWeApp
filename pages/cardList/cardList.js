@@ -1,7 +1,7 @@
 // pages/cardList/success.js
 let util = require('../../utils/util.js');
 let URL = require('../../utils/URL.js');
-const { isEmpty, formatTimeDay } = util;
+const { isEmpty, formatTimeDay, isLogin } = util;
 const { 
   requestAppid,
   cardList,
@@ -19,7 +19,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getCardList()
+    //验证是否登陆
+    isLogin(() => {
+      
+    })
+    
   },
 
   /**
@@ -33,7 +37,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getCardList();
   },
 
   /**

@@ -44,6 +44,7 @@ const requestAppid = function({URL,param = {}},succ,fail){
     },
     fail: function () {
       wx.hideLoading();
+      getApp().login();
       console.log('页面获取随机数失败');
     },
   })
@@ -121,6 +122,7 @@ const serviceCardReturn = "service/cardReturn"; //退货
 const serviceCardPick = "service/cardPick"; //取货
 const serviceCardConsume = "service/cardConsume"; //消费
 const serviceCardBuy = "service/cardBuy"; //购买
+// const serviceCardRecharge = "service/cardRechargeList"; //充值
 const serviceCardRecharge = "service/cardRecharge"; //充值
 const serviceOpenCardInfo = "service/openCardInfo"; //开卡
 

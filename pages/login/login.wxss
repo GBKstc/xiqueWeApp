@@ -93,10 +93,12 @@ button[disabled]{
   background-color: #DCDCDC;
 }
 .wxLoginHeader .text{
-  padding: 0 26rpx;
+  padding: 0 100rpx;
   color: #333333;
   letter-spacing:0;
   font-weight: bold;
+  line-height: 60rpx;
+  text-align: center;
 }
 .logoBox{
   width: 150rpx;

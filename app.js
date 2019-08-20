@@ -4,7 +4,7 @@ const { getCurrentUser } = URL;
 // 正版
 App({
   globalData: {//初始化请求参数
-    appid: 'wxab4355d28417d914',  
+    appid: 'wxab4355d28417d914',
     secret: '026e8bf6e20155b7d7f926b27db7c5c3'
     // appid: 'wx1027d78d6fa6c86d',
     // secret: '63d9937305accf41f20b125389d45cec'
@@ -14,8 +14,8 @@ App({
   // url: 'http://115.236.38.186:9020/weixin-xique/',//张卫泽
   // url: 'http://192.168.18.70:8084/weixin-xique/',//张卫泽
   // url: 'http://115.236.38.186:28091/weixin-xique/',//预发环境
-  url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
-  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
+  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
 
 
@@ -89,11 +89,6 @@ App({
       },
       fail: function () {
         console.log('获取用户code失败')
-        // console.log('app页面获取用户登录态失败！' + res.errMsg)
-        // wx.showToast({
-        //   title: '获取用户登录态失败',
-        //   duration: 2000
-        // })
       }
     });
   },

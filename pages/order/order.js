@@ -2,6 +2,11 @@
 var common = require('../../utils/commonConfirm.js');
 const config = require('../../utils/config');
 const { imgUrl } = config;
+const util = require('../../utils/util');
+const {
+  isEmpty,
+  isLogin
+} = util;
 Page({
 
   /**
@@ -15,7 +20,7 @@ Page({
     status:1,//表示待服务
     pageNo: 1,//默认初始化是第一页
     totalPages: 0,
-    listData: undefined,
+    listData: null,
     //toast默认不显示  
     isShowToast: false,
     isShowToastButton: false,
@@ -42,7 +47,8 @@ Page({
         status: options.status
       })
     }
-    // console.log('触发了order的onLoad')
+    //验证是否登陆
+    isLogin(() => {})
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -56,28 +62,16 @@ Page({
    */
   onShow: function () {
     const that = this;
-    // console.log('订单页面的status')
-    // console.log(this.data.status)
-    // var pages = getCurrentPages()
-    // var currPage = pages[pages.length - 1]//当前页面
-    // console.log('订单页面获取上个页面的status')
-    // console.log(currPage.data.status)
-    // console.log(currPage.data)
-    // var newStatus = parseInt(currPage.data.status)//取出上个页面传来的值，如果上个页面没有传，就是本页数据
-    // that.setData({//重新设置一下
-    //   status: newStatus
-    // })
-    
+    wx.showLoading({
+      title: '加载中',
+      mask: true
+    })
     // 初始化页面
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
         // console.log('页面获取到随机数为')
         // console.log(res.data)
-        wx.showLoading({
-          title: '加载中',
-          mask: true
-        })
         wx.request({
           url: getApp().url + 'userScheduleService/getUserScheduleServiceList',
           method: 'POST',
@@ -90,7 +84,6 @@ Page({
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
             wx.hideLoading();
-            // console.log(res.data)
             if (res.data.status === 200) {
               // 重构响应数据
               var arrOrigin = res.data.data.list;//响应数据
@@ -316,7 +309,8 @@ Page({
     var that=this
     var statusNow = e.currentTarget.dataset.status
     that.setData({
-      status: statusNow
+      status: statusNow,
+      listData: null,
     })
     // 也是初始化页面
     wx.getStorage({//异步获取随机数

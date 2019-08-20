@@ -422,7 +422,7 @@
   position: relative;
   z-index: 998;
   opacity: 0;
-  transform:scale(0.7,0.7);
+  transform:scale(1.2,1.2);
 }
 .evaluateBox1 .modalButton{
   width: 590rpx;
@@ -459,7 +459,10 @@
   
 }
 .modal .radioBox{
-  transform:scale(0.7,0.7);
+  position: relative;
+  z-index: 998;
+  opacity: 0;
+  transform:scale(1.2,1.2);
 }
 .modal .modalButton{
   width: 590rpx;

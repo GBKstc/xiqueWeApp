@@ -84,18 +84,18 @@
 
     <view class='consumeDetail'  wx:if="{{serviceCardRecharge}}">
       <view class='consumeDetailTitle' >充值</view>
-      <!-- <view class='detailItem' wx:for="{{serviceCardRecharge}}" wx:key="{{cardNo}}">
+      <view class='detailItem' wx:for="{{serviceCardRecharge}}" wx:key="{{cardNo}}">
         <view class='title'>
           <text>{{item.cardNo}}</text>
         </view>
         <view class='number'>￥{{utils.toFix(item.rechargeAmount)}}</view>
-      </view> -->
-      <view class='detailItem'>
+      </view>
+      <!-- <view class='detailItem'>
         <view class='title'>
           <text>{{serviceCardRecharge.cardNo}}</text>
         </view>
         <view class='number'>￥{{utils.toFix(serviceCardRecharge.rechargeAmount)}}</view>
-      </view>
+      </view> -->
     </view>
 
     <view class='consumeDetail'  wx:if="{{serviceCardBuy}}">
@@ -292,7 +292,7 @@
     </form>
   </view>
   <!-- 预约下次护理 -->
-  <view class='submit' wx:else>
+  <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate=='y'}}">
     <view  class='submitButton fontSize16' bindtap='goToIndex'>回到首页预约</view>
   </view>
   <!-- 确认订单模态框 -->
@@ -352,6 +352,7 @@
       
     </view>  
   </view>  
+  
 
   <wxs module="utils" src="../../utils/utils.wxs"></wxs>
 </view>
@@ -363,6 +364,24 @@
   <image src='{{imgUrl}}/empty_mxfqr@3x.png'></image>
   <view class='fontSize14 infoText'>您还没有待确认的账单，去预约</view>
   <view class='buttonBig' bindtap='goToIndex'>立即预约</view>
+  <view class="footerBox">有问题？<span bindtap='openHelpModal'>请求帮助</span></view>
+
+
+  <!-- 点击帮助出来的模态框 -->
+  <view class="cancel_toast_mask" wx:if="{{helpInfoModal}}">
+    <view class="cancel_toast_content_box">  
+      <view class="cancel_toast_content">  
+        <view class="cancel_toast_content-text">
+          <view class="cancel_toast_content_text3">结账之后，没有账单是怎么办？</view>
+          <view class="cancel_toast_content_text4">小程序手机号与后台手
+机号要一致哦！</view>  
+        </view>
+        <view class='cancel_toast_content_button'>
+          <text class='cancel_toast_content_button1' bindtap='closeHelpModal'>取消</text><text bindtap='toPersonDetail' class='cancel_toast_content_button2'>去核对</text>
+        </view>
+      </view> 
+    </view>  
+  </view>
 </view>
 
 

@@ -18,11 +18,6 @@ App({
   url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
 
-
-
-
-
-
   onLaunch: function () {
     console.log("app onLaunch")
     const that = this;

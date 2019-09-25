@@ -533,21 +533,21 @@ Page({
     const that = this;
     
     switch (itmeString) {
-      case '8:00:00':
+      case '08:00:00':
         if (!isTody || hour < 8) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
           newisActive[1] = boolean
           that.setData({ isActive: newisActive })
         }
         break
-      case '8:30:00':
+      case '08:30:00':
         if (!isTody || hour < 8 || (hour === 8 && minuts < 30)) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
           newisActive[2] = boolean
           that.setData({ isActive: newisActive })
         }
         break
-      case '9:00:00':
+      case '09:00:00':
         if (!isTody || hour < 9) {//明天，成立，今天小于10点，成立
           var newisActive = that.data.isActive
           newisActive[3] = boolean
@@ -1109,7 +1109,7 @@ Page({
                   console.log(isActiveArr)
                   if (isActiveArr.length > 0) {//数组不为空
                     for (var y = 0; y < isActiveArr.length; y++) {
-                      if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1]) && parseInt(isActiveArr[y]) + 2 === parseInt(isActiveArr[y + 2])) {//有三个连续的
+                      if (parseInt(isActiveArr[y]) + 1 === parseInt(isActiveArr[y + 1])) {//有三个连续的
                         that.setData({
                           isOk: true
                         },()=>{

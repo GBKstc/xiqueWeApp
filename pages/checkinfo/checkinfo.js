@@ -44,7 +44,7 @@ Page({
     var timeFormat = options.timeformat//预约时间块，逗号隔开
     console.log('核对信息页面接收到的', options)
     const { nameValue, phoneValue, customerid} = options;
-    
+    // console.log(("" != "--"), (!isEmpty("")), ("" != "--") && (!isEmpty("")))
     //编辑或者添加预约人后跳转此页面
     if (!isEmpty(nameValue)){
       that.setData({
@@ -54,6 +54,8 @@ Page({
         customerId: customerid,
         nameValue,
         phoneValue,
+        //姓名等于 -- 或者为空的时候 可以编辑 nameDisable为false
+        nameDisable: (nameValue != "--") && (!isEmpty(nameValue)),
       })
     }else{
       wx.getStorage({//异步获取随机数
@@ -80,6 +82,8 @@ Page({
                   userId: userId,
                   scheduleId: scheduleId,
                   timeFormat: timeFormat,
+                  //姓名等于 -- 或者为空的时候 可以编辑 nameDisable为false
+                  nameDisable: (res.data.data.name != "--") && (!isEmpty(res.data.data.name)),
                 })
               } else if (res.data.status === 400) {//失败
                 console.log(400)
@@ -163,31 +167,55 @@ Page({
   modifySuccess:function(e){
     console.log(e.detail.formId);
     var that=this;
-    if (that.data.appointmentId === that.data.customerId){//本人预约
-        that.setData({
-          type:0
-        })
+    const {
+      phoneValue,
+      userId,
+      customerId,
+      scheduleId,
+      timeFormat,
+      nameValue,
+    } = this.data;
+
+    if (isEmpty(nameValue) || (nameValue=="--") ){
+      that.setData({
+        count: 2000,
+        toastText: "请输入正确姓名"
+      });
+      that.showToast();
+      return false;
+    }
+
+    const sendData = {
+      // thirdSessionId: res.data,
+      // type: that.data.type,
+      mobile: that.data.phoneValue,
+      userId: that.data.userId,
+      customerId: that.data.customerId,
+      scheduleId: that.data.scheduleId,
+      timeFormat: that.data.timeFormat,
+      formId: e.detail.formId
+    }
+
+    if (that.data.appointmentId === that.data.customerId) {//本人预约
+      sendData.type = 0;
+      sendData.customerName = that.data.nameValue;
+      that.setData({
+        type: 0
+      })
     } else {//帮别人预约
+      sendData.type = 1;
       that.setData({
         type: 1
       })
     }
+
     //预约请求
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
         console.log('核对信息页获取到随机数为')
         console.log(res.data)
-        var sendData={
-          thirdSessionId: res.data,
-          type: that.data.type,
-          mobile: that.data.phoneValue,
-          userId: that.data.userId,
-          customerId: that.data.customerId,
-          scheduleId: that.data.scheduleId,
-          timeFormat: that.data.timeFormat,
-          formId:e.detail.formId
-        }
+        
         // 打印预约请求参数
         console.log('预约请求参数')
         console.log(sendData)
@@ -196,6 +224,7 @@ Page({
           confirmDisabled: true
         });
 
+        sendData.thirdSessionId = res.data
         wx.request({
           url: getApp().url + 'schedule/addOrder',
           method: 'POST',
@@ -258,6 +287,13 @@ Page({
       }
     })
     
+  },
+
+  acceptName(e){
+    var nameValue = e.detail.value;
+    this.setData({
+      nameValue,
+    })
   },
   //点击更换预约人
   modifyPre:function(){

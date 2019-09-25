@@ -38,7 +38,8 @@ Page({
     scheduleServiceId: '',//排版定单id,这个是订单页面传过来的，在本页面初始化时要用和换时间时要传到核对修改信息页面
     departLabels: [],//门店评价标签id
     beauticianLabels: [],//手艺人评价标签id
-    cancelMask:false,//取消预约模态框隐藏
+    cancelMask: false,//取消预约模态框隐藏
+    helpInfoModal:false,//默认不显示帮助模态框
     //下面四个是换时间接口，要传的参数。
     scheduleId: '',//跟换时间订单的排班id
     timeFormat: '',//跟换订单的预约间块
@@ -78,13 +79,10 @@ Page({
     });
     app.globalData.orderDetailOptions = options;
     //验证是否登陆
-    // isLogin(()=>{
-    //   //获取订单详情
-    //   // that.getOrderDetailFun(options);
-    // })
-    
-   
-   
+    isLogin(()=>{
+      //获取订单详情
+      // that.getOrderDetailFun(options);
+    })   
   },
 
   /**
@@ -269,7 +267,7 @@ Page({
                 customerId: recordData.customerId,
                 isShowChangeTime: recordData.showChangeTime,
                 status: recordData.serviceStatus,
-                evaluateGiftId: recordData.evaluateGiftEntity ? recordData.evaluateGiftEntity.evaluateGiftId : "",
+                evaluateGiftId: recordData.evaluateGiftEntity ? recordData.evaluateGiftEntity.id : "",
 
                 day: Y + '-' + M + '-' + D,
                 cancelDisabled: false//解禁取消预约
@@ -535,9 +533,7 @@ Page({
       wx.redirectTo({
         url: '../scrapeprice/scrapeprice?award=' + JSON.stringify(data),
       })
-      // wx.redirectTo({
-      //   url: '../scrapeprice/scrapeprice?award=',
-      // })
+
       }, function (data){
         wx.redirectTo({
           url: '../scrapeprice/scrapeprice?award=',
@@ -662,6 +658,7 @@ Page({
       // that.showToast();
     })
   },
+  
   //取消预约
   showModal:function(e){
     const that=this;
@@ -746,6 +743,20 @@ Page({
     var that=this
     that.setData({
       cancelMask: false
+    })
+  },
+
+  openHelpModal(){
+    const that = this;
+    that.setData({
+      helpInfoModal:true
+    })
+  },
+
+  closeHelpModal(){
+    const that = this;
+    that.setData({
+      helpInfoModal: false
     })
   },
 
@@ -868,4 +879,12 @@ Page({
       }
     })
   },
+
+  toPersonDetail(){
+    const that = this;
+    that.closeHelpModal();
+    wx.redirectTo({
+      url:"../personDetail/personDetail"
+    })
+  }
 })

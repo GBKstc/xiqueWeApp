@@ -11,7 +11,7 @@
     <view class='fontSize16 text'><open-data  type="userNickName"></open-data></view>
   </view>
   <view class='spaceBox item' catchtap='signOut'>
-    <view class='fontSize16 text'>手机号</view>
+    <view class='fontSize16 text'>切换手机号</view>
     <view class='operationLineRight'>
         <view class='lineRightText'>{{phoneNumber}}</view>
         <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>

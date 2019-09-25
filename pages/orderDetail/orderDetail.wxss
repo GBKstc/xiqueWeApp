@@ -301,7 +301,7 @@
   position: fixed;  
   top: 0;  
   left: 0;  
-  z-index: 888;  
+  z-index: 999;  
 }  
 /*toast*/  
 .cancel_toast_content_box {  
@@ -314,7 +314,7 @@
   z-index: 999;  
 }  
 .cancel_toast_content {  
-  width: 55%;  
+  width: 71%;  
   padding: 20rpx;    
   
 }  
@@ -323,6 +323,22 @@
   border-top-left-radius: 20rpx;
   border-top-right-radius: 20rpx;
   border-bottom:1px solid #d2d3d5;
+}
+.cancel_toast_content_text3 {  
+  /* height: 100%;   */
+  padding: 44rpx 20rpx 44rpx 20rpx;
+  color: #666;  
+  font-size: 32rpx;  
+  text-align: center; 
+  /* font-weight: bold; */
+}
+.cancel_toast_content_text4 {  
+  /* height: 100%;   */
+  padding: 15rpx 44rpx 44rpx 44rpx;
+  color: #333;  
+  font-size: 32rpx;   
+  text-align: left;  
+  line-height: 36rpx;
 }
 .cancel_toast_content_text1 {  
   /* height: 100%;   */
@@ -345,7 +361,7 @@
   /* border-bottom:1px solid #d2d3d5; */
 }
 .cancel_toast_content_button{
-  color:#333;
+  color:#999;
   font-size:28rpx;
   /* margin-top: 20rpx; */
   
@@ -361,7 +377,7 @@
   text-align:center;
   border-right:1px solid #d2d3d5; 
   border-bottom-left-radius:20rpx;
-  color:#333;
+  color:#999;
   font-size:36rpx;
   background-color: #fff;
 }
@@ -506,6 +522,10 @@
 
 /* 空页面样式 */
 .kongBox{
+  position: fixed;
+  top:0;
+  left: 0;
+  height: 100%;
   width: 100%;
 }
 .kongBox .infoText{
@@ -518,4 +538,16 @@
   width: 354rpx;
   height: 238rpx;
   margin: 306rpx auto 0;
+}
+.kongBox .footerBox{
+  width: 100%;
+  position: absolute;
+  bottom: 50rpx;
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 36rpx;
+  color: #888888;
+}
+.footerBox span{
+  color: #FD9595;
 }

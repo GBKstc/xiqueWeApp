@@ -13,6 +13,7 @@
     "pages/order/order",
     "pages/cardList/cardList",
     "pages/refund/refund",
+    "pages/cardDetail/cardDetail",
     "pages/orderDetailChance/orderDetailChance",
     "pages/scrapeprice/scrapeprice",
     "pages/craftsman/craftsman",
@@ -30,7 +31,7 @@
     "pages/accounts/accounts",
     "pages/time/time",
     "pages/success/success",
-    "pages/cardDetail/cardDetail",
+   
     "pages/consumeVerify/consumeVerify"
     
   ],

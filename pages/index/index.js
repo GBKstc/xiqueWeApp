@@ -1,10 +1,12 @@
 // pages/ONE/one.js
-var common = require('../../utils/commonConfirm.js');
-var util = require('../../utils/util');
+const common = require('../../utils/commonConfirm.js');
+const util = require('../../utils/util');
+const URL = require('../../utils/URL');
 const config = require('../../utils/config');
 const { imgUrl} = config;
 const { isLogin, throttle } = util;
 const app = getApp();
+const { requestAppid, getWeixinPostCodeName} = URL;
 Page({
   /**
    * 页面的初始数据
@@ -52,7 +54,10 @@ Page({
     isShowToast: false,
     isShowToastButton: false,
     count: 3000,
-    toastText: '你好'
+    toastText: '你好',
+
+
+
   },
   /**
    * 生命周期函数--监听页面加载
@@ -61,7 +66,9 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {},
+  onReady: function () {
+
+  },
 
   /**
    * 生命周期函数--监听页面显示
@@ -71,7 +78,10 @@ Page({
     var app = getApp()
     var random = wx.getStorageSync(app.globalData.appid);
     if (random) {//有随机数
-      that.loadHou(random)//调用原index里的函数
+      that.loadHou(random)//调用原index里的函数.
+      
+      //获取手艺人 岗位名称
+      that.getWeixinpostCodeNameFun();
     }else{
       this.login();
     }
@@ -608,6 +618,20 @@ Page({
     
   },
 
+  /**
+   * 获取手艺人名称
+   */
+  getWeixinpostCodeNameFun: function(){
+      const that = this;
+      requestAppid({
+        URL: getWeixinPostCodeName
+      },data=>{
+        console.log(data,"getWeixinpostCodeName");
+        that.setData({
+          postCodeName: (data.labelOne || "") + data.postName + (data.labelTwo || "")
+        })
+      })
+  },
   /**
    * 用户点击右上角分享
    */

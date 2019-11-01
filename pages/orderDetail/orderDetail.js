@@ -148,6 +148,7 @@ Page({
     let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
     let serviceId = options.serviceId;//服务单服务id 小程序结账
     let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId : "";
+    let scheduleType = options.scheduleType ? options.scheduleType : ""; //0:人员 1：仪器，2：项目
     let url = "";//请求接口 订单（erp小程序结账）请求getServiceDetailBySid 服务单请求getServiceDetail
     that.setData({
       status: status,
@@ -178,7 +179,8 @@ Page({
           thirdSessionId: res.data,
           status: status || "",
           scheduleServiceId: scheduleServiceId || "",
-          serviceId: serviceId || ""
+          serviceId: serviceId || "",
+          scheduleType: scheduleType  || "",
         }
         if (evaluateGiftId) {
           sendData.evaluateGiftId = evaluateGiftId;

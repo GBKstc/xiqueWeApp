@@ -1,6 +1,7 @@
 // pages/cardDetail/cardDetail.js
 let util = require('../../utils/util.js');
 let URL = require('../../utils/URL.js');
+let config = require('../../utils/config.js');
 const {
   requestAppid,
   cardLiaochengDetailProducts,
@@ -8,17 +9,31 @@ const {
   cardProjects,
   cardGoods,
   cardBalance,
-  cardPromDetailProducts
+  cardPromDetailProducts,
+
+  getStoreTypeList,
 } = URL;
-const { isEmpty,  } = util;
+const { imgUrl } = config;
+const { isEmpty } = util;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgUrl,
+
     modalBottom:"-100%",
-    showShadow:false
+    showShadow:false,
+    typeList:[],
+    goodsCode:999,
+    projectCode:999,  
+    projectOrPromCode:999,
+
+    goodsList: [],
+    projectList: [],
+    projectOrPromList:[],
+    
   },
 
   /**
@@ -26,10 +41,15 @@ Page({
    */
   onLoad: function (options) {
     console.log(options,"卡详情");
-    this.getCardDetail(options)
+    this.getStoreTypeListFun(options);
+    // this.getCardDetail(options);
+    
     this.setData({
       card: options
     })
+    // this.setData({
+    //   card:{ cardId: 100196370 }
+    // })
   },
 
   /**
@@ -79,6 +99,17 @@ Page({
    */
   onShareAppMessage: function () {
     console.log("分享成功")
+  },
+
+  selectProjectOrPromotion(e){
+    console.log(e);
+    const that = this;
+    if (e.currentTarget.dataset.producttype==2){
+      that.selectProject(e);
+    }
+    if (e.currentTarget.dataset.producttype == 3){
+      that.selectPromotion(e);
+    }
   },
   /**
    * 选择疗程
@@ -165,7 +196,7 @@ Page({
   },
 
   /**
-   * 者方案详情
+   * 方案详情
    */
   getCardPromDetailProducts(data) {
     const that = this;
@@ -213,12 +244,37 @@ Page({
       if (isEmpty(data)) {
         return;
       }
-      console.log(data, key)
-      const Data = {};
+      let Data = {};
+      
+      if (key == "cardProjects" || key == "cardGoods"){
+        const allList = [];
+        for(let Key in data){
+          if (isEmpty(data[Key])){
+            allList.concat(data[Key])
+          }
+        }
+        Data[key] = data;
+        Data[key].all = allList;
+      }
       Data[key] = data;
+      Data[key+"List"] = data;
+      Data[key+"Code"] = 999;
       that.setData({
         ...Data
       })
+    })
+  },
+
+  //获取门店类型
+  getStoreTypeListFun(options){
+    const that = this;
+    requestAppid({ 
+      URL: getStoreTypeList,
+    }, data => {
+      that.setData({
+        typeList:data
+      })
+      that.getCardDetail(options);
     })
   },
 
@@ -237,7 +293,31 @@ Page({
       console.log(key);
       that.getData(key, card);
     }
-
-
   },
+
+  //选择模块类型
+  selectType(e){
+    console.log(e.currentTarget.dataset);
+    const {code,producttype} = e.currentTarget.dataset;
+    const that = this;
+    const Data = that.data;
+    Data[producttype + "Code"] = code;
+    if(!isEmpty(Data[producttype])){
+      const list = [];
+      if(code==999){
+        Data[producttype + "List"] = Data[producttype];
+      }else{
+        for (let item of Data[producttype]) {
+          if (item.storeTypeCode == code) {
+            list.push(item);
+          }
+        }
+        Data[producttype + "List"] = list;
+      }
+      
+    }
+    that.setData({
+      ...Data
+    })
+  }
 })

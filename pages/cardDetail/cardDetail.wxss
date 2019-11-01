@@ -1,47 +1,118 @@
 /* pages/cardDetail/cardDetail.wxss */
 .box{
   background-color: #f5f5f5;
+  padding-top: 20rpx;
+}
+.listHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0 20rpx 20rpx 20rpx;
+  height: 222rpx;
+  border-radius: 16rpx;
+  padding: 0 88rpx;
+}
+.itemHeader{
+  padding-top: 72rpx;
+
+}
+.itemHeaderTitle{
+  font-family: PingFangSC-Medium;
+  font-size: 40rpx;
+  color: #FFFFFF;
+  letter-spacing: -0.48px;
+  line-height: 40rpx;
+  text-align: center;
+}
+.itemHeaderNumber{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #FFFFFF;
+  letter-spacing: -0.34px;
+  line-height: 28rpx;
+  text-align: center;
+  margin-top: 32rpx;
 }
 
 .list{
   background-color: white;
-  margin-bottom: 20rpx;
-  padding: 0 60rpx 34rpx;
+  margin: 20rpx;
+  padding: 0 20rpx 30rpx;
+  border-radius: 8rpx;
   position: relative;
 }
 .item{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 50rpx;
+  padding: 36rpx 0;
 }
 .titleLine{
   content: "";
   display: block;
-  width:56rpx;
-  height:4rpx;
-  background:rgba(253,149,149,1);
-  position: absolute;
-  top: 84rpx;
-  left: 60rpx;
+  width:100%;
+  height:2rpx;
+  background:#F4F4F4;
+  /* position: absolute; */
+  /* top: 84rpx;
+  left: 60rpx; */
 }
 .title{
-  font-size: 28rpx;
-  line-height: 28rpx;
-  color: #999999;
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  color: #F56E3F;
+  line-height: 24rpx;
 }
-.listTitle{
-  font-size: 28rpx;
-  line-height: 28rpx;
-  color: #999999;
-  margin-bottom: 30rpx;
-  padding-top: 50rpx;
+.titleList{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+   overflow-x: auto;
+  padding: 24rpx 0;
+  flex-shrink:0;
+}
+.titleList .listTitle{
+  font-size: 32rpx;
+  line-height: 32rpx;
+  color: #FD9595;
+  flex-shrink:0;
+  margin-left: 30rpx;
+}
+.titleList .listTitle2{
+  font-family: PingFangSC-Regular;
+  font-size: 24rpx;
+  line-height: 24rpx;
+  color: #000000;
+  letter-spacing: -0.29px;
+  text-align: center;
+  margin-left: 30rpx;
+  flex-shrink:0;
+  /* width: 128rpx; */
 }
 .title1{
   font-size: 32rpx;
   line-height: 32rpx;
   color: #333333;
   width: 550rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.title1 .title1Logo{
+  width: 60rpx;
+  height: 60rpx;
+  background-color: #F5F5F5;
+  border-radius: 100%;
+  margin-right: 20rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.title1Logo image{
+  display: block;
+  width: 56rpx;
+  height: 56rpx;
+  object-fit: cover;
 }
 .item .number{
   font-size: 36rpx;
@@ -49,20 +120,61 @@
   color: #333333;
   width: 140rpx;
   text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.number .numberX{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #000000;
+  letter-spacing: -0.68rpx;
+  text-align: center;
+  line-height: 28rpx;
+}
+.number .numberUnit{
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #9B9B9B;
+  letter-spacing: -0.68rpx;
+  text-align: center;
+  line-height: 28rpx;
+  margin-left: 10rpx;
 }
 .rightLogo{
-  width: 12rpx;
-  height: 22rpx;
-  display: inline-block;
+  width: 32rpx;
+  height: 32rpx;
+  padding: 0 16rpx;
+  background: #F5F5F5;
+  border-radius: 16rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rightLogo .rightLogoDont{
+  width: 6rpx;
+  height: 6rpx;
+  border-radius: 100%;
+  background: #AAAAAA;
 }
 .surplusDays{
   font-size: 28rpx;
   line-height: 28rpx;
-  color: #999999;
-  padding-top: 26rpx;
-  padding-bottom: 20rpx;
+  color: #919191;
+  padding: 12rpx 0;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.modalListTitle{
+  font-size: 28rpx;
+  line-height: 28rpx;
+  color: #999999;
+  margin-bottom: 30rpx;
+  padding-top: 50rpx;
+}
 
 
 /*

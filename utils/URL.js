@@ -87,6 +87,7 @@ const loginOut = "user / loginOut";
 const checkWxLogin = "wxLogin/getWxPhoneNumber";
 const wxLogin = "wxLogin/login";
 const getServiceTelephone = "user/getServiceTelephone";
+const getWeixinPostCodeName = "index/getWeixinPostCodeName";//获取手艺人岗位名称
 
 //获取登录者信息
 const getCurrentUser = "user/getCurrentUser";
@@ -129,6 +130,8 @@ const serviceOpenCardInfo = "service/openCardInfo"; //开卡
 
 const cardList = "card/cardList"; //获取卡列表
 
+const getStoreTypeList = "index/getStoreTypeList"; //获取门店类型
+
 const cardLiaochengDetailProducts = "card/cardLiaochengDetailProducts"; //卡剩余疗程内物品和项目
 
 const cardLiaochengAndProm = "card/cardLiaochengAndProm"; //卡剩余疗程和方案
@@ -150,11 +153,12 @@ module.exports = {
   request,
   requestAppid,
 
-
+  getStoreTypeList,
   checkLogin, 
   companyInfo,
   loginOut,
   checkWxLogin,
+  getWeixinPostCodeName,
   getServiceTelephone,
   wxLogin,
   myInfo,

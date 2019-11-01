@@ -1,18 +1,22 @@
 // pages/cardList/success.js
 let util = require('../../utils/util.js');
+let config = require('../../utils/config.js');
 let URL = require('../../utils/URL.js');
 const { isEmpty, formatTimeDay, isLogin } = util;
 const { 
   requestAppid,
   cardList,
 } = URL;
+const {
+  imgUrl
+} = config;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    imgUrl,
   },
 
   /**

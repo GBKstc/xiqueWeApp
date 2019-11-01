@@ -1,66 +1,85 @@
 <!--pages/cardDetail/cardDetail.wxml-->
 <view class='box'>
-  <view class='list'>
-    <view class='item' wx:if="{{cardBalance&&(cardBalance.buyAmount||cardBalance.buyAmount==0)}}">
-      <view class='title'>充值余额(元)</view>
-      <view class='number'>{{cardBalance.buyAmount}}</view>
+  <view class='listHeader' style='background:url("{{imgUrl}}/bg_qb.png") no-repeat;background-size: cover;'>
+    <view class='itemHeader' wx:if="{{cardBalance&&(cardBalance.buyAmount||cardBalance.buyAmount==0)}}">
+      <view class='itemHeaderTitle'>{{cardBalance.buyAmount}}</view>
+      <view class='itemHeaderNumber'>充值余额(元)</view>
     </view>
-    <view class='item' wx:if="{{cardBalance&&(cardBalance.giveAmount||cardBalance.giveAmount==0)}}">
-      <view class='title'>赠送余额(元)</view>
-      <view class='number'>{{cardBalance.giveAmount}}</view>
+    <view class='itemHeader' wx:if="{{cardBalance&&(cardBalance.giveAmount||cardBalance.giveAmount==0)}}">
+      <view class='itemHeaderTitle'>{{cardBalance.giveAmount}}</view>
+      <view class='itemHeaderNumber'>赠送余额(元)</view>
     </view>
   </view>
-  <view class='list' wx:if="{{cardGoods}}" >
-    <view class='listTitle'>剩余物品</view>
+  <view class='list' wx:if="{{cardGoods&&cardGoods.length!=0}}" >
+    <view class="titleList">
+      <view style="margin-left:0" class='{{cardGoodsCode==999?"listTitle":"listTitle2"}}' bindtap='selectType' data-productType='cardGoods' data-code="999">剩余物品</view>
+      <view class='{{cardGoodsCode==item.code?"listTitle":"listTitle2"}}' bindtap='selectType' wx:for="{{typeList}}" wx:key data-productType='cardGoods' data-code="{{item.code}}">{{item.name}}物品</view>
+    </view>
     <view class='titleLine'></view>
-    <view class='item' wx:for="{{cardGoods}}" wx:key>
+    <view class='item' wx:for="{{cardGoodsList}}" wx:key>
       <view class='title1'>
+          <view class="title1Logo">
+            <image src="{{imgUrl}}/icon_lx{{item.storeTypeCode}}@2x.png"></image>
+          </view>
           <text style='margin-right:20rpx'>{{item.productName}}</text>
-          <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
+          <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">赠送</text>
+          <!-- <text class='title'>赠送</text> -->
         </view>
-      <view class='number'>{{item.surplus+item.unit}}</view>
+      <view class='number'>
+        <view class='numberX'>x{{item.surplus}}</view>
+        <view class='numberUnit'>({{item.unit}})</view>
+      </view>
     </view>
   </view>
-  <view class='list'  wx:if="{{cardProjects}}">
-    <view class='listTitle'>剩余项目</view>
+  <view class='list'  wx:if="{{cardProjects&&cardProjects.length!=0}}">
+    <view class="titleList">
+      <view style="margin-left:0" class='{{cardProjectsCode==999?"listTitle":"listTitle2"}}' bindtap='selectType' data-productType='cardProjects' data-code="999">剩余项目</view>
+      <view class='{{cardProjectsCode==item.code?"listTitle":"listTitle2"}}' bindtap='selectType' wx:for="{{typeList}}" wx:key data-productType='cardProjects' data-code="{{item.code}}">{{item.name}}项目</view>
+    
+    </view>
     <view class='titleLine'></view>
-    <view class='item' wx:for="{{cardProjects}}" wx:key>
+    <view class='item' wx:for="{{cardProjectsList}}" wx:key>
       <view class='title1'>
+          <view class="title1Logo">
+            <image src="{{imgUrl}}/icon_lx{{item.storeTypeCode}}@2x.png"></image>
+          </view>
           <text style='margin-right:20rpx'>{{item.productName}}</text>
           <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
         </view>
       <view class='number'>{{item.surplus}}次</view>
     </view>
   </view>
-  <view class='list' wx:if="{{(cardLiaochengAndProm.liaocheng&&cardLiaochengAndProm.liaocheng.length!=0)||cardLiaochengAndProm.promotion&&cardLiaochengAndProm.promotion.length!=0}}">
-    <view class='listTitle'>剩余疗程/方案</view>
-    <view class='titleLine'></view>
-    <view wx:for="{{cardLiaochengAndProm.liaocheng}}" data-productid='{{item.productId}}' data-orderid='{{item.orderId}}' wx:key bindtap='selectProject' >
-      <view class='item' >
-        <view class='title1'>
-          <text style='margin-right:20rpx'>{{item.productName}}</text>
-          <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
-        </view>
-        <view class='number'><image class='rightLogo' src='../../image/right1.png'></image></view>
-      </view>
-      <view class='surplusDays' wx:if="{{item.validDay}}">(还剩{{item.validDay}}天)</view>
+  <view class='list' wx:if="{{(cardLiaochengAndProm&&cardLiaochengAndProm.length!=0)}}">
+    <view class="titleList">
+      <view style="margin-left:0" class='{{cardLiaochengAndPromCode==999?"listTitle":"listTitle2"}}' bindtap='selectType' data-productType='cardLiaochengAndProm' data-code="999">剩余疗程/方案</view>
+      <view class='{{cardLiaochengAndPromCode==item.code?"listTitle":"listTitle2"}}' bindtap='selectType' wx:for="{{typeList}}" wx:key data-productType='cardLiaochengAndProm' data-code="{{item.code}}">{{item.name}}疗程/方案</view>
     </view>
-   
-    <view wx:for="{{cardLiaochengAndProm.promotion}}" data-productid='{{item.productId}}' data-orderid='{{item.orderId}}' wx:key bindtap='selectPromotion' >
+    <view class='titleLine'></view>
+    <view wx:for="{{cardLiaochengAndPromList}}" wx:key   >
       <view class='item' >
         <view class='title1'>
+          <view class="title1Logo">
+            <image src="{{imgUrl}}/icon_lx{{item.storeTypeCode}}@2x.png"></image>
+          </view>
           <text style='margin-right:20rpx'>{{item.productName}}</text>
           <text class='title' wx:if="{{item.buyType==2||item.buyType==4}}">(赠送)</text>
         </view>
-        <view class='number'><image class='rightLogo' src='../../image/right1.png'></image></view>
+        <view class='rightLogo' data-productid='{{item.productId}}' data-productType='{{item.productType}}' data-orderid='{{item.orderId}}' bindtap='selectProjectOrPromotion'>
+          <view class='rightLogoDont'></view>
+          <view class='rightLogoDont'></view>
+          <view class='rightLogoDont'></view>
+        </view>
       </view>
-      <view class='surplusDays' wx:if="{{item.validDay}}">(还剩{{item.validDay}}天)</view>
+      <view class='surplusDays' wx:if="{{item.validDay}}">
+        <view>剩余</view>
+        <view>{{item.validDay}}天</view>
+      </view>
     </view>
   </view>
   <view class='shadow' wx:if="{{showShadow}}">
     <view class='modal' style='bottom:{{modalBottom}}'>
       <view class='detailList'>
-       <view class='listTitle' wx:if="{{surplusTimes===0||surplusTimes}}">剩余总服务次数:{{surplusTimes}}</view>
+       <view class='modalListTitle' wx:if="{{surplusTimes===0||surplusTimes}}">剩余总服务次数:{{surplusTimes}}</view>
        <view class='titleLine' wx:if="{{surplusTimes===0||surplusTimes}}"></view>
         <view class='detailItem' wx:if="{{cardLiaochengDetailProducts&&cardLiaochengDetailProducts.length>0}}" wx:for="{{cardLiaochengDetailProducts}}" wx:key>
           <view class='title'>

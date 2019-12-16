@@ -423,9 +423,10 @@ Page({
     console.log(e.currentTarget);
     var status = e.currentTarget.dataset.status;
     var scheduleServiceId = e.currentTarget.dataset.id;
-    var evaluateGiftId = e.currentTarget.dataset.evaluategiftid||"";
+    var evaluateGiftId = e.currentTarget.dataset.evaluategiftid || "";
+    var scheduletype = e.currentTarget.dataset.scheduletype||"";
     wx.navigateTo({
-      url: '../orderDetail/orderDetail?status=' + status + '&scheduleServiceId=' + scheduleServiceId + "&evaluateGiftId=" + evaluateGiftId,
+      url: '../orderDetail/orderDetail?status=' + status + '&scheduleServiceId=' + scheduleServiceId + "&evaluateGiftId=" + evaluateGiftId + "&scheduletype=" + scheduletype,
       success: function () {
       }
     })

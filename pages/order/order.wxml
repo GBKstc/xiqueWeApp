@@ -13,7 +13,7 @@
   <view class='list' wx:if="{{listData&&listData.length>0}}">
      <!-- <block wx:for="{{listData}}">  -->
      <!-- <template is='{{_num}}'></template> -->
-    <view class='listItem' wx:for="{{listData}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-status="{{status}}" data-evaluategiftid="{{item.evaluateGiftId}}" bindtap='oneClick'>
+    <view class='listItem' wx:for="{{listData}}" wx:key="{{item.id}}" data-id="{{item.id}}" data-status="{{status}}" data-scheduletype="{{item.scheduleType}}" data-evaluategiftid="{{item.evaluateGiftId}}" bindtap='oneClick'>
       <view class='up'>
         <view class='date'>{{item.timePart}}</view><view class='time'>({{item.timeDuan}}小时)</view>
       </view>

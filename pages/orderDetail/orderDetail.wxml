@@ -230,7 +230,7 @@
         </view>
       </view>
       <view class='contentBox startTopBox' wx:if="{{recordData.userName}}">
-        <view class='contentLeft fontSize16'>手艺人</view>
+        <view class='contentLeft fontSize16'>{{postCodeName||"手艺人"}}</view>
         <view class='contentRight'>
           <view class='startBox rightLine '>
             <view wx:if="{{isArray}}" class='fontSize16 rightLineTitle'>

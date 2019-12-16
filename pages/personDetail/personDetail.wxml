@@ -29,7 +29,8 @@
         <view class="cancel_toast_content_text2">切换账号将退出当前账号</view>  
       </view>
       <view class='cancel_toast_content_button'>
-        <text class='cancel_toast_content_button1' bindtap='signOutFail'>取消</text><text bindtap='signOutSuccess' class='cancel_toast_content_button2'>确定</text>
+        <text class='cancel_toast_content_button1' bindtap='signOutFail'>取消</text>
+        <text bindtap='signOutSuccess' class='cancel_toast_content_button2'>确定</text>
     </view>
     </view> 
      

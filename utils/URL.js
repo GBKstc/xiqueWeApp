@@ -148,6 +148,7 @@ const applyRefund = "myDiscountCode/applyRefund";//优惠码退款
 const myInfo = "user/myInfo";//我的信息
 
 const storeDetail = "user/getStoreDetail";//获取门店详情
+const getWeixinModuleShowIs = "index/getWeixinModuleShowIs";//控制小程序功能模块是否展示  n是不展示，其他情况都展示
 
 module.exports = {
   request,
@@ -208,5 +209,6 @@ module.exports = {
   //优惠券申请
   applyRefund,
 
-  storeDetail
+  storeDetail,
+  getWeixinModuleShowIs,
 }

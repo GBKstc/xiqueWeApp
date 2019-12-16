@@ -12,7 +12,9 @@ const {
   requestAppid,
   raffle,
   userScheduleServiceSaveEvaluate,
-  billConfirmBill,
+  billConfirmBill, 
+  getWeixinPostCodeName,
+  getWeixinModuleShowIs,
 } = URL;
 const { 
   isEmpty,
@@ -72,12 +74,22 @@ Page({
     //关闭分享
     wx.hideShareMenu();
     // console.log('orderDetail', options)
-    const that=this
+    const that=this;
     // 实例化API核心类
     qqmapsdk = new QQMapWX({
       key: 'WDEBZ-33BRR-ZO4WZ-WSJ3Y-RFEM2-D6BZF'
     });
-    app.globalData.orderDetailOptions = options;
+    let orderDetailOptions = {};
+    if (options && options.scene) {
+      orderDetailOptions = decodeURIComponent(options.scene);
+    }else{
+      orderDetailOptions = options;
+    }
+    //默认普通订单
+    if (isEmpty(orderDetailOptions.scheduletype)){
+      orderDetailOptions.scheduletype = 0;
+    }
+    app.globalData.orderDetailOptions = orderDetailOptions;
     //验证是否登陆
     isLogin(()=>{
       //获取订单详情
@@ -100,8 +112,8 @@ Page({
     //获取订单详情
     if (!isEmpty(app.globalData.orderDetailOptions)){
       that.getOrderDetailFun(app.globalData.orderDetailOptions);
+      that.getWeixinModuleShow();
     }
-    
   },
 
   /**
@@ -141,6 +153,37 @@ Page({
   
   // },
 
+  /**
+   * 获取手艺人名称
+   */
+  getWeixinpostCodeNameFun: function () {
+    const that = this;
+    requestAppid({
+      URL: getWeixinPostCodeName
+    }, data => {
+      console.log(data, "getWeixinpostCodeName");
+      that.setData({
+        postCodeName: (data.labelOne || "") + data.postName + (data.labelTwo || "")
+      })
+    })
+  },
+
+  //控制小程序功能模块是否展示  n是不展示，其他情况都展示 医美版本临时接口
+  getWeixinModuleShow() {
+    var that = this;
+    requestAppid({
+      URL: getWeixinModuleShowIs
+    }, (data) => {
+      that.setData({
+        moduleShowIs: data
+      })
+      if (data == "y") {
+        // //获取手艺人 岗位名称
+        that.getWeixinpostCodeNameFun();
+      }
+    })
+  },
+
 
   getOrderDetailFun(options){
     const that = this;
@@ -148,7 +191,7 @@ Page({
     let scheduleServiceId = options.scheduleServiceId;//排班订单服务id
     let serviceId = options.serviceId;//服务单服务id 小程序结账
     let evaluateGiftId = options.evaluateGiftId ? options.evaluateGiftId : "";
-    let scheduleType = options.scheduleType ? options.scheduleType : ""; //0:人员 1：仪器，2：项目
+    let scheduleType = options.scheduletype ? options.scheduletype : 0; //0:人员 1：仪器，2：项目
     let url = "";//请求接口 订单（erp小程序结账）请求getServiceDetailBySid 服务单请求getServiceDetail
     that.setData({
       status: status,
@@ -180,7 +223,7 @@ Page({
           status: status || "",
           scheduleServiceId: scheduleServiceId || "",
           serviceId: serviceId || "",
-          scheduleType: scheduleType  || "",
+          scheduleType: scheduleType,
         }
         if (evaluateGiftId) {
           sendData.evaluateGiftId = evaluateGiftId;

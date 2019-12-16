@@ -116,7 +116,7 @@ Page({
       //设置toast时间，toast内容  
       that.setData({
         count: 2000,
-        toastText: '优惠券已失效'
+        toastText: msg || '优惠券已失效'
       });
       that.showToast();
     });

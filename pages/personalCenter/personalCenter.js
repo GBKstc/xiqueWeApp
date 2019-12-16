@@ -4,7 +4,7 @@ let URL = require('../../utils/URL.js');
 let util = require('../../utils/util.js');
 const app = getApp();
 const config = require('../../utils/config');
-const { myInfo, requestAppid, request, wxLogin, getServiceTelephone, companyInfo } = URL;
+const { myInfo, requestAppid, request, wxLogin, getServiceTelephone, companyInfo, getWeixinModuleShowIs } = URL;
 const { isEmpty, isLogin, isRandom } = util;
 const { imgUrl } = config;
 Page({
@@ -37,11 +37,6 @@ Page({
   onLoad: function (options) {
     wx.hideShareMenu();
     const that = this;
-    
-    // this.setData({
-    //   showOrder: true
-    // })
-    // app.globalData.showOrder = true;
     //如果是二维码,且sence有form=code 判断登录 如果已经登录 去消费确认 如果没登录去登录页面 
     if (options && options.scene) {
       let scene = decodeURIComponent(options.scene);
@@ -58,13 +53,6 @@ Page({
         app.globalData.showOrder = true;
       }      
     } else if (options){
-      // let scene = decodeURIComponent(options);
-      // let arr = scene.split('&');
-      // let length = arr.length;
-      // let res = {};
-      // for (var i = 0; i < length; i++) {
-      //   res[arr[i].split('=')[0]] = arr[i].split('=')[1];
-      // }
       if (options.form == "code") {
         this.setData({
           showOrder: true
@@ -72,6 +60,8 @@ Page({
         app.globalData.showOrder = true;
       }      
     }
+
+    this.getWeixinModuleShow();
   },
 
   
@@ -142,6 +132,17 @@ Page({
         toastText: msg
       });
       that.showToast();
+    })
+  },
+  //控制小程序功能模块是否展示  n是不展示，其他情况都展示 医美版本临时接口
+  getWeixinModuleShow(){
+    var that = this;
+    requestAppid({
+      URL: getWeixinModuleShowIs
+    }, (data) => {
+      that.setData({
+        moduleShowIs: data
+      })
     })
   },
 

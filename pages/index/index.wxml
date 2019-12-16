@@ -21,7 +21,7 @@
   <view class="contain">
     <view class="containInput">
       <view class="search {{isShow?'':'changeFixed'}}">
-        <input  placeholder="搜索{{postCodeName||''}}" placeholder-class="phcolor" bindfocus="handlefocus" bindblur="handleblur" bindinput='handleInput' value="{{name}}"></input>
+        <input  placeholder="搜索{{postCodeName||'手艺人'}}" placeholder-class="phcolor" bindfocus="handlefocus" bindblur="handleblur" bindinput='handleInput' value="{{name}}"></input>
         <image class='searchCraft' src="{{imgUrl}}/Icon_search@3x.png"></image>
       </view> 
       <!-- 切换显示与隐藏 -->
@@ -38,9 +38,9 @@
           </view>
         </view>
         <view class='item people' bindtap='toPeople'>
-          <view class="labelText">{{postCodeName||''}}</view>
+          <view class="labelText">{{postCodeName||'手艺人'}}</view>
           <view class="indexInput"  wx:if="{{near}}">
-            <view style='color: #FD9595;'>五星{{postCodeName||''}}</view>
+            <view style='color: #FD9595;'>五星{{postCodeName||'手艺人'}}</view>
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view  class="indexInput" wx:elif="{{startData}}">
@@ -48,8 +48,8 @@
             <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>
           <view class="indexInputx" wx:else>
-          <view>未匹配到合适{{postCodeName||''}}</view>
-          <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
+            <view>未匹配到合适{{postCodeName||'手艺人'}}</view>
+            <image class='near' src='{{imgUrl}}/icon_arrow_right@3x.png'></image>
           </view>  
           <view class='img'>
             <!-- 新客 -->
@@ -84,7 +84,7 @@
           </block>
           <view class='kongCon' wx:if="{{kong}}">
             <image class='kongImg' src='../../image/kong.png'></image>
-            <view class='kong'>抱歉，没有找到相关{{postCodeName||''}}</view>
+            <view class='kong'>抱歉，没有找到相关{{postCodeName||'手艺人'}}</view>
           </view>
       </view>
      
@@ -104,14 +104,14 @@
 <!-- 正在为你匹配合适的手艺人mask -->
 <view class='loadingMask' wx:if="{{isloadingMask1}}">
   <view class='loadingContent' style="background-image:url('http://image.beautysaas.com/xique/baack.png');background-size:100% 100%">
-    正在为你匹配合适的{{postCodeName||''}}...
+    正在为你匹配合适的{{postCodeName||'手艺人'}}...
   </view>
 </view>
 <!-- 暂无合适手艺人mask -->
 <view class='loadingMask' wx:if="{{isloadingMask2}}">
   <view class='loadingContent2' style="background-image:url('http://image.beautysaas.com/xique/baacked.png');background-size:100% 100%;">
     <view class='loadingContent22'>
-      <view style=''>暂无合适{{postCodeName||''}}</view>
+      <view style=''>暂无合适{{postCodeName||'手艺人'}}</view>
       <view style='margin-top:30rpx;'>选择其它时间试试吧</view>
       <view class='buttonArr'>
         <text class='cancelMask' bindtap='cancelMask'>取消</text>

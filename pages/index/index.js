@@ -6,7 +6,7 @@ const config = require('../../utils/config');
 const { imgUrl} = config;
 const { isLogin, throttle } = util;
 const app = getApp();
-const { requestAppid, getWeixinPostCodeName} = URL;
+const { requestAppid, getWeixinPostCodeName, getWeixinModuleShowIs} = URL;
 Page({
   /**
    * 页面的初始数据
@@ -78,17 +78,31 @@ Page({
     var app = getApp()
     var random = wx.getStorageSync(app.globalData.appid);
     if (random) {//有随机数
-      that.loadHou(random)//调用原index里的函数.
+      that.loadHou(random)//调用原index里的函数. 
+      //控制小程序功能模块是否展示  n是不展示，其他情况都展示 医美版本临时接口
+      that.getWeixinModuleShow();
       
-      //获取手艺人 岗位名称
-      that.getWeixinpostCodeNameFun();
     }else{
       this.login();
     }
-    //console.log("onShow")
-    
-    
   },
+
+  //控制小程序功能模块是否展示  n是不展示，其他情况都展示 医美版本临时接口
+  getWeixinModuleShow() {
+    var that = this;
+    requestAppid({
+      URL: getWeixinModuleShowIs
+    }, (data) => {
+      that.setData({
+        moduleShowIs: data
+      })
+      if(data=="y"){
+        //获取手艺人 岗位名称
+        that.getWeixinpostCodeNameFun();
+      }
+    })
+  },
+
   //开始*******************************************************************************************
   login:function(){
     var that = this
@@ -628,7 +642,7 @@ Page({
       },data=>{
         console.log(data,"getWeixinpostCodeName");
         that.setData({
-          postCodeName: (data.labelOne || "") + data.postName + (data.labelTwo || "")
+          postCodeName: data.postName
         })
       })
   },

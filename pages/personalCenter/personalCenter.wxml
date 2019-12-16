@@ -50,13 +50,12 @@
       <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
     </view>
   </view>
-  <view class='operationLine' wx:if="{{isWeixinShowCardInfo==2||true}}" bindtap='select' data-url='../cardList/cardList'>
+  <view class='operationLine' wx:if="{{isWeixinShowCardInfo==2&&moduleShowIs=='y'}}" bindtap='select' data-url='../cardList/cardList'>
     <view class='operationLineLeft'>
       <view class='lineLeftLogo'><image mode='aspectFit' src='{{imgUrl}}/Icon_hykye@3x.png'></image></view>
       <view class='lineLeftText'>会员卡余额</view>
     </view>
     <view class='operationLineRight'>
-      <!-- <view class='lineRightText'>待确认</view> -->
       <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
     </view>
   </view>
@@ -66,7 +65,6 @@
       <view class='lineLeftText'>门店详情</view>
     </view>
     <view class='operationLineRight'>
-      <!-- <view class='lineRightText'>待确认</view> -->
       <view class='lineRightLogo'><image src='{{imgUrl}}/icon_arrow_right@3x.png'></image></view>
     </view>
   </view>
@@ -83,7 +81,7 @@
 </view>
 
 <view class='footBox'>
-  <text class='companyName'>喜鹊喜报V13.0</text>
+  <text class='companyName'>喜鹊喜报 V14.0 </text>
   <text class='footContent'>提供技术支持</text>
 </view>
 

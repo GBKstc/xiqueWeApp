@@ -833,6 +833,20 @@ Page({
       })
     }
   },
+
+  openHeaderImage:function(e){
+    console.log(e.currentTarget);
+    const that = this;
+    that.setData({
+      headerImageVisible:true,
+    })
+  },
+  closeHeaderImage: function () {
+    const that = this;
+    that.setData({
+      headerImageVisible: false,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

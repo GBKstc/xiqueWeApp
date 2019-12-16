@@ -6,7 +6,7 @@
           <view class="labelText">{{username}}</view>
           <view class="indexInput">{{departmentName}}</view>
           <!-- 前提是有姓名才有图像 -->
-          <view class='img' wx:if="{{username}}">
+          <view class='img' wx:if="{{username}}" data-imageUrl="{{avatarapp}}" bindtap='openHeaderImage'>
             <image style="width: 70px; height: 70px;background-color:#eee" mode="aspectFit" src="{{avatarapp!=='undefined'&&avatarapp!=='null'?avatarapp:'../../image/login.png'}}"></image>
           </view>
         </view>
@@ -188,6 +188,10 @@
   </view>
   <view class='button'>
         <button class='success' disabled='{{isclick}}' hover-class="clickSuccess" bindtap='toPages'>确定</button>
+  </view>
+
+  <view class="headerImageModal" wx:if="{{headerImageVisible}}" bindtap="closeHeaderImage">
+    <image mode="aspectFit" src="{{avatarapp!=='undefined'&&avatarapp!=='null'?avatarapp:'../../image/login.png'}}"/>
   </view>
 
   <!--mask-->  

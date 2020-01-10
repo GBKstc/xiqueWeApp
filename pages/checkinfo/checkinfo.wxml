@@ -11,9 +11,7 @@
     </view>
     
     <view style='margin-top:110rpx'>
-      <form bindsubmit="modifySuccess" report-submit="true">
-        <button class='submit' form-type="submit"  disabled='{{confirmDisabled}}' >确定</button>
-      </form>
+      <button bindtap="modifySuccess" class='submit' form-type="submit"  disabled='{{confirmDisabled}}' >确定</button>
     </view> 
     
     <view style='margin-top:30rpx'>

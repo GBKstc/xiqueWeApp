@@ -392,6 +392,63 @@ function sTypeOf(o, type) {
 
 }
 
+/**
+ *消息订阅
+ *
+ */
+
+function messagePromise({
+  type,
+  success,
+  fail,
+  complete
+}){
+  const messageTemplate = getApp().globalData.messageTemplate;
+  console.log(messageTemplate);
+  //如果没有消息提醒
+  if (isEmpty(messageTemplate)){
+    if (complete) {
+      complete(arguments)
+    }
+    return false;
+
+
+    if (isEmpty(messageTemplate[type])){
+      if (complete) {
+        complete(arguments)
+      }
+      return false;
+    }
+  }
+  
+  const tmplIds = messageTemplate[type];
+  console.log(tmplIds);
+  if(wx.requestSubscribeMessage){
+
+    wx.requestSubscribeMessage({
+      tmplIds: [tmplIds],
+      success: (errMsg, TEMPLATE_ID) => {
+        console.log("success", errMsg, TEMPLATE_ID)
+          if(success){
+            success(arguments)
+          };
+      },
+      fail: (errMsg, TEMPLATE_ID) => {
+        console.log("fail", errMsg, TEMPLATE_ID)
+        if (fail) {
+          fail(arguments)
+        };
+      },
+      complete: (errMsg, TEMPLATE_ID) => { 
+        console.log("complete", errMsg, TEMPLATE_ID)
+        if (complete) {
+          complete(arguments)
+        };
+      },
+    })
+  }
+}
+
 
 
 module.exports = {
@@ -406,5 +463,6 @@ module.exports = {
   isLogin: isLogin,
   isRandom: isRandom,
   toFix: toFix,
-  sTypeOf: sTypeOf
+  sTypeOf: sTypeOf,
+  messagePromise: messagePromise
 }

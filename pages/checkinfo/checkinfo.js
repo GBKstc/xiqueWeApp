@@ -1,7 +1,9 @@
 // pages/checkinfo/checkinfo.js
 var common = require('../../utils/commonConfirm.js');
 const util = require('../../utils/util.js');
-const { isEmpty, cpy } = util;
+const URL = require('../../utils/URL.js');
+const { isEmpty, cpy, messagePromise } = util;
+const { requestAppid } = URL;
 Page({
 
   /**
@@ -165,7 +167,6 @@ Page({
   // },
   //点击确定
   modifySuccess:function(e){
-    console.log(e.detail.formId);
     var that=this;
     const {
       phoneValue,
@@ -208,42 +209,22 @@ Page({
         type: 1
       })
     }
-
-    //预约请求
-    wx.getStorage({//异步获取随机数
-      key: getApp().globalData.appid,
-      success: function (res) {
-        console.log('核对信息页获取到随机数为')
-        console.log(res.data)
-        
-        // 打印预约请求参数
-        console.log('预约请求参数')
-        console.log(sendData)
-
-        that.setData({//发送请求前禁用掉确定按钮
-          confirmDisabled: true
-        });
-
-        sendData.thirdSessionId = res.data
-        wx.request({
-          url: getApp().url + 'schedule/addOrder',
-          method: 'POST',
-          data: sendData,
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            that.setData({//解除确定按钮禁用
-              confirmDisabled: false
-            });
-            console.log(res.data)
-            if (res.data.status === 200) {
-
-              wx.redirectTo({
-                url: '../success/success',
-                success: function () {
-                 
-                }
-              })
-            } else if (res.data.status === 400 || res.data.status === 403 || res.data.status === 404 || res.data.status === 405) {//失败
+    messagePromise({
+      type:"promiseSuccess",
+      complete:()=>{
+        requestAppid(
+          {
+            URL: '/schedule/addOrder',
+            param: sendData
+          },
+          (res)=>{
+            wx.redirectTo({
+              url: '../success/success',
+              success: function () { }
+            })
+          },
+          (res)=>{
+            if (res.data.status === 400 || res.data.status === 403 || res.data.status === 404 || res.data.status === 405) {//失败
               // console.log(400)
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -253,7 +234,7 @@ Page({
               });
               that.showToast();
               //common.showToast(res.data.msg)//状态401和402
-            }else{
+            } else {
               //common.showToast(res.data.msg)//状态401和402
               var msg = res.data.msg
               //设置toast时间，toast内容  
@@ -263,30 +244,10 @@ Page({
               });
               that.showToast();
             }
-            
-            
-          },
-          fail:function(res){
-            that.setData({//解除确定按钮禁用
-              confirmDisabled: false
-            });
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: "接口报错"
-            });
-            that.showToast();
           }
-        })
-      },
-      fail: function () {
-        that.setData({//解除确定按钮禁用
-          confirmDisabled: false
-        });
-        console.log('核对信息页获取随机数失败')
+        )
       }
     })
-    
   },
 
   acceptName(e){

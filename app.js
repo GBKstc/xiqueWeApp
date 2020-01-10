@@ -5,9 +5,14 @@ const { getCurrentUser } = URL;
 App({
   globalData: {//初始化请求参数
     appid: 'wxab4355d28417d914',
-    secret: '026e8bf6e20155b7d7f926b27db7c5c3'
-    // appid: 'wx1027d78d6fa6c86d',
-    // secret: '63d9937305accf41f20b125389d45cec'
+    secret: '026e8bf6e20155b7d7f926b27db7c5c3',
+
+
+    messageTemplate:{
+      successConsum: "2B9KjGbPZQg_46u58eFWh07yb-0QJrD8uBceenLdTXo", //消费成功通知
+      promiseSuccess: "xcRkfwiEMGgaDP98jz6SqoEbUenfic2p-S1oD_BIH7w", //服务预约成功提醒
+      promiseCancel: "5LEJCKPOb-y1_M3q1AOtvV5GjLdajZFcll3fKx2q2Hk", //预约取消通知
+    }
   },
 
 
@@ -20,7 +25,6 @@ App({
 
 
   onLaunch: function () {
-    console.log("app onLaunch")
     const that = this;
     wx.getStorage({//异步获取随机数
       key: that.globalData.appid,
@@ -53,11 +57,41 @@ App({
         //that.login()
       }
     })
-
-    
+    //检查更新
+    that.updateApp();
   },
   onShow:function(){
     console.log("app onShow")
+  },
+  updateApp: function () {
+    const updateManager = wx.getUpdateManager()
+    updateManager.onCheckForUpdate(function (res) {
+      // 请求完新版本信息的回调
+      if (res.hasUpdate) {
+        wx.showLoading({
+          title: '更新下载中...',
+        })
+      }
+    })
+    updateManager.onUpdateReady(function () {
+      wx.hideLoading();
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已经准备好，是否重启应用？',
+        success: function (res) {
+          if (res.confirm) {
+            // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+            updateManager.applyUpdate()
+          }
+        }
+      })
+
+    })
+    updateManager.onUpdateFailed(function () {
+      // 新的版本下载失败
+      wx.hideLoading();
+      wx.showToast({ title: '下载失败...', icon: "none" });
+    })
   },
   login: function (cb) {
     // console.log('调用app.js页面的login函数')

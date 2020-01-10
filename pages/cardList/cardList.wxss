@@ -69,3 +69,43 @@
   font-weight:400;
   text-align: center;
 }
+
+
+.list{
+  width:710rpx;
+  padding: 120rpx 20rpx 0 20rpx;
+  /* position: fixed; */
+  height: 100%;
+  overflow: auto;
+  /* top: 0;
+  left: 0; */
+}
+.noOrder{
+  width: 354rpx;
+  height: 250rpx;
+  display: block;
+  margin: 186rpx auto 0;
+}
+.noOrderText{
+  margin-top: 36rpx;
+  text-align: center;
+  font-family: PingFangSC-Regular;
+  font-size: 28rpx;
+  color: #888888;
+}
+
+.appointment{
+  margin: 40rpx auto 0;
+
+  width: 670rpx;
+  height: 94rpx;
+  background: #FD9595;
+  border: 1px solid rgba(5,5,5,0.08);
+  border-radius: 10rpx;
+
+  font-family: PingFangSC-Regular;
+  font-size: 36rpx;
+  line-height: 94rpx;
+  color: #FFFFFF;
+  text-align: center;
+}

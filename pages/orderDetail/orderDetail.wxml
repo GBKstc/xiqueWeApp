@@ -56,9 +56,7 @@
         <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
       </view>
       <textarea maxlength="50" value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
-      <form bindsubmit="submitEvevate" report-submit="true">
-        <button form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"立即评价"}}</button>
-      </form>
+      <button bindtap="submitEvevate"  form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"立即评价"}}</button>
     </view>
   </view>
 
@@ -272,9 +270,7 @@
     <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >消费确认</view>
   </view>
   <view class='submit' wx:elif="{{status==0&&recordData.serviceType==1}}">
-    <form bindsubmit="submitEvevate" report-submit="true">
-      <button form-type="submit"  class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal'>消费确认</button>
-    </form>
+    <button bindtap="submitEvevate" form-type="submit"  class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal'>消费确认</button>
   </view>
 
     <!-- 提交按钮 -->
@@ -287,9 +283,7 @@
   </view> -->
   <!-- 取消预约按钮 -->
   <view class='submit' wx:elif="{{status==1}}">
-    <form bindsubmit="showModal" report-submit="true">
-      <button form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约           </button>
-    </form>
+    <button bindtap="showModal" form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约           </button>
   </view>
   <!-- 预约下次护理 -->
   <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate=='y'}}">
@@ -330,9 +324,7 @@
         <view class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</view>
       </view>
       <textarea maxlength="50" value='{{evaluateContent}}' bindinput='changeEvaluateContent' placeholder-style="color: #B8B8B8" placeholder="把想说的告诉我们，以后更好的为您服务哟！" class='evaluateContent fontSize12'></textarea>
-      <form bindsubmit="submitEvevate" report-submit="true">
-        <button form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"提交"}}</button>
-      </form>
+      <button bindtap="submitEvevate" form-type="submit"  class='modalButton sbutton'>{{recordData.evaluateGiftEntity?"立即抽奖":"提交"}}</button>
     </view>
   </view>
 <!--mask-->  
@@ -383,240 +375,3 @@
     </view>  
   </view>
 </view>
-
-
-
-
-<!-- <view style='background-color:#f5f5f5'> -->
-<!-- 门店块 -->
-  <!-- <view class='store'> -->
-    <!-- <view class='detailItem' style='margin-bottom:25rpx'>
-      <text class='detailLable'>预约时间:</text>
-      <text class='detailValue'>{{recordData.timePart}}</text>
-      <text class='detailValueTime'>({{recordData.timeDuan}}小时)</text>
-    </view>
-    <view  class='detailItem'>
-      <text class='detailLable'></text>
-      <text class='detailValue2'>{{recordData.date}}</text>
-      <text class='detailValueTime'>({{recordData.week}})</text>
-      
-    </view> -->
-    <!-- <view class='detailItem'>
-      <text class='detailLable'>手艺人:</text> -->
-      <!-- 两种情况，beauticianList，当status =2 时才有,表示消费服务人员列表,当列表为空时，取userId表示手艺人;否则取该列表的值表示手艺人 -->
-      <!-- <block wx:if="{{isArray}}">
-        <text class='detailValue' wx:for="{{recordData.beauticianList}}" wx:key="beauticianList" >{{index===0?'':' , '}}{{item.username}}</text>
-      </block> -->
-      <!-- <text wx:else class='detailValue'>{{recordData.userName}}</text>  -->
-    <!-- </view> -->
-      <!-- <view class='up'>
-        <text class='storeLable'>门店：</text>
-        <text class='storeTittle'>{{recordData.departmentName}}</text>
-      </view> -->
-      <!-- <view class='down' bindtap='toWhere'  data-longitude="{{recordData.longitude}}" data-latitude="{{recordData.latitude}}" data-name="{{recordData.departmentName}}" data-address="{{recordData.address}}"> -->
-        <!-- <text class='address'>{{recordData.province+'  '+recordData.city+'  '+recordData.district+'  '+recordData.address}}</text> -->
-        <!-- <text class='address'>
-          <text wx:if="{{recordData.province}}">{{recordData.province+'  '}}</text>
-          <text wx:if="{{recordData.city}}">{{recordData.city+'  '}}</text>
-          <text wx:if="{{recordData.district}}">{{recordData.district+'  '}}</text>
-          <text wx:if="{{recordData.address}}">{{recordData.address}}</text>
-        </text>
-         <image wx:if="{{recordData.province||recordData.city||recordData.district||recordData.address}}" src='../../image/go.png' class='goPng'></image>  -->
-      <!-- </view> -->
-  <!-- </view> -->
-  <!-- 详情块 -->
-  <!-- <view class='detail'> -->
-    <!-- <view class='detailItem'><text class='detailLable'>预约人:</text><text class='detailValue'>{{recordData.maxname?recordData.maxname:recordData.customerName}}</text></view> -->
-    <!-- <view class='detailItem'><text class='detailLable'>预约时间:</text><text class='detailValue'>{{recordData.date}}</text><text class='detailValueTime'>{{recordData.serviceStartTime}}</text></view>
-    <view class='detailItem'> -->
-      <!-- <text class='detailLable'>手艺人:</text> -->
-      <!-- 两种情况，beauticianList，当status =2 时才有,表示消费服务人员列表,当列表为空时，取userId表示手艺人;否则取该列表的值表示手艺人 -->
-      <!-- <block wx:if="{{isArray}}"> -->
-        <!-- <text class='detailValue' wx:for="{{recordData.beauticianList}}" >{{item.username}}</text>
-      </block>
-       <text wx:else class='detailValue'>{{recordData.userName}}</text> 
-    </view> -->
-    <!-- <view class='detailItem'><text class='detailLable'>状态:</text><text class='detailValue'>{{recordData.statusName}}</text></view>
-    <view class='detailItem'><text class='detailLable'>订单号:</text><text class='detailValue'>{{recordData.serviceCode}}</text><text class='detailValueCopy' bindtap='setClipboard' wx:if="{{recordData.serviceCode}}">复制</text></view>
-
-    <view wx:if="{{recordData.isWeixinShowConsumeDetail==2}}" class='consumeDetailRow' bindtap='gotoConsumeDetail'>
-      <view class='detailLable'>消费明细</view>
-      <image class='rightLogo' src='../../image/right1.png'></image>
-    </view> -->
-  <!-- </view> -->
-  <!-- 未评价块 -->
-  <!-- <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0}}"> -->
-    <!-- <view class='evaluateTitle2' wx:if="{{recordData.evaluateGiftEntity}}">
-      <view style='word-break: break-all; word-wrap:break-word;color:#FD9595' >{{recordData.evaluateGiftEntity.topic}}</view>
-    </view>
-    
-    <view class='evaluateTitle'>
-      <text>服务评价</text>
-      <view class="checkbox">
-      <checkbox class='target' color="#fd9595" value="" checked="{{isAnonymous}}" bindtap='anonymous'/><text class="{{isAnonymous?'textColor':'textColor2'}}">匿名评价</text>  -->
-      <!-- <label class=''>
-        
-      </label> -->
-    <!-- </view> -->
-    <!-- </view> -->
-    <!-- <view class='evaluateStars'> -->
-      <!-- <view class='star'><image mode="widthFix" src='../../image/evaluated.png'></image></view>
-      <view class='star'><image mode="widthFix" src="{{img2?'../../image/evaluate.png':'../../image/evaluated.png'}}" bindtap='handleToggle2'></image></view>
-      <view class='star'><image mode="widthFix" src="{{img3?'../../image/evaluate.png':'../../image/evaluated.png'}}" bindtap='handleToggle3'></image></view>
-      <view class='star'><image mode="widthFix" src="{{img4?'../../image/evaluate.png':'../../image/evaluated.png'}}" bindtap='handleToggle4'></image></view>
-      <view class='star starLatest'><image mode="widthFix" src="{{img5?'../../image/evaluate.png':'../../image/evaluated.png'}}" bindtap='handleToggle5'></image></view>
-    </view> -->
-    <!-- <view class='evaluateItem'> -->
-      <!-- <text class="itemCell {{bg1?'bgColor':''}}" bindtap='handleBg1'>手法专业</text>-->
-      <!-- 这里的{{bg[item.evaluateLableId]?'bgColor':''}}，考虑到bg必须是data里面要初始化的数据，同时随着循环要不断改变bg的值，为了满足这两个条件，所以bg得是一个对象，所以给data里面初始化一个空的bg对象，在页面初始化的时候，给bg填充{1:false,3:true}这样的值 -->
-      <!-- <text class="itemCell {{bg[item.evaluateLableId]?'bgColor':''}}" bindtap='handleBg' wx:for="{{recordData.evaluateLableList}}" wx:key="evaluateLableList" data-str='{{item.evaluateLableId}}'>{{item.evaluateLable}}</text> -->
-    <!-- </view> -->
-    
-  <!-- </view> -->
-
-  <!-- 已评价块 -->
-  <!-- <view class='evaluate' wx:if="{{status==2&&recordData.isEvaluate==='y'}}">
-    <view class='evaluateTitle'>
-      <text>服务评价</text><text style='color:#999;font-size:28rpx' wx:if="{{recordData.isAnonymous==='y'}}">(匿名评价)</text>
-    </view>
-    <view class='evaluateStars'>
-      <view class='star' wx:for="{{recordData.evaluateScore}}" wx:key="{{item}}">
-        <image mode="widthFix" src='../../image/evaluated.png'></image>
-      </view>
-    </view>
-    <view class='evaluateItem'>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatDepartLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
-      <text class="itemCell bgColor"  wx:for="{{recordData.evaluatUserLableVOList}}" wx:key wx:if="{{item.evaluateLableId}}">{{item.evaluateLable}}</text>
-    </view>
-  </view> -->
-<!-- </view> -->
-
-<!-- 点击查看消费详情的模态框 -->
-<!-- <view class='shadow' wx:if="{{showShadow}}">
-    <view class='modal' style='bottom:{{modalBottom}}'>
-      <view class='consumeDetailList'>
-        <view class='consumeDetail'  wx:if="{{serviceOpenCardInfo}}">
-          <view class='consumeDetailTitle'>开卡</view>
-          <view class='detailItem'>
-            <view class='title'>
-              <text>{{serviceOpenCardInfo.cardrankName}}</text>
-              <text class='titleRemark'>({{serviceOpenCardInfo.cardNo}})</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(serviceOpenCardInfo.realPay)}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-        <view class='consumeDetail'  wx:if="{{serviceCardRecharge}}">
-          <view class='consumeDetailTitle'>充值</view>
-          <view class='detailItem'>
-            <view class='title'>
-              <text>{{serviceCardRecharge.cardNo}}</text>
-            </view>
-            <view class='number'>{{utils.toFix(serviceCardRecharge.rechargeAmount)}}元</view>
-          </view>
-        </view>
-
-        <view class='consumeDetail'  wx:if="{{serviceCardBuy}}">
-          <view class='consumeDetailTitle'>购买</view>
-          <view class='detailItem' wx:for="{{serviceCardBuy}}" wx:key>
-            <view class='title'>
-              <text>{{item.productName}}</text>
-              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-        <view class='consumeDetail'  wx:if="{{serviceCardConsume}}">
-          <view class='consumeDetailTitle'>消费</view>
-          <view class='detailItem' wx:for="{{serviceCardConsume}}" wx:key>
-            <view class='title'>
-              <text>{{item.projectName}}</text>
-              <text class='titleRemark'>({{item.count||"0"}}次)</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-        <view class='consumeDetail'  wx:if="{{serviceCardPick}}">
-          <view class='consumeDetailTitle'>取货</view>
-          <view class='detailItem' wx:for="{{serviceCardPick}}" wx:key>
-            <view class='title'>
-              <text>{{item.goodsName}}</text>
-              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"个"}})</text>
-            </view>
-            <view class='number'  wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-        <view class='consumeDetail'  wx:if="{{serviceCardReturn}}">
-          <view class='consumeDetailTitle'>退货</view>
-          <view class='detailItem' wx:for="{{serviceCardReturn}}" wx:key>
-            <view class='title'>
-              <text>{{item.productName}}</text>
-              <text class='titleRemark'>({{item.count||"0"}}{{item.unit||"次"}})</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)||"0"}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-         <view class='consumeDetail' wx:if="{{serviceCardTrans}}">
-          <view class='consumeDetailTitle'>转账</view>
-          <view wx:for="{{serviceCardTrans}}" wx:key>
-            <view class='detailItem'>
-              <view class='title' style='width:"50%"'>转入账户</view>
-              <view class='titleRemark'>{{item.customerName}}<text style='margin-left:20rpx'>({{item.cardNo}})</text></view>
-            </view>
-            <view class='detailItem'>
-              <view class='title'>转入金额</view>
-              <view class='number' >{{utils.toFix(item.tranAmount)||"0"}}元</view>
-             
-            </view>
-            <view wx:if="{{item.products.length>0}}">
-              <view class='detailItem'  wx:for="{{item.products}}" wx:key>
-                <view class='title'>{{item.productName}}</view>
-                <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.convAmount)||"0"}}元</view>
-                <view class='number' wx:else></view>
-              </view>
-            </view>
-            
-          </view>
-          
-        </view>
-
-        <view class='consumeDetail' wx:if="{{serviceCardDiscountCodeGive}}">
-          <view class='consumeDetailTitle'>优惠码核销</view>
-          <view class='detailItem' wx:if="{{serviceCardDiscountCodeGive.giveAmount}}">
-            <view class='title'>赠送金额</view>
-            <view class='number'>{{utils.toFix(serviceCardDiscountCodeGive.giveAmount)}}元</view>
-          </view>
-          <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.projects}}" wx:key>
-            <view class='title'>
-              <text>{{item.projectName}}</text>
-              <text class='titleRemark'>({{item.num}}次)</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-          <view class='detailItem' wx:for="{{serviceCardDiscountCodeGive.goods}}" wx:key>
-            <view class='title'>
-              <text>{{item.goodsName}}</text>
-              <text class='titleRemark'>({{item.num+item.unit}})</text>
-            </view>
-            <view class='number' wx:if="{{recordData.showOperationAmount=='y'}}">{{utils.toFix(item.amount)}}元</view>
-            <view class='number' wx:else></view>
-          </view>
-        </view>
-
-      </view>
-      <view class='buttonBox' bindtap='closeModal'>
-          <view class='button'>确定</view>
-        </view>
-    </view>
-  </view>
- -->

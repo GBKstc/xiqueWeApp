@@ -18,7 +18,8 @@ const {
 } = URL;
 const { 
   isEmpty,
-  isLogin
+  isLogin,
+  messagePromise
 } = util;
 Page({
 
@@ -609,10 +610,7 @@ Page({
       that.openToast("评价内容不支持表情哦!", 2000)
       return false;
     }
-    // return false;
-    // this.setData({
-    //   nScore: starNum
-    // });
+   
     //是否匿名转换成y或n
     var isAnonymous=""
     if (this.data.isAnonymous){
@@ -657,51 +655,52 @@ Page({
     }else{
       url = userScheduleServiceSaveEvaluate;
     }
-    requestAppid({
-      URL: url,
-      param: {
-        serviceId: that.data.serviceId,//服务单id
-        evaluateScore: starNum,//评分
-        departLabels: departLabelsString,
-        beauticianLabels: beauticianLabelsString,
-        isAnonymous: isAnonymous,
-        evaluateContent: that.data.evaluateContent,//评价详情
-        formId: e.detail.formId
+    messagePromise({
+      type: "successConsum",
+      complete: () => {
+        requestAppid({
+          URL: url,
+          param: {
+            serviceId: that.data.serviceId,//服务单id
+            evaluateScore: starNum,//评分
+            departLabels: departLabelsString,
+            beauticianLabels: beauticianLabelsString,
+            isAnonymous: isAnonymous,
+            evaluateContent: that.data.evaluateContent,//评价详情
+            formId: e.detail.formId
+          }
+        }, function (data) {
+          //如果有活动ID 说明可以抽奖
+          if (evaluateGiftId || recordData.evaluateGiftEntity) {
+            that.lottery()
+          } else if (status == 0) { //erp小程序结账
+            wx.redirectTo({
+              url: '../success/success?successText=消费确认成功&toPag=index&content=消费确认成功,请预约下次护理哦~&buttonText=立即预约',
+            })
+          } else {
+            //页面跳转成功后，设置上个页面值
+            var pages = getCurrentPages();
+            var prevPage = pages[pages.length - 2]//上一个页面
+            //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
+            prevPage.setData({
+              status: 2
+            })
+            console.log('提交成功')
+            wx.navigateBack({
+              delta: 1,
+              // url: '../order/order',
+              success: function () { }
+            })
+          }
+
+          // common.status(res, that)//状态401和402
+        }, function (msg) {
+          //设置toast时间，toast内容
+          that.openToast(msg);
+        })
       }
-    }, function (data) {
-      //如果有活动ID 说明可以抽奖
-      if (evaluateGiftId || recordData.evaluateGiftEntity) {
-        that.lottery()
-      } else if (status==0){ //erp小程序结账
-        wx.redirectTo({
-          url: '../success/success?successText=消费确认成功&toPag=index&content=消费确认成功,请预约下次护理哦~&buttonText=立即预约',
-        })
-      }else {
-        //页面跳转成功后，设置上个页面值
-        var pages = getCurrentPages();
-        var prevPage = pages[pages.length - 2]//上一个页面
-        //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-        prevPage.setData({
-          status: 2
-        })
-        console.log('提交成功')
-        wx.navigateBack({
-          delta: 1,
-          // url: '../order/order',
-          success: function () {}
-        })
-      }
-      
-      // common.status(res, that)//状态401和402
-    }, function (msg) {
-      //设置toast时间，toast内容
-      that.openToast(msg);
-      // that.setData({
-      //   count: 2000,
-      //   toastText: msg
-      // });
-      // that.showToast();
     })
+    
   },
   
   //取消预约
@@ -719,69 +718,83 @@ Page({
     that.setData({
       cancelMask:false
     })
-    wx.getStorage({//异步获取随机数
-      key: app.globalData.appid,
-      success: function (res) {
-        wx.request({
-          url: app.url + 'schedule/cancelOrder',
-          method: 'POST',
-          data: {
-            thirdSessionId: res.data,
+    messagePromise({
+      type:"promiseCancel",
+      complete:()=>{
+        requestAppid({
+          URL: 'schedule/cancelOrder',
+          param: {
             scheduleServiceId: that.data.scheduleServiceId,//排班订单id
-            formId: formId
-          },
-          header:{ 'content-type': 'application/x-www-form-urlencoded' },
-          success: function (res) {
-            console.log('success响应数据')
-            console.log(res.data)
-            // //页面跳转成功后，设置上个页面值
-            // var pages = getCurrentPages();
-            // var prevPage = pages[pages.length - 2]//上一个页面
-            // //直接调用上一个页面的setData()方法，把数据存到上一个页面中去
-            // prevPage.setData({
-            //   status: 3
-            // })
-            if (res.data.status === 200) {
-              //页面跳转到订单列表页面
-              wx.redirectTo({
-                url: '../order/order?status=3',
-              })
-              // wx.navigateBack({
-              //   delta: 1,
-              //   // url: '../order/order',
-              //   success: function () {
-
-              //   }
-              // })
-            } else if (res.data.status === 400) {
-              console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-            }
-            common.status(res, that)//状态401和402
-
-          },
-          fail: function (res) {
-            console.log('取消预约服务器失败')
-            console.log(res);
-            //设置toast时间，toast内容  
-            that.setData({
-              count: 2000,
-              toastText: "服务器错误"
-            });
-            that.showToast();
           }
-        })
-      },
-      fail: function () {
-        console.log('页面获取随机数失败')
+        },
+        ()=>{
+          //页面跳转到订单列表页面
+          wx.redirectTo({
+            url: '../order/order?status=3',
+          })
+        },
+        ()=>{
+          var msg = res.data.msg
+          //设置toast时间，toast内容  
+          that.setData({
+            count: 2000,
+            toastText: msg
+          });
+          that.showToast();
+        }
+        )
       }
-    })
+    });
+
+    // wx.getStorage({//异步获取随机数
+    //   key: app.globalData.appid,
+    //   success: function (res) {
+    //     wx.request({
+    //       url: app.url + 'schedule/cancelOrder',
+    //       method: 'POST',
+    //       data: {
+    //         thirdSessionId: res.data,
+    //         scheduleServiceId: that.data.scheduleServiceId,//排班订单id
+    //         formId: formId
+    //       },
+    //       header:{ 'content-type': 'application/x-www-form-urlencoded' },
+    //       success: function (res) {
+    //         if (res.data.status === 200) {
+    //           //页面跳转到订单列表页面
+    //           wx.redirectTo({
+    //             url: '../order/order?status=3',
+    //           })
+    //         } else if (res.data.status === 400) {
+    //           console.log(400)
+    //           var msg = res.data.msg
+    //           //设置toast时间，toast内容  
+    //           that.setData({
+    //             count: 2000,
+    //             toastText: msg
+    //           });
+    //           that.showToast();
+    //         }
+    //         common.status(res, that)//状态401和402
+
+    //       },
+    //       fail: function (res) {
+    //         console.log('取消预约服务器失败')
+    //         console.log(res);
+    //         //设置toast时间，toast内容  
+    //         that.setData({
+    //           count: 2000,
+    //           toastText: "服务器错误"
+    //         });
+    //         that.showToast();
+    //       }
+    //     })
+    //   },
+    //   fail: function () {
+    //     console.log('页面获取随机数失败')
+    //   }
+    // })
+
+    
   },
   // 取消预约取消
   cancelFail: function () {

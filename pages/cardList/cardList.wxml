@@ -10,7 +10,15 @@
       <view class='detailButton'>查看详情</view>
     </view>
   </view>
-  <view class='noCard' wx:elif="{{cardList.length==0}}" style='background:url("https://image.beautysaas.com/xique/noCard.png") no-repeat;background-size: cover;'>
-  <view class='noCardText'>您还没有会员卡</view>
+
+  <view wx:elif="{{cardList.length==0}}" class='list'>
+    <image mode='aspectFit' class='noOrder' src='{{imgUrl}}/empty_card@3x.png'></image>
+    <view class='noOrderText'>您还没有会员卡</view>
+    <view class='appointment' bindtap='goToIndex'>立即预约</view>
   </view>
+
+
+  <!-- <view class='noCard' wx:elif="{{cardList.length==0}}" style='background:url("https://image.beautysaas.com/xique/noCard.png") no-repeat;background-size: cover;'>
+  <view class='noCardText'>您还没有会员卡</view>
+  </view> -->
 </view>

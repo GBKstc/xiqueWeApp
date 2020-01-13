@@ -646,7 +646,7 @@ Page({
       beauticianLabels: beauticianLabelsString,
       isAnonymous: isAnonymous,
       evaluateContent: that.data.evaluateContent,//评价详情
-      formId: e.detail.formId
+      // formId: e.detail.formId
     });
     that.closeModal();
     let url;
@@ -667,7 +667,7 @@ Page({
             beauticianLabels: beauticianLabelsString,
             isAnonymous: isAnonymous,
             evaluateContent: that.data.evaluateContent,//评价详情
-            formId: e.detail.formId
+            // formId: e.detail.formId
           }
         }, function (data) {
           //如果有活动ID 说明可以抽奖
@@ -708,7 +708,7 @@ Page({
     const that=this;
     that.setData({
       cancelMask:true,//显示模态框
-      formId: e.detail.formId,
+      // formId: e.detail.formId,
     })
   },
   // 取消预约确定
@@ -831,7 +831,8 @@ Page({
   openModal:function(){
     const that = this;
     const { recordData } = that.data;
-    if (recordData.serviceType==1){
+    // <!-- 消费确认按钮  serviceType 0:护理 1：非护理-->
+    if (recordData.serviceType == 1){
       that.submitEvevate();
     }else{
       this.setData({

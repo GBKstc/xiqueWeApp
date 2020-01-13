@@ -118,7 +118,6 @@ Page({
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
     if (value.length !== 0 && !re.test(value) && isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(this.data.maValue)) {
-      // console.log("chenggong")
       this.setData({
         isMa: false
       })
@@ -134,10 +133,9 @@ Page({
     this.setData({
       phoneValue: value
     })
-    // console.log(value)
+   
     //判断手机号格式是否正确，来解禁发送验证码按钮
     if (isMobile.test(value)) {
-      // console.log("chenggong")
       this.setData({
         volidate: false,
         voiceIsUse: false,
@@ -152,7 +150,6 @@ Page({
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
     if ( isMobile.test(value) && /^[0-9]{4}$/.test(this.data.maValue)) {
-      // console.log("chenggong")
       this.setData({
         isMa: false
       })
@@ -171,7 +168,6 @@ Page({
     //判断姓名不能为空和不能有空格，同时判断手机号格式和验证码格式，来解禁确定按钮
     var regu = "^[ ]+$"; var re = new RegExp(regu);
     if (isMobile.test(this.data.phoneValue) && /^[0-9]{4}$/.test(value)) {
-      // console.log("chenggong")
       this.setData({
         isMa: false
       })
@@ -189,11 +185,11 @@ Page({
       volidate: true
     });
     var time = 60;
-    // console.log(time);
+    
     //倒计时，并改变内容
     var timer = setInterval(() => {
       time--;
-      // console.log(time);
+    
       this.setData({
         sendContent: "剩余" + time + "秒"
       });
@@ -219,8 +215,7 @@ Page({
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
       success: function (res) {
-        // console.log('登录页获取到随机数为')
-        // console.log(res.data)
+     
         //检查是否登录,登录返回登录信息 
         wx.request({
           url: getApp().url + 'user/getVerificationCode',
@@ -231,9 +226,7 @@ Page({
           },
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            console.log('点击发送验证码成功')
-            console.log(res)
-            console.log(res.status)
+          
             if (res.data.status===200){
               //设置toast时间，toast内容  
               wx.showToast({
@@ -278,7 +271,7 @@ Page({
         flag:1
       }
     }, function (data) {
-      console.log('发送语音验证码成功');
+      
       wx.showToast({
         title: '语音验证码发送成功',
         icon: 'success',
@@ -286,7 +279,7 @@ Page({
         duration: 1000
       })
     }, function (msg) {
-      console.log('发送语音验证码失败');
+      
       that.setData({
         count: 1000,
         toastText: msg
@@ -296,7 +289,7 @@ Page({
   //最下面确定按钮
   modifySuccess: function () {
     var that=this
-    // console.log(123)
+  
     // 发送所有信息去服务器验证
     wx.getStorage({//异步获取随机数
       key: getApp().globalData.appid,
@@ -364,9 +357,7 @@ Page({
   //获取用户手机号
   getphonenumber(e) {
     const that = this;
-    console.log(e.detail.errMsg)
-    // console.log(e.detail.iv)
-    // console.log(e.detail.encryptedData)
+    
     if (e.detail.errMsg !="getPhoneNumber:ok"){
       that.setData({
         phoneLogin:true
@@ -382,7 +373,7 @@ Page({
 
     // wx.login({
     //   success: res => {
-    //     console.log(res);
+   
     //     const data = {
     //       code: res.code,
     //       appid: getApp().globalData.appid,
@@ -480,7 +471,7 @@ Page({
             complete: function (res) { },
           })
         } else { 
-          console.log(getCurrentPages());
+        
           wx.navigateBack({}) 
           }
       // common.status(res, that)//状态401和402

@@ -12,7 +12,7 @@
     <view class='selectListBox' style='left:{{selectListLeft}}rpx;' >
 
       <view class='select' wx:if="{{noUseList.length>0}}">
-        <view class='select_row' bindtap='chancenouse' data-index='{{index}}' data-discountcodestatus="{{item.discountCodeStatus}}" data-tabtype="1"  wx:for="{{noUseList}}" wx:key="{{item.discountCodeId}}">
+        <view class='select_row' bindtap='chancenouse' data-index='{{index}}' data-discountcodestatus="{{item.discountCodeStatus}}" data-tabtype="1"  wx:for="{{noUseList}}" wx:key="discountCodeId">
           <view class='select_absolute {{item.discountCodeStatusName=="未使用"?"select_absoluteYes":"select_absoluteNo"}} '>{{item.discountCodeStatusName}}</view>
           <view>
             <image class='select_img' mode="aspectFill"  src='{{item.coverImgUrl}}'></image>
@@ -32,7 +32,7 @@
 
 
       <view class='select' wx:if="{{disabledList.length>0}}">
-        <view class='select_row' bindtap='chancenouse' data-index='{{index}}' data-discountcodestatus="{{item.discountCodeStatus}}" data-tabtype="2"  wx:for="{{disabledList}}" wx:key="{{item.discountCodeId}}">
+        <view class='select_row' bindtap='chancenouse' data-index='{{index}}' data-discountcodestatus="{{item.discountCodeStatus}}" data-tabtype="2"  wx:for="{{disabledList}}" wx:key="discountCodeId">
           <view class='select_absolute {{item.discountCodeStatusName=="未使用"?"select_absoluteYes":"select_absoluteNo"}} '>{{item.discountCodeStatusName}}</view>
           <view>
             <image class='select_img' mode="aspectFill"  src='{{item.coverImgUrl}}'></image>

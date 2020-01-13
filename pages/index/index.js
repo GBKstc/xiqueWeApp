@@ -367,8 +367,8 @@ Page({
           // JSON.stringify(res.data.data) !== "{}" || 
           if (!util.isEmpty(res.data.data)) {//有排班数据，例如{status: 200, msg: "成功",data:{...}}
               console.log('index后次进来里面返回200,数据是')
-              console.log(res.data)
-              console.log(res.data.data)
+              // console.log(res.data)
+              // console.log(res.data.data)
               // 重构响应数据
               var arrOrigin = res.data.data;//响应数据
               var obj = JSON.parse(JSON.stringify(arrOrigin));//声明一个无关联的新数组
@@ -585,8 +585,7 @@ Page({
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
             wx.hideLoading();//关闭加载框
-
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.status === 200) {
               var newSearchData = res.data.data.list;
               for (var i = 0; i < newSearchData.length; i++) {
@@ -640,7 +639,7 @@ Page({
       requestAppid({
         URL: getWeixinPostCodeName
       },data=>{
-        console.log(data,"getWeixinpostCodeName");
+        // console.log(data,"getWeixinpostCodeName");
         that.setData({
           postCodeName: data.postName
         })
@@ -812,7 +811,7 @@ Page({
             method: 'POST',
             header: { 'content-type': 'application/x-www-form-urlencoded' },
             success: function (res) {
-              console.log(res.data)
+              // console.log(res.data)
               if (res.data.status === 200) {
                 var searchData = res.data.data.list
                 var totalPages = res.data.data.totalPages
@@ -838,7 +837,7 @@ Page({
                   })
                 }
               } else {
-                console.log(res.data);
+                // console.log(res.data);
                 var msg = res.data.msg;
                 //设置toast时间，toast内容  
                 that.setData({//没必要让顾客知道

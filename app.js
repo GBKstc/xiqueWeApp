@@ -16,12 +16,12 @@ App({
   },
 
 
-  // url: 'http://115.236.38.186:9020/weixin-xique/',//张卫泽
-  // url: 'http://192.168.18.70:8084/weixin-xique/',//张卫泽
+  // url: 'http://115.236.38.186:9020/weixin-xique/',//测试环境
+  // url: 'http://192.168.18.70:8084/weixin-xique/',//测试环境
   // url: 'http://192.168.18.86:8105/weixin-xique/',//小白
   // url: 'http://115.236.38.186:28091/weixin-xique/',//预发环境
-  // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
-  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
+  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
 
   onLaunch: function () {
@@ -152,8 +152,8 @@ App({
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
         // console.log(latitude, longitude, altitude)
-        console.log('app.js文件的login接口成功')
-        console.log(res.data)
+        // console.log('app.js文件的login接口成功')
+        // console.log(res.data)
         if (res.data.status == 200) {
           wx.setStorage({//异步存随机数，在它的回调函数里走原index函数
             key: appid,

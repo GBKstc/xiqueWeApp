@@ -8,7 +8,7 @@ const requestAppid = function({URL,param = {}},succ,fail){
   wx.getStorage({//异步获取随机数
     key: getApp().globalData.appid,
     success: function (res) {
-      console.log("异步获取随机数",res.data);
+      // console.log("异步获取随机数",res.data);
       param.thirdSessionId = res.data;
       // param.thirdSessionId = "504800e9-7d00-4488-b8bc-e57d12254c47";
       wx.request({
@@ -24,14 +24,13 @@ const requestAppid = function({URL,param = {}},succ,fail){
             }
           } else if (res.data.status === 402){
             getApp().login();
-            // console.log("请求错误码", res.data.status);
-            // if (fail) {
-            //   fail(res.data.msg)
-            // }
           } else {
             console.log("请求错误码", res.data.status);
             if (fail) {
               fail(res.data.msg)
+            }else{
+              console.log("请求错误码", res)
+              // sMessage(res.data.msg)
             }
           }
           

@@ -265,22 +265,15 @@
     <view wx:if="{{recordData.evaluateContent}}" class='evaluateContent fontSize12'>{{recordData.evaluateContent}}</view>
   </view>
 
-   <!-- 消费确认按钮 -->
+   <!-- 消费确认按钮  serviceType 0:护理 1：非护理-->
   <view class='submit' wx:if="{{status==0&&recordData.serviceType==0}}">
     <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >消费确认</view>
   </view>
-  <view class='submit' wx:elif="{{status==0&&recordData.serviceType==1}}">
+  <!-- 消费确认按钮  serviceType 0:护理 1：非护理-->
+  <view class='submit' wx:elif="{{status==0&&(recordData.serviceType==1)}}">
     <button bindtap="submitEvevate" form-type="submit"  class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal'>消费确认</button>
   </view>
 
-    <!-- 提交按钮 -->
-  <!-- <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&!recordData.evaluateGiftEntity}}">
-    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >立即评价</view>
-  </view> -->
-   <!-- 提交抽奖 -->
- <!-- <view class='submit' wx:elif="{{status==2&&recordData.isEvaluate==='n'&&recordData.isOther===0&&recordData.evaluateGiftEntity}}">
-    <view class='submitButton fontSize16' disabled="{{!img1||!img2||!img3||!img4||!img5||bg1||bg2||bg3||bg4||bg5?false:true}}" bindtap='openModal' >立即抽奖</view>
-  </view> -->
   <!-- 取消预约按钮 -->
   <view class='submit' wx:elif="{{status==1}}">
     <button bindtap="showModal" form-type="submit" class='submitButton fontSize16'  disabled="{{cancelDisabled}}">取消预约           </button>

@@ -4,7 +4,7 @@
     
   </view>
   <view class='isLogin' wx:elif="{{listData.length}}">
-    <view class='lazyBox' wx:for="{{listData}}" data-id='{{item.id}}' wx:key="{{item.id}}" bindtap='showDetails'>
+    <view class='lazyBox' wx:for="{{listData}}" data-id='{{item.id}}' wx:key="id" bindtap='showDetails'>
         <view class='imgBox'>
           <image class='lazyImg' lazy-load="true" mode="aspectFill" src="{{item.coverImgUrl}}"></image>
         </view>

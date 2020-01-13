@@ -1,7 +1,7 @@
 <!--pages/cardList/cardListBox.wxml-->
 <view>
   <view class='cardListBox'  wx:if="{{cardList&&cardList.length!=0}}" >
-    <view class='card' data-cardid='{{item.cardId}}' bindtap='selectCard' wx:for="{{cardList}}" wx:key style='background:url("{{imgUrl}}/bg_hyk%402x.png") no-repeat;background-size: cover;'>
+    <view class='card' data-cardid='{{item.cardId}}' bindtap='selectCard' wx:for="{{cardList}}" wx:key="cardId" style='background:url("{{imgUrl}}/bg_hyk%402x.png") no-repeat;background-size: cover;'>
       <view class="headerBox">
         <view>{{item.cardrankName}}</view>
         <view class="cardDate">{{item.buyTime}}</view>

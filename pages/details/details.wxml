@@ -22,7 +22,7 @@
         <image src='../../image/zs.png'></image>
       </view>
       <view class='banner'>
-        <view class='bannerList' wx:for="{{detail.detailList}}" wx:key="{{item.name}}">
+        <view class='bannerList' wx:for="{{detail.detailList}}" wx:key="name">
           <view class='itemName'>
             <text>{{item.name}}</text>
             <text class='remark' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text>
@@ -43,11 +43,11 @@
         <text class='goodsName'>商品详情</text>
         <image src='../../image/zs.png' mode="aspectFill"></image>
       </view>
-      <view wx:if="{{detail.goodsDetail}}" wx:key="{{index}}" wx:for="{{detail.goodsDetail}}" class='detailsText'>{{item}}</view>
+      <view wx:if="{{detail.goodsDetail}}" wx:key="index" wx:for="{{detail.goodsDetail}}" class='detailsText'>{{item}}</view>
     </view>
   </view>
   <view class='imgList'>
-    <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="{{item}}">
+    <view class='imgLi' wx:for="{{detail.goodsDetailImgUrl}}" wx:key="item">
       <image  src='{{item}}' lazy-load="{{false}}" mode="widthFix"></image>
     </view>
   </view>
@@ -65,7 +65,7 @@
       </view>
     </view>
     <view>
-      <view class='storeList' wx:for="{{detail.usableStoreList}}" wx:key="{{item.id}}">
+      <view class='storeList' wx:for="{{detail.usableStoreList}}" wx:key="id">
         <view class='storeName'>
           <view>{{item.name}}</view>
           <view class='storeDistance' wx:if="{{(item.distance||item.distance==0)&&item.distance>=1000}}">(约{{item.distanceK}}公里)</view>

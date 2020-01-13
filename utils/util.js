@@ -1,5 +1,8 @@
-import URL from "./URL.js";
+
+
+const URL = require('./URL.js');
 const { requestAppid, checkLogin, request, wxLogin} = URL;
+
 const app = getApp();
 const formatTime = date => {
   if (!date) {
@@ -49,9 +52,10 @@ const formatNumber = n => {
   *
   **/
 const isLogin = function(suc,fail,error){
-  var random = wx.getStorageSync(app.globalData.appid);
+  var random = wx.getStorageSync(getApp().globalData.appid);
   if (random) {//有随机数
     //检查是否登录,登录返回登录信息 
+    console.log(URL);
     requestAppid({
       URL: checkLogin,
     }, function (data) {
@@ -98,7 +102,7 @@ const isLogin = function(suc,fail,error){
   *
   **/
 const isRandom = function (suc, fail, error) {
-  var random = wx.getStorageSync(app.globalData.appid);
+  var random = wx.getStorageSync(getApp().globalData.appid);
   if (random) {//有随机数
     if (suc) {
       suc()
@@ -404,7 +408,7 @@ function messagePromise({
   complete
 }){
   const messageTemplate = getApp().globalData.messageTemplate;
-  console.log(messageTemplate);
+
   //如果没有消息提醒
   if (isEmpty(messageTemplate)){
     if (complete) {
@@ -449,6 +453,22 @@ function messagePromise({
   }
 }
 
+function sMessage(title, type = "none", time=1000){
+
+  //success 显示成功图标，此时 title 文本最多显示 7 个汉字长度
+  //loading 显示加载图标，此时 title 文本最多显示 7 个汉字长度
+  //none 不显示图标，此时 title 文本最多可显示两行，1.9.0及以上版本支持
+  wx.showToast({
+    title: '成功',
+    icon: type,
+    duration: time
+  })
+
+  setTimeout(()=>{
+    wx.hideToast();
+  }, time)
+}
+
 
 
 module.exports = {
@@ -464,5 +484,6 @@ module.exports = {
   isRandom: isRandom,
   toFix: toFix,
   sTypeOf: sTypeOf,
-  messagePromise: messagePromise
+  messagePromise: messagePromise,
+  sMessage: sMessage
 }

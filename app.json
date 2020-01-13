@@ -32,7 +32,8 @@
     "pages/time/time",
     "pages/success/success",
    
-    "pages/consumeVerify/consumeVerify"
+    "pages/consumeVerify/consumeVerify",
+    "pages/drawback/drawback"
     
   ],
   "permission": {

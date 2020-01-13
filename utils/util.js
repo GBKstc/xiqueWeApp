@@ -450,6 +450,10 @@ function messagePromise({
         };
       },
     })
+  }else{
+    if (complete) {
+      complete(arguments)
+    }
   }
 }
 

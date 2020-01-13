@@ -20,8 +20,8 @@ App({
   // url: 'http://192.168.18.70:8084/weixin-xique/',//测试环境
   // url: 'http://192.168.18.86:8105/weixin-xique/',//小白
   // url: 'http://115.236.38.186:28091/weixin-xique/',//预发环境
-  url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
-  // url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
+  // url: 'http://192.168.18.88:8091/weixin-xique/',//预发环境
+  url: "https://xq.beautysaas.com/weixin-xique/",//正式环境
 
 
   onLaunch: function () {
@@ -64,6 +64,9 @@ App({
     console.log("app onShow")
   },
   updateApp: function () {
+    if (!wx.getUpdateManager){
+      return ;
+    };
     const updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate(function (res) {
       // 请求完新版本信息的回调

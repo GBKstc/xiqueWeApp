@@ -35,8 +35,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    wx.hideShareMenu();
     const that = this;
+    //隐藏分享
+    wx.hideShareMenu();
+    //wx.getSystemInfo 获取基础版本库
+    wx.getSystemInfo({
+      success: function(res) {
+        console.log(res);
+        that.setData({
+          SDKVersion: res.SDKVersion
+        })
+      },
+    })
+    
     //如果是二维码,且sence有form=code 判断登录 如果已经登录 去消费确认 如果没登录去登录页面 
     if (options && options.scene) {
       let scene = decodeURIComponent(options.scene);

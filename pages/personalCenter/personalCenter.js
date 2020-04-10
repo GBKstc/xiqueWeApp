@@ -72,7 +72,7 @@ Page({
       }      
     }
 
-    this.getWeixinModuleShow();
+    // this.getWeixinModuleShow();
   },
 
   

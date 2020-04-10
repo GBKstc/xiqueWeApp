@@ -194,7 +194,6 @@ Page({
       customerId: that.data.customerId,
       scheduleId: that.data.scheduleId,
       timeFormat: that.data.timeFormat,
-      formId: e.detail.formId
     }
 
     if (that.data.appointmentId === that.data.customerId) {//本人预约
@@ -223,27 +222,14 @@ Page({
               success: function () { }
             })
           },
-          (res)=>{
-            if (res.data.status === 400 || res.data.status === 403 || res.data.status === 404 || res.data.status === 405) {//失败
-              // console.log(400)
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-              //common.showToast(res.data.msg)//状态401和402
-            } else {
-              //common.showToast(res.data.msg)//状态401和402
-              var msg = res.data.msg
-              //设置toast时间，toast内容  
-              that.setData({
-                count: 2000,
-                toastText: msg
-              });
-              that.showToast();
-            }
+          (msg)=>{
+            // var msg = res.data.msg
+            //设置toast时间，toast内容  
+            that.setData({
+              count: 2000,
+              toastText: msg
+            });
+            that.showToast();
           }
         )
       }

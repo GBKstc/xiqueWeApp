@@ -22,9 +22,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("购买页面", JSON.parse(options.detail))
+    // console.log("购买页面", JSON.parse(options.detail))
     const that = this;
-    const detail = JSON.parse(options.detail);
+    const detail = JSON.parse(options.detail ||"{}");
     const amount = detail.currentPrice;
     that.setData({
       detail,

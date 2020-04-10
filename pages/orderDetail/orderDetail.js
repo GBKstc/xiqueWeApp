@@ -588,7 +588,6 @@ Page({
   },
   //提交评价
   submitEvevate:function(e){
-    // console.log(e.detail.formId)
     var that=this;
     const { evaluateGiftId, starList, status, recordData } = that.data;
     let starNum = 0;
@@ -646,7 +645,6 @@ Page({
       beauticianLabels: beauticianLabelsString,
       isAnonymous: isAnonymous,
       evaluateContent: that.data.evaluateContent,//评价详情
-      // formId: e.detail.formId
     });
     that.closeModal();
     let url;
@@ -667,7 +665,6 @@ Page({
             beauticianLabels: beauticianLabelsString,
             isAnonymous: isAnonymous,
             evaluateContent: that.data.evaluateContent,//评价详情
-            // formId: e.detail.formId
           }
         }, function (data) {
           //如果有活动ID 说明可以抽奖
@@ -708,13 +705,11 @@ Page({
     const that=this;
     that.setData({
       cancelMask:true,//显示模态框
-      // formId: e.detail.formId,
     })
   },
   // 取消预约确定
   cancelSuccess:function(){
     var that=this;
-    const { formId} = that.data;
     that.setData({
       cancelMask:false
     })
@@ -755,7 +750,6 @@ Page({
     //       data: {
     //         thirdSessionId: res.data,
     //         scheduleServiceId: that.data.scheduleServiceId,//排班订单id
-    //         formId: formId
     //       },
     //       header:{ 'content-type': 'application/x-www-form-urlencoded' },
     //       success: function (res) {

@@ -20,14 +20,14 @@ const requestAppid = function({URL,param = {}},succ,fail){
           wx.hideLoading();
           if (res.data.status === 200) {
             if (succ) {
-              succ(res.data.data);
+              succ(res.data.data, res);
             }
           } else if (res.data.status === 402){
             getApp().login();
           } else {
             console.log("请求错误码", res.data.status);
             if (fail) {
-              fail(res.data.msg)
+              fail(res.data.msg, res)
             }else{
               console.log("请求错误码", res)
               // sMessage(res.data.msg)

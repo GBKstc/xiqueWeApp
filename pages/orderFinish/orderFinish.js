@@ -138,6 +138,7 @@ Page({
               //更新数据
               that.setData({
                 totalPages: res.data.data.totalPages,
+                pageNo:1,
                 listData: arr
               })
             } else {//失败
@@ -330,10 +331,10 @@ Page({
           },
           header: { 'content-type': 'application/x-www-form-urlencoded' },
           success: function (res) {
-            // console.log(res.data)
+          
             wx.hideLoading();
             if (res.data.status === 200) {
-              console.log(200)
+             
               // 重构响应数据
               var arrOrigin = res.data.data.list;//响应数据
               var arr = JSON.parse(JSON.stringify(arrOrigin));//声明一个无关联的新数组

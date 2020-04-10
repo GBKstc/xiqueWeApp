@@ -47,7 +47,7 @@
       <image class='produce_img' src='../../image/zs.png'></image>
     </view>
     <view class='produce_top'>
-      <view class='five_logo' wx:for="{{detail.detailList}}" wx:key="{{item.name}}"><text class='five_right'>{{item.numString}}</text>{{item.name}}<text class='appoint' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text></view>
+      <view class='five_logo' wx:for="{{detail.detailList}}" wx:key="name"><text class='five_right'>{{item.numString}}</text>{{item.name}}<text class='appoint' wx:if="{{item.nameDetail}}">{{item.nameDetail}}</text></view>
       
     </view>
   </view>
